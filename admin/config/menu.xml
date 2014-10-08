@@ -1,0 +1,38 @@
+<menu>
+	<item>
+		<itemName>Inicio General</itemName>
+		<itemLink>?s=home</itemLink>
+		<rol>Administrador</rol>
+		<rol>Vendedor</rol>
+		<subitem>
+			<subitemName>Usuarios</subitemName>
+			<subitemLink>?s=admin-admin</subitemLink>
+		</subitem>
+		
+		<subitem>
+			<subitemName>Otras cosas</subitemName>
+			<subitemLink>?s=admin-admin</subitemLink>
+		</subitem>
+		
+	</item>
+	
+	<item>
+		<itemName>Vendedor</itemName>
+		<itemLink>?s=home</itemLink>
+		<rol>Vendedor</rol>
+		<subitem>
+			<subitemName>Usuarios</subitemName>
+			<subitemLink>?s=admin-admin</subitemLink>
+		</subitem>
+	</item>
+
+	<item>
+		<itemName>Administrador</itemName>
+		<itemLink>?s=home</itemLink>
+		<rol>Administrador</rol>
+		<subitem>
+			<subitemName>Usuarios</subitemName>
+			<subitemLink>?s=admin-admin</subitemLink>
+		</subitem>
+	</item>
+</menu>

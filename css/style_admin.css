@@ -1,0 +1,224 @@
+body{
+	
+	background-color:black;
+	color:#777;
+	font-family:Arial;
+	font-size:11px;
+	
+}
+
+
+.odd{
+	
+	background:#eee !important;
+	
+}
+#login{
+	
+	width:200px;
+	background:#333;
+	height:130px;
+	margin:0 auto;
+	border-radius:10px;
+	padding:10px;
+	text-align:center;
+	margin-top:200px;
+}
+
+#login label{
+	
+	width:100%;
+	float:left;
+	margin-bottom:3px;
+	
+}
+
+#login input{
+	
+	margin-bottom:5px;
+	
+}
+
+#login-submit{
+	
+	margin-top:20px;
+	width:150px;
+	border:0px;
+	background:white;
+	color:#666;
+	
+}
+
+.admin-right-column{
+	
+	float:left;
+	width:800px;
+	padding:10px;
+}
+.admin-left-column{
+	
+	float:left;
+	width:200px;
+	padding:20px;
+	height:450px;
+	margin-right:20px;
+	border:1px dotted #444;
+	border-radius:5px;
+}
+
+.admin-generic{
+	
+	width:1100px;
+	margin:0 auto;
+	min-height:490px;
+	background:rgba(80,80,80,0.5);
+	padding:20px;
+	border-radius:5px;
+	margin-top:100px;
+}
+
+.row-abc{
+	
+	float:left;
+	width:100%;
+	
+}
+
+.descripcion{
+	
+	margin-bottom:3px;
+}
+
+.input{
+	
+	margin-bottom:10px;
+	text-align:center;
+	width:100%;
+}
+
+.input select{
+	width:190px;
+	margin-top:3px;
+	
+}
+.input input{
+	
+	width:190px;
+	border:1px solid black;
+	appearance:button;
+	-moz-appearance:button; /* Firefox */
+	-webkit-appearance:button; /* Safari and Chrome */
+	padding: 3px;
+    border: 0;
+	margin-top:3px;
+	color:#777;
+	border-radius:3px;
+	
+	
+}
+
+#main-menu{
+	
+    height: 40px;
+    left: 50%;
+    margin-left: -555px;
+    position: absolute;
+    top: 71px;
+    width: 1120px;
+    z-index: 1;
+	
+}
+
+#main-menu .menu-item{
+	
+	float:right;
+	padding:0 2px;
+	width:110px;
+	
+}
+
+#main-menu .menu-item .menu-item-link{
+
+	width:106px;
+	background:rgba(80,80,80,0.5);
+	display:block;
+	text-decoration:none;
+	color:white;
+	text-align:center;
+	font-size:12px;
+	line-height:24px;
+	padding:2px;
+	
+	
+}
+
+#main-menu .menu-item ul{
+	
+	display:none;
+	
+}
+
+#main-menu .menu-item:hover ul{
+	
+	display:block;
+	
+}
+
+#main-menu .menu-item ul li{
+	
+	margin-top:2px;
+	
+}
+
+#main-menu .menu-item .menu-subitem-link{
+	width:106px;
+	padding:10px 2px;
+	background:#7A80DD;
+	display:block;
+	text-decoration:none;
+	color:#EEEEEE;
+	text-align:center;
+	
+}
+
+#main-menu .menu-item .menu-item-link:hover{
+	/*background:#EEEEEE;
+	color:#282828;*/
+
+}
+
+#disclaimer{
+	
+	width:90%;
+	text-align:center;
+	font-size:10px;
+	margin:0 auto;
+	margin-top:10px;
+
+}
+
+
+#main-menu .menu-item .menu-subitem-link:hover{
+	background:#EEEEEE;
+	color:#282828;
+
+}
+
+#general-controls{
+	
+	width:200px;
+	position:absolute;
+	right:50%;
+	margin-right:-550px;
+	text-align:right;
+	top:30px;
+}
+
+#general-controls a{
+	
+    color: white;
+    float: right;
+    margin-top: 8px;
+    text-decoration: none;
+	
+}
