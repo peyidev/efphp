@@ -4,9 +4,9 @@ session_start();
 define('BASE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/ephp/');
 
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'killerrace');
+define('DATABASE', 'db');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'root');
 
 #Paypal config
 
