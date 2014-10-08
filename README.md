@@ -16,6 +16,36 @@ La base de datos deberá seguir la siguientes reglas
 > e.g.
 >>	<table>
 		<tr>
-			<td>Test</td>
+			<td><strong>administrador</strong></td>
+		</tr>
+		<tr>
+			<td>id:int(11)</td>
+		</tr>
+		<tr>
+			<td>id_rol:int(11)</td>
+		</tr>
+		<tr>
+			<td>nombre:varchar(255)</td>
+		</tr>
+		<tr>
+			<td>usuario:varchar(255)</td>
+		</tr>
+		<tr>
+			<td>password:varchar(255)</td>
 		</tr>
 	</table>
+	
+	<table>
+		<tr>
+			<td><strong>rol</strong></td>
+		</tr>
+		<tr>
+			<td>id:int(11)</td>
+		</tr>
+		<tr>
+			<td>nombre:varchar(255)</td>
+		</tr>
+	</table>
+	
+	
+	
