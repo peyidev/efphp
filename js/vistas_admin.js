@@ -1,8 +1,9 @@
 var vistas = {
 
     global : function(){
-	
-        $( ".date" ).datepicker();
+
+	    $('.message-popup').dialog({"modal" : true});
+        $(".date" ).datepicker();
 		$(".table-admin").DataTable();
 		
 		$(".delete-admin").click(function(e){

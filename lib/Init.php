@@ -1,7 +1,6 @@
 <?php
 
-$i = new Interceptor($mysqli);
+$i = new Interceptor();
 $i->render();
 $u = new Utils();
 
-?>

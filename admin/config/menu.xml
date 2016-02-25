@@ -2,11 +2,12 @@
 	<item>
 		<itemName>Inicio General</itemName>
 		<itemLink>?s=home</itemLink>
-		<rol>Administrador</rol>
+		<rol>ADMINISTRADOR</rol>
 		<rol>Vendedor</rol>
 		<subitem>
 			<subitemName>Usuarios</subitemName>
 			<subitemLink>?s=admin-admin</subitemLink>
+			<module>admin</module>
 		</subitem>
 		
 		<subitem>
@@ -29,7 +30,7 @@
 	<item>
 		<itemName>Administrador</itemName>
 		<itemLink>?s=home</itemLink>
-		<rol>Administrador</rol>
+		<rol>ADMINISTRADOR</rol>
 		<subitem>
 			<subitemName>Usuarios</subitemName>
 			<subitemLink>?s=admin-admin</subitemLink>

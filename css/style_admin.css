@@ -1,6 +1,6 @@
 body{
 	
-	background-color:black;
+	background-color:#13171B;
 	color:#777;
 	font-family:Arial;
 	font-size:11px;
@@ -49,6 +49,14 @@ body{
 	
 }
 
+#logo{
+
+    position: absolute;
+    left:50%;
+    top:25px;
+    margin-left:-550px;
+
+}
 .admin-right-column{
 	
 	float:left;
@@ -101,6 +109,12 @@ body{
 	margin-top:3px;
 	
 }
+input{
+    border-radius:3px !important;
+    border:1px solid black;
+    padding: 3px;
+}
+
 .input input{
 	
 	width:190px;
@@ -112,8 +126,8 @@ body{
     border: 0;
 	margin-top:3px;
 	color:#777;
-	border-radius:3px;
-	
+    border-radius:3px;
+
 	
 }
 
@@ -173,7 +187,8 @@ body{
 #main-menu .menu-item .menu-subitem-link{
 	width:106px;
 	padding:10px 2px;
-	background:#7A80DD;
+	/*background:#7A80DD;*/
+	background:#009EDF;
 	display:block;
 	text-decoration:none;
 	color:#EEEEEE;
@@ -221,4 +236,21 @@ body{
     margin-top: 8px;
     text-decoration: none;
 	
+}
+
+.message-popup{
+    text-align: center;
+    margin-top: 10px !important;
+}
+
+.message-error{
+
+    color:red !important;
+
+}
+
+.message-message{
+
+    /*color:forestgreen !important;*/
+
 }

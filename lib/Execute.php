@@ -25,6 +25,34 @@ class Execute{
             $class = explode("/", $_GET['e']);
             $method = $class[1];
             $class = $class[0];
+            $ex = null;
+            $message = new Messages();
+            $message->initMessages();
+
+            if($class == "Administrador"){
+
+                $privileges = false;
+                $insert = !empty($_GET['table-insert']) ? $_GET['table-insert'] :
+                         (!empty($_GET['table']) ? $_GET['table'] : null);
+
+
+                $user = new User();
+
+                if(!empty($insert))
+                    $privileges = $user->grantPermissions($_SESSION,$class,$method,$insert);
+                else
+                    $privileges = true;
+
+                if(!$privileges){
+                    $message->setMessage("error:No tienes permisos para realizar esta operación");
+                    if($back)
+                        header("Location: {$_SERVER['HTTP_REFERER']}");
+                    return false;
+                }
+            }
+
+
+
             $class = $u->limpiarParams($class);
             $method = $u->limpiarParams($method);
 

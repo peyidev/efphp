@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-define('BASE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/ephp/');
+define('BASE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/medios/ephp/');
 
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'db');
+define('DATABASE', 'medios');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', '');
 
 #Paypal config
 
@@ -18,7 +18,8 @@ define('PAYPALURL','');
 #Global config
 define('ADMINURL', 'admin/');
 define('DEFAULT_S', 'home.php');
-define('GLOBALURL', 'http://killerrace.com/');
+define('GLOBALURL', 'http://localhost');
+define('LOGO', 'css/img/logo.png');
 
 function __autoload($f) {
 
@@ -29,5 +30,4 @@ function __autoload($f) {
 
 }
 
-$mysqli = new Database();
-$mysqli = $mysqli->connect();
+$mysqli = Database::connect();

@@ -21,13 +21,16 @@
 		
 		<?php
 			
-			$a = new Administrador($this->mysqli);
+			$a = new Administrador();
 
 			$a->controles();
 			$a->menu();
 			
 			include("vistas/" . $u->incluirSeccionAdmin($cuerpo));
 
+            $msj = new Messages();
+            echo $msj->parseMessage($msj->getMessage());
+            $msj->initMessages();
             $a->renderAdmin();
 		?>
 		<div id="disclaimer"><?php echo date("Y") . " - ";?> Todos los derechos reservados</div>

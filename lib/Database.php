@@ -2,26 +2,50 @@
 
 	class Database  {
 
-	    var $host = HOSTNAME;
-	    var $user = DB_USERNAME;
-	    var $pass = DB_PASSWORD;
-	    var $db = DATABASE;
-	    var $myconn;
+	    private static $host = HOSTNAME;
+        private static $user = DB_USERNAME;
+        private static $pass = DB_PASSWORD;
+        private static $db = DATABASE;
+        private static $myconn;
 
-	    function connect() {
-	        $con = mysqli_connect($this->host, $this->user, $this->pass, $this->db);
-	        if (!$con) {
-	            die('Could not connect to database!');
-	        } else {
-	            $this->myconn = $con;
-			}
-	        return $this->myconn;
+	    public static function connect($type = "mysql") {
+
+            $host = self::$host;
+            $user = self::$user;
+            $pass = self::$pass;
+            $db = self::$db;
+
+            switch($type){
+
+                case "PDO":
+
+                    $con = new PDO("mysql:host={$host};dbname={$db}", $user, $pass);
+                    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    self::$myconn = $con;
+                    return self::$myconn;
+
+                    break;
+
+                case "mysql":
+
+                    $con = mysqli_connect($host, $user, $pass, $db);
+                    if (!$con) {
+                        die('Could not connect to database!');
+                    } else {
+                        self::$myconn = $con;
+                    }
+                    return self::$myconn;
+
+                    break;
+
+            }
+
 	    }
 
+
 	    function close() {
-	        mysqli_close($myconn);
+	        mysqli_close($this->myconn);
 	    }
 
 	}
 
-?>
