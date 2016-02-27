@@ -3,7 +3,7 @@ var vistas = {
     global : function(){
 
 	    $('.message-popup').dialog({"modal" : true});
-        $(".date" ).datepicker();
+        $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		$(".table-admin").DataTable();
 		
 		$(".delete-admin").click(function(e){

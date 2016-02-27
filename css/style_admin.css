@@ -62,6 +62,7 @@ body{
 	float:left;
 	width:800px;
 	padding:10px;
+    overflow-x: auto;
 }
 .admin-left-column{
 	

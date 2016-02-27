@@ -220,7 +220,7 @@ class Administrador{
         //echo $sql;
         $query = $this->db->query($sql);
         $message = new Messages();
-        $message->setMessage("message:1");
+        //$message->setMessage("message:1");
         return true;
 
     }
