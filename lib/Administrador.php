@@ -17,6 +17,7 @@ class Administrador{
         $u = $this->util;
         $usr = $u->limpiarParams($_REQUEST['usr']);
         $psw = $u->limpiarParams($_REQUEST['psw']);
+        $psw = md5($psw);
         $sql = "SELECT a.*, r.nombre as rolNombre FROM admin a, rol r WHERE email = '$usr' AND password = '$psw'
 					AND a.id_rol = r.id";
         $query = $this->db->query($sql);
@@ -27,6 +28,11 @@ class Administrador{
             $_SESSION["id_admin"] = $row['id'];
             $_SESSION["nombre"] = $row['nombre'];
             $_SESSION["rol"] = $row['rolNombre'];
+
+        }else{
+
+            $message = new Messages();
+            $message->setMessage("error:Error de usuario y/o contraseña");
 
         }
 
@@ -110,7 +116,6 @@ class Administrador{
 
 
     }
-
 
     function controles(){
 
@@ -239,7 +244,6 @@ class Administrador{
 
 
 
-
         $sqlRow = "SHOW FULL COLUMNS FROM {$tabla}";
         $queryRow = $this->db->query($sqlRow);
 
@@ -249,7 +253,6 @@ class Administrador{
         }
 
 
-
         while($row = $query->fetch_array(MYSQL_ASSOC)){
 
             $tbody .= "<tr>";
@@ -257,19 +260,44 @@ class Administrador{
 
             for($i = 0; $i < count($columns); $i++){
 
+                if($columns[$i]["Field"] == "password")
+                    continue;
+
                 if($flag){
-
                     $thead .= "<th>" . $columns[$i]["Field"] . "</th>";
-
                 }
 
                 if($columns[$i]["Field"] == "id"){
-
                     $id = $row[$columns[$i]["Field"]];
+                }
+
+                $val = $row[$columns[$i]["Field"]];
+
+                /*
+                 * Find foreign keys
+                 * */
+
+                if(empty($_GET['lazy'])){
+
+                    $foreign = explode("id_",$columns[$i]["Field"]);
+
+                    if(count($foreign) > 1) {
+
+                        if ($this->tableExist($foreign[1])) {
+
+                            $sqlForeign = "SELECT * FROM {$foreign[1]} WHERE id = '{$val}'";
+                            $queryForeign = $this->db->query($sqlForeign);
+
+                            while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                $val = $rowForeign['nombre'];
+                            }
+                        }
+                    }
 
                 }
 
-                $tbody .= "<td>" . $row[$columns[$i]["Field"]] . "</td>";
+
+                $tbody .= "<td>" . $val . "</td>";
 
             }
 
@@ -493,7 +521,6 @@ enctype="multipart/form-data">';
     function createLeft($tabla){
 
     }
-
 
     function insertRegister(){
 

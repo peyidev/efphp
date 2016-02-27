@@ -44,8 +44,6 @@
                 $hasRol = $this->hasRol($item,$rol);
                 $hasModule = $this->hasModule($item,$insert);
 
-                //echo "hasModule , hasRol ->" . $hasModule . "," . $hasRol . "<br />";
-
                 if($hasRol && $hasModule)
                     return true;
             }

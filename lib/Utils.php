@@ -139,6 +139,9 @@
 
           foreach($formulario as $llave => $valor){
 
+              if($llave == "password"){
+                  $valor = md5($valor);
+              }
 
               if($llave != "id")
                   $valores.="$llave ='" . $this->limpiar($valor) . "',";
@@ -164,8 +167,12 @@
 
           $llaves = "";
           $valores = "";
-          ;
+
           foreach($formulario as $llave => $valor){
+
+              if($llave == "password"){
+                  $valor = md5($valor);
+              }
 
               $llaves.="`$llave`,";
               $valores.="'" . $this->limpiar($valor) . "',";
@@ -222,41 +229,6 @@
           }
 
       }
-
-      function processMensaje(){
-
-          $mensaje = "";
-          if(!empty($_GET['error'])){
-
-              switch($_GET['error']){
-
-                  case "1":
-                      $mensaje = "Error de usuario y/o contraseña";
-                      break;
-
-              }
-
-          }else if(!empty($_GET['mensaje'])){
-
-              switch($_GET['mensaje']){
-
-                  case "registro":
-                      $mensaje = "Usuario registrado correctamente";
-                      break;
-
-                  case "procesado":
-                      $mensaje = "Tu pedido ha sido procesado correctamente. En breve recibiras un correo electrónico de confirmación.";
-                      break;
-
-              }
-
-          }
-
-          echo $mensaje;
-
-      }
-
-
 
   }
 

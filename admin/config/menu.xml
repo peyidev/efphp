@@ -35,5 +35,12 @@
 			<subitemName>Usuarios</subitemName>
 			<subitemLink>?s=admin-admin</subitemLink>
 		</subitem>
+
+        <subitem>
+            <subitemName>Zonas</subitemName>
+            <subitemLink>?s=zona-admin</subitemLink>
+            <module>zona</module>
+        </subitem>
+
 	</item>
 </menu>
