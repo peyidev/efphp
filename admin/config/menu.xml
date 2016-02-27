@@ -1,6 +1,6 @@
 <menu>
 	<item>
-		<itemName>Inicio General</itemName>
+		<itemName>Administrador</itemName>
 		<itemLink>?s=home</itemLink>
 		<rol>ADMINISTRADOR</rol>
 		<rol>Vendedor</rol>
@@ -11,36 +11,72 @@
 		</subitem>
 		
 		<subitem>
-			<subitemName>Otras cosas</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
+			<subitemName>Roles</subitemName>
+			<subitemLink>?s=rol-admin</subitemLink>
 		</subitem>
 		
 	</item>
-	
-	<item>
-		<itemName>Vendedor</itemName>
-		<itemLink>?s=home</itemLink>
-		<rol>Vendedor</rol>
-		<subitem>
-			<subitemName>Usuarios</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
-		</subitem>
-	</item>
+
 
 	<item>
-		<itemName>Administrador</itemName>
+		<itemName>Establecimientos</itemName>
 		<itemLink>?s=home</itemLink>
 		<rol>ADMINISTRADOR</rol>
-		<subitem>
-			<subitemName>Usuarios</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
-		</subitem>
+
+        <subitem>
+            <subitemName>Sucursales</subitemName>
+            <subitemLink>?s=sucursal-admin</subitemLink>
+            <module>sucursal</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Marcas</subitemName>
+            <subitemLink>?s=marca-admin</subitemLink>
+            <module>marca</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Categorías</subitemName>
+            <subitemLink>?s=categoria-admin</subitemLink>
+            <module>categoria</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Categorías Vive</subitemName>
+            <subitemLink>?s=categoria_vive-admin</subitemLink>
+            <module>categoria_vive</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Proyectos</subitemName>
+            <subitemLink>?s=proyecto-admin</subitemLink>
+            <module>proyecto</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Servicios</subitemName>
+            <subitemLink>?s=servicio-admin</subitemLink>
+            <module>servicio</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Servicios de sucursales</subitemName>
+            <subitemLink>?s=servicio_sucursal-admin</subitemLink>
+            <module>servicio_sucursal</module>
+        </subitem>
+
+
+
+
 
         <subitem>
             <subitemName>Zonas</subitemName>
             <subitemLink>?s=zona-admin</subitemLink>
             <module>zona</module>
         </subitem>
+
+
+
 
 	</item>
 </menu>

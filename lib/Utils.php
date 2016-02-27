@@ -10,6 +10,15 @@
               print'noLogged';
       }
 
+      function getValidationType($string){
+          $str = explode('-',$string);
+          return !empty($str[1]) ? $str[1] : "";
+      }
+
+      function getServiceType($string){
+          $str = explode('-',$string);
+          return !empty($str[2]) ? $str[2] : "";
+      }
 
       function transformName($string){
 

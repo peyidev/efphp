@@ -40,7 +40,7 @@ class Administrador{
 
     function tableExist($tabla){
 
-        $sql = "SHOW TABLES LIKE '%{$tabla}%'";
+        $sql = "SHOW TABLES LIKE '{$tabla}'";
         $query = $this->db->query($sql);
 
         if($query->num_rows == 1)
@@ -332,17 +332,20 @@ class Administrador{
 
     }
 
-    function createUpdateForm($tabla, $id){
+    function createGenericForm($tabla, $id = null, $type = "insert"){
 
-        echo '<form action="../lib/Execute.php?e=Administrador/updateRow&table-insert=' . $tabla . '&id=' . $id . '&back=1" method="post"
-enctype="multipart/form-data">';
+        $extra = !empty($id) ? "&id={$id}" : "";
+
+        echo "<form action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
         $sql = "SHOW FULL COLUMNS FROM {$tabla}";
         $query = $this->db->query($sql);
 
-        $sqlInfo = "SELECT * FROM {$tabla} WHERE id='{$id}'";
-        $infoQuery = $this->db->query($sqlInfo);
-        $info = $infoQuery->fetch_array(MYSQL_ASSOC);
+        if($type == "update"){
+            $sqlInfo = "SELECT * FROM {$tabla} WHERE id='{$id}'";
+            $infoQuery = $this->db->query($sqlInfo);
+            $info = $infoQuery->fetch_array(MYSQL_ASSOC);
+        }
 
 
         $data = array();
@@ -374,10 +377,10 @@ enctype="multipart/form-data">';
 
                             $selected = "";
 
-                            if($rowForeign['id'] == $info[$row['Field']]){
-
-                                $selected = " selected=selected";
-
+                            if($type == "update"){
+                                if($rowForeign['id'] == $info[$row['Field']]){
+                                    $selected = " selected=selected";
+                                }
                             }
 
                             $combo.="<option value='{$rowForeign['id']}' {$selected}>{$rowForeign['nombre']}</option>";
@@ -406,18 +409,20 @@ enctype="multipart/form-data">';
 
                 if($flag){
 
+                    $val = !empty($info) ? $info[$row['Field']] : "";
+
                     if($row['Type'] == "text"){
 
                         echo "<div class='row-abc'>
 	                                 <p class='descripcion'>{$description}</p>
-	                                 <p class='input'><textarea name='{$row['Field']}' class='{$row['Type']}'>{$info[$row['Field']]}</textarea></p>
+	                                 <p class='input'><textarea name='{$row['Field']}' class='{$row['Type']}'>{$val}</textarea></p>
 	                              </div>";
 
                     }else{
 
                         echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='text' name='{$row['Field']}' class='{$row['Type']}' value='{$info[$row['Field']]}' /></p>
+                                 <p class='input'><input type='text' name='{$row['Field']}' class='{$row['Type']}' value='{$val}' /></p>
                               </div>";
                     }
                 }
@@ -428,94 +433,26 @@ enctype="multipart/form-data">';
 
         }
 
-        echo '<input type="submit" value="Actualizar"/>';
+        if($type == "update")
+            echo '<input type="submit" value="Actualizar"/>';
+        else
+            echo '<div class="row-abc"><p class="input"><input type="submit" value="Insertar"/></p></div>';
+
         echo '</form>';
+
+
+
+    }
+
+    function createUpdateForm($tabla, $id){
+
+        $this->createGenericForm($tabla,$id,"update");
 
     }
 
     function createAdminTable($tabla){
 
-
-        echo '<form action="../lib/Execute.php?e=Administrador/insertRow&table-insert=' . $tabla . '&back=1" method="post"
-enctype="multipart/form-data">';
-
-        $sql = "SHOW FULL COLUMNS FROM {$tabla}";
-        $query = $this->db->query($sql);
-
-        $data = array();
-        while ($row = $query->fetch_array(MYSQL_ASSOC)) {
-            $data[] = $row;
-        }
-
-        foreach($data as $row){
-
-            if($row['Field'] != "id"){
-
-                $description = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
-                $description = $this->util->transformName($description);
-
-                $foreign = explode("id_",$row['Field']);
-                $img = explode("img_",$row['Field']);
-                $flag = true;
-
-                if(count($foreign) > 1){
-
-                    if($this->tableExist($foreign[1])){
-
-                        $sqlForeign = "SELECT * FROM {$foreign[1]}";
-                        $queryForeign = $this->db->query($sqlForeign);
-                        $combo = "";
-
-                        while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ){
-
-                            $combo.="<option value='{$rowForeign['id']}'>{$rowForeign['nombre']}</option>";
-
-                        }
-
-                        echo "<div class='row-abc'>
-                                 <p class='descripcion'>{$description}</p>
-                                 <p class='input'><select name='{$row['Field']}'>{$combo}</select></p>
-                              </div>";
-
-                        $flag = false;
-
-                    }
-
-
-                }else if(count($img) > 1){
-                    echo "<div class='row-abc'>
-                                 <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']}' /></p>
-                              </div>";
-                    $flag = false;
-                }
-
-
-                if($flag){
-
-                    if($row['Type'] == "text"){
-
-                        echo "<div class='row-abc'>
-	                                 <p class='descripcion'>{$description}</p>
-	                                 <p class='input'><textarea name='{$row['Field']}' class='{$row['Type']}'></textarea></p>
-	                              </div>";
-
-                    }else{
-
-                        echo "<div class='row-abc'>
-	                                 <p class='descripcion'>{$description}</p>
-	                                 <p class='input'><input type='text' name='{$row['Field']}' class='{$row['Type']}' /></p>
-	                              </div>";
-
-                    }
-
-                }
-            }
-
-        }
-        echo '<div class="row-abc"><p class="input"><input type="submit" value="Insertar"/></p></div>';
-        echo '</form>';
-
+        $this->createGenericForm($tabla);
     }
 
     function createLeft($tabla){
