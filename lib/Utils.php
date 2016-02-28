@@ -2,6 +2,14 @@
   
   class Utils{
 
+      public $db;
+
+
+      function __construct(){
+
+          $this->db = Database::connect();
+
+      }
 
       function checkSession(){
           if(!empty($_SESSION['id_user']))
@@ -141,6 +149,79 @@
 
       }
 
+
+      function createMultiJoin($table, $q){
+
+          $sql = "DESCRIBE {$table}";
+          $query = $this->db->query($sql);
+          $exp = "";
+          $select = "";
+          $where = "";
+          $res = array();
+
+          while($parent = $query->fetch_array(MYSQL_ASSOC)) {
+
+              $foreign = explode("id_", $parent['Field']);
+              if (count($foreign) > 1) {
+
+                  if ($this->tableExist($foreign[1])) {
+                      $frg = $foreign[1];
+                      $exp .= " JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
+                      $select .= " {$frg}.nombre as {$frg}_nombre,";
+                      $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
+
+                  }
+              }
+
+          }
+
+          if(!empty($select)){
+              $select = substr($select, 0, -1);
+          }
+
+          $res['exp'] = $exp;
+          $res['select'] = $select;
+          $res['where'] = $where;
+
+          return $res;
+      }
+
+
+      function ajaxSearch(){
+
+          if(empty($_GET['q']))
+              echo $this->errorJSON("Cadena Vacía");
+
+          $table = $_GET['table'];
+          $query = $_GET['q'];
+
+          $sql = $this->searchQuery($table,$query);
+          $query = $this->db->query($sql);
+          $result = array();
+
+          while($row = $query->fetch_array(MYSQL_ASSOC))
+              $result[] = $row;
+
+          echo $this->toJSON($result);
+
+
+      }
+
+      function searchQuery($tabla, $query){
+
+          if(empty($tabla) || empty($query))
+              return "";
+
+          $tabla = $this->limpiar($tabla);
+          $query = $this->limpiar($query);
+          $extra = $this->createMultiJoin($tabla, $query);
+
+          return "SELECT main_table.*, {$extra['select']}
+                    FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.nombre
+                    LIKE '%{$query}%' {$extra['where']} LIMIT 10";
+
+      }
+
       function generarUpdate($tabla, $formulario, $id){
 
           $llaves = "";
@@ -238,6 +319,20 @@
           }
 
       }
+
+
+      function tableExist($tabla){
+
+          $sql = "SHOW TABLES LIKE '{$tabla}'";
+          $query = $this->db->query($sql);
+
+          if($query->num_rows == 1)
+              return true;
+          else
+              return false;
+
+      }
+
 
   }
 

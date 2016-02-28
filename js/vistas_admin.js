@@ -5,6 +5,70 @@ var vistas = {
 	    $('.message-popup').dialog({"modal" : true});
         $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		$(".table-admin").DataTable();
+
+        $('.ajax-search').keyup(function(){
+
+            var cuantos = $(this).val();
+            var padre = $(this).parent();
+
+            if(cuantos.length >= 5){
+
+
+                var table = $(this).attr('name');
+                table = table.split("_");
+                table = table[1];
+
+                var param = {
+                    "q" : $(this).val(),
+                    "table" : table
+                };
+
+                ajaxData('../lib/Execute.php?e=Utils/ajaxSearch','GET',param,'true',function(json){
+
+                    $result = "<div class='result-query' id='result-" + table + "'>";
+
+                    $.each(json,function(i,val){
+
+                        $result += "<p class='result-query-item'>";
+
+                        $.each(val, function(j,valInt){
+
+                            var idTmp = j.split("nombre");
+
+                            if(j == "id"){
+                                $result += "<input type='hidden' class='result-hidden' value='" + valInt + "' />";
+                            }
+
+                            if(idTmp.length > 1){
+                                $result += valInt + " ";
+                            }
+
+                        });
+
+                        $result += "</p>";
+
+                    });
+
+                    $result += "</div>";
+                    var selector = '#result-' + table;
+                    $(padre).find(selector).remove();
+                    $(padre).append($result);
+
+                    $(selector).find('.result-query-item').click(function(){
+
+                        $(padre).find(selector).remove();
+                        var valor = $(this).find('.result-hidden').val();
+
+                        $(padre).find('.ajax-search').val(valor);
+
+                    });
+
+
+                });
+
+            }
+
+        });
 		
 		$(".delete-admin").click(function(e){
 			

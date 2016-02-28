@@ -38,17 +38,7 @@ class Administrador{
 
     }
 
-    function tableExist($tabla){
 
-        $sql = "SHOW TABLES LIKE '{$tabla}'";
-        $query = $this->db->query($sql);
-
-        if($query->num_rows == 1)
-            return true;
-        else
-            return false;
-
-    }
 
     function renderAdmin(){
 
@@ -220,7 +210,11 @@ class Administrador{
         //echo $sql;
         $query = $this->db->query($sql);
         $message = new Messages();
-        //$message->setMessage("message:1");
+
+        if(!$query)
+            $message->setMessage("error:" . "Hubo un error al insertar, verifica tus datos");
+
+        //$message->setMessage("message:$sql");
         return true;
 
     }
@@ -279,11 +273,13 @@ class Administrador{
 
                 if(empty($_GET['lazy'])){
 
-                    $foreign = explode("id_",$columns[$i]["Field"]);
+                    $field = $columns[$i]["Field"];
+                    $field = str_replace('_ajax','',$field);
+                    $foreign = explode("id_",$field);
 
                     if(count($foreign) > 1) {
 
-                        if ($this->tableExist($foreign[1])) {
+                        if ($this->util->tableExist($foreign[1])) {
 
                             $sqlForeign = "SELECT * FROM {$foreign[1]} WHERE id = '{$val}'";
                             $queryForeign = $this->db->query($sqlForeign);
@@ -359,6 +355,13 @@ class Administrador{
 
                 $foreign = explode("id_",$row['Field']);
                 $img = explode("img_",$row['Field']);
+                $ajax = explode("_ajax",$row['Field']);
+                $isAjax = "";
+
+                if(count($ajax) > 1)
+                    $isAjax = 'ajax-search';
+
+
                 $description = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
                 $description = $this->util->transformName($description);
 
@@ -367,7 +370,7 @@ class Administrador{
 
                 if(count($foreign) > 1){
 
-                    if($this->tableExist($foreign[1])){
+                    if($this->util->tableExist($foreign[1])){
 
                         $sqlForeign = "SELECT * FROM {$foreign[1]}";
                         $queryForeign = $this->db->query($sqlForeign);
@@ -422,7 +425,8 @@ class Administrador{
 
                         echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='text' name='{$row['Field']}' class='{$row['Type']}' value='{$val}' /></p>
+                                 <p class='input'><input type='text' name='{$row['Field']}' class='{$row['Type']}
+                                 $isAjax' value='{$val}' /></p>
                               </div>";
                     }
                 }

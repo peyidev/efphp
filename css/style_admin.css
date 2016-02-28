@@ -104,6 +104,7 @@ body{
 	margin-bottom:10px;
 	text-align:center;
 	width:100%;
+    position:relative;
 }
 
 .input select{
@@ -254,5 +255,38 @@ input{
 .message-message{
 
     /*color:forestgreen !important;*/
+
+}
+
+.result-query{
+
+    position: absolute;
+    width:95%;
+    background: #13171B;
+    height: auto;
+    z-index: 1;
+    left: 2%;
+    text-align: left;
+    color:#777;
+
+}
+
+.result-query-item{
+
+    border-bottom: 1px solid #212528;
+
+}
+.result-query-item{
+
+    padding:5px;
+    float:left;
+
+}
+
+.result-query-item:hover{
+
+    background: #009EDF;
+    color:white;
+    cursor:pointer;
 
 }
