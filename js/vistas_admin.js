@@ -8,7 +8,9 @@ var vistas = {
 
         $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
-		$(".table-admin").DataTable();
+		$(".table-admin").DataTable({
+            "order": [[ 0, "desc" ]]
+        });
 
         $('.ajax-search').keyup(function(){
 
@@ -110,8 +112,6 @@ var vistas = {
 			});
 			
 		});
-
-
 		
     },
     home : function(){

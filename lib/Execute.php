@@ -29,12 +29,20 @@ class Execute{
             $message = new Messages();
             $message->initMessages();
 
+            $class = $u->limpiarParams($class);
+            $method = $u->limpiarParams($method);
+
             if($class == "Administrador"){
 
                 $privileges = false;
                 $insert = !empty($_GET['table-insert']) ? $_GET['table-insert'] :
                          (!empty($_GET['table']) ? $_GET['table'] : null);
 
+
+                $interceptorData['header'] = $class . " - " . $insert;
+                $interceptorData['method'] = $method;
+
+                Log::logActivity($interceptorData);
 
                 $user = new User();
 
@@ -51,10 +59,6 @@ class Execute{
                 }
             }
 
-
-
-            $class = $u->limpiarParams($class);
-            $method = $u->limpiarParams($method);
 
 
             if(class_exists($class)){
