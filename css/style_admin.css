@@ -310,3 +310,54 @@ input{
     cursor:pointer;
 
 }
+
+
+.detail-report{
+
+    color: #009EDF;
+    font-size: 18px;
+    text-decoration: none;
+
+}
+
+
+.detail-list-item{
+
+    float:left;
+    width:100%;
+    border-bottom: 1px dotted #13171B;
+    display: table;
+
+}
+
+.detail-list-item-key{
+
+    float:left;
+    width:20%;
+    color:#009EDF;
+    font-size: 15px;
+    margin:10px 0;
+    text-align: right;
+    height: 100%;
+
+}
+
+pre.detail-list-item-val{
+
+    line-height: 1.5;
+    color:white;
+
+}
+.detail-list-item-val{
+
+    float:right;
+    width:75%;
+    padding-top: 5px;
+    overflow-x: auto;
+}
+
+.detail-img{
+
+    width:400px;
+
+}

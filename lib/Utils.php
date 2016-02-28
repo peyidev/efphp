@@ -173,7 +173,7 @@
           $query = $this->limpiar($query);
           $extra = $this->createMultiJoin($tabla, $query);
 
-          return "SELECT main_table.*, {$extra['select']}
+          return "SELECT main_table.* {$extra['select']}
                     FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.nombre
                     LIKE '%{$query}%' {$extra['where']} LIMIT 10";
 
@@ -200,6 +200,19 @@
           return "UPDATE $tabla set $valores WHERE id='$id'";
 
 
+
+      }
+
+      function generarSelect($tabla, $id){
+
+          if(empty($tabla))
+              return "";
+
+          $tabla = $this->limpiar($tabla);
+          $extra = $this->createMultiJoin($tabla);
+
+          return "SELECT main_table.* {$extra['select']}
+                    FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.id = '{$id}'";
 
       }
 
@@ -246,7 +259,7 @@
 
       }
 
-      function createMultiJoin($table, $q){
+      function createMultiJoin($table, $q = null){
 
           $sql = "DESCRIBE {$table}";
           $query = $this->db->query($sql);
@@ -264,7 +277,9 @@
                       $frg = $foreign[1];
                       $exp .= " JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
                       $select .= " {$frg}.nombre as {$frg}_nombre,";
-                      $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
+
+                      if(!empty($q))
+                        $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
 
                   }
               }
@@ -273,6 +288,7 @@
 
           if(!empty($select)){
               $select = substr($select, 0, -1);
+              $select = " , " . $select;
           }
 
           $res['exp'] = $exp;

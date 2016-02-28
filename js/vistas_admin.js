@@ -2,7 +2,7 @@ var vistas = {
 
     global : function(){
 
-        //validator.startValidations();
+        validator.startValidations();
 
 	    $('.message-popup').dialog({"modal" : true});
 

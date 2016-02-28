@@ -87,7 +87,16 @@ class Administrador{
                         $detail = $_GET['s'];
                         $detail = explode("-",$detail);
                         $detail = $detail[0];
-                        include(BASE_PATH . ADMINURL . "reportes/{$detail}.php");
+                        $include = BASE_PATH . ADMINURL . "reportes/{$detail}.php";
+                        if(file_exists($include)){
+                            include($include);
+                        }else{
+                            $id = !empty($_GET['id']) ? $_GET['id'] : null;
+
+                            if(!empty($id)){
+                                $this->createDetail($tabla[0],$id);
+                            }
+                        }
                         break;
 
 
@@ -174,7 +183,17 @@ class Administrador{
             }
 
             $menu .= "</ul>";
+
             echo $menu;
+
+            if(empty($title)){
+                $title = explode("?s=",$s);
+                $title = explode("-",$title[1]);
+                $title = $title[0];
+
+                $id = !empty($_GET['id']) ? (" - "  . $_GET['id']) : "";
+                $title .= $id;
+            }
 
             return $title;
         }
@@ -239,6 +258,46 @@ class Administrador{
 
     }
 
+    function createDetail($tabla,$id){
+
+        $sql =  $this->util->generarSelect($tabla,$id);
+        $query = $this->db->query($sql);
+        $columns = array();
+        $row = $query->fetch_array(MYSQL_ASSOC);
+
+        echo "<div class='detail-list'>";
+
+        foreach($row as $key => $val){
+
+            $img = explode("img_",$key);
+
+            echo "<div class='detail-list-item'>";
+                echo "<p  class='detail-list-item-key'>{$key}</p>";
+                if($key == "data"){
+                    $tmp = unserialize($val);
+                    $tmp = print_r($tmp,true);
+                    echo "<pre  class='detail-list-item-val'>{$tmp}</pre>";
+                }else{
+
+                    if(count($img) > 1){
+
+                        echo "<p  class='detail-list-item-val'><img class='detail-img' src='../media/img/$val' alt='img' /></p>";
+
+                    }else{
+                        echo "<p  class='detail-list-item-val'>{$val}</p>";
+
+                    }
+                }
+
+            echo "</div>";
+
+
+        }
+
+        echo "</div>";
+
+    }
+
     function createGrid($tabla,$report = false){
 
         $sql = "SELECT * FROM {$tabla}";
@@ -256,16 +315,12 @@ class Administrador{
             $controles .= "<th>Editar</th><th>Eliminar</th>";
         }
 
-
-
         $sqlRow = "SHOW FULL COLUMNS FROM {$tabla}";
         $queryRow = $this->db->query($sqlRow);
-
 
         while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
             $columns[] = $rowRow;
         }
-
 
         while($row = $query->fetch_array(MYSQL_ASSOC)){
 
@@ -312,8 +367,12 @@ class Administrador{
 
                 }
 
+                if($columns[$i]["Field"] == "id"){
+                    $tbody .= "<td><a href='?s={$tabla}-detail&id={$id}' class='detail-report'>" . $val . "</a></td>";
 
-                $tbody .= "<td>" . $val . "</td>";
+                }else{
+                    $tbody .= "<td>" . $val . "</td>";
+                }
 
             }
 
@@ -336,7 +395,6 @@ class Administrador{
 							</tr>";
 
             }
-
 
         }
 
