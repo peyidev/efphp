@@ -42,10 +42,11 @@
 
 	    }
 
-
 	    function close() {
 	        mysqli_close($this->myconn);
 	    }
+
+
 
 	}
 

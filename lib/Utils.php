@@ -2,13 +2,10 @@
   
   class Utils{
 
-      public $db;
-
+      protected $db;
 
       function __construct(){
-
           $this->db = Database::connect();
-
       }
 
       function checkSession(){
@@ -20,7 +17,7 @@
 
       function getValidationType($string){
           $str = explode('-',$string);
-          return !empty($str[1]) ? $str[1] : "";
+          return !empty($str[1]) ? ("validation-" . $str[1] ) : "";
       }
 
       function getServiceType($string){
@@ -56,13 +53,11 @@
 
       }
 
-
       function toJSON($array){
 
           return "for(;;);(" . json_encode($array) . ")";
 
       }
-
 
       function utf8_encode_deep(&$input) {
 
@@ -117,7 +112,6 @@
 
       }
 
-
       function incluirSeccion($seccion){
 
           if(file_exists(BASE_PATH . "vistas/" . $seccion)){
@@ -131,6 +125,7 @@
           }
 
       }
+
       function limpiarParams($valor){
           $valor = explode(' ', $valor);
           $valor = $valor[0];
@@ -148,44 +143,6 @@
           return $parts[1];
 
       }
-
-
-      function createMultiJoin($table, $q){
-
-          $sql = "DESCRIBE {$table}";
-          $query = $this->db->query($sql);
-          $exp = "";
-          $select = "";
-          $where = "";
-          $res = array();
-
-          while($parent = $query->fetch_array(MYSQL_ASSOC)) {
-
-              $foreign = explode("id_", $parent['Field']);
-              if (count($foreign) > 1) {
-
-                  if ($this->tableExist($foreign[1])) {
-                      $frg = $foreign[1];
-                      $exp .= " JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
-                      $select .= " {$frg}.nombre as {$frg}_nombre,";
-                      $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
-
-                  }
-              }
-
-          }
-
-          if(!empty($select)){
-              $select = substr($select, 0, -1);
-          }
-
-          $res['exp'] = $exp;
-          $res['select'] = $select;
-          $res['where'] = $where;
-
-          return $res;
-      }
-
 
       function ajaxSearch(){
 
@@ -277,6 +234,54 @@
 
       }
 
+      function tableExist($tabla){
+
+          $sql = "SHOW TABLES LIKE '{$tabla}'";
+          $query = $this->db->query($sql);
+
+          if($query->num_rows == 1)
+              return true;
+          else
+              return false;
+
+      }
+
+      function createMultiJoin($table, $q){
+
+          $sql = "DESCRIBE {$table}";
+          $query = $this->db->query($sql);
+          $exp = "";
+          $select = "";
+          $where = "";
+          $res = array();
+
+          while($parent = $query->fetch_array(MYSQL_ASSOC)) {
+
+              $foreign = explode("id_", $parent['Field']);
+              if (count($foreign) > 1) {
+
+                  if ($this->tableExist($foreign[1])) {
+                      $frg = $foreign[1];
+                      $exp .= " JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
+                      $select .= " {$frg}.nombre as {$frg}_nombre,";
+                      $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
+
+                  }
+              }
+
+          }
+
+          if(!empty($select)){
+              $select = substr($select, 0, -1);
+          }
+
+          $res['exp'] = $exp;
+          $res['select'] = $select;
+          $res['where'] = $where;
+
+          return $res;
+      }
+
       function subirImagen($file,$carpeta){
 
 
@@ -319,20 +324,6 @@
           }
 
       }
-
-
-      function tableExist($tabla){
-
-          $sql = "SHOW TABLES LIKE '{$tabla}'";
-          $query = $this->db->query($sql);
-
-          if($query->num_rows == 1)
-              return true;
-          else
-              return false;
-
-      }
-
 
   }
 

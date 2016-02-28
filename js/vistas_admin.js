@@ -2,8 +2,12 @@ var vistas = {
 
     global : function(){
 
+        validator.startValidations();
+
 	    $('.message-popup').dialog({"modal" : true});
+
         $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
 		$(".table-admin").DataTable();
 
         $('.ajax-search').keyup(function(){
@@ -69,7 +73,7 @@ var vistas = {
             }
 
         });
-		
+
 		$(".delete-admin").click(function(e){
 			
 			e.preventDefault();
@@ -106,6 +110,8 @@ var vistas = {
 			});
 			
 		});
+
+
 		
     },
     home : function(){

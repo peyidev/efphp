@@ -13,6 +13,7 @@
 		<subitem>
 			<subitemName>Roles</subitemName>
 			<subitemLink>?s=rol-admin</subitemLink>
+            <module>rol</module>
 		</subitem>
 		
 	</item>

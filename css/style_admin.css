@@ -8,6 +8,19 @@ body{
 }
 
 
+.title-general{
+
+    font-size:25px;
+    color:#009EDF;
+    width:100%;
+    padding:10px 0;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    text-transform: uppercase !important;
+    border-bottom: 1px dotted #009EDF;
+
+}
+
 .odd{
 	
 	background:#eee !important;
@@ -241,6 +254,13 @@ input{
 	
 }
 
+.message-validation{
+    text-align: center;
+    margin-top: 10px !important;
+    color:red !important;
+
+
+}
 .message-popup{
     text-align: center;
     margin-top: 10px !important;

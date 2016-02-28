@@ -40,7 +40,7 @@ class Administrador{
 
 
 
-    function renderAdmin(){
+    function renderAdmin($title = ""){
 
         $tabla = "";
         $u = $this->util;
@@ -53,6 +53,7 @@ class Administrador{
             if(count($tabla) > 1){
 
                 echo "<div class='admin-generic'>";
+                echo "<h1 class='title-general'>{$title}</h1>";
                 switch($tabla[1]){
 
                     case "admin":
@@ -128,6 +129,8 @@ class Administrador{
 
             $xml=simplexml_load_file(BASE_PATH . ADMINURL . "config/menu.xml");
 
+            $title = "";
+            $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
             $menu = "<ul id='main-menu'>";
 
@@ -143,9 +146,15 @@ class Administrador{
 
                             $menu.="<li class='menu-item'><a href='{$xml->item[$i]->itemLink}' class='menu-item-link'>{$xml->item[$i]->itemName}</a>";
 
+                            if($s == $xml->item[$i]->itemLink)
+                                $title = $xml->item[$i]->itemName;
+
                             if(count($xml->item[$i]->subitem) > 0){
                                 $menu.= "<ul>";
                                 foreach($xml->item[$i]->subitem as $subitem){
+
+                                    if($s == $subitem->subitemLink)
+                                        $title =$subitem->subitemName;
 
                                     $menu .= "<li class='submenu-item'><a href='{$subitem->subitemLink}' class='menu-subitem-link'>" . $subitem->subitemName . "</a></li>";
 
@@ -166,6 +175,8 @@ class Administrador{
 
             $menu .= "</ul>";
             echo $menu;
+
+            return $title;
         }
 
     }
@@ -332,7 +343,7 @@ class Administrador{
 
         $extra = !empty($id) ? "&id={$id}" : "";
 
-        echo "<form action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
+        echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
         $sql = "SHOW FULL COLUMNS FROM {$tabla}";
         $query = $this->db->query($sql);
@@ -363,7 +374,12 @@ class Administrador{
 
 
                 $description = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
+                $validation = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
+                $serviceType = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
+
                 $description = $this->util->transformName($description);
+                $validation = $this->util->getValidationType($validation);
+                $serviceType = $this->util->getServiceType($serviceType);
 
 
                 $flag = true;
@@ -418,15 +434,19 @@ class Administrador{
 
                         echo "<div class='row-abc'>
 	                                 <p class='descripcion'>{$description}</p>
-	                                 <p class='input'><textarea name='{$row['Field']}' class='{$row['Type']}'>{$val}</textarea></p>
+	                                 <p class='input'>
+	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation'>{$val}</textarea>
+	                                 </p>
 	                              </div>";
 
                     }else{
 
                         echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='text' name='{$row['Field']}' class='{$row['Type']}
-                                 $isAjax' value='{$val}' /></p>
+                                 <p class='input'>
+                                     <input type='text' name='{$row['Field']}'
+                                     class='{$row['Type']} $validation $isAjax'  value='{$val}' />
+                                  </p>
                               </div>";
                     }
                 }
