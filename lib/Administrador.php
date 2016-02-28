@@ -217,13 +217,22 @@ class Administrador{
 
         $table = $_GET['table-insert'];
         $u = $this->util;
-        $sql = $u->generarInsert($table,$_POST);
-        //echo $sql;
-        $query = $this->db->query($sql);
+        $canInsert = $u->handleImages($_FILES);
         $message = new Messages();
 
-        if(!$query)
-            $message->setMessage("error:" . "Hubo un error al insertar, verifica tus datos");
+        if($canInsert){
+
+            $sql = $u->generarInsert($table,$_POST);
+            //echo $sql;
+            $query = $this->db->query($sql);
+
+            if(!$query)
+                $message->setMessage("error:" . "Hubo un error al insertar, verifica tus datos");
+
+        }else{
+
+            $message->setMessage("error:" . "Hubo un error al insertar tu imagen, verifícala");
+        }
 
         //$message->setMessage("message:$sql");
         return true;

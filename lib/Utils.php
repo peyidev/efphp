@@ -282,6 +282,31 @@
           return $res;
       }
 
+      function handleImages($data){
+
+          foreach($data as $key => $val){
+
+              $img = explode("img_",$key);
+
+              if(count($img) > 1){
+
+                  $nombre = $this->subirImagen($val,"media/img");
+                  echo $nombre;
+                  echo $key;
+
+                  if(!empty($nombre)){
+                      $_POST[$key] = $nombre;
+                  }else{
+                      return false;
+                  }
+              }
+
+          }
+
+          return true;
+
+      }
+
       function subirImagen($file,$carpeta){
 
 
@@ -298,22 +323,22 @@
               }
               else
               {
-                  /*
-                  echo "Upload: " . $file["name"] . "<br>";
+
+                  /*echo "Upload: " . $file["name"] . "<br>";
                   echo "Type: " . $file["type"] . "<br>";
                   echo "Size: " . ($file["size"] / 1024) . " kB<br>";
-                  echo "Temp file: " . $file["tmp_name"] . "<br>";
-                  */
+                  echo "Temp file: " . $file["tmp_name"] . "<br>";*/
 
-                  $nombre = time() . rand(0,9) . "." . $extension[1];
-                  if (file_exists("../../" . $carpeta . "/" . $nombre ))
+
+                  $nombre = time() . rand(0,9) . "." . $extension[(count($extension) - 1)];
+                  if (file_exists("../" . $carpeta . "/" . $nombre ))
                   {
                       return false;
                   }
                   else
                   {
                       move_uploaded_file($file["tmp_name"],
-                          "../../" . $carpeta . "/" . $nombre );
+                          "../" . $carpeta . "/" . $nombre );
                       return $nombre ;
                   }
               }
