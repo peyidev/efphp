@@ -20,6 +20,7 @@ define('ADMINURL', 'admin/');
 define('DEFAULT_S', 'home.php');
 define('GLOBALURL', 'http://localhost');
 define('LOGO', 'css/img/logo.png');
+define('LOGGING', true);
 
 function __autoload($f) {
 

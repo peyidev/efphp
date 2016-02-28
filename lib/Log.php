@@ -4,6 +4,8 @@
 
         public static function logActivity($interceptorData){
 
+            if(!LOGGING)
+                return false;
 
             $usuario = !empty($_SESSION['id_admin']) ? $_SESSION['id_admin'] : "0";
             $nombre = $interceptorData['header'];
@@ -19,11 +21,8 @@
                     $data = serialize($data);
                 else{
                     $data = "";
-
                 }
-
             }
-
 
 
             $insert = array();
