@@ -20,20 +20,18 @@
 		
 		
 		<?php
-			
+
 			$a = new Administrador();
 
 			$a->controles();
 			$title = $a->menu();
-			
-			include("vistas/" . $u->incluirSeccionAdmin($cuerpo));
-
             $msj = new Messages();
             echo $msj->parseMessage($msj->getMessage());
             $msj->initMessages();
-            $a->renderAdmin($title);
+            if(!$a->renderAdmin($title))
+                include("vistas/" . $u->incluirSeccionAdmin($cuerpo));
 		?>
-		<div id="disclaimer"><?php echo date("Y") . " - ";?> Todos los derechos reservados</div>
+		<div id="disclaimer"><?php echo date("Y") . " - ";?> Powered by efphp</div>
         <script src="../js/jquery.js"></script>
         <script src="../js/jquery-ui.min.js"></script>
         <script src="../js/jquery.ajaxData.js"></script>

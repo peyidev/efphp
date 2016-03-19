@@ -28,7 +28,21 @@
 
                 case "mysql":
 
-                    $con = mysqli_connect($host, $user, $pass, $db);
+                    $con = mysqli_connect($host, $user, $pass);
+
+                    if(!$con->select_db($db)){
+
+                        $sql = "CREATE DATABASE " . $db;
+
+                        if ($con->query($sql))
+                            $con->select_db($db);
+                        else
+                            die("Error creating database: " . $con->error);
+
+                    }else{
+                        $con->select_db($db);
+                    }
+
                     if (!$con) {
                         die('Could not connect to database!');
                     } else {

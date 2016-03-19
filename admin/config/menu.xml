@@ -1,9 +1,28 @@
 <menu>
+    <item>
+        <itemName>CMS</itemName>
+        <itemLink>#</itemLink>
+        <rol>ADMINISTRADOR</rol>
+
+        <subitem>
+            <subitemName>Menú Frontend</subitemName>
+            <subitemLink>?s=menu-admin</subitemLink>
+            <module>menu</module>
+        </subitem>
+
+        <!--subitem>
+            <subitemName>Contenido</subitemName>
+            <subitemLink>?s=rol-admin</subitemLink>
+            <module>rol</module>
+        </subitem-->
+    </item>
+
 	<item>
 		<itemName>Administrador</itemName>
 		<itemLink>?s=home</itemLink>
 		<rol>ADMINISTRADOR</rol>
 		<rol>Vendedor</rol>
+
 		<subitem>
 			<subitemName>Usuarios</subitemName>
 			<subitemLink>?s=admin-admin</subitemLink>
@@ -15,14 +34,15 @@
 			<subitemLink>?s=rol-admin</subitemLink>
             <module>rol</module>
 		</subitem>
-		
 	</item>
 
 
-	<item>
-		<itemName>Establecimientos</itemName>
-		<itemLink>?s=home</itemLink>
-		<rol>ADMINISTRADOR</rol>
+
+
+    <!--item>
+        <itemName>Establecimientos</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
 
         <subitem>
             <subitemName>Sucursales</subitemName>
@@ -66,18 +86,12 @@
             <module>servicio_sucursal</module>
         </subitem>
 
-
-
-
-
         <subitem>
             <subitemName>Zonas</subitemName>
             <subitemLink>?s=zona-admin</subitemLink>
             <module>zona</module>
         </subitem>
 
-	</item>
-
-
+    </item-->
 
 </menu>

@@ -100,14 +100,10 @@
 
       function incluirSeccionAdmin($seccion){
 
-          if(file_exists(BASE_PATH . "/" . ADMINURL .  "/vistas/" . $seccion)){
-
+          if(file_exists(realpath(BASE_PATH . "/" . ADMINURL .  "/vistas/" . $seccion))){
               return $seccion;
-
           }else{
-
               return DEFAULT_S;
-
           }
 
       }

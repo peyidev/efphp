@@ -105,14 +105,14 @@ class Administrador{
 
                 echo "</div>";
             }else{
-
-
-                include("../admin/vistas/home.php");
-
+                return false;
             }
 
-
+        }else{
+            return false;
         }
+
+        return true;
 
 
     }
@@ -186,7 +186,7 @@ class Administrador{
 
             echo $menu;
 
-            if(empty($title)){
+            if(empty($title) && !empty($s)){
                 $title = explode("?s=",$s);
                 $title = explode("-",$title[1]);
                 $title = $title[0];
