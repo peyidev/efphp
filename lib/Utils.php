@@ -140,6 +140,21 @@
 
       }
 
+      function orderBy($query, $columna){
+
+          if(is_array($columna))
+              $columna = implode(",",$columna);
+
+          return $query . " ORDER BY " . $columna;
+      }
+
+      function where($query, $condicion){
+
+          $condicion = $this->limpiar($condicion);
+
+          return $query . " WHERE " . $condicion;
+      }
+
       function ajaxSearch(){
 
           if(empty($_GET['q']))
@@ -196,6 +211,13 @@
           return "UPDATE $tabla set $valores WHERE id='$id'";
 
 
+
+      }
+
+      function select($tabla){
+
+          $tabla = $this->limpiar($tabla);
+          return  "SELECT * FROM {$tabla}";
 
       }
 

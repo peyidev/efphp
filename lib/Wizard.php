@@ -73,6 +73,8 @@
                           `id` int(11) NOT NULL AUTO_INCREMENT,
                           `id_menu` int(11) DEFAULT NULL,
                           `nombre` varchar(255) DEFAULT NULL,
+                          `url` varchar(255) DEFAULT NULL,
+                          `posicion` int(11) DEFAULT NULL,
                           PRIMARY KEY (`id`),
                           KEY `id_men` (`id_menu`),
                           CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id`)
@@ -82,7 +84,7 @@
         }
 
         function createItemMenu(){
-            $sql = "INSERT INTO menu VALUES(null,null,'Main_Category')";
+            $sql = "INSERT INTO menu VALUES(null,null,'Main_Category','#',1)";
             $this->db->query($sql);
         }
 
