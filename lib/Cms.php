@@ -5,11 +5,13 @@ class Cms
 
     public $db;
     public $util;
+    public $dbo;
 
     function __construct()
     {
 
         $this->db = Database::connect();
+        $this->dbo = new Dbo();
         $this->util = new Utils();
 
     }
@@ -22,9 +24,7 @@ class Cms
 
     function generateMenu(){
 
-        $sql = $this->util->select("menu");
-        $order = ['id_menu','posicion'];
-        $sql = $this->util->orderBy($sql,$order);
+        $sql = $this->dbo->select("menu","","*","id_menu,posicion");
         $query = $this->db->query($sql);
 
         $data = array();
@@ -32,12 +32,10 @@ class Cms
             $data[$row['id']] = $row;
         }
 
-        $sql = $this->util->select("menu");
-        $sql = $this->util->where($sql,"id_menu IS NULL");
+        $sql = $this->dbo->select("menu","id_menu IS NULL");
         $query = $this->db->query($sql);
         $row = $query->fetch_array(MYSQL_ASSOC);
         $idParent = $row['id'];
-
 
         echo $this->olLiTree($this->makeRecursive($data,$idParent));
 

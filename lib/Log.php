@@ -31,8 +31,8 @@
             $insert['metodo'] = $metodo;
             $insert['data'] = $data;
 
-            $util = new Utils();
-            $sql = $util->generarInsert("log",$insert);
+            $dbo = new Dbo();
+            $sql = $dbo->insert("log",$insert);
             $db = Database::connect();
 
             try{

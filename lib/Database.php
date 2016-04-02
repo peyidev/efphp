@@ -7,8 +7,14 @@
         private static $pass = DB_PASSWORD;
         private static $db = DATABASE;
         private static $myconn;
+        public $util;
 
-	    public static function connect($type = "mysql") {
+        function __construct(){
+            $this->util = new Utils();
+        }
+
+
+        public static function connect($type = "mysql") {
 
             $host = self::$host;
             $user = self::$user;
@@ -61,6 +67,5 @@
 	    }
 
 
-
-	}
+    }
 

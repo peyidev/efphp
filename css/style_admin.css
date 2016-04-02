@@ -109,6 +109,7 @@ body{
 	margin-right:20px;
 	border:1px dotted #444;
 	border-radius:5px;
+    overflow: hidden;
 }
 
 .admin-generic{
@@ -121,6 +122,7 @@ body{
 	border-radius:5px;
 	margin-top:100px;
     display: table;
+    position: relative;
 }
 
 .row-abc{
@@ -423,4 +425,46 @@ pre.detail-list-item-val{
 
     color:#27AAE1;
 
+}
+
+.admin-only-left{
+
+    width:1px;
+    padding-left:0px;
+    padding-right:0px;
+    border:0px dotted #444;
+    visibility: hidden;
+    margin:0;
+}
+
+.admin-only-right{
+    width:1075px;
+}
+
+.add-new-record{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    color:#27AAE1;
+    font-size: 15px;
+    background: url("../css/img/add.png") no-repeat top right;
+    line-height:18px;
+    padding-right: 24px;
+    cursor:pointer;
+}
+
+
+.admin-left-column{
+    transition: width .5s linear,
+                padding .5s linear,
+                 height 3s linear,
+                 border .5s linear,
+                 visibility .5s linear,
+                 margin .5s linear;
+}
+
+.admin-right-column{
+    transition: width .5s;
+    transition-timing-function: linear;
+    float: right;
 }

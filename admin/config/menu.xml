@@ -10,6 +10,12 @@
             <module>menu</module>
         </subitem>
 
+        <subitem>
+            <subitemName>Test</subitemName>
+            <subitemLink>?s=test-admin</subitemLink>
+            <module>test</module>
+        </subitem>
+
         <!--subitem>
             <subitemName>Contenido</subitemName>
             <subitemLink>?s=rol-admin</subitemLink>

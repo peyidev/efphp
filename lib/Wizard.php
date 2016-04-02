@@ -3,19 +3,22 @@
     class Wizard{
 
         public $db;
+        public $dbo;
         public $util;
 
         function __construct(){
 
             $this->db = Database::connect();
+            $this->dbo = new Dbo();
             $this->util = new Utils();
 
         }
 
         function init(){
 
-            if(!$this->util->tableExist('admin')){
+            if(!$this->dbo->tableExist('admin')){
 
+                $this->createLogTable();
                 $this->createRolTable();
                 $this->createAdminTable();
                 $this->createBasicUsers();
@@ -35,6 +38,20 @@
 
             $sql = "INSERT INTO admin VALUES(null,'admin@efphp.com','{$psw}',{$id},'Administrador')";
             $this->db->query($sql);
+
+        }
+
+        function createLogTable(){
+            $table = "CREATE TABLE `log` (
+                          `id` int(11) NOT NULL AUTO_INCREMENT,
+                          `id_admin` int(11) DEFAULT NULL,
+                          `nombre` varchar(255) DEFAULT NULL,
+                          `metodo` varchar(255) DEFAULT NULL,
+                          `data` text,
+                          `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                          PRIMARY KEY (`id`)
+                        ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8";
+            $this->createTable($table);
 
         }
 

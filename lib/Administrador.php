@@ -4,11 +4,13 @@ class Administrador{
 
     public $db;
     public $util;
+    public $dbo;
 
     function __construct(){
 
         $this->db = Database::connect();
         $this->util = new Utils();
+        $this->dbo = new Dbo();
 
     }
 
@@ -18,8 +20,12 @@ class Administrador{
         $usr = $u->limpiarParams($_REQUEST['usr']);
         $psw = $u->limpiarParams($_REQUEST['psw']);
         $psw = md5($psw);
-        $sql = "SELECT a.*, r.nombre as rolNombre FROM admin a, rol r WHERE email = '$usr' AND password = '$psw'
-					AND a.id_rol = r.id";
+
+        $sql = $this->dbo
+            ->select("admin a, rol r",
+                     "email = '{$usr}' AND password = '{$psw}' AND  a.id_rol = r.id",
+                     "a.*,r.nombre as rolNombre" );
+
         $query = $this->db->query($sql);
         $row = $query->fetch_array(MYSQL_ASSOC);
 
@@ -38,8 +44,6 @@ class Administrador{
 
     }
 
-
-
     function renderAdmin($title = ""){
 
         $tabla = "";
@@ -57,11 +61,12 @@ class Administrador{
                 switch($tabla[1]){
 
                     case "admin":
-                        echo "<div class='admin-left-column'>";
+                        echo "<div class='add-new-record'>Insertar nuevo registro</div>";
+                        echo "<div class='admin-left-column admin-only-left'>";
                         $this->createAdminTable($tabla[0]);
                         echo "</div>";
 
-                        echo "<div class='admin-right-column'>";
+                        echo "<div class='admin-right-column admin-only-right'>";
                         $this->createGrid($tabla[0]);
                         echo "</div>";
                         break;
@@ -69,6 +74,7 @@ class Administrador{
                     case "update":
 
                         $id = $_GET['id'];
+                        echo "<div class='add-new-record'>Insertar nuevo registro</div>";
                         echo "<div class='admin-left-column'>";
                         $this->createUpdateForm($tabla[0],$id);
                         echo "</div>";
@@ -203,9 +209,10 @@ class Administrador{
     function deleteRow(){
 
         $u = $this->util;
+        $dbo = $this->dbo;
         $table = $_GET['table'];
         $id = $_GET['id'];
-        $sql = $u->generarDelete($table, $id);
+        $sql = $dbo->delete($table, $id);
 
         $query = $this->db->query($sql);
         $message = new Messages();
@@ -222,8 +229,8 @@ class Administrador{
 
         $table = $_GET['table-insert'];
         $id = $_GET['id'];
-        $u = $this->util;
-        $sql = $u->generarUpdate($table,$_POST,$id);
+        $dbo = $this->dbo;
+        $sql = $dbo->update($table,$_POST,$id);
         //echo $sql;
         $query = $this->db->query($sql);
         $message = new Messages();
@@ -236,12 +243,13 @@ class Administrador{
 
         $table = $_GET['table-insert'];
         $u = $this->util;
+        $dbo = $this->dbo;
         $canInsert = $u->handleImages($_FILES);
         $message = new Messages();
 
         if($canInsert){
 
-            $sql = $u->generarInsert($table,$_POST);
+            $sql = $dbo->insert($table,$_POST);
             //echo $sql;
             $query = $this->db->query($sql);
 
@@ -260,7 +268,7 @@ class Administrador{
 
     function createDetail($tabla,$id){
 
-        $sql =  $this->util->generarSelect($tabla,$id);
+        $sql =  $this->dbo->selectAutoJoin($tabla,$id);
         $query = $this->db->query($sql);
         $columns = array();
         $row = $query->fetch_array(MYSQL_ASSOC);
@@ -300,7 +308,7 @@ class Administrador{
 
     function createGrid($tabla,$report = false){
 
-        $sql = "SELECT * FROM {$tabla}";
+        $sql = $this->dbo->select($tabla);
         $query = $this->db->query($sql);
         $columns = "";
         $tbody = "";
@@ -315,7 +323,7 @@ class Administrador{
             $controles .= "<th>Editar</th><th>Eliminar</th>";
         }
 
-        $sqlRow = "SHOW FULL COLUMNS FROM {$tabla}";
+        $sqlRow = $this->dbo->getColumns($tabla);
         $queryRow = $this->db->query($sqlRow);
 
         while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
@@ -354,9 +362,9 @@ class Administrador{
 
                     if(count($foreign) > 1) {
 
-                        if ($this->util->tableExist($foreign[1])) {
+                        if ($this->dbo->tableExist($foreign[1])) {
 
-                            $sqlForeign = "SELECT * FROM {$foreign[1]} WHERE id = '{$val}'";
+                            $sqlForeign = $this->dbo->select($foreign[1],"id = '{$val}'");
                             $queryForeign = $this->db->query($sqlForeign);
 
                             while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
@@ -412,11 +420,11 @@ class Administrador{
 
         echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
-        $sql = "SHOW FULL COLUMNS FROM {$tabla}";
+        $sql = $this->dbo->getColumns($tabla);
         $query = $this->db->query($sql);
 
         if($type == "update"){
-            $sqlInfo = "SELECT * FROM {$tabla} WHERE id='{$id}'";
+            $sqlInfo = $this->dbo->select($tabla,"id='{$id}'");
             $infoQuery = $this->db->query($sqlInfo);
             $info = $infoQuery->fetch_array(MYSQL_ASSOC);
         }
@@ -453,9 +461,9 @@ class Administrador{
 
                 if(count($foreign) > 1){
 
-                    if($this->util->tableExist($foreign[1])){
+                    if($this->dbo->tableExist($foreign[1])){
 
-                        $sqlForeign = "SELECT * FROM {$foreign[1]}";
+                        $sqlForeign = $this->dbo->select($foreign[1]);
                         $queryForeign = $this->db->query($sqlForeign);
                         $combo = "";
 
