@@ -48,7 +48,10 @@ class Administrador{
                     case "update":
 
                         $id = $_GET['id'];
-                        echo "<div class='add-new-record'>Insertar nuevo registro</div>";
+                        echo "<div class='add-new-record-update'>
+                                <a href='?s={$tabla[0]}-admin'>Regresar</a>
+                              </div>";
+
                         echo "<div class='admin-left-column'>";
                         $this->createUpdateForm($tabla[0],$id);
                         echo "</div>";
@@ -649,7 +652,7 @@ class Administrador{
             'dt' => $cont,
             'formatter' =>
                 function( $d, $row, $table ) {
-                    return "<a href='?s={$table}-update&id={$d}'><img src='../css/img/editar.png' /></a>";
+                    return "<a href='?s={$table}-update&id={$d}' class='center-data'><img src='../css/img/editar.png' /></a>";
                 }
         );
 
@@ -658,7 +661,7 @@ class Administrador{
             'dt' => ++$cont,
             'formatter' =>
                 function( $d, $row, $table ) {
-                    return "<a href='?s={$table}&id={$d}' class='delete-admin'><img src='../css/img/eliminar.png' /></a>";
+                    return "<a href='?s={$table}&id={$d}' class='delete-admin center-data'><img src='../css/img/eliminar.png' /></a>";
                 }
         );
 

@@ -441,7 +441,11 @@ pre.detail-list-item-val{
     width:1075px;
 }
 
-.add-new-record{
+.add-new-record-update a{
+    text-decoration: none;
+    color:#27AAE1;
+}
+.add-new-record,.add-new-record-update{
     position: absolute;
     right: 20px;
     top: 15px;
@@ -453,7 +457,9 @@ pre.detail-list-item-val{
     cursor:pointer;
 }
 
-
+.add-new-record-update{
+    background: url("../css/img/return.png") no-repeat top right;
+}
 .admin-left-column{
     transition: width .5s linear,
                 padding .5s linear,
@@ -472,5 +478,14 @@ pre.detail-list-item-val{
 .login-name{
 
     color:#27AAE1;
+
+}
+
+.center-data{
+
+    text-align: center;
+    width:50px !important;
+    display: block;
+    margin:0 auto;
 
 }
