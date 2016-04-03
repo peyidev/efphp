@@ -144,8 +144,8 @@
               if(count($img) > 1){
 
                   $nombre = $this->subirImagen($val,"media/img");
-                  echo $nombre;
-                  echo $key;
+//                  echo $nombre;
+//                  echo $key;
 
                   if(!empty($nombre)){
                       $_POST[$key] = $nombre;

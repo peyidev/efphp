@@ -8,8 +8,13 @@ var vistas = {
 
         $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
+        //ephp/lib/Execute.php?e=Administrador/createAjaxTable
+        var table = $('.title-general').attr('id');
 		$(".table-admin").DataTable({
-            "order": [[ 0, "desc" ]]
+            "order": [[ 0, "desc" ]],
+            "processing": true,
+            "serverSide": true,
+            "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + table)
         });
 
         $('.ajax-search').keyup(function(){
@@ -76,7 +81,7 @@ var vistas = {
 
         });
 
-		$(".delete-admin").click(function(e){
+		$(".table-admin").on('click','.delete-admin',function(e){
 			
 			e.preventDefault();
 			var id = $(this).attr("href");

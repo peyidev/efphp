@@ -10,7 +10,11 @@
             $usuario = !empty($_SESSION['id_admin']) ? $_SESSION['id_admin'] : "0";
             $nombre = $interceptorData['header'];
             $metodo = $interceptorData['method'];
-            $data = !empty($_POST) ? $_POST : null;
+
+            if (preg_match("/ajax/i", $metodo) && !empty($usuario))
+                return false;
+
+                $data = !empty($_POST) ? $_POST : null;
 
             if(!empty($data))
                 $data = serialize($data);

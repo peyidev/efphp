@@ -14,36 +14,6 @@ class Administrador{
 
     }
 
-    function loginAdmin(){
-
-        $u = $this->util;
-        $usr = $u->limpiarParams($_REQUEST['usr']);
-        $psw = $u->limpiarParams($_REQUEST['psw']);
-        $psw = md5($psw);
-
-        $sql = $this->dbo
-            ->select("admin a, rol r",
-                     "email = '{$usr}' AND password = '{$psw}' AND  a.id_rol = r.id",
-                     "a.*,r.nombre as rolNombre" );
-
-        $query = $this->db->query($sql);
-        $row = $query->fetch_array(MYSQL_ASSOC);
-
-        if(!empty($row)){
-
-            $_SESSION["id_admin"] = $row['id'];
-            $_SESSION["nombre"] = $row['nombre'];
-            $_SESSION["rol"] = $row['rolNombre'];
-
-        }else{
-
-            $message = new Messages();
-            $message->setMessage("error:Error de usuario y/o contraseña");
-
-        }
-
-    }
-
     function renderAdmin($title = ""){
 
         $tabla = "";
@@ -54,10 +24,13 @@ class Administrador{
             $tabla = $_GET['s'];
             $tabla = explode("-", $tabla);
 
+            if(!$this->dbo->tableExist($tabla[0]))
+                return false;
+
             if(count($tabla) > 1){
 
                 echo "<div class='admin-generic'>";
-                echo "<h1 class='title-general'>{$title}</h1>";
+                echo "<h1 class='title-general' id='{$tabla[0]}'>{$title}</h1>";
                 switch($tabla[1]){
 
                     case "admin":
@@ -67,7 +40,8 @@ class Administrador{
                         echo "</div>";
 
                         echo "<div class='admin-right-column admin-only-right'>";
-                        $this->createGrid($tabla[0]);
+                        //$this->createGrid($tabla[0]);
+                        $this->createGridBase($tabla[0]);
                         echo "</div>";
                         break;
 
@@ -80,7 +54,7 @@ class Administrador{
                         echo "</div>";
 
                         echo "<div class='admin-right-column'>";
-                        $this->createGrid($tabla[0]);
+                        $this->createGridBase($tabla[0]);
                         echo "</div>";
 
                         break;
@@ -130,7 +104,7 @@ class Administrador{
             echo "
                 <div id='logo'><img src='../{$logo}' alt='' /></div>
                 <div id='general-controls'>
-					<p>Bienvenido:" . $_SESSION['nombre'] . "</p>
+					<p class='login-name'>" . $_SESSION['nombre'] . "</p>
 					<a href='../lib/Execute.php?e=User/logout&back=1'>Salir</a>
 				</div>";
 
@@ -414,6 +388,56 @@ class Administrador{
 
     }
 
+    function createGridBase($tabla,$report = false){
+
+        $sql = $this->dbo->select($tabla,"","*","","1");
+        $query = $this->db->query($sql);
+        $columns = "";
+        $tbody = "";
+        $thead = "";
+        $flag = true;
+        $controles = "";
+
+
+        if($report){
+            $controles .= "<th>Consultar</th>";
+        }else{
+            $controles .= "<th>Editar</th><th>Eliminar</th>";
+        }
+
+        $sqlRow = $this->dbo->getColumns($tabla);
+        $queryRow = $this->db->query($sqlRow);
+
+        while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
+            $columns[] = $rowRow;
+        }
+
+        while($row = $query->fetch_array(MYSQL_ASSOC)){
+
+            $tbody .= "<tr>";
+
+            for($i = 0; $i < count($columns); $i++){
+
+                if($columns[$i]["Field"] == "password")
+                    continue;
+
+                if($flag){
+                    $thead .= "<th>" . $columns[$i]["Field"] . "</th>";
+                }
+
+            }
+
+            $flag = false;
+
+        }
+
+        echo "<table class='table-admin'>
+					<thead><tr>{$thead}{$controles}</tr></thead>
+					<tfoot><tr>{$thead}{$controles}</tr></tfoot>
+				</table>";
+
+    }
+
     function createGenericForm($tabla, $id = null, $type = "insert"){
 
         $extra = !empty($id) ? "&id={$id}" : "";
@@ -558,8 +582,89 @@ class Administrador{
 
     }
 
-    function insertRegister(){
+    function createAjaxTable($table){
+
+        $primaryKey = 'id';
+        $sqlRow = $this->dbo->getColumns($table);
+        $queryRow = $this->db->query($sqlRow);
+
+        while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
+            $c[] = $rowRow;
+        }
+
+        $columns = array();
+
+        $cont = 0;
+
+        for($i = 0; $i < count($c); $i++){
+
+            if($c[$i]["Field"] == "password")
+                continue;
+
+            if($c[$i]["Field"] == "id"){
+
+                $columns[] = array(
+                    'db' => 'id',
+                    'dt' => $cont,
+                    'formatter' =>
+                        function( $d, $row, $table ) {
+                            return "<a href='?s={$table}-detail&id={$d}' class='detail-report'>" . $d . "</a>";
+                        }
+                );
+                $cont++;
+            }else{
+
+                $columns[] = array(
+                    'db' => $c[$i]["Field"],
+                    'dt' => $cont,
+                    'formatter' =>
+                        function( $d, $row, $table, $field ) {
+
+                            $field = str_replace('_ajax','',$field);
+                            $foreign = explode("id_",$field);
+
+                            if(count($foreign) > 1) {
+
+                                $db = Database::connect();
+                                $dbo = new Dbo();
+                                if ($dbo->tableExist($foreign[1])) {
+
+                                    $sqlForeign = $dbo->select($foreign[1],"id = '{$d}'");
+                                    $queryForeign = $db->query($sqlForeign);
+
+                                    while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                        $d = $rowForeign['nombre'];
+                                    }
+                                }
+                            }
+                            return $d;
+                        }
+                );
+                $cont++;
+            }
+        }
+
+        $columns[] = array(
+            'db' => 'id',
+            'dt' => $cont,
+            'formatter' =>
+                function( $d, $row, $table ) {
+                    return "<a href='?s={$table}-update&id={$d}'><img src='../css/img/editar.png' /></a>";
+                }
+        );
+
+        $columns[] = array(
+            'db' => 'id',
+            'dt' => ++$cont,
+            'formatter' =>
+                function( $d, $row, $table ) {
+                    return "<a href='?s={$table}&id={$d}' class='delete-admin'><img src='../css/img/eliminar.png' /></a>";
+                }
+        );
+
+
+
+        echo json_encode(Servertable::simple($_GET, $table, $primaryKey, $columns));
 
     }
-
 }
