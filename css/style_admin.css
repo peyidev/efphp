@@ -1,11 +1,33 @@
+*{
+    margin:0;
+}
+html, body {
+    height: 100%;
+}
+
 body{
 	
 	background-color:#13171B;
 	color:#777;
 	font-family:Arial;
 	font-size:11px;
-	
+
 }
+
+.page-wrap {
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -30px;
+}
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+.site-footer, .page-wrap:after {
+    height: 20px;
+    padding-top:10px;
+}
+
 
 
 .title-general{
@@ -73,7 +95,7 @@ body{
 
 #logo img{
 
-    width:150px;
+    width:100px;
 
 }
 
@@ -119,8 +141,8 @@ body{
 	min-height:490px;
 	background:rgba(80,80,80,0.5);
 	padding:20px;
-	border-radius:5px;
-	margin-top:100px;
+	border-radius:5px 0 5px 5px;
+	margin-top:70px;
     display: table;
     position: relative;
 }
@@ -176,9 +198,9 @@ input{
 	
     height: 40px;
     left: 50%;
-    margin-left: -555px;
+    margin-left: -548px;
     position: absolute;
-    top: 71px;
+    top: 40px;
     width: 1120px;
     z-index: 1;
 	
@@ -245,11 +267,11 @@ input{
 
 #disclaimer{
 	
-	width:90%;
+	width:100%;
 	text-align:center;
 	font-size:10px;
 	margin:0 auto;
-	margin-top:10px;
+    color:#495969;
 
 }
 
@@ -265,18 +287,23 @@ input{
 	width:200px;
 	position:absolute;
 	right:50%;
-	margin-right:-550px;
+	margin-right:-569px;
 	text-align:right;
-	top:30px;
+	top:16px;
 }
 
 #general-controls a{
 	
     color: white;
     float: right;
-    margin-top: 8px;
     text-decoration: none;
-	
+	margin-left: 5px;
+}
+
+.login-name-span{
+
+    color:white;
+
 }
 
 .message-validation{
@@ -488,4 +515,41 @@ pre.detail-list-item-val{
     display: block;
     margin:0 auto;
 
+}
+
+header{
+    float: left;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+
+
+.hexagon {
+    position: relative;
+    width: 100px;
+    height: 57.74px;
+    background-color: #27AAE1;
+    margin: 28.87px 0;
+}
+
+.hexagon:before,
+.hexagon:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+}
+
+.hexagon:before {
+    bottom: 100%;
+    border-bottom: 28.87px solid #27AAE1;
+}
+
+.hexagon:after {
+    top: 100%;
+    width: 0;
+    border-top: 28.87px solid #27AAE1;
 }

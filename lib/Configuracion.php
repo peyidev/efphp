@@ -10,7 +10,7 @@ $domain = $port . $_SERVER['SERVER_NAME'];
 define('BASE_PATH', $path);
 
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'demodb');
+define('DATABASE', 'medios');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 

@@ -132,6 +132,19 @@ var vistas = {
         /*Función default*/
 
 
+    },
+    login : function(){
+
+        $('document').ready(function(){
+
+            $('#submit-login').click(function(e){
+
+                e.preventDefault();
+                $('#login-form').submit();
+
+            });
+
+        });
     }
 
 };

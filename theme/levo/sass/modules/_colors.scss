@@ -1,0 +1,34 @@
+$background-color:#f6f6f6;
+$dark:#444;
+$grey:#e5e5e5;
+$dark-grey:#9a9a9a;
+$skyblue:#27AAE1;
+$skyblue-light:#66cccc;
+$anzac:#e09c4b;
+$green:#55c69e;
+$red:#f35958;
+$violet:#989cff;
+$orange:#ff9c4b;
+
+$colors: dark #444, grey #e5e5e5, dark-grey #9a9a9a, skyblue #27AAE1, skyblue-light #66cccc, anzac #e09c4b, green #55c69e, red #f35958, violet #989cff, orange #ff9c4b;
+
+@each $sel in $colors {
+    .color--#{nth($sel, 1)} {
+      color: nth($sel, 2) !important;
+    }
+    .bg--#{nth($sel, 1)} {
+      background-color: nth($sel, 2);
+    }
+    .badge--#{nth($sel, 1)} {
+      background-color: nth($sel, 2);
+    }
+    .btn-#{nth($sel, 1)} {
+    	background-color: nth($sel, 2);
+    	&:hover{
+    		background-color: lighten(nth($sel, 2),10);
+    	}
+        &:focus, &:active{
+            background-color: darken(nth($sel, 2),10);
+        }
+    }
+}

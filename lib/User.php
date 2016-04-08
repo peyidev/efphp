@@ -38,11 +38,13 @@
                 $_SESSION["id_admin"] = $row['id'];
                 $_SESSION["nombre"] = $row['nombre'];
                 $_SESSION["rol"] = $row['rolNombre'];
+                header("Location: ../admin/index.php");
 
             }else{
 
                 $message = new Messages();
                 $message->setMessage("error:Error de usuario y/o contraseña");
+                header("Location: ../admin/login.php");
 
             }
 

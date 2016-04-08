@@ -1,13 +1,42 @@
 <menu>
+
+	<item>
+		<itemName>Administrador</itemName>
+		<itemLink>?s=home</itemLink>
+		<rol>ADMINISTRADOR</rol>
+		<rol>Vendedor</rol>
+        <icon>pe-7s-config</icon>
+
+
+        <subitem>
+			<subitemName>Usuarios</subitemName>
+			<subitemLink>?s=admin-admin</subitemLink>
+			<module>admin</module>
+            <icon>pe-7s-users</icon>
+
+        </subitem>
+		
+		<subitem>
+			<subitemName>Roles</subitemName>
+			<subitemLink>?s=rol-admin</subitemLink>
+            <module>rol</module>
+            <icon>pe-7s-id</icon>
+
+        </subitem>
+	</item>
+
     <item>
         <itemName>CMS</itemName>
         <itemLink>#</itemLink>
         <rol>ADMINISTRADOR</rol>
+        <icon>pe-7s-display1</icon>
+
 
         <subitem>
             <subitemName>Menú Frontend</subitemName>
             <subitemLink>?s=menu-admin</subitemLink>
             <module>menu</module>
+            <icon>pe-7s-home</icon>
         </subitem>
 
         <subitem>
@@ -23,32 +52,14 @@
         </subitem-->
     </item>
 
-	<item>
-		<itemName>Administrador</itemName>
-		<itemLink>?s=home</itemLink>
-		<rol>ADMINISTRADOR</rol>
-		<rol>Vendedor</rol>
-
-		<subitem>
-			<subitemName>Usuarios</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
-			<module>admin</module>
-		</subitem>
-		
-		<subitem>
-			<subitemName>Roles</subitemName>
-			<subitemLink>?s=rol-admin</subitemLink>
-            <module>rol</module>
-		</subitem>
-	</item>
 
 
-
-
-    <!--item>
+    <item>
         <itemName>Establecimientos</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
+        <icon>pe-7s-angle-right-circle</icon>
+
 
         <subitem>
             <subitemName>Sucursales</subitemName>
@@ -98,6 +109,6 @@
             <module>zona</module>
         </subitem>
 
-    </item-->
+    </item>
 
 </menu>

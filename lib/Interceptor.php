@@ -21,7 +21,7 @@
 
 			}
 			
-			include("template.php");
+			include("template2.php");
 
 		}
 		

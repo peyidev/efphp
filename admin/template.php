@@ -12,19 +12,20 @@
         <link rel="stylesheet" href="../css/jquery-ui.css?v=1.0">
 	</head>
 	<body>
-		<?php
+        <div class="page-wrap">
+            <?php
 
-			$a = new Administrador();
-			$a->controles();
-			$title = $a->menu();
-            $msj = new Messages();
-            echo $msj->parseMessage($msj->getMessage());
-            $msj->initMessages();
-            if(!$a->renderAdmin($title))
-                include("vistas/" . $u->incluirSeccionAdmin($cuerpo));
-		?>
-
-		<div id="disclaimer"><?php echo date("Y") . " - ";?> Powered by efphp</div>
+                $a = new Administrador();
+                $a->controles();
+                $title = $a->menu();
+                $msj = new Messages();
+                echo $msj->parseMessage($msj->getMessage());
+                $msj->initMessages();
+                if(!$a->renderAdmin($title))
+                    include("vistas/" . $u->incluirSeccionAdmin($cuerpo));
+            ?>
+        </div>
+		<footer id="disclaimer" class="site-footer"><span><?php echo date("Y") . " - ";?> Powered by efphp</span></footer>
         <script src="../js/jquery.js"></script>
         <script src="../js/jquery-ui.min.js"></script>
         <script src="../js/jquery.ajaxData.js"></script>

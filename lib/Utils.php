@@ -1,5 +1,19 @@
 <?php
-  
+
+/**
+ * Utils
+ *
+ * Utilidades generales con usos múltiples para frontend y backend
+ * Manejo de mensajes ajax
+ * Algunas funcionalidades de seguridad y limpieza de parámetros
+ * Manejo de imágenes
+ *
+ * @author Pedro Laris
+ * @author http://efphp.com/
+ *
+ * @package Utils
+ */
+
   class Utils{
 
       protected $db;
@@ -84,7 +98,7 @@
 
           if(empty($_SESSION['id_admin']) && $_GET['s'] != "login"){
 
-              header("Location: ../admin/index.php?s=login");
+              header("Location: ../admin/login.php");
 
           }else if(!empty($_SESSION['id_admin']) && !empty($_GET['s']) && $_GET['s'] == "login"){
 
@@ -204,5 +218,3 @@
       }
 
   }
-
-

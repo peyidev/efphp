@@ -1,0 +1,94 @@
+#logo-admin-block img{
+
+    width:120px;
+
+}
+
+
+#logo img{
+
+    margin-left: 45px;
+    margin-top: 9px;
+    width: 110px;
+
+}
+
+.odd{
+
+    background:#eee !important;
+
+}
+
+.alert{
+
+    margin-bottom: 0px !important;
+    position:fixed;
+    z-index: 100;
+
+}
+
+.title-general{
+
+    visibility: hidden;
+    
+}
+
+
+.table-admin{
+
+    font-size: 10px;
+
+}
+
+.widget__table{
+
+    overflow-x: auto;
+
+}
+
+.admin-left-column{
+
+    display: inline;
+}
+
+.admin-only-left{
+
+    display: none;
+
+}
+
+.dataTables_wrapper{
+
+    width:98%;
+    margin:0 auto;
+
+}
+
+.dataTables_length,.dataTables_filter,.paginate_button,.dataTables_info{
+
+    font-size: 10px;
+    margin-bottom: 10px;
+
+}
+
+.center-data{
+
+    text-align: center;
+    width:50px !important;
+    display: block;
+    margin:0 auto;
+
+}
+
+
+.table-admin{
+
+    margin-top: 20px !important;
+
+}
+.table-admin thead th{
+
+    text-align: center;
+    /*line-height: 5px !important;*/
+
+}

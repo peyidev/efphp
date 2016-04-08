@@ -1,10 +1,40 @@
 <?php
 
+/**
+ * Administrador
+ *
+ * Manejo general de backend
+ *
+ * Render de todas las acciones genéricas de backend
+ *
+ * @author Pedro Laris
+ * @author http://efphp.com/
+ *
+ * @package Administrador
+ */
+
 class Administrador{
 
-    public $db;
-    public $util;
-    public $dbo;
+    /**
+     * objecto con la conexión a DB
+     * @var Database base de datos
+     * @access protected
+     */
+    protected $db;
+
+    /**
+     * objeto con acceso a utilidades múltiples
+     * @var Util utilidades
+     * @access protected
+     */
+    protected $util;
+
+    /**
+     * objeto para traducción a SQL
+     * @var Dbo databaseobject
+     * @access protected
+     */
+    protected $dbo;
 
     function __construct(){
 
@@ -14,6 +44,12 @@ class Administrador{
 
     }
 
+    /**
+     * Render del administrador, columna izquierda, derecha o custom
+     *
+     * @param string $title título de la página
+     * @return boolean false si no se puede imprimir
+     */
     function renderAdmin($title = ""){
 
         $tabla = "";
@@ -34,7 +70,7 @@ class Administrador{
                 switch($tabla[1]){
 
                     case "admin":
-                        echo "<div class='add-new-record'>Insertar nuevo registro</div>";
+                        echo "<!--div class='add-new-record'>Insertar nuevo registro</div-->";
                         echo "<div class='admin-left-column admin-only-left'>";
                         $this->createAdminTable($tabla[0]);
                         echo "</div>";
@@ -100,6 +136,41 @@ class Administrador{
 
     }
 
+    function logo(){
+        if(!empty($_SESSION['id_admin'])){
+            $logo = LOGO;
+            echo "<div class='main-logo' id='logo'><img src='../{$logo}' alt='' /></div>";
+        }
+
+    }
+
+    /**
+     * Imprime los controles de logout y bienvenida
+     *
+     */
+    function welcome(){
+
+        if(!empty($_SESSION['id_admin'])){
+            $logo = LOGO;
+            echo "<span class='profile__name' id='general-controls'>
+                            Logged as: <span class='login-name-span'>" . $_SESSION['nombre'] . "</span>
+                     <i class='pe-7s-angle-down'></i> </span>
+				";
+
+        }
+
+    }
+
+    function logoutControl(){
+
+
+        if(!empty($_SESSION['id_admin'])){
+            $logo = LOGO;
+            echo "<a href='../lib/Execute.php?e=User/logout&back=1'>Salir</a>";
+
+        }
+    }
+
     function controles(){
 
         if(!empty($_SESSION['id_admin'])){
@@ -115,6 +186,13 @@ class Administrador{
 
     }
 
+
+    /**
+     * Imprime el menú de backend utilizando la configuración
+     * en /admin/config/menu.xml
+     *
+     * @return string $title título de la página
+     */
     function menu(){
 
         if(!empty($_SESSION['id_admin'])){
@@ -124,7 +202,7 @@ class Administrador{
             $title = "";
             $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
-            $menu = "<ul id='main-menu'>";
+            $menu = "<ul class='main-nav' id='main-menu'>";
 
             for($i = 0; $i < count($xml->item); $i++){
 
@@ -136,13 +214,14 @@ class Administrador{
 
                         if($rol == $_SESSION["rol"]){
 
-                            $menu.="<li class='menu-item'><a href='{$xml->item[$i]->itemLink}' class='menu-item-link'>{$xml->item[$i]->itemName}</a>";
+
 
                             if($s == $xml->item[$i]->itemLink)
                                 $title = $xml->item[$i]->itemName;
 
                             if(count($xml->item[$i]->subitem) > 0){
-                                $menu.= "<ul>";
+                                $menu.="<li class='menu-item main-nav--collapsible'><a href='{$xml->item[$i]->itemLink}' class='menu-item-link main-nav__link'><span class='main-nav__icon'><i class='icon {$xml->item[$i]->icon}'></i></span>{$xml->item[$i]->itemName}</a>";
+                                $menu.= "<ul class='main-nav__submenu'>";
                                 foreach($xml->item[$i]->subitem as $subitem){
 
                                     if($s == $subitem->subitemLink)
@@ -152,6 +231,10 @@ class Administrador{
 
                                 }
                                 $menu.= "</ul>";
+                            }else{
+
+                                $menu.="<li class='menu-item'><a href='{$xml->item[$i]->itemLink}' class='menu-item-link main-nav__link'>{$xml->item[$i]->itemName}</a>";
+
                             }
 
 
@@ -183,6 +266,11 @@ class Administrador{
 
     }
 
+
+    /**
+     * Controlador que elimina el registro deseado de cualquier tabla
+     *
+     */
     function deleteRow(){
 
         $u = $this->util;
@@ -202,6 +290,11 @@ class Administrador{
         echo $u->mensajeJSON("1");
     }
 
+
+    /**
+     * Controlador que actualiza el registro deseado
+     * @return boolean true siempre y se muestra en pantalla el mensaje de respuesta
+     */
     function updateRow(){
 
         $table = $_GET['table-insert'];
@@ -216,6 +309,11 @@ class Administrador{
 
     }
 
+
+    /**
+     * Controlador que inserta el registro deseado
+     * @return boolean true siempre y se muestra en pantalla el mensaje de respuesta
+     */
     function insertRow(){
 
         $table = $_GET['table-insert'];
@@ -243,6 +341,11 @@ class Administrador{
 
     }
 
+
+    /**
+     * Imprime el detalle de cualquier registro seleccionado
+     *
+     */
     function createDetail($tabla,$id){
 
         $sql =  $this->dbo->selectAutoJoin($tabla,$id);
@@ -283,6 +386,13 @@ class Administrador{
 
     }
 
+
+    /**
+     * Imprime tabla html con la tabla de db que se solicitó
+     * @deprecated se modificó por un llenado asíncrono
+     * @param string $tabla tabla de db para imprimir
+     * @param boolean $report true imprime un control más en la tabla para poder ver detalle
+     */
     function createGrid($tabla,$report = false){
 
         $sql = $this->dbo->select($tabla);
@@ -385,12 +495,18 @@ class Administrador{
 
         echo "<table class='table-admin'>
 					<thead><tr>{$thead}{$controles}</tr></thead>
+										<tbody>{$tbody}</tbody>
 					<tfoot><tr>{$thead}{$controles}</tr></tfoot>
-					<tbody>{$tbody}</tbody>
 				</table>";
 
     }
 
+
+    /**
+     * Imprime esqueleto de la tabla html utilizando las columnas de la tabla de db
+     * @param string $tabla tabla de db para imprimir
+     * @param boolean $report true imprime un control más en la tabla para poder ver detalle
+     */
     function createGridBase($tabla,$report = false){
 
         $sql = $this->dbo->select($tabla,"","*","","1");
@@ -423,9 +539,16 @@ class Administrador{
 
                 if($columns[$i]["Field"] == "password")
                     continue;
+                else if($columns[$i]["Field"] == "id"){
+                    $thead .= "<th>Detalle</th>";
+                    continue;
+                }
 
                 if($flag){
-                    $thead .= "<th>" . $columns[$i]["Field"] . "</th>";
+                    $description = empty($columns[$i]['Comment']) ? $columns[$i]['Field'] : $columns[$i]['Comment'];
+                    $description = $this->util->transformName($description);
+
+                    $thead .= "<th>" . $description . "</th>";
                 }
 
             }
@@ -434,17 +557,55 @@ class Administrador{
 
         }
 
-        echo "<table class='table-admin'>
-					<thead><tr>{$thead}{$controles}</tr></thead>
-					<tfoot><tr>{$thead}{$controles}</tr></tfoot>
-				</table>";
+        $tablaRender =  "<table class='table-admin table'>
+                            <thead><tr>{$thead}{$controles}</tr></thead>
+                            <tbody><tr>{$thead}{$controles}</tr></tbody>
+                            <tfoot><tr>{$thead}{$controles}</tr></tfoot>
+                        </table>";
+
+        echo '<div class="row">
+                <div class="col-md-12">
+                    <article class="widget">
+                        <header class="widget__header">
+                            <h3 class="widget__title">Registros de ' . $tabla . '</h3>
+                            <div class="widget__config">
+                                <a href="#"><i class="pe-7f-refresh"></i></a>
+                                <a href="#"><i class="pe-7s-close"></i></a>
+                            </div>
+                        </header>
+                        <div class="widget__content widget__table">
+                        ' . $tablaRender . '
+                        </div></article>
+                    </div>
+
+                </div>';
 
     }
 
+
+    /**
+     * Imprime formulario genérico para insertar o actualizar registros
+     * @param string $tabla tabla de db para obtener columnas
+     * @param int $id id para cargar el registro en el formulario de edición
+     * @param string $type tipo de formulario (insert | update)
+     */
     function createGenericForm($tabla, $id = null, $type = "insert"){
 
         $extra = !empty($id) ? "&id={$id}" : "";
 
+        $title = ($type == "insert") ? "Insertar" : "Actualizar";
+        $title .= " " . $tabla;
+        echo '<div class="row">
+                <div class="col-md-12">
+                    <article class="widget">
+                        <header class="widget__header">
+                            <h3 class="widget__title">' . $title . '</h3>
+                            <div class="widget__config">
+                                <a href="#"><i class="pe-7f-refresh"></i></a>
+                                <a href="#"><i class="pe-7s-close"></i></a>
+                            </div>
+                        </header>
+                        <div class="widget__content">';
         echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
         $sql = $this->dbo->getColumns($tabla);
@@ -511,7 +672,7 @@ class Administrador{
 
                         echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><select name='{$row['Field']}'>{$combo}</select></p>
+                                 <div class='input dropdown'><select name='{$row['Field']}' class='dropdown-select'>{$combo}</select></div>
                               </div>";
 
                         $flag = false;
@@ -537,17 +698,18 @@ class Administrador{
                         echo "<div class='row-abc'>
 	                                 <p class='descripcion'>{$description}</p>
 	                                 <p class='input'>
-	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation'>{$val}</textarea>
+	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation textarea'>{$val}</textarea>
 	                                 </p>
 	                              </div>";
 
                     }else{
 
                         echo "<div class='row-abc'>
-                                 <p class='descripcion'>{$description}</p>
+                                 <!--p class='descripcion'>{$description}</p-->
                                  <p class='input'>
                                      <input type='text' name='{$row['Field']}'
-                                     class='{$row['Type']} $validation $isAjax'  value='{$val}' />
+                                     class='{$row['Type']} $validation $isAjax input-text'  value='{$val}'
+                                     placeholder='{$description}' />
                                   </p>
                               </div>";
                     }
@@ -560,31 +722,49 @@ class Administrador{
         }
 
         if($type == "update")
-            echo '<input type="submit" value="Actualizar"/>';
+            echo '<input type="submit" class="btn btn-light pull-right" value="Actualizar"/>';
         else
-            echo '<div class="row-abc"><p class="input"><input type="submit" value="Insertar"/></p></div>';
+            echo '<div class="row-abc"><p class="input"><input type="submit" class="btn btn-light pull-right"  value="Insertar"/></p></div>';
 
         echo '</form>';
 
+        echo '						<div class="clearfix"></div>
+					</div>
+
+				</article>
+			</div>
+			</div>';
 
 
     }
 
+
+    /**
+     * Crea forma de actualización
+     * @param string $tabla tabla de db para obtener columnas
+     * @param int $id id para cargar el registro en el formulario de edición
+     */
     function createUpdateForm($tabla, $id){
 
         $this->createGenericForm($tabla,$id,"update");
 
     }
 
+
+    /**
+     * Crea forma de inserción
+     * @param string $tabla tabla de db para obtener columnas
+     */
     function createAdminTable($tabla){
 
         $this->createGenericForm($tabla);
     }
 
-    function createLeft($tabla){
 
-    }
-
+    /**
+     * Invocado con ajax, imprime json con la página de la tabla solicitada por el frontend
+     * @param string $table tabla de db para imprimir
+     */
     function createAjaxTable($table){
 
         $primaryKey = 'id';
@@ -611,7 +791,7 @@ class Administrador{
                     'dt' => $cont,
                     'formatter' =>
                         function( $d, $row, $table ) {
-                            return "<a href='?s={$table}-detail&id={$d}' class='detail-report'>" . $d . "</a>";
+                            return "<a href='?s={$table}-detail&id={$d}' class='center-data'><img src='../css/img/consulta.png' /></a>";
                         }
                 );
                 $cont++;

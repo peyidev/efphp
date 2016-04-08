@@ -38,9 +38,29 @@
 
         }
 
+
+        function messageBody($top = true, $type = 'alert-info', $icon = 'pe-7s-info', $title = 'Importante'){
+
+
+            if($top)
+                return "<div class='alert {$type} alert-dismissable'>
+							<button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+							<div class='media'>
+								<figure class='pull-left alert--icon'>
+									<i class='{$icon}'></i>
+								</figure>
+								<div class='media-body'>
+									<h3 class='alert--title'>{$title}</h3>
+									<p class='alert--text'>";
+
+
+            else
+                return "</p></div></div></div>";
+        }
+
         function getError($msg){
 
-            $final = "<p class='message-popup message-error'>";
+            $final = $this->messageBody(true,"alert-danger","pe-7s-close-circle","Hubo un error");
 
             switch($msg){
 
@@ -54,13 +74,13 @@
 
             }
 
-            $final .= "</p>";
+            $final .= $this->messageBody(false);
             return $final;
 
         }
 
         function getMsj($msg){
-            $final = "<p class='message-popup message-message'>";
+            $final = $this->messageBody(true,"alert-info","pe-7s-info","Importante");
 
             switch($msg){
 
@@ -74,7 +94,7 @@
 
             }
 
-            $final .= "</p>";
+            $final .= $this->messageBody(false);
             return $final;
 
         }
