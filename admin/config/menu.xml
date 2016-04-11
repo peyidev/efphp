@@ -2,6 +2,7 @@
     <item>
         <itemName>CMS</itemName>
         <itemLink>#</itemLink>
+        <icon>fa-th-list</icon>
         <rol>ADMINISTRADOR</rol>
 
         <subitem>
@@ -27,6 +28,7 @@
 		<itemName>Administrador</itemName>
 		<itemLink>?s=home</itemLink>
 		<rol>ADMINISTRADOR</rol>
+        <icon>fa-group</icon>
 		<rol>Vendedor</rol>
 
 		<subitem>
@@ -45,7 +47,7 @@
 
 
 
-    <!--item>
+    <item>
         <itemName>Establecimientos</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
@@ -98,6 +100,6 @@
             <module>zona</module>
         </subitem>
 
-    </item-->
+    </item>
 
 </menu>

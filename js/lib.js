@@ -117,11 +117,11 @@ var validator = {
 
             case "error":
                 $(selector).css({"color":"#cc0000"});
-                $(selector).parent().parent().find('.descripcion').css({"color":"#cc0000"});
+                $(selector).parent().parent().find('.input').find('.form-control').css({"border":"1px solid #cc0000"});
                 break;
             case "regular":
                 $(selector).css({"color":"inherit"});
-                $(selector).parent().parent().find('.descripcion').css({"color":"inherit"});
+                $(selector).parent().parent().find('.input').css({"color":"inherit"});
 
                 break;
 

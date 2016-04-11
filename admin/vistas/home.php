@@ -5,7 +5,7 @@
 
         <p>El administrador deberá ser configurado de la siguiente manera</p>
 
-        <blockquote>
+        <blockquote class="well">
             <p>/admin/config/menu.xml</p>
         </blockquote>
 
@@ -13,7 +13,7 @@
 
         <p>La notación para generar módulos dentro del administrador será de la siguiente manera</p>
 
-        <blockquote>
+        <blockquote  class="well">
             <p>subitemLink: ?s=tabla-admin</p>
         </blockquote>
 

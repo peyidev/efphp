@@ -89,6 +89,10 @@
           }else if(!empty($_SESSION['id_admin']) && !empty($_GET['s']) && $_GET['s'] == "login"){
 
               header("Location: ../admin/index.php?s=home");
+
+          }else if($_GET['s'] == "login"){
+
+              return "login-form";
           }
 
       }

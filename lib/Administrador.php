@@ -14,7 +14,11 @@ class Administrador{
 
     }
 
-    function renderAdmin($title = ""){
+    function renderAdmin($info = array()){
+
+
+        $title = !empty($info['title']) ? $info['title'] : "";
+        $icon = !empty($info['icon']) ? $info['icon'] : "";
 
         $tabla = "";
         $u = $this->util;
@@ -30,12 +34,12 @@ class Administrador{
             if(count($tabla) > 1){
 
                 echo "<div class='admin-generic'>";
-                echo "<h1 class='title-general' id='{$tabla[0]}'>{$title}</h1>";
+                echo "<h1 class='title-general' id='{$tabla[0]}'>{$icon} {$title}</h1>";
                 switch($tabla[1]){
 
                     case "admin":
-                        echo "<div class='add-new-record'>Insertar nuevo registro</div>";
-                        echo "<div class='admin-left-column admin-only-left'>";
+                        echo "<div class='add-new-record'>Insertar nuevo registro<i class='fa fa-plus fa-fw'></i></div>";
+                        echo "<div class='admin-left-column admin-only-left well'>";
                         $this->createAdminTable($tabla[0]);
                         echo "</div>";
 
@@ -49,10 +53,10 @@ class Administrador{
 
                         $id = $_GET['id'];
                         echo "<div class='add-new-record-update'>
-                                <a href='?s={$tabla[0]}-admin'>Regresar</a>
+                                <a href='?s={$tabla[0]}-admin'>Regresar <i class='fa fa-rotate-left fa-fw'></i></a>
                               </div>";
 
-                        echo "<div class='admin-left-column'>";
+                        echo "<div class='admin-left-column well'>";
                         $this->createUpdateForm($tabla[0],$id);
                         echo "</div>";
 
@@ -107,8 +111,10 @@ class Administrador{
             echo "
                 <div id='logo'><img src='../{$logo}' alt='' /></div>
                 <div id='general-controls'>
-					<p class='login-name'>" . $_SESSION['nombre'] . "</p>
-					<a href='../lib/Execute.php?e=User/logout&back=1'>Salir</a>
+					<p class='login-name'>Logged as: " . $_SESSION['nombre'] . "
+					    | <a href='../lib/Execute.php?e=User/logout&back=1'>Salir</a>
+					</p>
+
 				</div>";
 
         }
@@ -122,6 +128,7 @@ class Administrador{
             $xml=simplexml_load_file(BASE_PATH . ADMINURL . "config/menu.xml");
 
             $title = "";
+            $ico = "";
             $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
             $menu = "<ul id='main-menu'>";
@@ -136,17 +143,30 @@ class Administrador{
 
                         if($rol == $_SESSION["rol"]){
 
-                            $menu.="<li class='menu-item'><a href='{$xml->item[$i]->itemLink}' class='menu-item-link'>{$xml->item[$i]->itemName}</a>";
+                            $icon = !empty($xml->item[$i]->icon) ?
+                                "<i class='fa {$xml->item[$i]->icon} fa-fw'></i>":
+                                "<i class='fa fa-chevron-right fa-fw'></i>";
 
-                            if($s == $xml->item[$i]->itemLink)
+                            $menu.="<li class='menu-item'>
+                                        <div class='input-group margin-bottom-sm'>
+                                            <span class='input-group-addon'>{$icon}</span>
+                                            <a href='{$xml->item[$i]->itemLink}' class='menu-item-link'>{$xml->item[$i]->itemName}</a>
+                                        </div>";
+
+                            if($s == $xml->item[$i]->itemLink){
                                 $title = $xml->item[$i]->itemName;
+                                $ico = $icon;
+                            }
 
                             if(count($xml->item[$i]->subitem) > 0){
                                 $menu.= "<ul>";
                                 foreach($xml->item[$i]->subitem as $subitem){
 
-                                    if($s == $subitem->subitemLink)
+                                    if($s == $subitem->subitemLink){
                                         $title =$subitem->subitemName;
+                                        $ico = $icon;
+                                    }
+
 
                                     $menu .= "<li class='submenu-item'><a href='{$subitem->subitemLink}' class='menu-subitem-link'>" . $subitem->subitemName . "</a></li>";
 
@@ -178,7 +198,12 @@ class Administrador{
                 $title .= $id;
             }
 
-            return $title;
+            $r = array();
+
+            $r['title'] = $title;
+            $r['icon'] = $ico;
+
+            return $r;
         }
 
     }
@@ -245,7 +270,7 @@ class Administrador{
 
     function createDetail($tabla,$id){
 
-        $sql =  $this->dbo->selectAutoJoin($tabla,$id);
+        $sql =  $this->dbo->selectAutoJoin($tabla,$id,"LEFT");
         $query = $this->db->query($sql);
         $columns = array();
         $row = $query->fetch_array(MYSQL_ASSOC);
@@ -447,6 +472,12 @@ class Administrador{
 
         echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
+        $iconOp = ($type == "insert") ?
+            "<i class='fa fa-search-plus fa-plus-square-o'></i> Insertar nuevo registro" :
+            "<i class='fa fa-search-plus fa-pencil-square-o'></i> Actualizar registro";
+
+        echo "<p class='form-operation'>{$iconOp}</p>";
+
         $sql = $this->dbo->getColumns($tabla);
         $query = $this->db->query($sql);
 
@@ -522,7 +553,7 @@ class Administrador{
                 }else if(count($img) > 1){
                     echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']}' /></p>
+                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']} form-control' /></p>
                               </div>";
                     $flag = false;
                 }
@@ -537,17 +568,17 @@ class Administrador{
                         echo "<div class='row-abc'>
 	                                 <p class='descripcion'>{$description}</p>
 	                                 <p class='input'>
-	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation'>{$val}</textarea>
+	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation form-control'>{$val}</textarea>
 	                                 </p>
 	                              </div>";
 
                     }else{
 
                         echo "<div class='row-abc'>
-                                 <p class='descripcion'>{$description}</p>
                                  <p class='input'>
                                      <input type='text' name='{$row['Field']}'
-                                     class='{$row['Type']} $validation $isAjax'  value='{$val}' />
+                                     class='{$row['Type']} $validation $isAjax form-control'
+                                     value='{$val}' placeholder='{$description}'/>
                                   </p>
                               </div>";
                     }
@@ -560,9 +591,9 @@ class Administrador{
         }
 
         if($type == "update")
-            echo '<input type="submit" value="Actualizar"/>';
+            echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Actualizar</button></p></div>';
         else
-            echo '<div class="row-abc"><p class="input"><input type="submit" value="Insertar"/></p></div>';
+            echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Insertar</button></p></div>';
 
         echo '</form>';
 
@@ -611,7 +642,7 @@ class Administrador{
                     'dt' => $cont,
                     'formatter' =>
                         function( $d, $row, $table ) {
-                            return "<a href='?s={$table}-detail&id={$d}' class='detail-report'>" . $d . "</a>";
+                            return "<a href='?s={$table}-detail&id={$d}' class='detail-report'><i class='fa fa-search-plus fa-fw fa-2x'></i></a>";
                         }
                 );
                 $cont++;
@@ -652,7 +683,7 @@ class Administrador{
             'dt' => $cont,
             'formatter' =>
                 function( $d, $row, $table ) {
-                    return "<a href='?s={$table}-update&id={$d}' class='center-data'><img src='../css/img/editar.png' /></a>";
+                    return "<a href='?s={$table}-update&id={$d}' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
                 }
         );
 
@@ -661,7 +692,7 @@ class Administrador{
             'dt' => ++$cont,
             'formatter' =>
                 function( $d, $row, $table ) {
-                    return "<a href='?s={$table}&id={$d}' class='delete-admin center-data'><img src='../css/img/eliminar.png' /></a>";
+                    return "<a href='?s={$table}&id={$d}' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a>";
                 }
         );
 

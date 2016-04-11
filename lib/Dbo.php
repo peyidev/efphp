@@ -86,13 +86,13 @@ class Dbo  {
 
     }
 
-    function selectAutoJoin($tabla, $id){
+    function selectAutoJoin($tabla, $id, $join = ""){
 
         if(empty($tabla))
             return "";
 
         $tabla = $this->util->limpiar($tabla);
-        $extra = $this->createMultiJoin($tabla);
+        $extra = $this->createMultiJoin($tabla, "", $join);
 
         return "SELECT main_table.* {$extra['select']}
                     FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.id = '{$id}'";
@@ -141,7 +141,7 @@ class Dbo  {
         return "SHOW FULL COLUMNS FROM {$tabla}";
     }
 
-    function createMultiJoin($table, $q = null){
+    function createMultiJoin($table, $q = null, $join = ""){
 
         $sql = "DESCRIBE {$table}";
         $query = Database::connect()->query($sql);
@@ -157,7 +157,7 @@ class Dbo  {
 
                 if ($this->tableExist($foreign[1])) {
                     $frg = $foreign[1];
-                    $exp .= " JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
+                    $exp .= " {$join} JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
                     $select .= " {$frg}.nombre as {$frg}_nombre,";
 
                     if(!empty($q))
