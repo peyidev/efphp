@@ -68,7 +68,7 @@ body {
     top: 12px;
 }
 #logo img {
-    width: 121px;
+    height: 49px;
 }
 #logo-admin-block {
     float: left;
@@ -136,7 +136,7 @@ input {
     margin-right: 2.5%;
     position: absolute;
     right: 0;
-    top: 30px;
+    top: 9px;
     width: auto;
     z-index: 1;
 }
@@ -162,17 +162,16 @@ input {
     display: block;
 }
 #main-menu .menu-item ul li {
-    margin-top: 2px;
+    margin-top: 1px;
 }
 #main-menu .menu-item .menu-subitem-link {
     background: #495969 none repeat scroll 0 0;
     color: #eeeeee;
     display: block;
-    margin-left: 43px;
-    padding: 10px 2px;
+    padding: 12px 2px;
     text-align: center;
     text-decoration: none;
-    width: 108px;
+    width: 152px;
 }
 #main-menu .menu-item .menu-item-link:hover {
 }
@@ -239,7 +238,6 @@ input {
     text-decoration: none;
 }
 .detail-list-item {
-    border-bottom: 1px dotted #13171b;
     display: table;
     float: left;
     width: 100%;
@@ -254,7 +252,7 @@ input {
     width: 20%;
 }
 pre.detail-list-item-val {
-    color: white;
+    border: 0 none;
     line-height: 1.5;
 }
 .detail-list-item-val {
@@ -321,11 +319,11 @@ pre.detail-list-item-val {
     color: #668393;
 }
 .center-data {
+    color: #27aae1;
     display: block;
     margin: 0 auto;
     text-align: center;
     width: 50px !important;
-    color:#27AAE1;
 }
 .dataTables_wrapper {
     margin: 0 auto;
@@ -344,7 +342,7 @@ pre.detail-list-item-val {
 }
 header {
     background: #13171b none repeat scroll 0 0;
-    height: 85px;
+    height: 64px;
     width: 100%;
 }
 main {
@@ -375,26 +373,42 @@ html, body {
     font-size: 20px;
     width: 250px;
 }
-
-
-.admin-right-column  th{
+.admin-right-column th {
     text-align: center;
 }
-
-table.dataTable thead th, table.dataTable tfoot th{
-
+table.dataTable thead th, table.dataTable tfoot th {
     text-transform: uppercase;
-
 }
-
-table.dataTable thead th, table.dataTable thead td{
-
-    border-bottom:1px solid #ddd !important;
-
+table.dataTable thead th, table.dataTable thead td {
+    border-bottom: 1px solid #ddd !important;
 }
-table.dataTable tfoot th, table.dataTable tfoot td{
-
-    border-top:1px solid #ddd !important;
-
+table.dataTable tfoot th, table.dataTable tfoot td {
+    border-top: 1px solid #ddd !important;
 }
-
+.profile .input-group-addon::after {
+    background: #293340 none repeat scroll 0 0;
+    content: "";
+    height: 25px;
+    left: 0;
+    position: absolute;
+    top: 19px;
+    width: 1px;
+}
+.profile .menu-item-link {
+    color: white !important;
+    font-size: 10px !important;
+    width: 70px !important;
+}
+.profile .fa-fw {
+    color: white;
+}
+.input-group-addon {
+    padding: 6px 0 6px 12px;
+}
+.profile {
+    width: 110px !important;
+}
+.profile .submenu-item a {
+    margin-left: 0 !important;
+    width: 106px !important;
+}

@@ -18,7 +18,7 @@ class Administrador{
 
 
         $title = !empty($info['title']) ? $info['title'] : "";
-        $icon = !empty($info['icon']) ? $info['icon'] : "";
+        $icon = !empty($info['icon']) ? $info['icon'] : '<i class="fa fa-info-circle fa-fw"></i>';
 
         $tabla = "";
         $u = $this->util;
@@ -108,14 +108,7 @@ class Administrador{
 
         if(!empty($_SESSION['id_admin'])){
             $logo = LOGO;
-            echo "
-                <div id='logo'><img src='../{$logo}' alt='' /></div>
-                <div id='general-controls'>
-					<p class='login-name'>Logged as: " . $_SESSION['nombre'] . "
-					    | <a href='../lib/Execute.php?e=User/logout&back=1'>Salir</a>
-					</p>
-
-				</div>";
+            echo "<div id='logo'><img src='../{$logo}' alt='' /></div>";
 
         }
 
@@ -132,6 +125,18 @@ class Administrador{
             $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
             $menu = "<ul id='main-menu'>";
+
+
+            $menu .= "<li class='menu-item profile'>
+                        <div class='input-group margin-bottom-sm'>
+                            <span class='input-group-addon'><i class='fa fa-angle-down fa-fw'></i></span>
+                            <a href='#' class='menu-item-link'>{$_SESSION['nombre']}</a>
+                        </div>
+                        <ul>
+                            <li class='submenu-item'><a class='menu-subitem-link' href='../lib/Execute.php?e=User/logout&back=1'>Salir</a></li>
+                        </ul>
+                        </li>";
+
 
             for($i = 0; $i < count($xml->item); $i++){
 
@@ -184,6 +189,7 @@ class Administrador{
                 }
 
             }
+
 
             $menu .= "</ul>";
 
@@ -275,13 +281,13 @@ class Administrador{
         $columns = array();
         $row = $query->fetch_array(MYSQL_ASSOC);
 
-        echo "<div class='detail-list'>";
+        echo "<ul class='detail-list list-group'>";
 
         foreach($row as $key => $val){
 
             $img = explode("img_",$key);
 
-            echo "<div class='detail-list-item'>";
+            echo "<li class='detail-list-item list-group-item'>";
                 echo "<p  class='detail-list-item-key'>{$key}</p>";
                 if($key == "data"){
                     $tmp = unserialize($val);
@@ -299,12 +305,12 @@ class Administrador{
                     }
                 }
 
-            echo "</div>";
+            echo "</li>";
 
 
         }
 
-        echo "</div>";
+        echo "</ul>";
 
     }
 
