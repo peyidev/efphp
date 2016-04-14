@@ -214,7 +214,7 @@ Para poder hacer esto es necesario crear un nuevo registro en el backend de cms.
 
 la utilización sería de la siguiente manera
 
->en /vistas/contacto.php se podrá poner cualquier contenido HTML y en donde se desee mostrar el contenido del cms de tendrá que utilizar la siguiente nomenclatura {{tag}} el cual será igual al nombre del tag teniendo como resultado {{contacto}}.
+>en /vistas/contacto.php se podrá poner cualquier contenido HTML y en donde se desee mostrar el contenido del cms se tendrá que utilizar la siguiente nomenclatura {{tag}} el cual será igual al nombre del tag teniendo como resultado {{contacto}}.
 
 #### Menú ####
 
