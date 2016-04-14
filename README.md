@@ -48,6 +48,8 @@ La base de datos deberá seguir la siguientes reglas
 	</table>
 
 
+##### Tipos de datos para backend
+
 Los tipos de datos y nombre de las columnas así como sus comentarios hacen que se comporten de manera distinta en el admin.
 
 ><table>
@@ -129,11 +131,50 @@ Los tipos de datos y nombre de las columnas así como sus comentarios hacen que 
 </table>
 
 
+Cada columna de la tabla puede tener un comentario el cual hará que funcione de la siguiente manera.
+
+>'Etiqueta para mostrar en formularios-Tipo de validación-Tipo de servicio'
+
+e.g.
+
+> [Título-tel-normal]
+
+Esto tendrá como resultado mostrar en el administrador la etiqueta en el input sustuyendo el nombre de la columna por "título", el valor será validado como teléfono.
+(El tercer parámetro está en desarrollo)
+
+Para agregar tipos de validación se puede modificar/agregar en
+
+> /js/lib.js:validator.(type, val, selector)
+
+Un ejemplo de creación de tabla con estas características:
+
+>$table = "CREATE TABLE `cms` (
+           `id` int(11) NOT NULL AUTO_INCREMENT,
+           `nombre` varchar(255) DEFAULT NULL COMMENT 'Título-text',
+           `tag` varchar(255) NOT NULL COMMENT 'Tag-text',
+           `cms_contenido` text  NOT NULL COMMENT 'Contenido CMS-text',
+           PRIMARY KEY (`id`)
+         ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8";
+
+
 La configuraci&oacute;n general de base de datos y rutas se adaptar&aacute; en
 
 > /lib/Configuracion.php
 
-	
+Antes de comenzar a crear tablas es necesario ejecutar cuando menos una vez en un explorador el administrador
+el cual utilizara
+
+>/lib/Wizard.php
+
+para crear las tablas base.
+
+###### Accesos default
+
+El usuario y contraseña default para poder entrar al administrador serán
+
+>usr:admin@efphp.com
+>psw:admin
+
 ### Implementaci&oacute;n Frontend###
 
 Una vez configurado el proyecto se podr&aacute; acceder como usuario a 
@@ -198,5 +239,3 @@ La notaci&oacute;n para generar m&oacute;dulos dentro del administrador ser&aacu
 > subitemLink: ?s=tabla-admin
 
 La cual generar&aacute; un administrador de altas bajas y cambios para la tabla seleccionada
-1
-
