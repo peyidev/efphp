@@ -72,7 +72,6 @@ Los tipos de datos y nombre de las columnas así como sus comentarios hacen que 
                 <ul>
                     <li>Editor: Genera un dropdown con un join dinámico a la tabla relacionada mostrando la columna nombre de la tabla foránea</li>
                     <li>Grid: Genera un join dinámico que muestra la relación entre la tabla y la tabla relacionada mostrando la columna nombre de la tabla foránea</li>
-
                 </ul>
             </td>
         </tr>
