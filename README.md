@@ -249,6 +249,8 @@ Todos los estilos del sitio deber&aacute;n estar situados en
 
 > /css/style.css
 
+## Avanzado ##
+
 #### php ####
 
 Todas las clases deber&aacute;n nombrarse con el mismo nombre del archivo en may&uacute;sculas y podr&aacute;n ser ejecutadas con un controlador gen&eacute;rico de la siguiente manera
@@ -257,9 +259,10 @@ Todas las clases deber&aacute;n nombrarse con el mismo nombre del archivo en may
 
 Pudiendo agregar como parametro 
 
-> /lib/Execute.php?e=ClaseParaEjecutar/metodoParaEjecutar&back=1
+> /lib/Execute.php?e=ClaseParaEjecutar/metodoParaEjecutar/parametro1/parametro2&back=1
+  esto se convertirá en una llamada similar a ObjetoClaseParaEjecutar->metodoParaEjecutar(parametro1,parametro2);
 
-Para cuando se requiere regresar de manera autom&aacute;tica a la p&aacute;gina que invoca el servicio
+Para cuando se requiere regresar de manera autom&aacute;tica a la p&aacute;gina que invoca el servicio (utilizando back=1)
 
 ### Implementaci&oacute;n Administrador ###
 
