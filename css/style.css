@@ -198,17 +198,40 @@ nav ul ul ul {
 li > a:after { content:  ' +'; }
 li > a:only-child:after { content: ''; }
 
-#disclaimer{
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+.page-wrap {
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -50px;
+}
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+.site-footer, .page-wrap:after {
+    height: 50px;
+}
 
+.site-footer {
     width:100%;
     text-align:center;
     font-size:10px;
     margin:0 auto;
-    margin-top:30px;
-    padding:20px 0 20px 0;
     background: var(--contrast);
     color: var(--main-color3);
+}
+
+#disclaimer{
+
+    width:100%;
+    line-height: 50px;
 
 }
 
 /* ELIMINAR ESTILO FIN */
+

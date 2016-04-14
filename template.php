@@ -14,21 +14,27 @@
 
     </head>
 	<body>
-        <header>
-            <img src="css/img/logo.png" alt="Logo" name="efphp" id="logo" />
-            <nav id="menu-principal">
-                <!-- NO MODIFICAR ESTA PARTE SI NECESITAS MENÚ INICIO-->
-                <?php $cms->generateMenu();?>
-                <!-- NO MODIFICAR ESTA PARTE SI NECESITAS MENÚ FIN -->
-            </nav>
-        </header>
 
-        <main>
-            <!-- NO MODIFICAR ESTA PARTE SI NECESITAS SECCIONES "ESTÁTICAS" INICIO-->
-            <?php $cms->parseSection(file_get_contents("vistas/" . $u->incluirSeccion($cuerpo))); ?>
-            <!-- NO MODIFICAR ESTA PARTE SI NECESITAS SECCIONES "ESTÁTICAS" FIN-->
-        </main>
-        <footer>
+        <div class="page-wrap">
+
+            <header>
+                <img src="css/img/logo.png" alt="Logo" name="efphp" id="logo" />
+                <nav id="menu-principal">
+                    <!-- NO MODIFICAR ESTA PARTE SI NECESITAS MENÚ INICIO-->
+                    <?php $cms->generateMenu();?>
+                    <!-- NO MODIFICAR ESTA PARTE SI NECESITAS MENÚ FIN -->
+                </nav>
+            </header>
+
+            <main>
+                <!-- NO MODIFICAR ESTA PARTE SI NECESITAS SECCIONES "ESTÁTICAS" INICIO-->
+                <?php $cms->parseSection(file_get_contents("vistas/" . $u->incluirSeccion($cuerpo))); ?>
+                <!-- NO MODIFICAR ESTA PARTE SI NECESITAS SECCIONES "ESTÁTICAS" FIN-->
+            </main>
+
+        </div>
+
+        <footer class="site-footer">
             <div id="disclaimer"><?php echo date("Y") . " - ";?> Powered by efphp</div>
         </footer>
 

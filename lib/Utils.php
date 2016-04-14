@@ -130,7 +130,7 @@
 
       function loginSecurity(){
 
-          if(empty($_SESSION['id_admin']) && $_GET['s'] != "login"){
+          if(empty($_SESSION['id_admin']) && @$_GET['s'] != "login"){
 
               header("Location: ../admin/index.php?s=login");
 

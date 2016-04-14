@@ -129,6 +129,11 @@
         function createItemMenu(){
             $sql = "INSERT INTO menu VALUES(null,null,'Main_Category','#',1)";
             $this->db->query($sql);
+            $id = $this->db->insert_id;
+
+            $sql = "INSERT INTO menu VALUES(null,$id,'Home','home',1)";
+            $this->db->query($sql);
+
         }
 
         function createTable($sql){

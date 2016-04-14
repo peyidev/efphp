@@ -48,6 +48,88 @@ La base de datos deberá seguir la siguientes reglas
 	</table>
 
 
+Los tipos de datos y nombre de las columnas así como sus comentarios hacen que se comporten de manera distinta en el admin.
+
+><table>
+    <thead>
+        <tr><th>Nomenclatura</th><th>Tipo de dato</td><th>Resultado</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> <strong>id</strong></td>
+            <td> int </td>
+            <td>
+                <ul>
+                    <li>Editor: No genera input</li>
+                    <li>Grid: Genera botón para ver el detalle del registro</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>id_</strong>llaveforanea </td>
+            <td> int </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un dropdown con un join dinámico a la tabla relacionada mostrando la columna nombre de la tabla foránea</li>
+                    <li>Grid: Genera un join dinámico que muestra la relación entre la tabla y la tabla relacionada mostrando la columna nombre de la tabla foránea</li>
+
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>cms_</strong>nombrecolumna </td>
+            <td> text </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un input con un editor WYSIWYG, acepta html, css, javascript </li>
+                    <li>Grid: Muestra botón que lleva al preview del texto</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> nombrecolumna </td>
+            <td> date </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un calendario dinámico que es mostrado cuando se da click en el input </li>
+                    <li>Grid: Muestra el valor de la columna guardado sin alteración</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>img_</strong>nombrecolumna </td>
+            <td> varchar(255) </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un input de tipo file el cual recibe extensiones [.png, .jpg, .gif] y guarda los archivos en /media/img/ </li>
+                    <li>Grid: Muestra el nombre del archivo</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>bool_</strong>nombrecolumna </td>
+            <td>  tinyint(1) </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un dropdown con opción sí y no [0 = no, 2 = sí] </li>
+                    <li>Grid: Muestra ícono check o cross dependiendo el valor</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>status_</strong>nombrecolumna </td>
+            <td> tinyint(1) </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un dropdown con opción sí, no y pendiente [0 = no, 1 = pendiente, 2 = sí] </li>
+                    <li>Grid: Muestra ícono check, cross o admiración dependiendo el valor</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
 La configuraci&oacute;n general de base de datos y rutas se adaptar&aacute; en
 
 > /lib/Configuracion.php
@@ -117,4 +199,5 @@ La notaci&oacute;n para generar m&oacute;dulos dentro del administrador ser&aacu
 > subitemLink: ?s=tabla-admin
 
 La cual generar&aacute; un administrador de altas bajas y cambios para la tabla seleccionada
+1
 
