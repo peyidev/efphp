@@ -3,9 +3,41 @@
 
 ## EasyPhp documentaci&oacute;n ##
 
-EasyPhp es una herramienta orientada al r&aacute;pido desarrollo de aplicaciones php orientadas a peque&ntilde;os negocios y sistemas de baja disponibilidad.
+EasyPhp es una herramienta creada para el r&aacute;pido desarrollo de aplicaciones php orientadas a soluciones a la medida.
 
 ### Setup ###
+
+La configuraci&oacute;n general de base de datos y rutas se adaptar&aacute; en
+
+> /lib/Configuracion.php
+
+Antes de comenzar a crear tablas es necesario ejecutar cuando menos una vez en un explorador el administrador
+el cual utilizará
+
+>/lib/Wizard.php
+
+para crear las tablas base.
+
+###### Accesos default
+
+El usuario y contraseña default para poder entrar al administrador serán
+
+><ul><li><strong>Usuario</strong>:admin@efphp.</li><li><strong>Contraseña</strong>:admin</li></ul>
+
+
+##### Módulos default
+
+Como default se generan las siguientes tablas
+
+><ul>
+    <li><strong>admin</strong>: Contiene el usuario base ADMINISTRADOR, almacenará futuros usuarios.</li>
+    <li><strong>rol</strong>: Contiene el rol base ADMINISTRADOR, almacenará futuros roles. </li>
+    <li><strong>cms</strong>: Contiene un ejemplo de contenido html el cual es mostrado en el frontend /BASEURL/index.php en el explorador</li>
+    <li><strong>menu</strong>: Contiene el menú raiz de donde heredarán todos los menús además de "home" el cual podrá visualizarse en el menú de /BASEURL/index.php en el explorador</li>
+    <li><strong>log</strong>: Almacena todas las actividades que se realizen por parte de cualquier usuario, login, intento (satisfactorio o fallido) de abc.</li>
+</ul>
+
+##### Creación de tablas custom
 
 El primer requisito para implementar la herramienta es el modelo de la base de datos.
 La base de datos deberá seguir la siguientes reglas
@@ -139,12 +171,12 @@ e.g.
 
 > [Título-tel-normal]
 
-Esto tendrá como resultado mostrar en el administrador la etiqueta en el input sustuyendo el nombre de la columna por "título", el valor será validado como teléfono.
+Esto tendrá como resultado mostrar en el administrador la etiqueta en el input sustuyendo el nombre de la columna por "Título", el valor será validado como teléfono.
 (El tercer parámetro está en desarrollo)
 
 Para agregar tipos de validación se puede modificar/agregar en
 
-> /js/lib.js:validator.(type, val, selector)
+> /js/lib.js:validator.validator(type, val, selector)
 
 Un ejemplo de creación de tabla con estas características:
 
@@ -156,24 +188,6 @@ Un ejemplo de creación de tabla con estas características:
            PRIMARY KEY (`id`)
          ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8";
 
-
-La configuraci&oacute;n general de base de datos y rutas se adaptar&aacute; en
-
-> /lib/Configuracion.php
-
-Antes de comenzar a crear tablas es necesario ejecutar cuando menos una vez en un explorador el administrador
-el cual utilizara
-
->/lib/Wizard.php
-
-para crear las tablas base.
-
-###### Accesos default
-
-El usuario y contraseña default para poder entrar al administrador serán
-
->usr:admin@efphp.com
->psw:admin
 
 ### Implementaci&oacute;n Frontend###
 
@@ -189,6 +203,27 @@ Toda secci&oacute;n que se quiera agregar al usuario se localizar&aacute; en
 Y podrá ser invocada mediante la siguiente ruta
 
 > BASEURL/?s=contacto
+
+#### Contenido ####
+
+El contenido puede ser html puro o pueden utilizarse placeholers para que invoque bloques desde la base de datos mostrando el resultado de la tabla `cms`.
+
+Para poder hacer esto es necesario crear un nuevo registro en el backend de cms. La columna tag será el identificador para poderlo mostrar en el frontend.
+
+>e.g. tag:contacto
+
+la utilización sería de la siguiente manera
+
+>en /vistas/contacto.php se podrá poner cualquier contenido HTML y en donde se desee mostrar el contenido del cms de tendrá que utilizar la siguiente nomenclatura {{tag}} el cual será igual al nombre del tag teniendo como resultado {{contacto}}.
+
+#### Menú ####
+
+El menú podrá administrarse desde el backend y podrá tener herencia anidada infinita tomando como padre id_menú.
+Si se utiliza "Main_Category" como padre se mostrará en el menú principal superior y esta será (o no) padre de otras y así sucesivamente.
+La url será idéntica a como se quiera utilizar
+
+> ?s=contacto
+
 
 #### javascript ####
 
