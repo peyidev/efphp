@@ -34,10 +34,62 @@
 <h2>
 <a id="easyphp-documentación" class="anchor" href="#easyphp-documentaci%C3%B3n" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>EasyPhp documentación</h2>
 
-<p>EasyPhp es una herramienta orientada al rápido desarrollo de aplicaciones php orientadas a pequeños negocios y sistemas de baja disponibilidad.</p>
+<p>EasyPhp es una herramienta creada para el rápido desarrollo de aplicaciones php orientadas a soluciones a la medida.</p>
 
 <h3>
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h3>
+
+<p>La configuración general de base de datos y rutas se adaptará en</p>
+
+<blockquote>
+<p>/lib/Configuracion.php</p>
+</blockquote>
+
+<p>Antes de comenzar a crear tablas es necesario ejecutar cuando menos una vez en un explorador el administrador
+el cual utilizará</p>
+
+<blockquote>
+<p>/lib/Wizard.php</p>
+</blockquote>
+
+<p>para crear las tablas base.</p>
+
+<h6>
+<a id="accesos-default" class="anchor" href="#accesos-default" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Accesos default</h6>
+
+<p>El usuario y contraseña default para poder entrar al administrador serán</p>
+
+<blockquote>
+<ul>
+<li>
+<strong>Usuario</strong>:admin@efphp.</li>
+<li>
+<strong>Contraseña</strong>:admin</li>
+</ul>
+</blockquote>
+
+<h5>
+<a id="módulos-default" class="anchor" href="#m%C3%B3dulos-default" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Módulos default</h5>
+
+<p>Como default se generan las siguientes tablas</p>
+
+<blockquote>
+<ul>
+    <li>
+<strong>admin</strong>: Contiene el usuario base ADMINISTRADOR, almacenará futuros usuarios.</li>
+    <li>
+<strong>rol</strong>: Contiene el rol base ADMINISTRADOR, almacenará futuros roles. </li>
+    <li>
+<strong>cms</strong>: Contiene un ejemplo de contenido html el cual es mostrado en el frontend /BASEURL/index.php en el explorador</li>
+    <li>
+<strong>menu</strong>: Contiene el menú raiz de donde heredarán todos los menús además de "home" el cual podrá visualizarse en el menú de /BASEURL/index.php en el explorador</li>
+    <li>
+<strong>log</strong>: Almacena todas las actividades que se realizen por parte de cualquier usuario, login, intento (satisfactorio o fallido) de abc.</li>
+</ul>
+</blockquote>
+
+<h5>
+<a id="creación-de-tablas-custom" class="anchor" href="#creaci%C3%B3n-de-tablas-custom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creación de tablas custom</h5>
 
 <p>El primer requisito para implementar la herramienta es el modelo de la base de datos.
 La base de datos deberá seguir la siguientes reglas</p>
@@ -87,10 +139,127 @@ e.g.</p>
 </ol>
 </blockquote>
 
-<p>La configuración general de base de datos y rutas se adaptará en</p>
+<h5>
+<a id="tipos-de-datos-para-backend" class="anchor" href="#tipos-de-datos-para-backend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tipos de datos para backend</h5>
+
+<p>Los tipos de datos y nombre de las columnas así como sus comentarios hacen que se comporten de manera distinta en el admin.</p>
 
 <blockquote>
-<p>/lib/Configuracion.php</p>
+<table>
+    <thead>
+        <tr>
+<th>Nomenclatura</th>
+<th>Tipo de dato</th>
+<th>Resultado</th>
+</tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> <strong>id</strong>
+</td>
+            <td> int </td>
+            <td>
+                <ul>
+                    <li>Editor: No genera input</li>
+                    <li>Grid: Genera botón para ver el detalle del registro</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>id_</strong>llaveforanea </td>
+            <td> int </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un dropdown con un join dinámico a la tabla relacionada mostrando la columna nombre de la tabla foránea</li>
+                    <li>Grid: Genera un join dinámico que muestra la relación entre la tabla y la tabla relacionada mostrando la columna nombre de la tabla foránea</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>cms_</strong>nombrecolumna </td>
+            <td> text </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un input con un editor WYSIWYG, acepta html, css, javascript </li>
+                    <li>Grid: Muestra botón que lleva al preview del texto</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> nombrecolumna </td>
+            <td> date </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un calendario dinámico que es mostrado cuando se da click en el input </li>
+                    <li>Grid: Muestra el valor de la columna guardado sin alteración</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>img_</strong>nombrecolumna </td>
+            <td> varchar(255) </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un input de tipo file el cual recibe extensiones [.png, .jpg, .gif] y guarda los archivos en /media/img/ </li>
+                    <li>Grid: Muestra el nombre del archivo</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>bool_</strong>nombrecolumna </td>
+            <td>  tinyint(1) </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un dropdown con opción sí y no [0 = no, 2 = sí] </li>
+                    <li>Grid: Muestra ícono check o cross dependiendo el valor</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td> <strong>status_</strong>nombrecolumna </td>
+            <td> tinyint(1) </td>
+            <td>
+                <ul>
+                    <li>Editor: Genera un dropdown con opción sí, no y pendiente [0 = no, 1 = pendiente, 2 = sí] </li>
+                    <li>Grid: Muestra ícono check, cross o admiración dependiendo el valor</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</blockquote>
+
+<p>Cada columna de la tabla puede tener un comentario el cual hará que funcione de la siguiente manera.</p>
+
+<blockquote>
+<p>'Etiqueta para mostrar en formularios-Tipo de validación-Tipo de servicio'</p>
+</blockquote>
+
+<p>e.g.</p>
+
+<blockquote>
+<p>[Título-tel-normal]</p>
+</blockquote>
+
+<p>Esto tendrá como resultado mostrar en el administrador la etiqueta en el input sustuyendo el nombre de la columna por "Título", el valor será validado como teléfono.
+(El tercer parámetro está en desarrollo)</p>
+
+<p>Para agregar tipos de validación se puede modificar/agregar en</p>
+
+<blockquote>
+<p>/js/lib.js:validator.validator(type, val, selector)</p>
+</blockquote>
+
+<p>Un ejemplo de creación de tabla con estas características:</p>
+
+<blockquote>
+<p>$table = "CREATE TABLE <code>cms</code> (
+           <code>id</code> int(11) NOT NULL AUTO_INCREMENT,
+           <code>nombre</code> varchar(255) DEFAULT NULL COMMENT 'Título-text',
+           <code>tag</code> varchar(255) NOT NULL COMMENT 'Tag-text',
+           <code>cms_contenido</code> text  NOT NULL COMMENT 'Contenido CMS-text',
+           PRIMARY KEY (<code>id</code>)
+         ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8";</p>
 </blockquote>
 
 <h3>
@@ -113,6 +282,34 @@ e.g.</p>
 
 <blockquote>
 <p>BASEURL/?s=contacto</p>
+</blockquote>
+
+<h4>
+<a id="contenido" class="anchor" href="#contenido" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contenido</h4>
+
+<p>El contenido puede ser html puro o pueden utilizarse placeholers para que invoque bloques desde la base de datos mostrando el resultado de la tabla <code>cms</code>.</p>
+
+<p>Para poder hacer esto es necesario crear un nuevo registro en el backend de cms. La columna tag será el identificador para poderlo mostrar en el frontend.</p>
+
+<blockquote>
+<p>e.g. tag:contacto</p>
+</blockquote>
+
+<p>la utilización sería de la siguiente manera</p>
+
+<blockquote>
+<p>en /vistas/contacto.php se podrá poner cualquier contenido HTML y en donde se desee mostrar el contenido del cms se tendrá que utilizar la siguiente nomenclatura {{tag}} el cual será igual al nombre del tag teniendo como resultado {{contacto}}.</p>
+</blockquote>
+
+<h4>
+<a id="menú" class="anchor" href="#men%C3%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Menú</h4>
+
+<p>El menú podrá administrarse desde el backend y podrá tener herencia anidada infinita tomando como padre id_menú.
+Si se utiliza "Main_Category" como padre se mostrará en el menú principal superior y esta será (o no) padre de otras y así sucesivamente.
+La url será idéntica a como se quiera utilizar</p>
+
+<blockquote>
+<p>?s=contacto</p>
 </blockquote>
 
 <h4>
@@ -149,6 +346,9 @@ e.g.</p>
 <p>/css/style.css</p>
 </blockquote>
 
+<h2>
+<a id="avanzado" class="anchor" href="#avanzado" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Avanzado</h2>
+
 <h4>
 <a id="php" class="anchor" href="#php" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>php</h4>
 
@@ -161,10 +361,16 @@ e.g.</p>
 <p>Pudiendo agregar como parametro </p>
 
 <blockquote>
-<p>/lib/Execute.php?e=ClaseParaEjecutar/metodoParaEjecutar&amp;back=1</p>
+<p>/lib/Execute.php?e=ClaseParaEjecutar/metodoParaEjecutar/parametro1/parametro2&amp;back=1</p>
 </blockquote>
 
-<p>Para cuando se requiere regresar de manera automática a la página que invoca el servicio</p>
+<p>esto se convertirá en una llamada similar a</p>
+
+<blockquote>
+<p>ObjetoClaseParaEjecutar-&gt;metodoParaEjecutar(parametro1,parametro2);</p>
+</blockquote>
+
+<p>Para cuando se requiere regresar de manera automática a la página que invoca el servicio (utilizando back=1)</p>
 
 <h3>
 <a id="implementación-administrador" class="anchor" href="#implementaci%C3%B3n-administrador" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Implementación Administrador</h3>
