@@ -51,7 +51,7 @@
             <li>
                 <strong>rol</strong>: Contiene el rol base ADMINISTRADOR, almacenará futuros roles. </li>
             <li>
-                <strong>cms</strong>: Contiene un ejemplo de contenido html el cual es mostrado en el frontend /BASEURL/index.php en el explorador</li>
+                <strong>cms</strong>: Contiene un ejemplo de contenido html el cual es mostrado en el frontend /BASEURL/index.php</li>
             <li>
                 <strong>menu</strong>: Contiene el menú raiz de donde heredarán todos los menús además de "home" el cual podrá visualizarse en el menú de /BASEURL/index.php en el explorador</li>
             <li>
@@ -272,7 +272,10 @@
     <p>la utilización sería de la siguiente manera</p>
 
     <div class="table-well well well-lg">
-        <p>en /vistas/contacto.php se podrá poner cualquier contenido HTML y en donde se desee mostrar el contenido del cms se tendrá que utilizar la siguiente nomenclatura {{tag}} el cual será igual al nombre del tag teniendo como resultado {{contacto}}.</p>
+        <p>en /vistas/contacto.php se podrá poner cualquier contenido HTML y en donde se desee mostrar el contenido del cms se tendrá que utilizar la siguiente nomenclatura &#123;&#123;tag&#125;&#125; <br /> el cual será igual al nombre del tag teniendo como resultado &#123;&#123;contacto&#125;&#125;.
+        <bre />Un ejemplo de contenido dinámico el siguiente: <pre>{{home}}</pre> <br />
+        El cual es invocado con el tag &#123;&#123;home&#125;&#125; desde el código fuente de esta página.
+        </p>
     </div>
 
     <h4>
