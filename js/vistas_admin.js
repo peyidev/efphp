@@ -118,11 +118,18 @@ var vistas = {
 			
 		});
 
+        $(".cms-style").wysihtml5({
+            toolbar: {
+                fa: true,
+                html: true
+            }
+        });
+
         $('.add-new-record').click(function(){
 
-           $('.admin-right-column').toggleClass('admin-only-right');
-           $('.admin-left-column').toggleClass('admin-only-left');
-           $('.admin-generic').toggleClass('admin-only-generic');
+            $('.admin-right-column').toggleClass('admin-only-right');
+            $('.admin-left-column').toggleClass('admin-only-left');
+            $('.admin-generic').toggleClass('admin-only-generic');
 
         });
 		

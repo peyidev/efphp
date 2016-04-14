@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="../css/style_admin.css?v=1.0">
         <link rel="stylesheet" href="../css/data_table.css?v=1.0">
         <link rel="stylesheet" href="../css/jquery-ui.css?v=1.0">
+        <link rel="stylesheet" href="../css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="../css/bootstrap3-wysihtml5.min.css">
 	</head>
 	<body <?php echo !empty($login) ? "class={$login}" : ""?>>
     <div class="page-wrap">
@@ -45,5 +47,9 @@
         <script src="../js/lib.js"></script>
         <script src="../js/init.js"></script>
         <script src="../js/vistas_admin.js"></script>
+        <script src="../js/bootstrap-select.min.js"></script>
+        <script src="../js/wysihtml5x-toolbar.min.js"></script>
+        <script src="../js/handlebars.runtime.min.js"></script>
+        <script src="../js/bootstrap3-wysihtml5.min.js"></script>
 	</body>
 </html>

@@ -15,6 +15,54 @@
               print'noLogged';
       }
 
+      function getStatusIcon($status){
+
+          $res = "";
+
+          switch($status){
+
+              case 0:
+                  $res = "<i class='fa fa-close fa-fw no-style'></i>";
+                break;
+
+              case 2:
+                  $res = "<i class='fa fa-exclamation-triangle fa-fw pendiente-style'></i>";
+                  break;
+
+              case 1:
+                  $res = "<i class='fa fa-check fa-fw si-style'></i>";
+                  break;
+
+              default:
+                  $res = "<i class='fa fa-info-circle fa-fw default-style'></i>";
+                  break;
+
+          }
+
+          return $res;
+
+      }
+
+      function getIconOptions($type = "status"){
+
+          $res = array();
+
+          if($type == "status"){
+
+              $res[0] = "No";
+              $res[1] = "Sí";
+              $res[2] = "Pendiente";
+          }else{
+
+              $res[0] = "No";
+              $res[1] = "Sí";
+
+          }
+
+          return $res;
+
+      }
+
       function getValidationType($string){
           $str = explode('-',$string);
           return !empty($str[1]) ? ("validation-" . $str[1] ) : "";
@@ -90,7 +138,7 @@
 
               header("Location: ../admin/index.php?s=home");
 
-          }else if($_GET['s'] == "login"){
+          }else if(!empty($_GET['s']) && $_GET['s'] == "login"){
 
               return "login-form";
           }

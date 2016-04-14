@@ -24,6 +24,8 @@
                 $this->createBasicUsers();
                 $this->createMenu();
                 $this->createItemMenu();
+                $this->createCmsTable();
+                $this->createBasicContent();
 
             }
 
@@ -41,6 +43,30 @@
 
         }
 
+
+
+        function createCmsTable(){
+
+            $table = "CREATE TABLE `cms` (
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `nombre` varchar(255) DEFAULT NULL COMMENT 'Título-text',
+                              `tag` varchar(255) NOT NULL COMMENT 'Tag-text',
+                              `cms_contenido` text  NOT NULL COMMENT 'Contenido CMS-text',
+                              PRIMARY KEY (`id`)
+                            ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8";
+
+            $this->createTable($table);
+
+
+        }
+
+
+        function createBasicContent(){
+
+            $sql = "INSERT INTO cms VALUES(null,'Home','home',\"<div>Home, contenido de base de datos</div>\")";
+
+            $this->db->query($sql);
+        }
         function createLogTable(){
             $table = "CREATE TABLE `log` (
                           `id` int(11) NOT NULL AUTO_INCREMENT,

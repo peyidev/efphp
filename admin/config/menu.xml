@@ -12,9 +12,9 @@
         </subitem>
 
         <subitem>
-            <subitemName>Test</subitemName>
-            <subitemLink>?s=test-admin</subitemLink>
-            <module>test</module>
+            <subitemName>CMS</subitemName>
+            <subitemLink>?s=cms-admin</subitemLink>
+            <module>cms</module>
         </subitem>
 
         <!--subitem>
@@ -42,12 +42,18 @@
 			<subitemLink>?s=rol-admin</subitemLink>
             <module>rol</module>
 		</subitem>
+
+        <!--<subitem>-->
+            <!--<subitemName>Test</subitemName>-->
+            <!--<subitemLink>?s=test-admin</subitemLink>-->
+            <!--<module>test</module>-->
+        <!--</subitem>-->
 	</item>
 
 
 
 
-    <item>
+    <!--item>
         <itemName>Establecimientos</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
@@ -100,6 +106,6 @@
             <module>zona</module>
         </subitem>
 
-    </item>
+    </item-->
 
 </menu>

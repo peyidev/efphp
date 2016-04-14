@@ -16,7 +16,35 @@ class Cms
 
     }
 
+    function findContent($tag = ""){
+
+
+        if(empty($tag))
+            return "";
+
+        $content = $this->dbo->select('cms',"tag = '{$tag}'",'cms_contenido as content');
+        $query = $this->db->query($content);
+
+        if(!$query)
+            return "";
+
+        $row = $query->fetch_array(MYSQL_ASSOC);
+
+        return $row['content'];
+
+    }
+
     function parseSection($content){
+
+        preg_match_all('/{{(.*?)\}}/s', $content, $m);
+        $wildcards = $m[1];
+
+        foreach($wildcards as $w){
+
+            $replace = $this->findContent($w);
+            $content = str_replace('{{' . $w . '}}',$replace,$content);
+
+        }
 
         echo $content;
 

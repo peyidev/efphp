@@ -82,7 +82,7 @@ body {
 .admin-right-column {
     float: left;
     overflow-x: auto;
-    width: 57%;
+    width: 47%;
 }
 .admin-left-column {
     border-radius: 5px;
@@ -91,7 +91,7 @@ body {
     margin-right: 20px;
     overflow: hidden;
     padding: 20px;
-    width: 40%;
+    width: 50%;
 }
 .admin-generic {
     border-radius: 5px;
@@ -325,6 +325,14 @@ pre.detail-list-item-val {
     text-align: center;
     width: 50px !important;
 }
+
+.center-data-unlimited {
+    color: #27aae1;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 100% !important;
+}
 .dataTables_wrapper {
     margin: 0 auto;
     max-width: 1150px !important;
@@ -411,4 +419,49 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 .profile .submenu-item a {
     margin-left: 0 !important;
     width: 106px !important;
+}
+
+
+.dataTables_wrapper .no-style,
+.dataTables_wrapper .si-style,
+.dataTables_wrapper .pendiente-style,
+.dataTables_wrapper .default-style{
+
+    width:100%;
+    text-align: center;
+
+}
+
+
+.no-style,.si-style,.pendiente-style,.default-style{
+
+    margin-right: 10px;
+    font-size: 15px;
+}
+.no-style{
+
+    color:#cc0000;
+}
+
+.si-style{
+
+    color:#00cc00;
+}
+
+
+.pendiente-style{
+
+    color:#cccc00;
+}
+
+.default-style{
+
+    color:#ccc;
+}
+
+
+.input .cms-style{
+
+    height:500px !important;
+
 }

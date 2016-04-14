@@ -238,6 +238,10 @@ class Administrador{
         $table = $_GET['table-insert'];
         $id = $_GET['id'];
         $dbo = $this->dbo;
+
+        if(!empty($_POST['_wysihtml5_mode']))
+            unset($_POST['_wysihtml5_mode']);
+
         $sql = $dbo->update($table,$_POST,$id);
         //echo $sql;
         $query = $this->db->query($sql);
@@ -254,6 +258,9 @@ class Administrador{
         $dbo = $this->dbo;
         $canInsert = $u->handleImages($_FILES);
         $message = new Messages();
+
+        if(!empty($_POST['_wysihtml5_mode']))
+            unset($_POST['_wysihtml5_mode']);
 
         if($canInsert){
 
@@ -505,6 +512,9 @@ class Administrador{
 
                 $foreign = explode("id_",$row['Field']);
                 $img = explode("img_",$row['Field']);
+                $status = explode("status_",$row['Field']);
+                $bool = explode("bool_",$row['Field']);
+                $cms = explode("cms_",$row['Field']);
                 $ajax = explode("_ajax",$row['Field']);
                 $isAjax = "";
 
@@ -543,12 +553,13 @@ class Administrador{
 
                             $combo.="<option value='{$rowForeign['id']}' {$selected}>{$rowForeign['nombre']}</option>";
 
+                            $selected = "";
                         }
 
 
                         echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><select name='{$row['Field']}'>{$combo}</select></p>
+                                 <p class='input'><select class='selectpicker form-control' name='{$row['Field']}'>{$combo}</select></p>
                               </div>";
 
                         $flag = false;
@@ -559,7 +570,7 @@ class Administrador{
                 }else if(count($img) > 1){
                     echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']} form-control' /></p>
+                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']}' /></p>
                               </div>";
                     $flag = false;
                 }
@@ -571,12 +582,26 @@ class Administrador{
 
                     if($row['Type'] == "text"){
 
+                        $cmsActive = "";
+                        if(count($cms) > 1)
+                            $cmsActive = "cms-style";
+
                         echo "<div class='row-abc'>
 	                                 <p class='descripcion'>{$description}</p>
 	                                 <p class='input'>
-	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation form-control'>{$val}</textarea>
+	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation form-control {$cmsActive}'>{$val}</textarea>
 	                                 </p>
 	                              </div>";
+
+                    }else if(count($status) > 1){
+
+                       echo $this->createSelectOptions($val,$description,$row,$type,"status");
+
+
+                    }else if(count($bool) > 1){
+
+                        echo $this->createSelectOptions($val,$description,$row,$type,"bool");
+
 
                     }else{
 
@@ -607,6 +632,39 @@ class Administrador{
 
     }
 
+
+    function createSelectOptions($val, $description, $row, $type, $mode){
+
+        $combo = "";
+        $selected = "";
+
+        foreach($this->util->getIconOptions($mode) as $key => $valTmp){
+
+            if($type == "update"){
+                if($key == $val){
+                    $selected = " selected=selected";
+                }
+            }
+
+            $combo .= "<option
+                            {$selected}
+                            data-content=\"" . $this->util->getStatusIcon($key) . "<span>{$valTmp}</span>\"
+                            value='{$key}'>{$valTmp}</option>";
+
+            $selected = "";
+
+        }
+
+
+        return "<div class='row-abc'>
+                    <p class='descripcion'>{$description}</p>
+                    <p class='input'>
+                        <select class='selectpicker form-control'  data-selected-text-format='count'  name='{$row['Field']}'>{$combo}</select>
+                    </p>
+                </div>";
+
+
+    }
     function createUpdateForm($tabla, $id){
 
         $this->createGenericForm($tabla,$id,"update");
@@ -662,6 +720,9 @@ class Administrador{
 
                             $field = str_replace('_ajax','',$field);
                             $foreign = explode("id_",$field);
+                            $status = explode("status_",$field);
+                            $bool = explode("bool_",$field);
+                            $cms = explode("cms_",$field);
 
                             if(count($foreign) > 1) {
 
@@ -676,7 +737,16 @@ class Administrador{
                                         $d = $rowForeign['nombre'];
                                     }
                                 }
+                            }else if(count($status) > 1 || count($bool) > 1){
+
+                                $util = new Utils();
+                                $d = $util->getStatusIcon($d);
+
+                            }else if(count($cms) > 1){
+
+                                $d = "<a href='?s={$table}-detail&id={$row['id']}' class='center-data-unlimited'><i class='fa fa-list-alt fa-fw'></i> Preview</a>";
                             }
+
                             return $d;
                         }
                 );
