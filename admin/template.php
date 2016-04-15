@@ -16,6 +16,10 @@
         <link rel="stylesheet" href="../css/jquery-ui.css?v=1.0">
         <link rel="stylesheet" href="../css/bootstrap-select.min.css">
         <link rel="stylesheet" href="../css/bootstrap3-wysihtml5.min.css">
+
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
 	</head>
 	<body <?php echo !empty($login) ? "class={$login}" : ""?>>
     <div class="page-wrap">

@@ -20,6 +20,10 @@
         <link rel="stylesheet" href="css/bootstrap3-wysihtml5.min.css">
 		<link rel="stylesheet" href="css/style.css?v=1.0">
 
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+
     </head>
 	<body>
 

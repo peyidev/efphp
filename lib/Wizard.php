@@ -134,6 +134,12 @@
             $sql = "INSERT INTO menu VALUES(null,$id,'Home','home',1)";
             $this->db->query($sql);
 
+            $sql = "INSERT INTO menu VALUES(null,$id,'Documentación','documentacion',1)";
+            $this->db->query($sql);
+
+            $sql = "INSERT INTO menu VALUES(null,$id,'Descarga','descarga',1)";
+            $this->db->query($sql);
+
         }
 
         function createTable($sql){
