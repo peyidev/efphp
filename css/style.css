@@ -276,11 +276,105 @@ html, body {
     width: 100%;
 }
 
-.jumbofooter{
+.jumbofooter {
 
-    padding:0;
+    padding: 0;
     text-align: center;
     line-height: 100px;
     background: transparent;
+
+}
+
+@media only screen and (max-width : 900px) {
+
+
+    header{
+
+        text-align: center;
+        padding:0;
+
+    }
+    header #logo{
+
+        width:70%;
+        float: none;
+        margin-right: 0;
+
+    }
+
+    nav a{
+
+        border-left:0;
+        border-bottom: 1px solid var(--main-color3);
+
+    }
+
+    nav ul{
+
+        margin-top:10px;
+
+    }
+    nav ul li{
+
+        min-width:100%;
+
+    }
+
+    #content{
+
+        width:90%;
+        padding:30px 0;
+
+    }
+
+    #hero{
+
+        height:350px;
+
+    }
+
+    #hero-internal{
+
+        height: 250px;
+
+
+    }
+    #hero .jumbotron{
+
+        height: 100%;
+        margin-bottom: 0;
+        padding: 0;
+        right: 50%;
+        text-align: center;
+        width: 90%;
+        position:static;
+
+    }
+
+    .dynamic-height{
+
+
+        margin-top:0;
+        top:2%;
+
+    }
+
+    .well{
+
+        overflow-x: auto;
+
+    }
+
+    .col-sm-4{
+
+        margin-bottom:40px;
+
+    }
+
+    .lead{
+
+        font-size:15px;
+
+    }
 
 }

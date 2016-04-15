@@ -22,6 +22,7 @@ define('SIGNATURE','');
 define('PAYPALURL','');
 
 #Global config
+define('GOOGLEANALYTICS', 'UA-6593369-14');
 define('ADMINURL', 'admin/');
 define('DEFAULT_S', 'home.php');
 define('GLOBALURL', $domain);
