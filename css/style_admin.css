@@ -465,3 +465,122 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     height:500px !important;
 
 }
+
+/*
+GRUPO MEDIOS
+*/
+
+
+
+@media only screen and (min-width : 1250px) {
+
+    .dataTables_wrapper{
+
+        max-width:1200px !important;
+
+    }
+
+}
+
+@media only screen and (min-width : 1450px) {
+
+    .dataTables_wrapper{
+
+        max-width:1400px !important;
+
+    }
+
+}
+
+
+@media only screen and (min-width : 1550px) {
+
+    .dataTables_wrapper{
+
+        max-width:1500px !important;
+
+    }
+
+}
+
+
+@media only screen and (max-width : 1250px) {
+
+    #logo img {
+        margin-top: 10px;
+        width: 144px;
+        height: auto;
+    }
+
+}
+
+@media only screen and (max-width : 1100px) {
+
+    #logo img {
+        margin-top: 18px;
+        width: 80px;
+        height: auto;
+    }
+
+}
+
+
+
+@media only screen and (max-width : 1023px) {
+
+    #logo img {
+        display: none;
+    }
+
+    .profile{
+
+        margin-top: 0;
+        width: 32px !important;
+
+    }
+
+    .profile .input-group{
+
+        margin-top:20px;
+
+    }
+    .profile ul{
+
+        margin-left: -64px;
+        margin-top: 15px;
+
+    }
+    .profile .input-group a{
+
+        display: none !important;
+
+    }
+
+    .profile .input-group-addon::after{
+
+        background: transparent;
+
+    }
+
+    #main-menu .menu-item{
+
+        width:130px;
+
+    }
+    #main-menu .profile .input-group-addon{
+
+        display: block !important;
+    }
+    #main-menu .menu-item .input-group-addon{
+
+        display: none;
+
+    }
+
+    #main-menu .menu-item .menu-subitem-link{
+
+        width:110px;
+
+    }
+
+}

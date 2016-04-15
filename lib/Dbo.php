@@ -30,7 +30,7 @@ class Dbo  {
 
         $tabla = $this->util->limpiar($tabla);
         $query = $this->util->limpiar($query);
-        $extra = $this->util->createMultiJoin($tabla, $query);
+        $extra = $this->createMultiJoin($tabla, $query);
 
         return "SELECT main_table.* {$extra['select']}
                     FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.nombre
@@ -195,7 +195,7 @@ class Dbo  {
         while($row = $query->fetch_array(MYSQL_ASSOC))
             $result[] = $row;
 
-        echo $this->toJSON($result);
+        echo $this->util->toJSON($result);
 
 
     }

@@ -34,7 +34,7 @@ var vistas = {
                     "table" : table
                 };
 
-                ajaxData('../lib/Execute.php?e=Utils/ajaxSearch','GET',param,'true',function(json){
+                ajaxData('../lib/Execute.php?e=Dbo/ajaxSearch','GET',param,'true',function(json){
 
                     $result = "<div class='result-query' id='result-" + table + "'>";
 
