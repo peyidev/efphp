@@ -5,14 +5,34 @@ class Administrador{
     public $db;
     public $util;
     public $dbo;
+    public $user;
 
     function __construct(){
 
         $this->db = Database::connect();
         $this->util = new Utils();
         $this->dbo = new Dbo();
+        $this->user = new User();
 
     }
+
+
+
+    function operativeObject($pkg,$module){
+
+        if(class_exists($pkg)){
+
+            $ex = new stdClass();
+            eval("\$ex = new {$pkg}(\$module);");
+
+        }else{
+            $ex = $this;
+        }
+
+        return $ex;
+    }
+
+
 
     function renderAdmin($info = array()){
 
@@ -24,6 +44,14 @@ class Administrador{
         $u = $this->util;
 
         if(!empty($_GET['s'])){
+
+            if(!$this->user->grantRenderPermissionsFromUrl()){
+                return false;
+            }
+
+
+            $pkg = $this->user->grantRenderPermissionsFromUrl();
+            $dynamicObj = $this->operativeObject($pkg['pkg'],$pkg['module']);
 
             $tabla = $_GET['s'];
             $tabla = explode("-", $tabla);
@@ -40,12 +68,12 @@ class Administrador{
                     case "admin":
                         echo "<div class='add-new-record'>Insertar nuevo registro<i class='fa fa-plus fa-fw'></i></div>";
                         echo "<div class='admin-left-column admin-only-left well'>";
-                        $this->createAdminTable($tabla[0]);
+                        $dynamicObj->createAdminTable($tabla[0]);
                         echo "</div>";
 
                         echo "<div class='admin-right-column admin-only-right'>";
                         //$this->createGrid($tabla[0]);
-                        $this->createGridBase($tabla[0]);
+                        $dynamicObj->createGridBase($tabla[0]);
                         echo "</div>";
                         break;
 
@@ -57,17 +85,17 @@ class Administrador{
                               </div>";
 
                         echo "<div class='admin-left-column well'>";
-                        $this->createUpdateForm($tabla[0],$id);
+                        $dynamicObj->createUpdateForm($tabla[0],$id);
                         echo "</div>";
 
                         echo "<div class='admin-right-column'>";
-                        $this->createGridBase($tabla[0]);
+                        $dynamicObj->createGridBase($tabla[0]);
                         echo "</div>";
 
                         break;
 
                     case "report":
-                        $this->createGrid($tabla[0],"report");
+                        $dynamicObj->createGrid($tabla[0],"report");
                         break;
 
                     case "detail":
@@ -81,12 +109,10 @@ class Administrador{
                             $id = !empty($_GET['id']) ? $_GET['id'] : null;
 
                             if(!empty($id)){
-                                $this->createDetail($tabla[0],$id);
+                                $dynamicObj->createDetail($tabla[0],$id);
                             }
                         }
                         break;
-
-
 
                 }
 
@@ -122,6 +148,8 @@ class Administrador{
 
             $title = "";
             $ico = "";
+            $module = "";
+
             $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
             $menu = "<ul id='main-menu'>";
@@ -168,8 +196,9 @@ class Administrador{
                                 foreach($xml->item[$i]->subitem as $subitem){
 
                                     if($s == $subitem->subitemLink){
-                                        $title =$subitem->subitemName;
+                                        $title = $subitem->subitemName;
                                         $ico = $icon;
+                                        $module = $subitem->module;
                                     }
 
 
@@ -206,8 +235,9 @@ class Administrador{
 
             $r = array();
 
-            $r['title'] = $title;
-            $r['icon'] = $ico;
+            $r['title'] = (String)$title;
+            $r['icon'] = (String)$ico;
+            $r['module'] = (String)$module;
 
             return $r;
         }
@@ -242,6 +272,15 @@ class Administrador{
         if(!empty($_POST['_wysihtml5_mode']))
             unset($_POST['_wysihtml5_mode']);
 
+        foreach($_POST as $key => $val){
+
+            if(is_array($val)){
+                $_POST[$key] = serialize($val);
+            }
+        }
+
+
+
         $sql = $dbo->update($table,$_POST,$id);
         //echo $sql;
         $query = $this->db->query($sql);
@@ -262,10 +301,16 @@ class Administrador{
         if(!empty($_POST['_wysihtml5_mode']))
             unset($_POST['_wysihtml5_mode']);
 
+        foreach($_POST as $key => $val){
+
+            if(is_array($val)){
+                $_POST[$key] = serialize($val);
+            }
+        }
+
         if($canInsert){
 
             $sql = $dbo->insert($table,$_POST);
-            //echo $sql;
             $query = $this->db->query($sql);
 
             if(!$query)
@@ -472,6 +517,8 @@ class Administrador{
 
         }
 
+        $thead = $this->filterDataGridBase($thead);
+
         echo "<table class='table-admin'>
 					<thead><tr>{$thead}{$controles}</tr></thead>
 					<tfoot><tr>{$thead}{$controles}</tr></tfoot>
@@ -506,6 +553,8 @@ class Administrador{
             $data[] = $row;
         }
 
+        $data = $this->filterDataForm($data);
+
         foreach($data as $row){
 
             if($row['Field'] != "id"){
@@ -516,6 +565,7 @@ class Administrador{
                 $bool = explode("bool_",$row['Field']);
                 $cms = explode("cms_",$row['Field']);
                 $ajax = explode("_ajax",$row['Field']);
+                $foreignSerialized = explode("id_serialized_",$row['Field']);
                 $isAjax = "";
 
                 if(count($ajax) > 1)
@@ -535,7 +585,17 @@ class Administrador{
 
                 if(count($foreign) > 1){
 
-                    if($this->dbo->tableExist($foreign[1])){
+                    if($this->dbo->tableExist($foreign[1]) || ( !empty($foreignSerialized[1]) && $this->dbo->tableExist($foreignSerialized[1]))){
+
+                        $multiple = "";
+                        $dataType = "";
+
+                        if(count($foreignSerialized) > 1){
+
+                            $foreign[1] = $foreignSerialized[1];
+                            $multiple = "multiple";
+                            $dataType = "[]";
+                        }
 
                         $sqlForeign = $this->dbo->select($foreign[1]);
                         $queryForeign = $this->db->query($sqlForeign);
@@ -545,21 +605,43 @@ class Administrador{
 
                             $selected = "";
 
-                            if($type == "update"){
-                                if($rowForeign['id'] == $info[$row['Field']]){
-                                    $selected = " selected=selected";
+
+                            if(!count($foreignSerialized) > 1){
+
+                                if($type == "update"){
+                                    if($rowForeign['id'] == $info[$row['Field']]){
+                                        $selected = " selected=selected";
+                                    }
                                 }
+
+
+                                $selected = "";
+
+                            }else if(count($foreignSerialized) > 1){
+
+                                $unserialized =  @unserialize($info[$row['Field']]);
+
+                                if(is_array($unserialized)){
+                                    foreach($unserialized as $val){
+
+                                        if($rowForeign['id'] == $val){
+                                            $selected = " selected=selected";
+                                        }
+                                    }
+                                }
+
+
                             }
 
                             $combo.="<option value='{$rowForeign['id']}' {$selected}>{$rowForeign['nombre']}</option>";
 
-                            $selected = "";
+
                         }
 
 
                         echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><select class='selectpicker form-control' name='{$row['Field']}'>{$combo}</select></p>
+                                 <p class='input'><select {$multiple} class='selectpicker form-control' name='{$row['Field']}{$dataType}'>{$combo}</select></p>
                               </div>";
 
                         $flag = false;
@@ -632,7 +714,6 @@ class Administrador{
 
     }
 
-
     function createSelectOptions($val, $description, $row, $type, $mode){
 
         $combo = "";
@@ -665,6 +746,7 @@ class Administrador{
 
 
     }
+
     function createUpdateForm($tabla, $id){
 
         $this->createGenericForm($tabla,$id,"update");
@@ -676,11 +758,11 @@ class Administrador{
         $this->createGenericForm($tabla);
     }
 
-    function createLeft($tabla){
-
-    }
-
     function createAjaxTable($table){
+
+        $module['module'] = $table;
+        $pkg = $this->user->grantRenderPermissions($module);
+        $dynamicObj = $this->operativeObject($pkg,$table);
 
         $primaryKey = 'id';
         $sqlRow = $this->dbo->getColumns($table);
@@ -723,19 +805,61 @@ class Administrador{
                             $status = explode("status_",$field);
                             $bool = explode("bool_",$field);
                             $cms = explode("cms_",$field);
+                            $foreignSerialized = explode("id_serialized_",$field);
 
-                            if(count($foreign) > 1) {
+                            if(count($foreign) > 1 || count($foreignSerialized) > 1) {
 
                                 $db = Database::connect();
                                 $dbo = new Dbo();
+                                $multiple = false;
+                                if(!empty($foreignSerialized[1])){
+
+                                    $foreign[1] = $foreignSerialized[1];
+                                    $multiple = true;
+                                }
+
                                 if ($dbo->tableExist($foreign[1])) {
 
-                                    $sqlForeign = $dbo->select($foreign[1],"id = '{$d}'");
-                                    $queryForeign = $db->query($sqlForeign);
 
-                                    while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
-                                        $d = $rowForeign['nombre'];
+                                    if($multiple){
+
+                                        $data = @unserialize($d);
+                                        $res = array();
+
+                                        if(is_array($data)){
+                                            foreach($data as $val){
+
+                                                $sqlForeign = $dbo->select($foreign[1],"id = '{$val}'");
+                                                $queryForeign = $db->query($sqlForeign);
+
+                                                while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                                    $res[] = $rowForeign['nombre'];
+                                                }
+
+                                            }
+
+                                            $d = implode(', ',$res);
+
+                                        }else{
+
+                                            $d = "";
+
+                                        }
+
+
+                                    }else{
+
+                                        $sqlForeign = $dbo->select($foreign[1],"id = '{$d}'");
+                                        $queryForeign = $db->query($sqlForeign);
+
+
+                                        while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                            $d = $rowForeign['nombre'];
+                                        }
+
                                     }
+
+
                                 }
                             }else if(count($status) > 1 || count($bool) > 1){
 
@@ -751,8 +875,13 @@ class Administrador{
                         }
                 );
                 $cont++;
+
             }
         }
+
+        $columns = $dynamicObj->filterDataGrid($columns,$cont);
+
+        $cont = count($columns);
 
         $columns[] = array(
             'db' => 'id',
@@ -762,6 +891,7 @@ class Administrador{
                     return "<a href='?s={$table}-update&id={$d}' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
                 }
         );
+
 
         $columns[] = array(
             'db' => 'id',
@@ -773,8 +903,23 @@ class Administrador{
         );
 
 
-
         echo json_encode(Servertable::simple($_GET, $table, $primaryKey, $columns));
+
+    }
+
+    function filterDataForm($data){
+        return $data;
+    }
+
+    function filterDataGrid($columns,$cont){
+
+        return $columns;
+
+    }
+
+    function filterDataGridBase($columns){
+
+        return $columns;
 
     }
 }

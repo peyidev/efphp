@@ -68,6 +68,21 @@
         <itemName>Afiliación</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
+
+        <subitem>
+            <subitemName>Leads y oportunidades</subitemName>
+            <subitemLink>?s=lead-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>lead</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Seguimiento leads</subitemName>
+            <subitemLink>?s=seguimiento-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>seguimiento</module>
+        </subitem>
+
     </item>
 
     <item>

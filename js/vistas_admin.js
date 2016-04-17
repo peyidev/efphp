@@ -132,6 +132,13 @@ var vistas = {
             $('.admin-generic').toggleClass('admin-only-generic');
 
         });
+
+        $(".table-admin").on('click','.popup-admin',function(e){
+
+            e.preventDefault();
+            alert($(this).attr('href'));
+
+        });
 		
     },
     home : function(){
