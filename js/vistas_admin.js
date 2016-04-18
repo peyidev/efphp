@@ -10,11 +10,12 @@ var vistas = {
 
         //ephp/lib/Execute.php?e=Administrador/createAjaxTable
         var table = $('.title-general').attr('id');
-		$(".table-admin").DataTable({
+        var extra = $('#extra-value').val();
+		$(".table-admin-base").DataTable({
             "order": [[ 0, "desc" ]],
             "processing": true,
             "serverSide": true,
-            "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + table)
+            "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + table + "&extraValue=" + extra)
         });
 
         $('.ajax-search').keyup(function(){
@@ -136,7 +137,29 @@ var vistas = {
         $(".table-admin").on('click','.popup-admin',function(e){
 
             e.preventDefault();
-            alert($(this).attr('href'));
+            $('#table-detail').remove();
+
+            var url = $(this).attr('href');
+            ajaxData(url,'GET',{},'true',function(result){
+
+                $(".table-admin-render").unbind();
+
+                $('<div id="table-detail" title="Detalle">' + result + '</div>').dialog({
+                    resizable: false,
+                    height:500,
+                    width:1000,
+                    modal: true
+                });
+
+                $(".table-admin-render").DataTable({
+                    "order": [[ 0, "desc" ]]
+                });
+
+                $('.selectpicker').selectpicker();
+                $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+
+            },"true");
 
         });
 		
@@ -145,6 +168,17 @@ var vistas = {
 
         /*Función default*/
 
+
+    },
+
+    lead_admin: function(){
+
+
+        $(".table-admin").on('click','.si-style',function(e){
+
+            alert("este sí");
+
+        });
 
     }
 

@@ -379,7 +379,7 @@ html, body {
 .form-operation {
     color: #495969;
     font-size: 20px;
-    width: 250px;
+    width: 270px;
 }
 .admin-right-column th {
     text-align: center;
@@ -466,6 +466,17 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 
 }
 
+#table-detail{
+
+    font-size: 10px;
+
+}
+
+.si-style{
+
+    cursor: pointer;
+    
+}
 /*
 GRUPO MEDIOS
 */

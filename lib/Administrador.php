@@ -46,7 +46,7 @@ class Administrador{
         if(!empty($_GET['s'])){
 
             if(!$this->user->grantRenderPermissionsFromUrl()){
-                return false;
+                //return false;
             }
 
 
@@ -113,6 +113,22 @@ class Administrador{
                             }
                         }
                         break;
+
+
+                    case "vista":
+                        $detail = $_GET['s'];
+                        $detail = explode("-",$detail);
+                        $detail = $detail[0];
+                        $include = BASE_PATH . ADMINURL . "vistas/{$detail}.php";
+                        if(file_exists($include)){
+                            include($include);
+                        }else{
+
+                            echo "<div class='well well-lg'>No hay información</div>";
+
+                        }
+                        break;
+
 
                 }
 
@@ -263,6 +279,10 @@ class Administrador{
         echo $u->mensajeJSON("1");
     }
 
+    function preselectedRow(){
+        $this->insertRow();
+    }
+
     function updateRow(){
 
         $table = $_GET['table-insert'];
@@ -366,9 +386,9 @@ class Administrador{
 
     }
 
-    function createGrid($tabla,$report = false){
+    function createGrid($tabla,$report = false, $where = ""){
 
-        $sql = $this->dbo->select($tabla);
+        $sql = $this->dbo->select($tabla, $where);
         $query = $this->db->query($sql);
         $columns = "";
         $tbody = "";
@@ -379,6 +399,8 @@ class Administrador{
 
         if($report){
             $controles .= "<th>Consultar</th>";
+        }else if($report == "grid"){
+            $controles = "";
         }else{
             $controles .= "<th>Editar</th><th>Eliminar</th>";
         }
@@ -401,7 +423,11 @@ class Administrador{
                     continue;
 
                 if($flag){
-                    $thead .= "<th>" . $columns[$i]["Field"] . "</th>";
+
+                    $description = empty($columns[$i]['Comment']) ? $columns[$i]['Field'] : $columns[$i]['Comment'];
+                    $description = $this->util->transformName($description);
+
+                    $thead .= "<th>" . $description . "</th>";
                 }
 
                 if($columns[$i]["Field"] == "id"){
@@ -421,6 +447,13 @@ class Administrador{
                     $foreign = explode("id_",$field);
 
                     if(count($foreign) > 1) {
+
+                        $repeatedForeign = explode("__",$foreign[1]);
+
+                        if(count($repeatedForeign) > 1){
+                            $foreign[1] = $repeatedForeign[0];
+                        }
+
 
                         if ($this->dbo->tableExist($foreign[1])) {
 
@@ -466,7 +499,7 @@ class Administrador{
 
         }
 
-        echo "<table class='table-admin'>
+        echo "<table class='table-admin table-admin-render'>
 					<thead><tr>{$thead}{$controles}</tr></thead>
 					<tfoot><tr>{$thead}{$controles}</tr></tfoot>
 					<tbody>{$tbody}</tbody>
@@ -507,8 +540,12 @@ class Administrador{
                 if($columns[$i]["Field"] == "password")
                     continue;
 
+
+                $description = empty($columns[$i]['Comment']) ? $columns[$i]['Field'] : $columns[$i]['Comment'];
+                $description = $this->util->transformName($description);
+
                 if($flag){
-                    $thead .= "<th>" . $columns[$i]["Field"] . "</th>";
+                    $thead .= "<th>" . $description . "</th>";
                 }
 
             }
@@ -517,16 +554,17 @@ class Administrador{
 
         }
 
+        $thead = $thead . $controles;
         $thead = $this->filterDataGridBase($thead);
 
-        echo "<table class='table-admin'>
-					<thead><tr>{$thead}{$controles}</tr></thead>
-					<tfoot><tr>{$thead}{$controles}</tr></tfoot>
+        echo "<table class='table-admin table-admin-base'>
+					<thead><tr>{$thead}</tr></thead>
+					<tfoot><tr>{$thead}</tr></tfoot>
 				</table>";
 
     }
 
-    function createGenericForm($tabla, $id = null, $type = "insert"){
+    function createGenericForm($tabla, $id = null, $type = "insert", $preselected = null){
 
         $extra = !empty($id) ? "&id={$id}" : "";
 
@@ -547,7 +585,6 @@ class Administrador{
             $info = $infoQuery->fetch_array(MYSQL_ASSOC);
         }
 
-
         $data = array();
         while ($row = $query->fetch_array(MYSQL_ASSOC)) {
             $data[] = $row;
@@ -566,6 +603,8 @@ class Administrador{
                 $cms = explode("cms_",$row['Field']);
                 $ajax = explode("_ajax",$row['Field']);
                 $foreignSerialized = explode("id_serialized_",$row['Field']);
+
+
                 $isAjax = "";
 
                 if(count($ajax) > 1)
@@ -585,6 +624,13 @@ class Administrador{
 
                 if(count($foreign) > 1){
 
+                    $repeatedForeign = explode("__",$foreign[1]);
+
+                    if(count($repeatedForeign) > 1){
+
+                        $foreign[1] = $repeatedForeign[0];
+                    }
+
                     if($this->dbo->tableExist($foreign[1]) || ( !empty($foreignSerialized[1]) && $this->dbo->tableExist($foreignSerialized[1]))){
 
                         $multiple = "";
@@ -600,24 +646,13 @@ class Administrador{
                         $sqlForeign = $this->dbo->select($foreign[1]);
                         $queryForeign = $this->db->query($sqlForeign);
                         $combo = "";
+                        $style = "";
 
                         while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ){
 
                             $selected = "";
 
-
-                            if(!count($foreignSerialized) > 1){
-
-                                if($type == "update"){
-                                    if($rowForeign['id'] == $info[$row['Field']]){
-                                        $selected = " selected=selected";
-                                    }
-                                }
-
-
-                                $selected = "";
-
-                            }else if(count($foreignSerialized) > 1){
+                            if(count($foreignSerialized) > 1){
 
                                 $unserialized =  @unserialize($info[$row['Field']]);
 
@@ -631,15 +666,30 @@ class Administrador{
                                 }
 
 
+                            }else{
+
+                                if($type == "update" || $type == "preselected"){
+                                    if(
+                                        (!empty($info[$row['Field']]) && $rowForeign['id'] == $info[$row['Field']]) ||
+                                        (!empty($preselected[$row['Field']]) && $rowForeign['id'] == $preselected[$row['Field']])
+                                    ){
+
+                                        if($rowForeign['id'] == $preselected[$row['Field']]){
+                                             $style = " style='display:none;' ";
+                                        }
+                                        $selected = " selected=selected";
+                                    }
+                                }
+
                             }
 
                             $combo.="<option value='{$rowForeign['id']}' {$selected}>{$rowForeign['nombre']}</option>";
-
+                            $selected = "";
 
                         }
 
 
-                        echo "<div class='row-abc'>
+                        echo "<div class='row-abc' {$style}>
                                  <p class='descripcion'>{$description}</p>
                                  <p class='input'><select {$multiple} class='selectpicker form-control' name='{$row['Field']}{$dataType}'>{$combo}</select></p>
                               </div>";
@@ -758,6 +808,35 @@ class Administrador{
         $this->createGenericForm($tabla);
     }
 
+
+    function createAjaxInsert($params){
+
+        $params = explode(',',$params);
+        $table = $params[0];
+        $foreign = $params[1];
+        $id = $params[2];
+
+        //$where = "{$foreign}={$id}";
+
+        $preselected = array();
+        $preselected[$foreign] = $id;
+
+        $this->createGenericForm($table,null,"preselected",$preselected);
+
+    }
+
+    function createAjaxGrid($params){
+
+        $params = explode(',',$params);
+        $table = $params[0];
+        $foreign = $params[1];
+        $id = $params[2];
+
+        $where = "{$foreign}={$id}";
+        $this->createGrid($table,true,$where);
+
+    }
+
     function createAjaxTable($table){
 
         $module['module'] = $table;
@@ -808,6 +887,12 @@ class Administrador{
                             $foreignSerialized = explode("id_serialized_",$field);
 
                             if(count($foreign) > 1 || count($foreignSerialized) > 1) {
+
+                                $repeatedForeign = explode("__",$foreign[1]);
+
+                                if(count($repeatedForeign) > 1){
+                                    $foreign[1] = $repeatedForeign[0];
+                                }
 
                                 $db = Database::connect();
                                 $dbo = new Dbo();
@@ -879,13 +964,13 @@ class Administrador{
             }
         }
 
-        $columns = $dynamicObj->filterDataGrid($columns,$cont);
 
         $cont = count($columns);
 
         $columns[] = array(
             'db' => 'id',
             'dt' => $cont,
+            'column_name' => 'Editar',
             'formatter' =>
                 function( $d, $row, $table ) {
                     return "<a href='?s={$table}-update&id={$d}' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
@@ -896,6 +981,7 @@ class Administrador{
         $columns[] = array(
             'db' => 'id',
             'dt' => ++$cont,
+            'column_name' => 'Eliminar',
             'formatter' =>
                 function( $d, $row, $table ) {
                     return "<a href='?s={$table}&id={$d}' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a>";
@@ -903,7 +989,21 @@ class Administrador{
         );
 
 
-        echo json_encode(Servertable::simple($_GET, $table, $primaryKey, $columns));
+
+        $extra = !empty($_GET['extraValue']) ? $_GET['extraValue'] : null;
+
+        $columns = $dynamicObj->filterDataGrid($columns,$cont, $extra);
+        $where = "";
+
+        if(!empty($columns['where'])){
+
+            $where = $columns['where'];
+            unset($columns['where']);
+
+        }
+
+
+        echo json_encode(Servertable::simple($_GET, $table, $primaryKey, $columns, $where));
 
     }
 
@@ -911,7 +1011,7 @@ class Administrador{
         return $data;
     }
 
-    function filterDataGrid($columns,$cont){
+    function filterDataGrid($columns,$cont, $extra = null){
 
         return $columns;
 

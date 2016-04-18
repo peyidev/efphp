@@ -78,10 +78,47 @@
 
         <subitem>
             <subitemName>Seguimiento leads</subitemName>
-            <subitemLink>?s=seguimiento-admin</subitemLink>
+            <subitemLink>?s=lead-vista</subitemLink>
             <pkg>Medios</pkg>
-            <module>seguimiento</module>
+            <module>lead</module>
         </subitem>
+
+
+        <subitem>
+            <subitemName>Actividad</subitemName>
+            <subitemLink>?s=actividad-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>actividad</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Contactos Leads</subitemName>
+            <subitemLink>?s=contacto-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>contacto</module>
+        </subitem>
+
+        <!--<subitem>-->
+            <!--<subitemName>Catálogo actividad</subitemName>-->
+            <!--<subitemLink>?s=cat_actividad-admin</subitemLink>-->
+            <!--<module>cat_actividad</module>-->
+        <!--</subitem>-->
+
+
+        <!--<subitem>-->
+            <!--<subitemName>Catálogo estatus</subitemName>-->
+            <!--<subitemLink>?s=cat_estatus_actividad-admin</subitemLink>-->
+            <!--<module>cat_estatus_actividad</module>-->
+        <!--</subitem>-->
+
+
+        <!--<subitem>-->
+            <!--<subitemName>Actividad</subitemName>-->
+            <!--<subitemLink>?s=actividad-admin</subitemLink>-->
+            <!--<module>actividad</module>-->
+        <!--</subitem>-->
+
+
 
     </item>
 

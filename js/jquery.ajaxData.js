@@ -62,7 +62,7 @@
     };
 
 
-    ajaxData = function( servicio, tipo, params,asyncflag, callback) {
+    ajaxData = function( servicio, tipo, params, asyncflag, callback, plain) {
 
         var _json = null;
         var _params = {};
@@ -78,6 +78,18 @@
                 asyncflag = false;
             }
         }
+
+
+        if(typeof(plain) === "undefined"){
+            plain = false;
+        }else{
+            if(plain == "true"){
+                plain = true;
+            }else{
+                plain = false;
+            }
+        }
+
 
         try{
             if(params != ''){
@@ -110,6 +122,10 @@
 
                 try {
                     _json = response.toString().parseJSON();
+
+                    if(plain){
+                        _json = response;
+                    }
 
                     if (callback && typeof(callback) === "function") {
                         callback.apply( this, [ _json ] );

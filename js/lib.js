@@ -12,7 +12,8 @@ var execute = new function(){
 
         try{
 
-            eval("vistas." + seccion + "()");
+            var res = seccion.replace("-", "_");
+            eval("vistas." + res + "()");
 
         }catch(err){
 

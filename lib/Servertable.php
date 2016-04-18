@@ -219,7 +219,7 @@ class Servertable {
      *  @param  array $columns Column information array
      *  @return array          Server-side processing response array
      */
-    static function simple ( $request, $table, $primaryKey, $columns )
+    static function simple ( $request, $table, $primaryKey, $columns, $whereResult=null, $whereAll=null )
     {
         $bindings = array();
         $db = self::db();
@@ -228,6 +228,25 @@ class Servertable {
         $limit = self::limit( $request, $columns );
         $order = self::order( $request, $columns );
         $where = self::filter( $request, $columns, $bindings );
+
+        $whereResult = self::_flatten( $whereResult );
+        $whereAll = self::_flatten( $whereAll );
+
+
+
+        if ( $whereResult ) {
+            $where = $where ?
+                $where .' AND '.$whereResult :
+                'WHERE '.$whereResult;
+        }
+
+        if ( $whereAll ) {
+            $where = $where ?
+                $where .' AND '.$whereAll :
+                'WHERE '.$whereAll;
+
+            $whereAllSql = 'WHERE '.$whereAll;
+        }
 
         // Main query to actually get the data
         $data = self::sql_exec( $db, $bindings,
@@ -244,12 +263,15 @@ class Servertable {
         );
         $recordsFiltered = $resFilterLength[0][0];
 
+
         // Total data set length
-        $resTotalLength = self::sql_exec( $db,
+        $resTotalLength = self::sql_exec( $db, $bindings,
             "SELECT COUNT(`{$primaryKey}`)
-			 FROM   `$table`"
+			 FROM   `$table` ".
+            $where
         );
         $recordsTotal = $resTotalLength[0][0];
+
 
 
         /*
