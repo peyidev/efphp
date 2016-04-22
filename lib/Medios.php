@@ -166,7 +166,7 @@
 
         function dataFormLeads($data){
 
-            $remove = array('fecha_solicitud','fecha_revision','bool_aprobado','Editar','Eliminar');
+            $remove = array('fecha_solicitud','fecha_revision','bool_aprobado','Editar','Eliminar','bool_contrato','id');
             $this->customColumns = $remove;
             return $this->removeDataFields($data,$remove);
 
@@ -174,7 +174,7 @@
 
         function dataGridLeads($columns = array(),$cont = 1){
 
-            $remove = array('fecha_solicitud','fecha_revision','bool_aprobado','Editar','Eliminar','numero_sucursales','Fecha de revisión','Fecha de solicitud','Aprobado','Número de sucursales');
+            $remove = array('fecha_solicitud','fecha_revision','bool_aprobado','Editar','Eliminar','numero_sucursales','Fecha de revisión','Fecha de solicitud','Aprobado','Número de sucursales','bool_contrato','id');
             $this->customColumns = $remove;
             $columns = $this->deleteColumnsFromArray($columns,$remove);
 
@@ -294,29 +294,42 @@
             $columns[] = array(
                 'db' => 'id',
                 'column_name' => 'Contrato',
-                'db' => 'id',
                 'dt' => ++$cont,
                 'formatter' =>
                     function( $d, $row, $table ) {
 
+                        $id = $d;
+
                         $db = Database::connect();
                         $dbo = new Dbo();
 
+
                         $sql = $dbo->select("actividad","id_lead={$d} ORDER BY id DESC LIMIT 1");
                         $query = $db->query($sql);
-                        $res = "";
+                        $canContrato = "";
 
                         while($rowForeign = $query->fetch_array(MYSQL_ASSOC) ) {
-                            $res = $rowForeign['id_cat_estatus_actividad'];
+                            $canContrato = $rowForeign['id_cat_estatus_actividad'];
                         }
 
-                        if($res == 5){
+                        if($canContrato >= 4  && $canContrato != 8){
 
-                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/actividad/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-list-alt fa-fw fa-2x'></i></a>";
+                            $sql = $dbo->select("contrato_lead","id_lead={$d} ORDER BY id DESC LIMIT 1");
+                            $query = $db->query($sql);
+                            $res = "";
 
-                        }else{
+                            while($rowForeign = $query->fetch_array(MYSQL_ASSOC) ) {
+                                $res = $rowForeign['id'];
+                            }
 
-                            return "";
+                            if(!empty($res)){
+
+                                return "<a href='?s=contrato_lead-update&id={$res}' class='detalle_lead-admin center-data'><i class='fa fa-check fa-fw fa-2x'></i></a>";
+
+                            }else{
+
+                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/contrato_lead/id_lead/{$id}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                            }
 
                         }
 
@@ -332,7 +345,43 @@
                 'dt' => ++$cont,
                 'formatter' =>
                     function( $d, $row, $table ) {
-                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/actividad/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
+
+
+                        $id = $d;
+
+                        $db = Database::connect();
+                        $dbo = new Dbo();
+
+
+                        $sql = $dbo->select("contrato_lead","id_lead={$d} ORDER BY id DESC LIMIT 1");
+                        $query = $db->query($sql);
+                        $contrato = "";
+
+                        while($rowForeign = $query->fetch_array(MYSQL_ASSOC) ) {
+                            $contrato = $rowForeign['id'];
+                        }
+
+                        if(!empty($contrato)){
+
+                            $sql = $dbo->select("establecimiento","id_lead={$d} ORDER BY id DESC LIMIT 1");
+                            $query = $db->query($sql);
+                            $res = "";
+
+                            while($rowForeign = $query->fetch_array(MYSQL_ASSOC) ) {
+                                $res = $rowForeign['id'];
+                            }
+
+                            if(!empty($res)){
+
+                                return "<a href='?s=establecimiento-update&id={$res}' class='detalle_lead-admin center-data'><i class='fa fa-check fa-fw fa-2x'></i></a>";
+
+                            }else{
+
+                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                            }
+
+                        }
+
                     }
             );
 

@@ -217,7 +217,9 @@ class Administrador{
                                         $module = $subitem->module;
                                     }
 
+                                    $visibility = $subitem->visibility;
 
+                                    if(empty($visibility) || $visibility != "no")
                                     $menu .= "<li class='submenu-item'><a href='{$subitem->subitemLink}' class='menu-subitem-link'>" . $subitem->subitemName . "</a></li>";
 
                                 }

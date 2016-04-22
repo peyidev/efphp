@@ -89,6 +89,7 @@
             <subitemLink>?s=actividad-admin</subitemLink>
             <pkg>Medios</pkg>
             <module>actividad</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
@@ -96,7 +97,42 @@
             <subitemLink>?s=contacto-admin</subitemLink>
             <pkg>Medios</pkg>
             <module>contacto</module>
+            <visibility>no</visibility>
         </subitem>
+
+        <subitem>
+            <subitemName>Giro</subitemName>
+            <subitemLink>?s=giro-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>giro</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Catálogo contratos</subitemName>
+            <subitemLink>?s=contrato-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>contrato</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Contrato Lead</subitemName>
+            <subitemLink>?s=contrato_lead-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>contrato_lead</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Establecimientos</subitemName>
+            <subitemLink>?s=establecimiento-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>establecimiento</module>
+        </subitem>
+
+
+
 
         <!--<subitem>-->
             <!--<subitemName>Catálogo actividad</subitemName>-->
