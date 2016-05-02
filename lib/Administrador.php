@@ -44,7 +44,6 @@ class Administrador{
         $u = $this->util;
 
         if(!empty($_GET['s'])){
-
             if(!$this->user->grantRenderPermissionsFromUrl()){
                 //return false;
             }
@@ -118,7 +117,7 @@ class Administrador{
                     case "vista":
                         $detail = $_GET['s'];
                         $detail = explode("-",$detail);
-                        $detail = $detail[0];
+                        $detail = $detail[0] . (!empty($detail[2]) ? $detail[2] : "");
                         $include = BASE_PATH . ADMINURL . "vistas/{$detail}.php";
                         if(file_exists($include)){
                             include($include);
@@ -168,9 +167,8 @@ class Administrador{
 
             $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
-            $menu = "<ul id='main-menu'>";
 
-
+            $menu  = "<ul id='main-menu'>";
             $menu .= "<li class='menu-item profile'>
                         <div class='input-group margin-bottom-sm'>
                             <span class='input-group-addon'><i class='fa fa-angle-down fa-fw'></i></span>
@@ -180,6 +178,12 @@ class Administrador{
                             <li class='submenu-item'><a class='menu-subitem-link' href='../lib/Execute.php?e=User/logout&back=1'>Salir</a></li>
                         </ul>
                         </li>";
+
+            $menu .= "</ul>";
+
+            $menu .= "<div id='menu-control-lateral'><i class='menu-control-arrow fa fa-chevron-right fa-2x'></i></div>";
+
+            $menu .= "<ul id='main-menu-lateral'>";
 
 
             for($i = 0; $i < count($xml->item); $i++){
@@ -199,7 +203,9 @@ class Administrador{
                             $menu.="<li class='menu-item'>
                                         <div class='input-group margin-bottom-sm'>
                                             <span class='input-group-addon'>{$icon}</span>
-                                            <a href='{$xml->item[$i]->itemLink}' class='menu-item-link'>{$xml->item[$i]->itemName}</a>
+                                            <a href='{$xml->item[$i]->itemLink}' class='menu-item-link'>{$xml->item[$i]->itemName}
+                                             <i class='menu-item-arrow fa fa-chevron-right'></i>
+                                            </a>
                                         </div>";
 
                             if($s == $xml->item[$i]->itemLink){
@@ -294,14 +300,19 @@ class Administrador{
         if(!empty($_POST['_wysihtml5_mode']))
             unset($_POST['_wysihtml5_mode']);
 
+
         foreach($_POST as $key => $val){
+
+            $tmp = explode("__disabled",$key);
+            if(count($tmp) > 1){
+                unset($_POST[$key]);
+                continue;
+            }
 
             if(is_array($val)){
                 $_POST[$key] = serialize($val);
             }
         }
-
-
 
         $sql = $dbo->update($table,$_POST,$id);
         //echo $sql;
@@ -335,8 +346,10 @@ class Administrador{
             $sql = $dbo->insert($table,$_POST);
             $query = $this->db->query($sql);
 
-            if(!$query)
+            if(!$query){
                 $message->setMessage("error:" . "Hubo un error al insertar, verifica tus datos");
+
+            }
 
         }else{
 
@@ -509,7 +522,7 @@ class Administrador{
 
     }
 
-    function createGridBase($tabla,$report = false){
+    function createGridBase($tabla,$report = false,$modulo = ""){
 
         $sql = $this->dbo->select($tabla,"","*","","1");
         $query = $this->db->query($sql);
@@ -532,6 +545,7 @@ class Administrador{
         while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
             $columns[] = $rowRow;
         }
+
 
         while($row = $query->fetch_array(MYSQL_ASSOC)){
 
@@ -556,25 +570,34 @@ class Administrador{
 
         }
 
+
         $thead = $thead . $controles;
         $thead = $this->filterDataGridBase($thead);
 
-        echo "<table class='table-admin table-admin-base'>
+
+        echo "<table class='table-admin table-admin-base' id='{$tabla}-tabla-{$modulo}'>
 					<thead><tr>{$thead}</tr></thead>
 					<tfoot><tr>{$thead}</tr></tfoot>
 				</table>";
 
     }
 
-    function createGenericForm($tabla, $id = null, $type = "insert", $preselected = null){
+    function createGenericForm($tabla, $id = null, $type = "insert", $preselected = null, $title = "",$disabled = ""){
+
 
         $extra = !empty($id) ? "&id={$id}" : "";
+        $disabled = !empty($disabled) ? " disabled " : "";
+
 
         echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
         $iconOp = ($type == "insert") ?
             "<i class='fa fa-search-plus fa-plus-square-o'></i> Insertar nuevo registro" :
             "<i class='fa fa-search-plus fa-pencil-square-o'></i> Actualizar registro";
+
+        if(!empty($title)){
+            $iconOp = "<i class='fa fa-search-plus fa-pencil-square-o'></i>{$title}";
+        }
 
         echo "<p class='form-operation'>{$iconOp}</p>";
 
@@ -595,6 +618,11 @@ class Administrador{
         $data = $this->filterDataForm($data);
 
         foreach($data as $row){
+
+            if($row['Field'] == "id_admin"){
+                echo "<input type='hidden' name='id_admin' value='{$_SESSION['id_admin']}'/>";
+                continue;
+            }
 
             if($row['Field'] != "id"){
 
@@ -670,7 +698,9 @@ class Administrador{
 
                             }else{
 
+
                                 if($type == "update" || $type == "preselected"){
+
                                     if(
                                         (!empty($info[$row['Field']]) && $rowForeign['id'] == $info[$row['Field']]) ||
                                         (!empty($preselected[$row['Field']]) && $rowForeign['id'] == $preselected[$row['Field']])
@@ -704,7 +734,7 @@ class Administrador{
                 }else if(count($img) > 1){
                     echo "<div class='row-abc'>
                                  <p class='descripcion'>{$description}</p>
-                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']}' /></p>
+                                 <p class='input'><input type='file' name='{$row['Field']}' class='{$row['Type']} $disabled' /></p>
                               </div>";
                     $flag = false;
                 }
@@ -723,18 +753,18 @@ class Administrador{
                         echo "<div class='row-abc'>
 	                                 <p class='descripcion'>{$description}</p>
 	                                 <p class='input'>
-	                                    <textarea name='{$row['Field']}' class='{$row['Type']} $validation form-control {$cmsActive}'>{$val}</textarea>
+	                                    <textarea name='{$row['Field']}' class='$disabled {$row['Type']} $validation form-control {$cmsActive}'>{$val}</textarea>
 	                                 </p>
 	                              </div>";
 
                     }else if(count($status) > 1){
 
-                       echo $this->createSelectOptions($val,$description,$row,$type,"status");
+                       echo $this->createSelectOptions($val,$description,$row,$type,"status",$disabled);
 
 
                     }else if(count($bool) > 1){
 
-                        echo $this->createSelectOptions($val,$description,$row,$type,"bool");
+                        echo $this->createSelectOptions($val,$description,$row,$type,"bool", $disabled);
 
 
                     }else{
@@ -742,7 +772,7 @@ class Administrador{
                         echo "<div class='row-abc'>
                                  <p class='input'>
                                      <input type='text' name='{$row['Field']}'
-                                     class='{$row['Type']} $validation $isAjax form-control'
+                                     class='$disabled {$row['Type']} $validation $isAjax form-control'
                                      value='{$val}' placeholder='{$description}'/>
                                   </p>
                               </div>";
@@ -766,10 +796,12 @@ class Administrador{
 
     }
 
-    function createSelectOptions($val, $description, $row, $type, $mode){
+    function createSelectOptions($val, $description, $row, $type, $mode, $disabled = ""){
 
         $combo = "";
         $selected = "";
+
+        $disabled = !empty($disabled) ? " disabled " : "";
 
         foreach($this->util->getIconOptions($mode) as $key => $valTmp){
 
@@ -792,7 +824,7 @@ class Administrador{
         return "<div class='row-abc'>
                     <p class='descripcion'>{$description}</p>
                     <p class='input'>
-                        <select class='selectpicker form-control'  data-selected-text-format='count'  name='{$row['Field']}'>{$combo}</select>
+                        <select class='selectpicker form-control {$disabled}'  data-selected-text-format='count'  name='{$row['Field']}'>{$combo}</select>
                     </p>
                 </div>";
 
@@ -818,12 +850,26 @@ class Administrador{
         $foreign = $params[1];
         $id = $params[2];
 
-        //$where = "{$foreign}={$id}";
 
         $preselected = array();
+
+
+        for($i = 1; $i < count($params); $i++){
+            $iplus = $i + 1;
+            if(!empty($params[$iplus])){
+                if($i % 2 != 0){
+                    $preselected[$params[$i]] = $params[$iplus];
+                }
+            }
+        }
+
+        //$where = "{$foreign}={$id}";
+
         $preselected[$foreign] = $id;
 
-        $this->createGenericForm($table,null,"preselected",$preselected);
+        $title = !empty($_GET['title']) ? $_GET['title'] : "";
+
+        $this->createGenericForm($table,null,"preselected",$preselected, $title);
 
     }
 

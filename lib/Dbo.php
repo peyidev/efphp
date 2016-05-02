@@ -200,5 +200,30 @@ class Dbo  {
 
     }
 
+
+    function unserializeForeign($val,$table){
+
+        $data = array();
+
+        if(!empty($val)){
+            $data = @unserialize($val);
+        }
+
+        if(!empty($data)){
+
+            $or = implode(" OR id=",$data);
+            $or = "id=" . $or;
+
+            $sql = $this->select($table,$or);
+            return $sql;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
 }
 

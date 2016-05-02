@@ -8,6 +8,33 @@
           $this->db = Database::connect();
       }
 
+      public static function queryArray($query){
+
+          $data = array();
+          while ($row = $query->fetch_array(MYSQL_ASSOC)) {
+              $data[] = $row;
+          }
+
+          return $data;
+
+      }
+
+
+      function foreingList($data_){
+          echo "<ul class='list-group'>";
+
+            foreach($data_ as $val){
+                foreach($val as $key => $v){
+                    if($key != 'id'){
+                        echo '<li class="list-group-item">' . $v . '</li>';
+
+                    }
+
+                }
+            }
+
+          echo "</ul>";
+      }
       function checkSession(){
           if(!empty($_SESSION['id_user']))
               print'logged';
@@ -101,6 +128,7 @@
           return "for(;;);(" . json_encode($array) . ")";
 
       }
+
 
       function utf8_encode_deep(&$input) {
 

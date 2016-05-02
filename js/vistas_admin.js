@@ -4,6 +4,29 @@ var vistas = {
 
         validator.startValidations();
 
+
+
+        $('#menu-control-lateral').click(function(){
+
+
+            if(!$(this).hasClass('open')){
+
+                $(this).addClass('open');
+                $(this).find('.menu-control-arrow').removeClass('fa-chevron-right');
+                $(this).find('.menu-control-arrow').addClass('fa-chevron-left');
+                $(this).animate({"left" : "260px"});
+                $('#main-menu-lateral').animate({"width" : "260px"});
+
+            }else{
+                $(this).removeClass('open');
+                $(this).find('.menu-control-arrow').removeClass('fa-chevron-left');
+                $(this).find('.menu-control-arrow').addClass('fa-chevron-right');
+                $(this).animate({"left" : "0"});
+                $('#main-menu-lateral').animate({"width" : "0px"});
+            }
+
+        });
+
 	    $('.message-popup').dialog({"modal" : true});
 
         $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
@@ -11,12 +34,31 @@ var vistas = {
         //ephp/lib/Execute.php?e=Administrador/createAjaxTable
         var table = $('.title-general').attr('id');
         var extra = $('#extra-value').val();
-		$(".table-admin-base").DataTable({
-            "order": [[ 0, "desc" ]],
-            "processing": true,
-            "serverSide": true,
-            "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + table + "&extraValue=" + extra)
+        var main = $('#main-value').val();
+
+        $(".table-admin-base").each(function(){
+
+            var tabla = $(this).attr('id');
+            tabla = tabla.split('-tabla-');
+            if(typeof extra == "undefined" )
+                if(typeof tabla[1] != "undefined" )
+                    extra = tabla[1];
+
+            tabla = tabla[0];
+
+
+
+            $(this).DataTable({
+                "order": [[ 0, "desc" ]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + tabla + "&extraValue=" + extra + "&mainValue=" + main)
+            });
+
         });
+
+
+
 
         $('.ajax-search').keyup(function(){
 
@@ -177,6 +219,30 @@ var vistas = {
         $(".table-admin").on('click','.si-style',function(e){
 
             alert("este sí");
+
+        });
+
+    },
+    establecimiento_vista_detail : function(){
+
+        $('.disabled').prop('disabled', true);
+        $('.left-form-establecimiento .btn-primary').html("Activar edición");
+
+        $('.left-form-establecimiento .btn-primary').click(function(e){
+
+            e.preventDefault();
+            $('.btn-primary').html("Actualizar");
+            $('.dropdown-toggle').removeClass('disabled');
+            $('.disabled').prop('disabled', false);
+            $('.selectpicker').prop('disabled', false);
+
+            $('.btn-primary').unbind();
+            $('.btn-primary').click(function(){
+
+                $('.validation-form').submit();
+
+            });
+
 
         });
 

@@ -42,6 +42,57 @@
                 case "leadInner":
                     $data = $this->dataFormLeads($data);
                     break;
+                case "establecimientoInner":
+                    $data = $this->dataFormEstablecimiento($data);
+                    break;
+                case "sucursalInner":
+                    $data = $this->dataFormSucursal($data);
+                    break;
+                case "establecimientoClasificacionInner":
+                    $data = $this->dataFormEstablecimientoClasificacion($data);
+                    break;
+                case "establecimientoServicioInner":
+                    $data = $this->dataFormEstablecimientoServicio($data);
+                    break;
+                case "establecimientoComidaInner":
+                    $data = $this->dataFormEstablecimientoComida($data);
+                    break;
+                case "establecimientoMusicaInner":
+                    $data = $this->dataFormEstablecimientoMusica($data);
+                    break;
+                case "establecimientoPagoInner":
+                    $data = $this->dataFormEstablecimientoPago($data);
+                    break;
+                case "establecimientoVestimentaInner":
+                    $data = $this->dataFormEstablecimientoVestimenta($data);
+                    break;
+                case "establecimientoIdealInner":
+                    $data = $this->dataFormEstablecimientoIdeal($data);
+                    break;
+                case "establecimientoOportunidadInner":
+                    $data = $this->dataFormEstablecimientoOportunidad($data);
+                    break;
+            }
+            return $data;
+
+        }
+
+        function onlyDataFields($data, $remove){
+
+            $result = array();
+
+            foreach($data as $key => $row){
+
+                foreach($row as $i){
+
+                    if(!in_array($i,$remove)){
+                        unset($data[$key]);
+                    }else{
+                        break;
+                    }
+
+                }
+
             }
             return $data;
 
@@ -91,8 +142,15 @@
                 case "leadInner":
                     $data = $this->dataGridLeads($columns,$cont);
                     break;
-                default:
-
+                case "establecimientoInner":
+                    $data = $this->dataGridEstablecimiento($columns,$cont);
+                    break;
+                case "sucursalInner":
+                    $data = $this->dataGridSucursal($columns,$cont);
+                    break;
+                case "sucursalBienvenidaInner":
+                    $data = $this->dataGridSucursalBienvenida($columns,$cont);
+                    break;
                 default:
                     $data = $columns;
                     break;
@@ -164,6 +222,127 @@
          * Módulos particulares
          * */
 
+
+
+        /*
+         * INICIO SUCURSAL
+         * */
+        function dataFormSucursal($data){
+
+            $remove = array('fecha_solicitud','fecha_revision','bool_aprobado','Editar','Eliminar','bool_contrato','id');
+            $this->customColumns = $remove;
+            return $this->removeDataFields($data,$remove);
+
+        }
+
+        function dataGridSucursal($columns = array(),$cont = 1){
+
+
+            $main = !empty($_GET['mainValue']) ? $this->util->limpiar($_GET['mainValue']) : "";
+            $columns['where'] = 'id_establecimiento=' . $main;
+
+            return $columns;
+
+        }
+
+        function dataGridSucursalBienvenida($columns = array(),$cont = 1){
+
+// Manejar el filtro
+//            $main = !empty($_GET['mainValue']) ? $this->util->limpiar($_GET['mainValue']) : "";
+//            $columns['where'] = 'id_establecimiento=' . $main;
+
+
+            $remove = array('Editar','Eliminar','latitud','longitud','calle','no_exterior','no_interior','precios','horarios','img_logochico','img_logogrande','fachada','resena','id_zona','id_colonia_ajax','id_establecimiento');
+            $this->customColumns = $remove;
+            $columns = $this->deleteColumnsFromArray($columns,$remove);
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Estado',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                       return $d;
+                    }
+            );
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Municipio',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return $d;
+                    }
+            );
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Llamada bienvenida',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxGrid/actividad/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus fa-fw fa-2x'></i></a>";
+                    }
+            );
+
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Geolocalización',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return $d;
+                    }
+            );
+
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Subió promoción',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return $d;
+                    }
+            );
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Sucursal WP',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return $d;
+                    }
+            );
+
+
+
+            $columns = $this->arrangeColumns($columns);
+            return $columns;
+
+        }
+        /*
+         * FIN SUCURSAL
+         * */
+
+
+
+        /*
+         * INICIO LEADS
+         * */
         function dataFormLeads($data){
 
             $remove = array('fecha_solicitud','fecha_revision','bool_aprobado','Editar','Eliminar','bool_contrato','id');
@@ -200,7 +379,6 @@
                         return $res;
                     }
             );
-
 
             $columns[] = array(
                 'db' => 'id',
@@ -253,8 +431,6 @@
                     }
             );
 
-
-
             $columns[] = array(
                 'db' => 'id',
                 'column_name' => 'Detalles',
@@ -264,7 +440,6 @@
                         return "<a href='../lib/Execute.php?e=Administrador/createAjaxGrid/actividad/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-search-plus fa-fw fa-2x'></i></a>";
                     }
             );
-
 
             $columns[] = array(
                 'db' => 'id',
@@ -277,7 +452,6 @@
                     }
             );
 
-
             $columns[] = array(
                 'db' => 'id',
                 'column_name' => 'Contacto',
@@ -288,8 +462,6 @@
                         return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/contacto/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
                     }
             );
-
-
 
             $columns[] = array(
                 'db' => 'id',
@@ -337,7 +509,6 @@
                     }
             );
 
-
             $columns[] = array(
                 'db' => 'id',
                 'column_name' => 'Registro',
@@ -377,14 +548,15 @@
 
                             }else{
 
-                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                                $idMarca = $row['id_marca'];
+
+                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}/id_marca/{$idMarca}&title=Crear registro' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
                             }
 
                         }
 
                     }
             );
-
 
             $columns = $this->arrangeColumns($columns);
 
@@ -393,6 +565,124 @@
             return $columns;
 
         }
+        /*
+         * FIN LEADS
+         * */
 
+
+        /*
+         * INICIO ESTABLECIMIENTO
+         * */
+        function dataFormEstablecimientoClasificacion($data){
+
+            $remove = array('id_serialized_establecimiento_clasificacion');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+        function dataFormEstablecimientoServicio($data){
+
+            $remove = array('id_serialized_establecimiento_servicio');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+
+        function dataFormEstablecimientoComida($data){
+
+            $remove = array('id_serialized_establecimiento_comida');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+
+        function dataFormEstablecimientoMusica($data){
+
+            $remove = array('id_serialized_establecimiento_musica');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+
+        function dataFormEstablecimientoPago($data){
+
+            $remove = array('id_serialized_establecimiento_pago');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+
+
+        function dataFormEstablecimientoVestimenta($data){
+
+            $remove = array('id_serialized_establecimiento_vestimenta');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+        function dataFormEstablecimientoIdeal($data){
+
+            $remove = array('id_serialized_establecimiento_ideal');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+
+
+        function dataFormEstablecimientoOportunidad($data){
+
+            $remove = array('id_serialized_establecimiento_oportunidad');
+            $this->customColumns = $remove;
+            return $this->onlyDataFields($data,$remove);
+        }
+
+
+
+
+        function dataFormEstablecimiento($data){
+            $remove = array('Editar','Clasificaciones','Comida','Tipo de pago','Ideal para','Oportunidades','Vestimenta','Servicios','Música');
+            $this->customColumns = $remove;
+            return $this->removeDataFields($data,$remove);
+
+        }
+
+        function dataGridEstablecimiento($columns = array(),$cont = 1){
+
+            $remove = array('Editar','Música','Eliminar','id','id_lead','rfc','bool_iscelular1','telefono_2','bool_iscelular2','id_colonia_ajax','calle','no_exterior','no_interior','referencia','latitud','longitud','bool_calidad','¿Actividad de Calidad?','id_serialized_actividad_calidad','Actividad de calidad','nombre_contacto','telefono_1','¿Es celular?','comentario','Clasificaciones','Comida','Tipo de pago','Ideal para','Oportunidades','Vestimenta','Actividad de calidad','Servicios','id_serialized_establecimiento_clasificacion','id_serialized_establecimiento_comida','id_serialized_establecimiento_tipo','id_serialized_establecimiento_ideal','id_serialized_establecimiento_musica','id_serialized_establecimiento_servicio','id_serialized_establecimiento_pago',
+'id_serialized_establecimiento_oportunidad','id_serialized_establecimiento_vestimenta','bool_calidad','id_serialized_actividad_calidad','comentario');
+            $this->customColumns = $remove;
+            $columns = $this->deleteColumnsFromArray($columns,$remove);
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Detalles',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return "<a href='?s=establecimiento-vista-detail&id={$d}' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
+                    }
+            );
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Eliminar',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+
+                        return "<a href='?s=establecimiento&id={$d}' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                    }
+            );
+
+            $columns = $this->arrangeColumns($columns);
+            return $columns;
+
+        }
+        /*
+        * FIN ESTABLECIMIENTO
+        * */
 
     }
