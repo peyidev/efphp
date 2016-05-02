@@ -1,73 +1,89 @@
 <menu>
     <!--<item>-->
-        <!--<itemName>CMS</itemName>-->
-        <!--<itemLink>#</itemLink>-->
-        <!--<icon>fa-th-list</icon>-->
-        <!--<rol>ADMINISTRADOR</rol>-->
+    <!--<itemName>CMS</itemName>-->
+    <!--<itemLink>#</itemLink>-->
+    <!--<icon>fa-th-list</icon>-->
+    <!--<rol>ADMINISTRADOR</rol>-->
 
-        <!--<subitem>-->
-            <!--<subitemName>Menú Frontend</subitemName>-->
-            <!--<subitemLink>?s=menu-admin</subitemLink>-->
-            <!--<module>menu</module>-->
-        <!--</subitem>-->
+    <!--<subitem>-->
+    <!--<subitemName>Menú Frontend</subitemName>-->
+    <!--<subitemLink>?s=menu-admin</subitemLink>-->
+    <!--<module>menu</module>-->
+    <!--</subitem>-->
 
-        <!--<subitem>-->
-            <!--<subitemName>CMS</subitemName>-->
-            <!--<subitemLink>?s=cms-admin</subitemLink>-->
-            <!--<module>cms</module>-->
-        <!--</subitem>-->
+    <!--<subitem>-->
+    <!--<subitemName>CMS</subitemName>-->
+    <!--<subitemLink>?s=cms-admin</subitemLink>-->
+    <!--<module>cms</module>-->
+    <!--</subitem>-->
 
-        <!--&lt;!&ndash;subitem>-->
-            <!--<subitemName>Contenido</subitemName>-->
-            <!--<subitemLink>?s=rol-admin</subitemLink>-->
-            <!--<module>rol</module>-->
-        <!--</subitem&ndash;&gt;-->
+    <!--&lt;!&ndash;subitem>-->
+    <!--<subitemName>Contenido</subitemName>-->
+    <!--<subitemLink>?s=rol-admin</subitemLink>-->
+    <!--<module>rol</module>-->
+    <!--</subitem&ndash;&gt;-->
     <!--</item>-->
 
-	<item>
-		<itemName>Administrador</itemName>
-		<itemLink>?s=home</itemLink>
-		<rol>ADMINISTRADOR</rol>
-        <icon>fa-group</icon>
-		<rol>Vendedor</rol>
-
-		<subitem>
-			<subitemName>Usuarios</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
-			<module>admin</module>
-		</subitem>
-		
-		<subitem>
-			<subitemName>Roles</subitemName>
-			<subitemLink>?s=rol-admin</subitemLink>
-            <module>rol</module>
-		</subitem>
-
-        <!--<subitem>-->
-            <!--<subitemName>Test</subitemName>-->
-            <!--<subitemLink>?s=test-admin</subitemLink>-->
-            <!--<module>test</module>-->
-        <!--</subitem>-->
-	</item>
-
     <item>
-        <itemName>Calidad</itemName>
-        <itemLink>?s=home</itemLink>
+        <itemName>Marcas</itemName>
+        <itemLink>#</itemLink>
         <rol>ADMINISTRADOR</rol>
+        <icon>fa-building</icon>
+
+
+
+        <subitem>
+            <subitemName>Marcas</subitemName>
+            <subitemLink>?s=marca-admin</subitemLink>
+            <module>marca</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Categorías</subitemName>
+            <subitemLink>?s=categoria-admin</subitemLink>
+            <module>categoria</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Categorías Vive</subitemName>
+            <subitemLink>?s=categoria_vive-admin</subitemLink>
+            <module>categoria_vive</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Proyectos</subitemName>
+            <subitemLink>?s=proyecto-admin</subitemLink>
+            <module>proyecto</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Servicios</subitemName>
+            <subitemLink>?s=servicio-admin</subitemLink>
+            <module>servicio</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Giros</subitemName>
+            <subitemLink>?s=giro-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>giro</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Zonas</subitemName>
+            <subitemLink>?s=zona-admin</subitemLink>
+            <module>zona</module>
+        </subitem>
+
     </item>
-
-
-    <item>
-        <itemName>Telemarketing</itemName>
-        <itemLink>?s=home</itemLink>
-        <rol>ADMINISTRADOR</rol>
-    </item>
-
 
     <item>
         <itemName>Afiliación</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
+        <icon>fa-users</icon>
+
 
         <subitem>
             <subitemName>Leads y oportunidades</subitemName>
@@ -100,12 +116,24 @@
             <visibility>no</visibility>
         </subitem>
 
+
+
+
         <subitem>
-            <subitemName>Giro</subitemName>
-            <subitemLink>?s=giro-admin</subitemLink>
+            <subitemName>Establecimientos</subitemName>
+            <subitemLink>?s=establecimiento-vista</subitemLink>
+            <module>establecimiento</module>
             <pkg>Medios</pkg>
-            <module>giro</module>
         </subitem>
+
+        <subitem>
+            <subitemName>Sucursales</subitemName>
+            <subitemLink>?s=sucursal-admin</subitemLink>
+            <module>sucursal</module>
+            <pkg>Medios</pkg>
+
+        </subitem>
+
 
 
         <subitem>
@@ -124,34 +152,27 @@
         </subitem>
 
 
-        <subitem>
-            <subitemName>Establecimientos</subitemName>
-            <subitemLink>?s=establecimiento-admin</subitemLink>
-            <pkg>Medios</pkg>
-            <module>establecimiento</module>
-        </subitem>
-
 
 
 
         <!--<subitem>-->
-            <!--<subitemName>Catálogo actividad</subitemName>-->
-            <!--<subitemLink>?s=cat_actividad-admin</subitemLink>-->
-            <!--<module>cat_actividad</module>-->
+        <!--<subitemName>Catálogo actividad</subitemName>-->
+        <!--<subitemLink>?s=cat_actividad-admin</subitemLink>-->
+        <!--<module>cat_actividad</module>-->
         <!--</subitem>-->
 
 
         <!--<subitem>-->
-            <!--<subitemName>Catálogo estatus</subitemName>-->
-            <!--<subitemLink>?s=cat_estatus_actividad-admin</subitemLink>-->
-            <!--<module>cat_estatus_actividad</module>-->
+        <!--<subitemName>Catálogo estatus</subitemName>-->
+        <!--<subitemLink>?s=cat_estatus_actividad-admin</subitemLink>-->
+        <!--<module>cat_estatus_actividad</module>-->
         <!--</subitem>-->
 
 
         <!--<subitem>-->
-            <!--<subitemName>Actividad</subitemName>-->
-            <!--<subitemLink>?s=actividad-admin</subitemLink>-->
-            <!--<module>actividad</module>-->
+        <!--<subitemName>Actividad</subitemName>-->
+        <!--<subitemLink>?s=actividad-admin</subitemLink>-->
+        <!--<module>actividad</module>-->
         <!--</subitem>-->
 
 
@@ -159,58 +180,144 @@
     </item>
 
     <item>
-        <itemName>Establecimientos</itemName>
+        <itemName>Calidad</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
+        <icon>fa-thumbs-up</icon>
 
         <subitem>
-            <subitemName>Sucursales</subitemName>
-            <subitemLink>?s=sucursal-admin</subitemLink>
+            <subitemName>Actividad de calidad catálogo</subitemName>
+            <subitemLink>?s=actividad_calidad-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>actividad_calidad</module>
+            <visibility>si</visibility>
+        </subitem>
+
+    </item>
+
+    <item>
+        <itemName>Telemarketing</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-phone</icon>
+
+        <subitem>
+            <subitemName>Llamada Bienvenida</subitemName>
+            <subitemLink>?s=sucursal-vista-bienvenida</subitemLink>
+            <pkg>Medios</pkg>
             <module>sucursal</module>
         </subitem>
 
+    </item>
+
+    <item>
+        <itemName>Administrador</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-gear</icon>
+        <rol>Vendedor</rol>
+
         <subitem>
-            <subitemName>Marcas</subitemName>
-            <subitemLink>?s=marca-admin</subitemLink>
-            <module>marca</module>
+            <subitemName>Usuarios</subitemName>
+            <subitemLink>?s=admin-admin</subitemLink>
+            <module>admin</module>
         </subitem>
 
         <subitem>
-            <subitemName>Categorías</subitemName>
-            <subitemLink>?s=categoria-admin</subitemLink>
-            <module>categoria</module>
+            <subitemName>Roles</subitemName>
+            <subitemLink>?s=rol-admin</subitemLink>
+            <module>rol</module>
+        </subitem>
+
+        <!--<subitem>-->
+        <!--<subitemName>Test</subitemName>-->
+        <!--<subitemLink>?s=test-admin</subitemLink>-->
+        <!--<module>test</module>-->
+        <!--</subitem>-->
+    </item>
+
+
+    <item>
+        <itemName>Catálogos</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-gear</icon>
+
+        <subitem>
+            <subitemName>Establecimientos - Clasificaciones</subitemName>
+            <subitemLink>?s=establecimiento_clasificacion-admin</subitemLink>
+            <module>establecimiento_clasificacion</module>
         </subitem>
 
         <subitem>
-            <subitemName>Categorías Vive</subitemName>
-            <subitemLink>?s=categoria_vive-admin</subitemLink>
-            <module>categoria_vive</module>
+            <subitemName>Establecimientos - Servicios</subitemName>
+            <subitemLink>?s=establecimiento_servicio-admin</subitemLink>
+            <module>establecimiento_servicio</module>
         </subitem>
 
         <subitem>
-            <subitemName>Proyectos</subitemName>
-            <subitemLink>?s=proyecto-admin</subitemLink>
-            <module>proyecto</module>
+            <subitemName>Establecimientos - Comida</subitemName>
+            <subitemLink>?s=establecimiento_comida-admin</subitemLink>
+            <module>establecimiento_comida</module>
         </subitem>
 
         <subitem>
-            <subitemName>Servicios</subitemName>
-            <subitemLink>?s=servicio-admin</subitemLink>
-            <module>servicio</module>
+            <subitemName>Establecimientos - Música</subitemName>
+            <subitemLink>?s=establecimiento_musica-admin</subitemLink>
+            <module>establecimiento_musica</module>
         </subitem>
 
         <subitem>
-            <subitemName>Servicios de sucursales</subitemName>
-            <subitemLink>?s=servicio_sucursal-admin</subitemLink>
-            <module>servicio_sucursal</module>
+            <subitemName>Establecimientos - Pago</subitemName>
+            <subitemLink>?s=establecimiento_pago-admin</subitemLink>
+            <module>establecimiento_pago</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Establecimientos - Vestimenta</subitemName>
+            <subitemLink>?s=establecimiento_vestimenta-admin</subitemLink>
+            <module>establecimiento_vestimenta</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Establecimientos - Ideal</subitemName>
+            <subitemLink>?s=establecimiento_ideal-admin</subitemLink>
+            <module>establecimiento_ideal</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Establecimientos - Oportunidades</subitemName>
+            <subitemLink>?s=establecimiento_oportunidad-admin</subitemLink>
+            <module>establecimiento_oportunidad</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName> </subitemName>
+            <subitemLink> </subitemLink>
+            <module> </module>
         </subitem>
 
         <subitem>
-            <subitemName>Zonas</subitemName>
-            <subitemLink>?s=zona-admin</subitemLink>
-            <module>zona</module>
+            <subitemName> </subitemName>
+            <subitemLink> </subitemLink>
+            <module> </module>
         </subitem>
 
+        <subitem>
+            <subitemName> </subitemName>
+            <subitemLink> </subitemLink>
+            <module> </module>
+        </subitem>
+
+        <!--<subitem>-->
+        <!--<subitemName>Test</subitemName>-->
+        <!--<subitemLink>?s=test-admin</subitemLink>-->
+        <!--<module>test</module>-->
+        <!--</subitem>-->
     </item>
 
 </menu>
