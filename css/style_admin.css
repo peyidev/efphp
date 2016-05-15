@@ -116,11 +116,13 @@ body {
 }
 .descripcion {
     margin-bottom: 3px;
+    font-size: 1.2em;
+    color: #555;
+
 }
 .input {
     margin-bottom: 10px;
     position: relative;
-    text-align: center;
     width: 100%;
 }
 .input select {
@@ -306,12 +308,11 @@ main {
 .result-query {
     background: #13171b none repeat scroll 0 0;
     color: #777;
-    left: 2%;
     max-height: 200px;
     overflow: auto;
     position: absolute;
     text-align: left;
-    width: 95%;
+    width: 100%;
     z-index: 6;
 }
 .result-query-item {
@@ -320,6 +321,7 @@ main {
 .result-query-item {
     float: left;
     padding: 5px;
+    width:100%;
 }
 .result-query-item:hover {
     background: #009edf none repeat scroll 0 0;
@@ -614,5 +616,30 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 .admin-bottom{
 
     width:100% !important;
+
+}
+
+#folio{
+
+    margin-top:0px;
+
+}
+
+#call-form .form-operation{
+
+    width: 100%;
+
+}
+#call-form{
+
+    width:100%;
+    display: table;
+
+}
+
+
+.subtitle{
+
+    color:#009EDF;
 
 }

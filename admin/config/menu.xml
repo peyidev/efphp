@@ -208,6 +208,66 @@
             <module>sucursal</module>
         </subitem>
 
+
+
+        <subitem>
+            <subitemName>Call center</subitemName>
+            <subitemLink>?s=llamada-vista</subitemLink>
+            <pkg>Medios</pkg>
+            <module>llamada</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Seguimiento</subitemName>
+            <subitemLink>?s=llamada-vista-seguimiento</subitemLink>
+            <pkg>Medios</pkg>
+            <module>llamada</module>
+        </subitem>
+
+
+
+        <subitem>
+            <subitemName>Llamada bienvenida</subitemName>
+            <subitemLink>?s=telemarketing_bienvenida-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>telemarketing_bienvenida</module>
+            <visibility>no</visibility>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Reservacion</subitemName>
+            <subitemLink>?s=telemarketing_reservacion-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>telemarketing_reservacion</module>
+            <visibility>no</visibility>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Afiliación</subitemName>
+            <subitemLink>?s=telemarketing_afiliacion-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>telemarketing_afiliacion</module>
+            <visibility>no</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Quejas</subitemName>
+            <subitemLink>?s=telemarketing_queja-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>telemarketing_queja</module>
+            <visibility>no</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Información de la plataforma</subitemName>
+            <subitemLink>?s=telemarketing_informacion-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>telemarketing_informacion</module>
+            <visibility>no</visibility>
+        </subitem>
+
     </item>
 
     <item>
@@ -296,10 +356,19 @@
 
 
         <subitem>
-            <subitemName> </subitemName>
-            <subitemLink> </subitemLink>
-            <module> </module>
+            <subitemName>Telemarketing - Tipo de llamada</subitemName>
+            <subitemLink>?s=tipo_llamada-admin</subitemLink>
+            <module>tipo_llamada</module>
         </subitem>
+
+
+        <subitem>
+            <subitemName>Telemarketing - motivo</subitemName>
+            <subitemLink>?s=motivo-admin</subitemLink>
+            <module>motivo</module>
+        </subitem>
+
+
 
         <subitem>
             <subitemName> </subitemName>
@@ -313,11 +382,11 @@
             <module> </module>
         </subitem>
 
-        <!--<subitem>-->
-        <!--<subitemName>Test</subitemName>-->
-        <!--<subitemLink>?s=test-admin</subitemLink>-->
-        <!--<module>test</module>-->
-        <!--</subitem>-->
+        <subitem>
+            <subitemName> </subitemName>
+            <subitemLink> </subitemLink>
+            <module> </module>
+        </subitem>
     </item>
 
 </menu>

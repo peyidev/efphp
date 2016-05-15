@@ -60,7 +60,7 @@ var vistas = {
 
 
 
-        $('.ajax-search').keyup(function(){
+        $('body').on("keyup",".ajax-search",function(){
 
             var cuantos = $(this).val();
             var padre = $(this).parent();
@@ -245,6 +245,90 @@ var vistas = {
 
 
         });
+
+    },
+    llamada_vista : function(){
+
+        var d = new Date();
+        var year = d.getFullYear() + "";
+        year = year.substr(2,2);
+        var tmp_folio = Math.floor((Math.random() * 1000) + 1);
+        var folio =  utils.pad(year,2) + "" + utils.pad(d.getMonth(),2) + "" + utils.pad(d.getUTCDate(),2) + "" + utils.pad(d.getHours(),2) + "" + utils.pad(tmp_folio,4) ;
+
+        $('[name="folio"]').hide();
+        $('[name="id_motivo"]').parent().parent().hide();
+        $('button[type="submit"]').hide();
+
+        $('[name="id_tipo_llamada"]').change(function () {
+
+            var val = $(this).find('option[value="' + $(this).val() + '"]').text();
+
+            if(val == "Llamada válida"){
+
+                $('.disabled').prop('disabled', false);
+                $('[name="id_proyecto"]').prop('disabled', false);
+
+                $('.disabled').removeClass('disabled');
+                $('button[type="submit"]').hide();
+
+
+            }else{
+
+                $('button[type="submit"]').show();
+                $('[name="id_proyecto"]').prop('disabled', true);
+
+            }
+        });
+
+
+        $('[name="id_proyecto"]').change(function () {
+            $('[name="folio"]').val(folio);
+            $('#folio').remove();
+            $('[name="id_motivo"]').parent().parent().parent().show();
+            $('[name="folio"]').parent().append("<h2 id='folio'>" + folio + "</h2>");
+
+        });
+
+
+        $('[name="id_motivo"]').change(function () {
+
+            var params = {
+
+                "folio" : $('[name="folio"]').val(),
+                "id_proyecto" : $('[name="id_proyecto"]').val(),
+                "id_motivo" : $('[name="id_motivo"]').val(),
+                "id_admin" : $('[name="id_admin"]').val()
+
+            };
+
+            console.log(params);
+            ajaxData('../lib/Execute.php?e=Medios/insertLlamada&table-insert=llamada','POST',params,'false',function(json){
+
+                $('#call-form').html(json);
+                $('.selectpicker').selectpicker();
+                $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+            },"true");
+
+        });
+        $('[name="id_proyecto"]').prop('disabled', true);
+
+
+    },
+
+    llamada_vista_seguimiento : function(){
+
+
+        $('#proyecto-select').change(function(){
+
+            var url = window.location.href;
+            url = utils.updateQueryStringParameter(url,"proyecto",$(this).val());
+            console.log(url);
+            window.location.href = url;
+
+
+        });
+
 
     }
 

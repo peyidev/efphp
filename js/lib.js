@@ -135,6 +135,23 @@ var validator = {
 
 var utils = {
 
+    updateQueryStringParameter: function (uri, key, value) {
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+            return uri + separator + key + "=" + value;
+        }
+    },
+
+   pad: function (n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    },
+
     getParameterByName: function(name){
 
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

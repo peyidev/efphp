@@ -149,6 +149,8 @@ class Dbo  {
         $select = "";
         $where = "";
         $res = array();
+        $columns = array();
+        $pdoexp = "";
 
         while($parent = $query->fetch_array(MYSQL_ASSOC)) {
 
@@ -158,7 +160,9 @@ class Dbo  {
                 if ($this->tableExist($foreign[1])) {
                     $frg = $foreign[1];
                     $exp .= " {$join} JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
+                    $pdoexp .= " JOIN `{$frg}` ON `{$frg}`.`id` = `{$table}`.`id_{$frg}` ";
                     $select .= " {$frg}.nombre as {$frg}_nombre,";
+                    $columns[] = "`{$frg}`.`nombre`";
 
                     if(!empty($q))
                         $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
@@ -174,8 +178,10 @@ class Dbo  {
         }
 
         $res['exp'] = $exp;
+        $res['dboexp'] = $pdoexp;
         $res['select'] = $select;
         $res['where'] = $where;
+        $res['columns'] = $columns;
 
         return $res;
     }

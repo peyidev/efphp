@@ -90,6 +90,11 @@
 
       }
 
+      function getTitle($string){
+          $str = explode('-',$string);
+          return !empty($str[3]) ? $str[3] : "";
+      }
+
       function getValidationType($string){
           $str = explode('-',$string);
           return !empty($str[1]) ? ("validation-" . $str[1] ) : "";

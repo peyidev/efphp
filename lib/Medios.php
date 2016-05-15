@@ -33,7 +33,7 @@
 
         function factoryDataForm($data){
 
-            if(!empty($this->module['module']))
+            if(!is_object($this->module) && !empty($this->module['module']))
                 $module = $this->module['module'];
             else
                 $module = $this->module;
@@ -152,6 +152,10 @@
                     $data = $this->dataGridSucursalBienvenida($columns,$cont);
                     break;
                 default:
+                case "llamadaSeguimientoInner":
+                    $data = $this->dataGridLlamadaSeguimiento($columns,$cont);
+                    break;
+                default:
                     $data = $columns;
                     break;
             }
@@ -196,7 +200,6 @@
 
         }
 
-
         /*
          * función para grid base (esqueleto de tablas)
          * */
@@ -222,7 +225,41 @@
          * Módulos particulares
          * */
 
+        function dataGridLlamadaSeguimiento($columns = array(),$cont = 1){
 
+
+
+            $remove = array('id','Editar','Eliminar','id_tipo_llamada','id_motivo','fecha_llamada','id_tarjeta','id_admin','apellido_paterno','apellido_materno','Teléfono','bool_iscelular1','telefono_1','Marca','visita','id_donde_promocion','marca','id_marca');
+            $this->customColumns = $remove;
+            $columns = $this->deleteColumnsFromArray($columns,$remove);
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Seguimiento',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        $id = $d;
+                        $idMarca = $d;
+
+                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}/id_marca/{$idMarca}&title=Crear registro' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus fa-fw fa-2x'></i></a>";
+                    }
+            );
+
+            $columns = $this->arrangeColumns($columns);
+
+            $main = !empty($_GET['mainValue']) ? $this->util->limpiar($_GET['mainValue']) : "";
+
+            if($main != -1){
+                $columns['where'] = 'llamada.id_proyecto=' . $main;
+            }
+
+
+
+            return $columns;
+
+        }
 
         /*
          * INICIO SUCURSAL
@@ -287,7 +324,30 @@
                 'formatter' =>
                     function( $d, $row, $table ) {
 
-                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxGrid/actividad/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus fa-fw fa-2x'></i></a>";
+                        //queryArray
+
+                        $db = Database::connect();
+                        $dbo = new Dbo();
+                        $u = new Utils();
+
+                        $sql = $dbo->select("telemarketing_bienvenida","id_sucursal={$d} AND bool_activa = 1");
+                        $query = $db->query($sql);
+                        $res = $u->queryArray($query);
+
+                        if(!empty($res)){
+                            if($res[0]['bool_efectiva'] == 1){
+
+                                return "<i class='fa fa fa-check fa-fw si-style'></i></a>";
+                            }else{
+
+                                return "<i class='fa fa fa-close fa-fw no-style'></i></a>";
+                            }
+
+
+                        }else{
+                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/telemarketing_bienvenida/id_sucursal/{$d}/bool_activa/1' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
+                        }
+
                     }
             );
 
@@ -300,7 +360,39 @@
                 'formatter' =>
                     function( $d, $row, $table ) {
 
-                        return $d;
+
+                        $db = Database::connect();
+                        $dbo = new Dbo();
+                        $u = new Utils();
+
+                        $sql = $dbo->select("sucursal","id={$d}");
+                        $query = $db->query($sql);
+                        $res = $u->queryArray($query);
+
+
+                        if( !empty($res[0]['calle']) &&
+                            !empty($res[0]['no_exterior']) &&
+                            !empty($res[0]['latitud']) &&
+                            !empty($res[0]['longitud']) &&
+                            !empty($res[0]['id_zona']) &&
+                            !empty($res[0]['id_colonia_ajax'])
+                        ){
+
+                            return "<i class='fa fa fa-check fa-fw si-style'></i></a>";
+
+                        }else{
+
+                            $id_marca = !empty($res[0]['id_marca']) ? $res[0]['id_marca'] : -1;
+                            $nombre = !empty($res[0]['nombre']) ? $res[0]['nombre'] : -1;
+                            $id_establecimiento = !empty($res[0]['id_establecimiento']) ? $res[0]['id_establecimiento'] : -1;
+                            $telefono = !empty($res[0]['telefono']) ? $res[0]['telefono'] : -1;
+                            $precios = !empty($res[0]['precios']) ? $res[0]['precios'] : -1;
+                            $resena = !empty($res[0]['resena']) ? $res[0]['resena'] : -1;
+
+                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/sucursal/id/{$d}/id_marca/{$id_marca}/nombre/{$nombre}/id_establecimiento/{$id_establecimiento}/telefono/{$telefono}/precios/{$precios}/resena/{$resena}&id={$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
+                        }
+
+
                     }
             );
 
@@ -587,14 +679,12 @@
             return $this->onlyDataFields($data,$remove);
         }
 
-
         function dataFormEstablecimientoComida($data){
 
             $remove = array('id_serialized_establecimiento_comida');
             $this->customColumns = $remove;
             return $this->onlyDataFields($data,$remove);
         }
-
 
         function dataFormEstablecimientoMusica($data){
 
@@ -603,15 +693,12 @@
             return $this->onlyDataFields($data,$remove);
         }
 
-
         function dataFormEstablecimientoPago($data){
 
             $remove = array('id_serialized_establecimiento_pago');
             $this->customColumns = $remove;
             return $this->onlyDataFields($data,$remove);
         }
-
-
 
         function dataFormEstablecimientoVestimenta($data){
 
@@ -627,17 +714,12 @@
             return $this->onlyDataFields($data,$remove);
         }
 
-
-
         function dataFormEstablecimientoOportunidad($data){
 
             $remove = array('id_serialized_establecimiento_oportunidad');
             $this->customColumns = $remove;
             return $this->onlyDataFields($data,$remove);
         }
-
-
-
 
         function dataFormEstablecimiento($data){
             $remove = array('Editar','Clasificaciones','Comida','Tipo de pago','Ideal para','Oportunidades','Vestimenta','Servicios','Música');
@@ -684,5 +766,74 @@
         /*
         * FIN ESTABLECIMIENTO
         * */
+
+
+        /*
+         * INICIO CALLCENTER
+         * */
+
+        function insertLlamada(){
+
+            if(!empty($_POST['rand']))
+                unset($_POST['rand']);
+
+
+            if(!empty($_POST['folio'])){
+
+                $sql = $this->dbo->select("llamada","folio={$_POST['folio']}");
+                $query = $this->db->query($sql);
+                $row = $this->util->queryArray($query);
+                $id = "";
+
+                if(empty($row)){
+
+                    $sql = $this->dbo->insert("llamada",$_POST);
+                    $query = $this->db->query($sql);
+
+                    if(!$query){
+                        echo "Hubo un error al insertar, verifica tus datos";
+                        return;
+                    }else{
+
+                        $id = $this->db->insert_id;
+                        $sql = $this->dbo->select("llamada","folio={$_POST['folio']}");
+                        $query = $this->db->query($sql);
+                        $row = $this->util->queryArray($query);
+                    }
+
+                }else{
+                    $id = $row[0]['id'];
+                    $sql = $this->dbo->update("llamada",$_POST,$id);
+                    $query = $this->db->query($sql);
+
+                    $sql = $this->dbo->select("llamada","folio={$_POST['folio']}");
+                    $query = $this->db->query($sql);
+                    $row = $this->util->queryArray($query);
+
+
+                    if(!$query){
+                        echo "Hubo un error al insertar, verifica tus datos";
+                        return;
+                    }
+
+                }
+
+                $sql = $this->dbo->select("motivo","id={$row[0]['id_motivo']}");
+                $query = $this->db->query($sql);
+                $table_form = $this->util->queryArray($query);
+                $table = $table_form[0]['tabla'];
+                $title = $table_form[0]['nombre'];
+
+                $preselected = array();
+                $preselected['id_llamada'] = $id;
+                $this->createGenericForm($table,$id,"preselected",$preselected," Insertar " . $title,"","insert");
+
+            }
+        }
+
+
+        /*
+         * FIN CALLCENTER
+         * */
 
     }

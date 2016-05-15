@@ -17,7 +17,6 @@ class Administrador{
     }
 
 
-
     function operativeObject($pkg,$module){
 
         if(class_exists($pkg)){
@@ -291,6 +290,7 @@ class Administrador{
         $this->insertRow();
     }
 
+
     function updateRow(){
 
         $table = $_GET['table-insert'];
@@ -322,6 +322,7 @@ class Administrador{
         return true;
 
     }
+
 
     function insertRow(){
 
@@ -582,14 +583,15 @@ class Administrador{
 
     }
 
-    function createGenericForm($tabla, $id = null, $type = "insert", $preselected = null, $title = "",$disabled = ""){
+    function createGenericForm($tabla, $id = null, $type = "insert", $preselected = null, $title = "",$disabled = "",$overwritetype = ""){
 
 
         $extra = !empty($id) ? "&id={$id}" : "";
         $disabled = !empty($disabled) ? " disabled " : "";
+        $typeForm = ($type == "preselected") ? "update" : $type;
+        $typeForm = !empty($overwritetype) ? $overwritetype : $typeForm;
 
-
-        echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$type}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
+        echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$typeForm}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
         $iconOp = ($type == "insert") ?
             "<i class='fa fa-search-plus fa-plus-square-o'></i> Insertar nuevo registro" :
@@ -604,10 +606,18 @@ class Administrador{
         $sql = $this->dbo->getColumns($tabla);
         $query = $this->db->query($sql);
 
-        if($type == "update"){
+        if(!is_object($query)){
+
+            echo "No hay datos qué mostrar";
+            return;
+        }
+
+        if($type == "update" || ($type="preselected" && !empty($id))){
             $sqlInfo = $this->dbo->select($tabla,"id='{$id}'");
             $infoQuery = $this->db->query($sqlInfo);
-            $info = $infoQuery->fetch_array(MYSQL_ASSOC);
+            if(is_object($infoQuery)){
+                $info = $infoQuery->fetch_array(MYSQL_ASSOC);
+            }
         }
 
         $data = array();
@@ -644,11 +654,15 @@ class Administrador{
                 $description = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
                 $validation = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
                 $serviceType = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
+                $subtitle = empty($row['Comment']) ? $row['Field'] : $row['Comment'];
 
                 $description = $this->util->transformName($description);
                 $validation = $this->util->getValidationType($validation);
                 $serviceType = $this->util->getServiceType($serviceType);
+                $subtitle = $this->util->getTitle($subtitle);
 
+                if(!empty($subtitle))
+                    echo "<h3 class='subtitle'>{$subtitle}</h3>";
 
                 $flag = true;
 
@@ -706,7 +720,7 @@ class Administrador{
                                         (!empty($preselected[$row['Field']]) && $rowForeign['id'] == $preselected[$row['Field']])
                                     ){
 
-                                        if($rowForeign['id'] == $preselected[$row['Field']]){
+                                        if(!empty( $preselected[$row['Field']]) && $rowForeign['id'] == $preselected[$row['Field']]){
                                              $style = " style='display:none;' ";
                                         }
                                         $selected = " selected=selected";
@@ -715,7 +729,9 @@ class Administrador{
 
                             }
 
-                            $combo.="<option value='{$rowForeign['id']}' {$selected}>{$rowForeign['nombre']}</option>";
+                            $name_ = !empty($rowForeign['nombre']) ? $rowForeign['nombre'] : $rowForeign['id'];
+
+                            $combo.="<option value='{$rowForeign['id']}' {$selected}>{$name_}</option>";
                             $selected = "";
 
                         }
@@ -757,19 +773,31 @@ class Administrador{
 	                                 </p>
 	                              </div>";
 
+                    }else if($row['Type'] == "datetime"){
+
+
+                        echo "";
+
                     }else if(count($status) > 1){
 
-                       echo $this->createSelectOptions($val,$description,$row,$type,"status",$disabled);
+                       echo $this->createSelectOptions($val,$description,$row,$type,"status",$disabled,$preselected);
 
 
                     }else if(count($bool) > 1){
 
-                        echo $this->createSelectOptions($val,$description,$row,$type,"bool", $disabled);
+                        echo $this->createSelectOptions($val,$description,$row,$type,"bool", $disabled,$preselected);
 
 
                     }else{
 
-                        echo "<div class='row-abc'>
+                        $style = "";
+
+                        if(is_array($preselected) && array_key_exists($row['Field'],$preselected)){
+                            $style = " style='display:none;' ";
+                        }
+
+                        echo "<div class='row-abc' {$style}>
+	                                 <p class='descripcion'>{$description}</p>
                                  <p class='input'>
                                      <input type='text' name='{$row['Field']}'
                                      class='$disabled {$row['Type']} $validation $isAjax form-control'
@@ -785,10 +813,15 @@ class Administrador{
 
         }
 
-        if($type == "update")
+        $type = !empty($overwritetype) ? $overwritetype : $type;
+
+
+        if($type == "update" || ($type == "preselected" && !empty($id))){
             echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Actualizar</button></p></div>';
-        else
+        }else{
             echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Insertar</button></p></div>';
+        }
+
 
         echo '</form>';
 
@@ -796,17 +829,24 @@ class Administrador{
 
     }
 
-    function createSelectOptions($val, $description, $row, $type, $mode, $disabled = ""){
+    function createSelectOptions($val, $description, $row, $type, $mode, $disabled = "",$preselected = null){
 
         $combo = "";
         $selected = "";
 
         $disabled = !empty($disabled) ? " disabled " : "";
+        $style = "";
+        $cont = 0;
 
         foreach($this->util->getIconOptions($mode) as $key => $valTmp){
 
-            if($type == "update"){
-                if($key == $val){
+            if($type == "update"  || $type == "preselected"){
+                if(!empty($preselected) && !empty($preselected[$row['Field']]) && $preselected[$row['Field']] == $key){
+
+                    $style = " style='display:none;' ";
+                    $selected = " selected=selected";
+
+                }else if($key == $val && $type != "preselected"){
                     $selected = " selected=selected";
                 }
             }
@@ -821,7 +861,7 @@ class Administrador{
         }
 
 
-        return "<div class='row-abc'>
+        return "<div class='row-abc' $style>
                     <p class='descripcion'>{$description}</p>
                     <p class='input'>
                         <select class='selectpicker form-control {$disabled}'  data-selected-text-format='count'  name='{$row['Field']}'>{$combo}</select>
@@ -847,8 +887,8 @@ class Administrador{
 
         $params = explode(',',$params);
         $table = $params[0];
-        $foreign = $params[1];
-        $id = $params[2];
+        $foreign = !empty($params[1]) ? $params[1] : "";
+        $id = !empty($params[2]) ? $params[2] : "";
 
 
         $preselected = array();
@@ -864,12 +904,11 @@ class Administrador{
         }
 
         //$where = "{$foreign}={$id}";
-
         $preselected[$foreign] = $id;
 
         $title = !empty($_GET['title']) ? $_GET['title'] : "";
-
-        $this->createGenericForm($table,null,"preselected",$preselected, $title);
+        $id = !empty($_GET['id']) ? $_GET['id'] : null;
+        $this->createGenericForm($table,$id,"preselected",$preselected, $title);
 
     }
 
@@ -987,7 +1026,7 @@ class Administrador{
 
 
                                         while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
-                                            $d = $rowForeign['nombre'];
+                                            $d = !empty($rowForeign['nombre']) ? $rowForeign['nombre'] : $rowForeign['id'];
                                         }
 
                                     }

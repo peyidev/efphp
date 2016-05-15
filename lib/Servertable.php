@@ -146,7 +146,7 @@ class Servertable {
      *    sql_exec() function
      *  @return string SQL where clause
      */
-    static function filter ( $request, $columns, &$bindings )
+    static function filter ( $request, $columns, &$bindings, $table = "", $columnForeign = array() )
     {
         $globalSearch = array();
         $columnSearch = array();
@@ -161,10 +161,19 @@ class Servertable {
                 $column = $columns[ $columnIdx ];
 
                 if ( $requestColumn['searchable'] == 'true' ) {
-                    $binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-                    $globalSearch[] = "`".$column['db']."` LIKE ".$binding;
+                    $binding = self::bind( $bindings, "%".$str."%", PDO::PARAM_STR );
+                    $globalSearch[] = "`" . $table . "`.`".$column['db']."` LIKE ".$binding;
                 }
             }
+
+            foreach($columnForeign as $foreign ){
+
+                $binding = self::bind( $bindings, "%".$str."%", PDO::PARAM_STR );
+                $globalSearch[] = $foreign . " LIKE ".$binding;
+
+            }
+
+
         }
 
         // Individual column filtering
@@ -223,12 +232,13 @@ class Servertable {
     {
         $bindings = array();
         $db = self::db();
+        $dbo = new Dbo();
+        $join_ = $dbo->createMultiJoin($table);
 
         // Build the SQL query string from the request
         $limit = self::limit( $request, $columns );
         $order = self::order( $request, $columns );
-        $where = self::filter( $request, $columns, $bindings );
-
+        $where = self::filter( $request, $columns, $bindings, $table,$join_['columns'] );
         $whereResult = self::_flatten( $whereResult );
         $whereAll = self::_flatten( $whereAll );
 
@@ -249,13 +259,17 @@ class Servertable {
         }
 
         // Main query to actually get the data
-        $data = self::sql_exec( $db, $bindings,
-            "SELECT SQL_CALC_FOUND_ROWS `".implode("`, `", self::pluck($columns, 'db'))."`
+        $sql = "SELECT SQL_CALC_FOUND_ROWS `{$table}`.`".implode("`,`{$table}`.`", self::pluck($columns, 'db'))."`
 			 FROM `$table`
+			 {$join_['dboexp']}
 			 $where
 			 $order
-			 $limit"
-        );
+			 $limit";
+//
+//        echo "<pre>";
+//        echo $sql;
+
+        $data = self::sql_exec($db,$bindings,$sql);
 
         // Data set length after filtering
         $resFilterLength = self::sql_exec( $db,
@@ -265,10 +279,12 @@ class Servertable {
 
 
         // Total data set length
+        $sql2 = "SELECT COUNT(`{$table}`.`{$primaryKey}`)
+			 FROM   `$table` ". "{$join_['dboexp']}" .
+            $where;
+
         $resTotalLength = self::sql_exec( $db, $bindings,
-            "SELECT COUNT(`{$primaryKey}`)
-			 FROM   `$table` ".
-            $where
+            $sql2
         );
         $recordsTotal = $resTotalLength[0][0];
 
