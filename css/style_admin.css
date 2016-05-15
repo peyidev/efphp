@@ -643,3 +643,29 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     color:#009EDF;
 
 }
+
+
+.insert-llamada .form-operation{
+
+    display: none;
+    
+}
+
+.info-llamada{
+
+    margin-right:5%;
+
+}
+.insert-llamada,.info-llamada{
+
+    width:47%;
+    float:left;
+}
+
+.llamada-detalle-well{
+
+    display: table;
+    width:100%;
+    float: left;
+    
+}

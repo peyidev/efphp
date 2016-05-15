@@ -477,7 +477,7 @@ class Administrador{
                             $queryForeign = $this->db->query($sqlForeign);
 
                             while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
-                                $val = $rowForeign['nombre'];
+                                $val = !empty($rowForeign['nombre']) ? $rowForeign['nombre'] : $rowForeign['id'];
                             }
                         }
                     }
@@ -585,7 +585,6 @@ class Administrador{
 
     function createGenericForm($tabla, $id = null, $type = "insert", $preselected = null, $title = "",$disabled = "",$overwritetype = ""){
 
-
         $extra = !empty($id) ? "&id={$id}" : "";
         $disabled = !empty($disabled) ? " disabled " : "";
         $typeForm = ($type == "preselected") ? "update" : $type;
@@ -612,7 +611,7 @@ class Administrador{
             return;
         }
 
-        if($type == "update" || ($type="preselected" && !empty($id))){
+        if($type == "update" || ($type == "preselected" && !empty($id))){
             $sqlInfo = $this->dbo->select($tabla,"id='{$id}'");
             $infoQuery = $this->db->query($sqlInfo);
             if(is_object($infoQuery)){
@@ -883,7 +882,7 @@ class Administrador{
     }
 
 
-    function createAjaxInsert($params){
+    function createAjaxInsert($params,$type = ""){
 
         $params = explode(',',$params);
         $table = $params[0];
@@ -908,7 +907,8 @@ class Administrador{
 
         $title = !empty($_GET['title']) ? $_GET['title'] : "";
         $id = !empty($_GET['id']) ? $_GET['id'] : null;
-        $this->createGenericForm($table,$id,"preselected",$preselected, $title);
+
+        $this->createGenericForm($table,$id,"preselected",$preselected, $title,"",$type);
 
     }
 

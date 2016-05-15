@@ -225,6 +225,12 @@
          * Módulos particulares
          * */
 
+        function createAjaxViewLlamada($params){
+
+            $include = BASE_PATH . ADMINURL . "vistas/llamadaseguimientodetail.php";
+            include($include);
+        }
+
         function dataGridLlamadaSeguimiento($columns = array(),$cont = 1){
 
 
@@ -241,9 +247,8 @@
                     function( $d, $row, $table ) {
 
                         $id = $d;
-                        $idMarca = $d;
 
-                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}/id_marca/{$idMarca}&title=Crear registro' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus fa-fw fa-2x'></i></a>";
+                        return "<a href='../lib/Execute.php?e=Medios/createAjaxViewLlamada/llamada_seguimiento/id_llamada/{$row['id_llamada']}&title=Crear registro' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus fa-fw fa-2x'></i></a>";
                     }
             );
 
