@@ -907,6 +907,8 @@ class Administrador{
 
         $title = !empty($_GET['title']) ? $_GET['title'] : "";
         $id = !empty($_GET['id']) ? $_GET['id'] : null;
+        if(empty($type))
+            $type  = !empty($_GET['type']) ? $_GET['type'] : "";
 
         $this->createGenericForm($table,$id,"preselected",$preselected, $title,"",$type);
 

@@ -155,6 +155,9 @@
                 case "llamadaSeguimientoInner":
                     $data = $this->dataGridLlamadaSeguimiento($columns,$cont);
                     break;
+                case "sucursalCalidadInner":
+                    $data = $this->dataGridSucursalCalidad($columns,$cont);
+                    break;
                 default:
                     $data = $columns;
                     break;
@@ -287,6 +290,168 @@
 
         }
 
+        function completarRuta(){
+
+            print_r($_GET);
+
+        }
+
+        function createAjaxViewCalidadDetalle($params){
+
+            $include = BASE_PATH . ADMINURL . "vistas/calidaddetalle.php";
+            include($include);
+        }
+
+
+
+        function dataGridSucursalCalidad($columns = array(),$cont = 1){
+
+
+//            $main = !empty($_GET['mainValue']) ? $this->util->limpiar($_GET['mainValue']) : "";
+//            $columns['where'] = 'id_establecimiento=' . $main;
+
+            $remove = array('Editar','Eliminar','latitud','longitud','calle','no_exterior','no_interior','precios','horarios','img_logochico','img_logogrande','fachada','resena','id_zona','id_colonia_ajax','id_establecimiento');
+            $this->customColumns = $remove;
+            $columns = $this->deleteColumnsFromArray($columns,$remove);
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Dirección',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return $d;
+                    }
+            );
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Colonia',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return $d;
+                    }
+            );
+
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Detalles',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return "<a href='../lib/Execute.php?e=Medios/createAjaxViewCalidadDetalle/sucursal/id/{$d}&title=Crear registro' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
+
+                    }
+            );
+
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Etapa 1',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+
+                        $db = Database::connect();
+                        $dbo = new Dbo();
+                        $u = new Utils();
+
+                        $sql = $dbo->select("calidad_etapa1","id_sucursal={$d}");
+                        $query = $db->query($sql);
+                        $res = $u->queryArray($query);
+
+                        if(!empty($res)){
+
+                            return "<i class='fa fa fa-check fa-fw si-style'></i></a>";
+
+                        }else{
+
+                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/calidad_etapa1/id_sucursal/{$d}&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
+
+                        }
+
+                    }
+            );
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Etapa 2',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+
+                        $db = Database::connect();
+                        $dbo = new Dbo();
+                        $u = new Utils();
+
+                        $sql = $dbo->select("calidad_etapa2","id_sucursal={$d}");
+                        $query = $db->query($sql);
+                        $res = $u->queryArray($query);
+
+                        if(!empty($res)){
+
+                            return "<i class='fa fa fa-check fa-fw si-style'></i></a>";
+
+                        }else{
+
+                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/calidad_etapa2/id_sucursal/{$d}&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
+
+                        }
+                    }
+            );
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Etapa 3',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+
+                        $db = Database::connect();
+                        $dbo = new Dbo();
+                        $u = new Utils();
+
+                        $sql = $dbo->select("calidad_etapa3","id_sucursal={$d}");
+                        $query = $db->query($sql);
+                        $res = $u->queryArray($query);
+
+                        if(!empty($res)){
+
+                            return "<i class='fa fa fa-check fa-fw si-style'></i></a>";
+
+                        }else{
+
+                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/calidad_etapa3/id_sucursal/{$d}&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
+
+                        }
+
+                    }
+            );
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Completar',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
+
+                        return "<a href='?s={$table}&id={$d}' class='completar center-data'><i class='fa fa-close fa-fw fa-2x'></i></a>";;
+
+                    }
+            );
+
+
+            $columns = $this->arrangeColumns($columns);
+            return $columns;
+
+
+        }
+
         function dataGridSucursalBienvenida($columns = array(),$cont = 1){
 
 // Manejar el filtro
@@ -350,7 +515,7 @@
 
 
                         }else{
-                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/telemarketing_bienvenida/id_sucursal/{$d}/bool_activa/1' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
+                            return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/telemarketing_bienvenida/id_sucursal/{$d}/bool_activa/1&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
                         }
 
                     }
@@ -545,7 +710,7 @@
                 'dt' => ++$cont,
                 'formatter' =>
                     function( $d, $row, $table ) {
-                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/actividad/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
+                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/actividad/id_lead/{$d}&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
                     }
             );
 
@@ -556,7 +721,7 @@
                 'dt' => ++$cont,
                 'formatter' =>
                     function( $d, $row, $table ) {
-                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/contacto/id_lead/{$d}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
+                        return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/contacto/id_lead/{$d}&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-plus-square fa-fw fa-2x'></i></a>";
                     }
             );
 
@@ -597,7 +762,7 @@
 
                             }else{
 
-                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/contrato_lead/id_lead/{$id}' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/contrato_lead/id_lead/{$id}&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
                             }
 
                         }
@@ -647,7 +812,7 @@
 
                                 $idMarca = $row['id_marca'];
 
-                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}/id_marca/{$idMarca}&title=Crear registro' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                                return "<a href='../lib/Execute.php?e=Administrador/createAjaxInsert/establecimiento/id_lead/{$id}/id_marca/{$idMarca}&title=Crear registro&type=insert' class='detalle_lead-admin center-data popup-admin'><i class='fa fa-close fa-fw fa-2x'></i></a>";
                             }
 
                         }

@@ -186,11 +186,35 @@
         <icon>fa-thumbs-up</icon>
 
         <subitem>
-            <subitemName>Actividad de calidad catálogo</subitemName>
-            <subitemLink>?s=actividad_calidad-admin</subitemLink>
+            <subitemName>Ruta</subitemName>
+            <subitemLink>?s=sucursal-vista-calidad</subitemLink>
             <pkg>Medios</pkg>
-            <module>actividad_calidad</module>
-            <visibility>si</visibility>
+            <module>sucursal</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Etapa 1</subitemName>
+            <subitemLink>?s=calidad_etapa1-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_etapa1</module>
+            <visibility>no</visibility>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Etapa 2</subitemName>
+            <subitemLink>?s=calidad_etapa2-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_etapa2</module>
+            <visibility>no</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Etapa 3</subitemName>
+            <subitemLink>?s=calidad_etapa3-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_etapa3</module>
+            <visibility>no</visibility>
         </subitem>
 
     </item>
@@ -323,30 +347,35 @@
             <subitemName>Establecimientos - Clasificaciones</subitemName>
             <subitemLink>?s=establecimiento_clasificacion-admin</subitemLink>
             <module>establecimiento_clasificacion</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
             <subitemName>Establecimientos - Servicios</subitemName>
             <subitemLink>?s=establecimiento_servicio-admin</subitemLink>
             <module>establecimiento_servicio</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
             <subitemName>Establecimientos - Comida</subitemName>
             <subitemLink>?s=establecimiento_comida-admin</subitemLink>
             <module>establecimiento_comida</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
             <subitemName>Establecimientos - Música</subitemName>
             <subitemLink>?s=establecimiento_musica-admin</subitemLink>
             <module>establecimiento_musica</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
             <subitemName>Establecimientos - Pago</subitemName>
             <subitemLink>?s=establecimiento_pago-admin</subitemLink>
             <module>establecimiento_pago</module>
+            <visibility>no</visibility>
         </subitem>
 
 
@@ -354,6 +383,7 @@
             <subitemName>Establecimientos - Vestimenta</subitemName>
             <subitemLink>?s=establecimiento_vestimenta-admin</subitemLink>
             <module>establecimiento_vestimenta</module>
+            <visibility>no</visibility>
         </subitem>
 
 
@@ -361,6 +391,7 @@
             <subitemName>Establecimientos - Ideal</subitemName>
             <subitemLink>?s=establecimiento_ideal-admin</subitemLink>
             <module>establecimiento_ideal</module>
+            <visibility>no</visibility>
         </subitem>
 
 
@@ -368,6 +399,7 @@
             <subitemName>Establecimientos - Oportunidades</subitemName>
             <subitemLink>?s=establecimiento_oportunidad-admin</subitemLink>
             <module>establecimiento_oportunidad</module>
+            <visibility>no</visibility>
         </subitem>
 
 
@@ -375,6 +407,7 @@
             <subitemName>Telemarketing - Tipo de llamada</subitemName>
             <subitemLink>?s=tipo_llamada-admin</subitemLink>
             <module>tipo_llamada</module>
+            <visibility>no</visibility>
         </subitem>
 
 
@@ -382,22 +415,96 @@
             <subitemName>Telemarketing - motivo</subitemName>
             <subitemLink>?s=motivo-admin</subitemLink>
             <module>motivo</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
             <subitemName>Telemarketing - Estatus llamada</subitemName>
             <subitemLink>?s=estatus_llamada-admin</subitemLink>
             <module>estatus_llamada</module>
+            <visibility>no</visibility>
         </subitem>
 
         <subitem>
             <subitemName>Telemarketing - Acuerdo llamada</subitemName>
             <subitemLink>?s=acuerdo_llamada-admin</subitemLink>
             <module>acuerdo_llamada</module>
+            <visibility>no</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Actividad</subitemName>
+            <subitemLink>?s=actividad_calidad-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>actividad_calidad</module>
+            <visibility>no</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Gasto (Etapa1)</subitemName>
+            <subitemLink>?s=calidad_op_gasto-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_gasto</module>
+            <visibility>si</visibility>
         </subitem>
 
 
+        <subitem>
+            <subitemName>Calidad - Establecimiento estatus (Etapa1)</subitemName>
+            <subitemLink>?s=calidad_op_establecimiento-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_establecimiento</module>
+            <visibility>si</visibility>
+        </subitem>
 
+
+        <subitem>
+            <subitemName>Calidad - Tarjetas (Etapa2)</subitemName>
+            <subitemLink>?s=calidad_op_tarjeta-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_tarjeta</module>
+            <visibility>si</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Material (Etapa2)</subitemName>
+            <subitemLink>?s=calidad_op_material-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_material</module>
+            <visibility>si</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Banco (Etapa2)</subitemName>
+            <subitemLink>?s=calidad_op_banco-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_banco</module>
+            <visibility>si</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Puesto (Etapa2)</subitemName>
+            <subitemLink>?s=calidad_op_puesto-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_puesto</module>
+            <visibility>si</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Información contacto (Etapa2)</subitemName>
+            <subitemLink>?s=calidad_op_info-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_info</module>
+            <visibility>si</visibility>
+        </subitem>
+
+        <subitem>
+            <subitemName>Calidad - Tipo foto (Etapa3)</subitemName>
+            <subitemLink>?s=calidad_op_tipo_foto-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>calidad_op_tipo_foto</module>
+            <visibility>si</visibility>
+        </subitem>
 
         <subitem>
             <subitemName> </subitemName>

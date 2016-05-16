@@ -330,6 +330,46 @@ var vistas = {
         });
 
 
+    },
+    sucursal_vista_calidad : function(){
+
+        $(".table-admin").on('click','.completar',function(e){
+
+            e.preventDefault();
+            var id = $(this).attr("href");
+            id = id.split("&id=");
+            console.log(id);
+            var tabla = id[0].split("?s=");
+            tabla = tabla[1];
+            id = id[1];
+
+            var param = {
+                table : tabla,
+                id : id
+            };
+
+
+            $( '<div id="dialog-confirm" title="Completar ruta"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>¿Deseas dar por completada la ruta?</p></div>' ).dialog({
+                resizable: false,
+                height:140,
+                modal: true,
+                buttons: {
+                    "Completar ruta": function() {
+
+                        ajaxData('../lib/Execute.php?e=Medios/completarRuta','GET',param,'false',function(json){
+
+                            console.log(json);
+                        },"true");
+
+                    },
+                    Cancelar: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+
+        });
+
     }
 
 };
