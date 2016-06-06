@@ -14,12 +14,12 @@
         }
 
 
-        public static function connect($type = "mysql") {
+        public static function connect($type = "mysql",$host = null,$user = null, $pass = null, $db = null) {
 
-            $host = self::$host;
-            $user = self::$user;
-            $pass = self::$pass;
-            $db = self::$db;
+            $host = empty($host) ? self::$host : $host;
+            $user = empty($user) ? self::$user : $user;
+            $pass = empty($pass) ? self::$pass : $pass;
+            $db = empty($db) ? self::$db : $db;
 
             switch($type){
 

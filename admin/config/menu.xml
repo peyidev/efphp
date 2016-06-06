@@ -25,6 +25,77 @@
     <!--</item>-->
 
     <item>
+        <itemName>Donde ir</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-plane</icon>
+
+        <subitem>
+            <subitemName>Marcas</subitemName>
+            <subitemLink>?s=marca-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>marca</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Especialidades de marcas</subitemName>
+            <subitemLink>?s=marca_especialidad-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>marca_especialidad</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+        <subitem>
+            <subitemName>Catálogo de especialidades</subitemName>
+            <subitemLink>?s=especialidad-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>especialidad</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Sucursales</subitemName>
+            <subitemLink>?s=sucursal-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>sucursal</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Promociones</subitemName>
+            <subitemLink>?s=promocion-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>promocion</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+
+
+        <subitem>
+            <subitemName>Servicios de sucursales</subitemName>
+            <subitemLink>?s=servicio_sucursal-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>servicio_sucursal</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Catálogo de servicios</subitemName>
+            <subitemLink>?s=servicio-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>servicio</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+
+    </item>
+
+
+    <item>
         <itemName>Marcas</itemName>
         <itemLink>#</itemLink>
         <rol>ADMINISTRADOR</rol>
@@ -342,6 +413,19 @@
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
         <icon>fa-gear</icon>
+
+
+
+        <subitem>
+            <subitemName>Tipos de pago</subitemName>
+            <subitemLink>?s=tipo_pago-admin</subitemLink>
+            <pkg>Medios</pkg>
+            <module>tipo_pago</module>
+            <!--visibility>no</visibility-->
+        </subitem>
+
+
+
 
         <subitem>
             <subitemName>Establecimientos - Clasificaciones</subitemName>

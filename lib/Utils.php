@@ -11,6 +11,10 @@
       public static function queryArray($query){
 
           $data = array();
+
+          if(!$query)
+              return $data;
+
           while ($row = $query->fetch_array(MYSQL_ASSOC)) {
               $data[] = $row;
           }
@@ -283,6 +287,11 @@
           }
           else
           {
+
+              if(empty($file['name'])){
+                  return "default.png";
+              }
+
               return false;
           }
 
