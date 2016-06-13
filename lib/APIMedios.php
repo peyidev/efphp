@@ -20,6 +20,22 @@ class MyAPI extends API
 
     }
 
+    public function establecimientos(){
+
+        $obj = '{"marca":{"marca_especialidad":{},"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
+
+        $column = $this->util->limpiar($_GET['column']);
+        $query = $this->util->limpiar($_GET['query']);
+        $searchType = $this->util->limpiar($_GET['search']);
+        $count = $this->util->limpiar($_GET['count']);
+        $page = $this->util->limpiar($_GET['page']);
+
+
+        return $this->request($obj,$column,$query,$searchType,$count,$page);
+
+
+    }
+
     /**
      * $param1[0] = estructura de petición
      * $param1[1] = columna a buscar
@@ -28,17 +44,10 @@ class MyAPI extends API
      * $param1[4] = Cuantos por página
      * $param1[5] = Página
      */
-    protected function request($param1) {
-
-
-        $obj        = json_decode($param1[0]);
-        $column     = !empty($param1[1]) ?  $param1[1] : "";
-        $cond       = !empty($param1[2]) ?  $param1[2] : "";
-        $type       = !empty($param1[3]) ?  $param1[3] : "";
+    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "") {
+        
+        $obj        = json_decode($obj);
         $type       = ($type == "k") ? "LIKE" : "=";
-
-        $howmany    = !empty($param1[4]) ?  $param1[4] : "";
-        $page       = !empty($param1[5]) ?  $param1[5] : "";
         $where      = "";
 
         if(!empty($column)){
@@ -62,24 +71,29 @@ class MyAPI extends API
 
         //$id = $param1[1];
 
+        $res['status'] = "ok";
 
         foreach($obj as $key => $val){
             $sql = $this->dbo->select($key,"$where","*","",$howmany,$page);
             $query = $this->db->query($sql);
+
+
+            $cuantos = $this->dbo->countRows();
+            $cuantos = $this->db->query($cuantos);
+            $cuantosTotal = $this->util->queryArray($cuantos);
+            $cuantosTotal = $cuantosTotal[0]['howmany'];
+
+            $res['count'] = $cuantosTotal;
+
             $data = $this->util->queryArray($query);
 
             foreach($data as $k => $v){
                 $res[$key][] = $this->recursiveData($val,$key,$v);
 
             }
-
         }
 
-        //print_r($res);
-        die;
-        return (json_encode($res));
-
-
+        return $res;
 
     }
 
@@ -98,7 +112,7 @@ class MyAPI extends API
                 $data = $this->util->queryArray($query);
                 foreach($data as $l => $w){
                     $d[$key][] = $w;
-               }
+                }
                 continue;
             }else{
                 $id = $d['id'];

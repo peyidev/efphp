@@ -1092,9 +1092,11 @@ class Administrador{
         }
 
 
-        echo json_encode(Servertable::simple($_GET, $table, $primaryKey, $columns, $where));
+        echo $this->util->safe_json_encode(Servertable::simple($_GET, $table, $primaryKey, $columns, $where));
 
     }
+
+
 
     function filterDataForm($data){
         return $data;

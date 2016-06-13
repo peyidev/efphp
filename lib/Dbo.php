@@ -8,6 +8,12 @@ class Dbo  {
         $this->util = new Utils();
     }
 
+    function countRows(){
+
+        return "SELECT FOUND_ROWS() as howmany;  ";
+
+    }
+
     function orderBy($query, $columna){
 
         if(is_array($columna))
@@ -46,7 +52,7 @@ class Dbo  {
         $limit = $this->util->limpiar($limit);
         $offset = $this->util->limpiar($offset);
 
-        $query = "SELECT " . $fields . " FROM " . $tabla
+        $query = "SELECT SQL_CALC_FOUND_ROWS " . $fields . " FROM " . $tabla
             . (($where) ? " WHERE " . $where : "")
             . (($limit) ? " LIMIT " . $limit : "")
             . (($offset && $limit) ? " OFFSET " . $offset : "")
@@ -159,8 +165,9 @@ class Dbo  {
 
                 if ($this->tableExist($foreign[1])) {
                     $frg = $foreign[1];
+                    $frg1 = $foreign[1] . "_f";
                     $exp .= " {$join} JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
-                    $pdoexp .= " LEFT JOIN `{$frg}` ON `{$frg}`.`id` = `{$table}`.`id_{$frg}` ";
+                    $pdoexp .= " LEFT JOIN `{$frg}` as `{$frg1}` ON `{$frg1}`.`id` = `{$table}`.`id_{$frg}` ";
                     $select .= " {$frg}.nombre as {$frg}_nombre,";
                     $columns[] = "`{$frg}`.`nombre`";
 

@@ -76,14 +76,32 @@ abstract class API{
 
     public function processAPI() {
         if (method_exists($this, $this->endpoint)) {
-            return $this->_response($this->{$this->endpoint}($this->args));
+
+            try{
+
+                return $this->_response($this->{$this->endpoint}($this->args));
+
+            }catch(Exception $e){
+
+                $error = array();
+                $error['status'] = "nok";
+                $error['error'] = $e;
+                return $this->_response($error, 500);
+
+            }
+
         }
-        return $this->_response("No Endpoint: $this->endpoint", 404);
+
+        $error = array();
+        $error['status'] = "nok";
+        $error['error'] = "No Endpoint: $this->endpoint";
+        return $this->_response($error, 404);
     }
 
     private function _response($data, $status = 200) {
         header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));
-        return json_encode($data);
+        $u = new Utils();
+        return $u->safe_json_encode($data);
     }
 
     private function _cleanInputs($data) {
