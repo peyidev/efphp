@@ -2,6 +2,35 @@
 <?php
     include("Configuracion.php");
 
+
+    function getImage($id){
+
+        $db = Database::connect("mysql",null,null,null,"import_dondeir");
+        $dbo = new Dbo();
+        $util = new Utils();
+
+
+        $sql = $dbo->select('wp_postmeta',"meta_key = '_thumbnail_id' AND post_id = '{$id}'");
+        $query = $db->query($sql);
+        $data = $util->queryArray($query);
+
+        if(!empty($data)){
+
+            $id2 = $data[0]['meta_value'];
+            $sql = $dbo->select('wp_posts',"post_type = 'attachment' AND ID = '{$id2}'");
+            $query = $db->query($sql);
+            $data2 = $util->queryArray($query);
+
+            if(!empty($data2)){
+                return $data2[0]['guid'];
+            }else{
+                return "";
+            }
+        }
+
+
+    }
+
     function importMarcas(){
 
         $db1 = Database::connect();
@@ -22,15 +51,12 @@
         $categorias = array();
 
         foreach($categoriaData as $c){
-
             $categorias[strtolower($c['nombre'])] = $c['id'];
-
         }
 
 
-
         //$sql2 = $dbo->select("wp_postmeta","post_id = 35");
-        $sql2 = $dbo->select("wp_posts");
+        $sql2 = $dbo->select("wp_posts","post_type='restaurante'");
         $query2 = $db2->query($sql2);
         $row2 = $util->queryArray($query2);
 
@@ -47,8 +73,11 @@
             $insertData['id_categoria'] = (!empty($categorias[$r['post_type']])) ? $categorias[$r['post_type']] : $categorias['maincategory'];
             $insertData['id_categoria_vive'] = 1;
             $insertData['id_proyecto'] = 1;
+            $insertData['img_donde'] = getImage($r['ID']);
 
             $insert = $dbo->insert('marca',$insertData);
+
+            print_r($insert);
             $db1->query($insert);
 
         }
@@ -150,7 +179,7 @@
 
             if(!empty($sql)){
                 $db1->query($sql);
-                echo $sql . "<br />";
+                echo $sql . " modificado <br />";
             }
 
             $sql = "";
@@ -203,13 +232,51 @@
                             $insert['horarios'] = ($v['meta_value']);
                             break;
 
+                        case  "_simple_fields_fieldGroupID_1_fieldID_8_numInSet_" . $cont:
+
+                            if(!empty($v['meta_value'])){
+
+                                $zonas = unserialize($v['meta_value']);
+                                $zona = $zonas[0];
+
+                                $sqlZona = $dbo->select("wp_terms","term_id='{$zona}'");
+                                $queryZona = $db2->query($sqlZona);
+                                $dataZona = $util->queryArray($queryZona);
+
+                                if(empty($dataZona))
+                                    break;
+
+                                $zonaName = $dataZona[0]['name'];
+
+                                $sqlZonaNew = $dbo->select("zona","nombre='{$zonaName}'");
+                                $queryZonaNew = $db1->query($sqlZonaNew);
+                                $dataZonaNew = $util->queryArray($queryZonaNew);
+
+                                if(empty($dataZonaNew)){
+
+                                    $zonaInsert = array();
+                                    $zonaInsert['nombre'] = $zonaName;
+                                    $sqlZona = $dbo->insert('zona', $zonaInsert);
+                                    $queryZona = $db1->query($sqlZona);
+                                    $idZonaNew = $db1->insert_id;
+                                    $insert['id_zona'] = $idZonaNew;
+
+
+                                }else{
+                                    $insert['id_zona'] = $dataZonaNew[0]['id'];
+                                }
+
+
+                            }
+
+                            break;
+
 
                     }
 
                 }
 
                 $sqlInsert = $dbo->insert('sucursal',$insert);
-                echo $sqlInsert . "<br />";
                 $db1->query($sqlInsert);
 
 //                print_r($insert);
@@ -226,7 +293,7 @@
 
     }
 
-    //importMarcas();
-    //processMarcasSucursales();
+    importMarcas();
+    processMarcasSucursales();
 ?>
 </pre>

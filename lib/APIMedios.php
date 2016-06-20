@@ -9,6 +9,7 @@ class MyAPI extends API
     protected $util;
     protected $dbo;
     protected $user;
+    protected $responseData;
 
     public function __construct($request, $origin)
     {
@@ -17,6 +18,83 @@ class MyAPI extends API
         $this->util = new Utils();
         $this->dbo = new Dbo();
         $this->user = new User();
+        $this->responseData = array();
+
+    }
+
+
+    public function estados(){
+
+        $obj = '{"estado":{}}';
+
+        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
+        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
+        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
+        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
+        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
+
+        return $this->request($obj,$column,$query,$searchType,$count,$page);
+
+    }
+
+    public function zonas(){
+
+        $obj = '{"zona":{}}';
+
+        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
+        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
+        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
+        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
+        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
+
+        return $this->request($obj,$column,$query,$searchType,$count,$page);
+
+    }
+
+
+    public function categorias(){
+
+        $obj = '{"categoria":{}}';
+
+        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
+        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
+        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
+        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
+        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
+
+
+        return $this->request($obj,$column,$query,$searchType,$count,$page);
+
+
+    }
+
+    public function zonaEstablecimiento(){
+
+        $obj = '{"marca":{"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
+
+
+        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
+        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
+        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
+        $order = $this->util->limpiar(!empty($_GET['order']) ? $_GET['order'] : "");
+        $zona = $this->util->limpiar(!empty($_GET['zona']) ? $_GET['zona'] : "");
+
+        if(!empty($zona)){
+            $deepWhere['where'] = " s.id_zona = {$zona}";
+            $deepWhere['deep'] = " id_zona = {$zona}";
+            $deepWhere['join'] = " JOIN sucursal as s ON s.id_marca = marca.id JOIN zona as z ON z.id = s.id_zona";
+
+        }else{
+            $deepWhere['where'] = "";
+            $deepWhere['join'] = "";
+            $deepWhere['deep'] = "";
+        }
+
+
+
+
+        return $this->request($obj,"","",$searchType,$count,$page,$order,$deepWhere);
+
 
     }
 
@@ -24,14 +102,16 @@ class MyAPI extends API
 
         $obj = '{"marca":{"marca_especialidad":{},"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
 
-        $column = $this->util->limpiar($_GET['column']);
-        $query = $this->util->limpiar($_GET['query']);
-        $searchType = $this->util->limpiar($_GET['search']);
-        $count = $this->util->limpiar($_GET['count']);
-        $page = $this->util->limpiar($_GET['page']);
+        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
+        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
+        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
+        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
+        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
+        $order = $this->util->limpiar(!empty($_GET['order']) ? $_GET['order'] : "");
 
 
-        return $this->request($obj,$column,$query,$searchType,$count,$page);
+
+        return $this->request($obj,$column,$query,$searchType,$count,$page,$order);
 
 
     }
@@ -44,11 +124,12 @@ class MyAPI extends API
      * $param1[4] = Cuantos por página
      * $param1[5] = Página
      */
-    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "") {
-        
+    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "", $order = "",$deepWhere = "") {
+
         $obj        = json_decode($obj);
         $type       = ($type == "k") ? "LIKE" : "=";
         $where      = "";
+        $join_ = "";
 
         if(!empty($column)){
             if($type == "LIKE"){
@@ -56,6 +137,11 @@ class MyAPI extends API
             }else{
                 $where = "{$column} {$type} '{$cond}'";
             }
+        }
+
+        if(!empty($deepWhere['where'])){
+            $where .= $deepWhere['where'];
+            $join_ = $deepWhere['join'];
         }
 
         if(!empty($howmany)){
@@ -74,7 +160,9 @@ class MyAPI extends API
         $res['status'] = "ok";
 
         foreach($obj as $key => $val){
-            $sql = $this->dbo->select($key,"$where","*","",$howmany,$page);
+
+            $this->responseData[$key] = "id_" . $key;
+            $sql = $this->dbo->select($key . $join_,"$where",$key.".*",$order,$howmany,$page);
             $query = $this->db->query($sql);
 
 
@@ -88,7 +176,8 @@ class MyAPI extends API
             $data = $this->util->queryArray($query);
 
             foreach($data as $k => $v){
-                $res[$key][] = $this->recursiveData($val,$key,$v);
+
+                $res[$key][] = $this->recursiveData($val,$key,$v,$deepWhere);
 
             }
         }
@@ -99,25 +188,51 @@ class MyAPI extends API
 
 
 
-    protected function recursiveData($structure,$k,$d){
-
+    protected function recursiveData($structure,$k,$d,$deepWhere=""){
 
         foreach($structure as $key => $val){
 
             if(empty($val)){
                 $id = $d['id'];
                 $kk = "id_" . $k;
+                $where = "";
+                if(!empty($deepWhere)){
+                    $where = " AND " . $deepWhere['deep'];
+                }
                 $sql = $this->dbo->select($key,"{$kk}=$id");
                 $query = $this->db->query($sql);
                 $data = $this->util->queryArray($query);
                 foreach($data as $l => $w){
+                    if (is_array($w)) {
+                        foreach ($w as $_k => $_w) {
+                            $foreign = explode("id_", $_k);
+                            if (count($foreign) > 1) {
+                                if ($this->dbo->tableExist($foreign[1])) {
+                                    $s = $this->dbo->select($foreign[1], "id={$w[$_k]} {$deepWhere}");
+                                    $q = $this->db->query($s);
+                                    $add = $this->util->queryArray($q);
+
+                                    if (!empty($add) && !in_array($_k,$this->responseData)){
+                                        $w[$_k] = $add;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
                     $d[$key][] = $w;
                 }
                 continue;
             }else{
                 $id = $d['id'];
                 $kk = "id_" . $k;
-                $sql = $this->dbo->select($key,"{$kk}=$id");
+                $where = "";
+                if(!empty($deepWhere)){
+                    $where = " AND " . $deepWhere['deep'];
+                }
+
+                $sql = $this->dbo->select($key,"{$kk}=$id {$where}");
                 $query = $this->db->query($sql);
                 $data = $this->util->queryArray($query);
                 foreach($data as $l => $w){
@@ -126,10 +241,38 @@ class MyAPI extends API
                 }
             }
         }
-        return $d;
+
+
+        return $this->convertDataForeign($d);
 
     }
 
+
+    function convertDataForeign($data){
+
+
+        foreach($data as $key => $val){
+
+            $foreign = explode("id_", $key);
+            if (count($foreign) > 1) {
+                if ($this->dbo->tableExist($foreign[1])) {
+                    $s = $this->dbo->select($foreign[1], "id={$data[$key]}");
+                    $q = $this->db->query($s);
+                    $add = $this->util->queryArray($q);
+
+                    if (!empty($add) && !in_array($key,$this->responseData)){
+                        $data[$key] = $add;
+                    }
+
+                }
+            }
+
+
+        }
+
+        return $data;
+
+    }
 
     function object_to_array($obj) {
         if(is_object($obj)) $obj = (array) $obj;
