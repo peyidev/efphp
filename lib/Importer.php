@@ -159,8 +159,8 @@
 
                 case "_precios":
 
-                    $upData['precios'] =  $extras['meta_value'];
-                    $sql = $dbo->update('marca',$upData,$id);
+//                    $upData['precios'] =  $extras['meta_value'];
+//                    $sql = $dbo->update('marca',$upData,$id);
 
                     break;
 
@@ -219,6 +219,31 @@
 
                         case  "_simple_fields_fieldGroupID_1_fieldID_3_numInSet_" . $cont:
                             $insert['telefono'] = ($v['meta_value']);
+                            break;
+
+                        case  "_simple_fields_fieldGroupID_1_fieldID_4_numInSet_" . $cont:
+
+                            $idPrecio = 1;
+                            switch($v['meta_value']){
+
+                                case "dropdown_num_2":
+                                    $idPrecio = 1;
+                                    break;
+                                case "dropdown_num_3":
+                                    $idPrecio = 2;
+                                    break;
+                                case "dropdown_num_4":
+                                    $idPrecio = 3;
+                                    break;
+                                case "dropdown_num_5":
+                                    $idPrecio = 4;
+                                    break;
+                            }
+
+                            $d['id_precio'] = $idPrecio;
+
+                            $msql = $dbo->update('marca',$d,$id);
+                            $db1->query($msql);
                             break;
 
                         case  "_simple_fields_fieldGroupID_1_fieldID_5_numInSet_" . $cont:

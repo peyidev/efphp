@@ -23,6 +23,75 @@ class MyAPI extends API
     }
 
 
+    public function establecimientos(){
+
+        $zona = $this->util->limpiar(!empty($_GET['zona']) ? $_GET['zona'] : "");
+        $comida = $this->util->limpiar(!empty($_GET['comida']) ? $_GET['comida'] : "");
+        $precio = $this->util->limpiar(!empty($_GET['precio']) ? $_GET['precio'] : "");
+        $nombre = $this->util->limpiar(!empty($_GET['nombre']) ? $_GET['nombre'] : "");
+
+        $where = "WHERE 1=1";
+
+        if(!empty($zona)){
+            $zona = " JOIN zona AS z
+                        ON (z.id = s.id_zona AND z.nombre LIKE '%{$zona}%')";
+        }
+
+
+        if(!empty($comida)){
+            $comida = " JOIN marca_especialidad AS me
+                        ON (m.id = me.id_marca AND me.valor LIKE '%{$comida}%')";
+        }
+
+        if(!empty($nombre)){
+            $where .= " AND m.nombre LIKE '%{$nombre}%'";
+        }
+
+
+        if(!empty($precio)){
+
+            $where .= " AND m.id_precio = '{$precio}'";
+        }
+
+
+        $sql = "SELECT m.id
+                    FROM
+                      marca AS m
+                      LEFT JOIN sucursal AS s
+                        ON m.id = s.id_marca
+                     {$zona}
+                     {$comida}
+                     {$where}
+                        GROUP BY m.id;";
+
+
+
+        $query = $this->db->query($sql);
+        $data = $this->util->queryArray($query);
+
+
+        $ids = array();
+
+        foreach($data as $i){
+            $ids[] = $i['id'];
+        }
+
+        $inQuery = implode(',',$ids);
+
+        if(!empty($inQuery))
+            $inQuery = " marca.id IN({$inQuery}) ";
+        else
+            $inQuery = " marca.id IS NULL";
+
+
+        if(empty($zona))
+            return $this->establecimientos2($inQuery);
+        else
+            return $this->zonaEstablecimiento($inQuery);
+
+
+    }
+
     public function estados(){
 
         $obj = '{"estado":{}}';
@@ -68,9 +137,22 @@ class MyAPI extends API
 
     }
 
-    public function zonaEstablecimiento(){
+    public function getZona($zona){
 
-        $obj = '{"marca":{"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
+        $sql = $this->dbo->select('zona',"nombre LIKE '%{$zona}%'");
+        $query = $this->db->query($sql);
+        $data = $this->util->queryArray($query);
+
+        if(!empty($data))
+            return $data[0]['id'];
+
+    }
+
+    public function zonaEstablecimiento($in = ""){
+
+
+       // $obj = '{"marca":{"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
+        $obj = '{"marca":{"marca_especialidad":{},"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
 
 
         $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
@@ -80,9 +162,10 @@ class MyAPI extends API
         $zona = $this->util->limpiar(!empty($_GET['zona']) ? $_GET['zona'] : "");
 
         if(!empty($zona)){
-            $deepWhere['where'] = " s.id_zona = {$zona}";
-            $deepWhere['deep'] = " id_zona = {$zona}";
-            $deepWhere['join'] = " JOIN sucursal as s ON s.id_marca = marca.id JOIN zona as z ON z.id = s.id_zona";
+            $idZona = $this->getZona($zona);
+            $deepWhere['where'] = " s.id_zona = {$idZona}";
+            $deepWhere['deep'] = " id_zona = {$idZona}";
+            $deepWhere['join'] = "";
 
         }else{
             $deepWhere['where'] = "";
@@ -91,14 +174,12 @@ class MyAPI extends API
         }
 
 
-
-
-        return $this->request($obj,"","",$searchType,$count,$page,$order,$deepWhere);
+        return $this->request($obj,"","",$searchType,$count,$page,$order,$deepWhere,$in);
 
 
     }
 
-    public function establecimientos(){
+    public function establecimientos2($in = ""){
 
         $obj = '{"marca":{"marca_especialidad":{},"sucursal":{"promocion":{},"servicio_sucursal":{}}}}';
 
@@ -110,8 +191,7 @@ class MyAPI extends API
         $order = $this->util->limpiar(!empty($_GET['order']) ? $_GET['order'] : "");
 
 
-
-        return $this->request($obj,$column,$query,$searchType,$count,$page,$order);
+        return $this->request($obj,$column,$query,$searchType,$count,$page,$order,"",$in);
 
 
     }
@@ -124,7 +204,7 @@ class MyAPI extends API
      * $param1[4] = Cuantos por página
      * $param1[5] = Página
      */
-    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "", $order = "",$deepWhere = "") {
+    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "", $order = "",$deepWhere = "",$in = "") {
 
         $obj        = json_decode($obj);
         $type       = ($type == "k") ? "LIKE" : "=";
@@ -140,9 +220,25 @@ class MyAPI extends API
         }
 
         if(!empty($deepWhere['where'])){
-            $where .= $deepWhere['where'];
             $join_ = $deepWhere['join'];
         }
+
+
+        if(!empty($in)){
+
+            if(!empty($where)){
+
+                $where.= " AND {$in}";
+
+            }else{
+
+                $where.= $in;
+
+            }
+
+
+        }
+
 
         if(!empty($howmany)){
             if(!empty($page)){
@@ -182,6 +278,7 @@ class MyAPI extends API
             }
         }
 
+
         return $res;
 
     }
@@ -208,7 +305,12 @@ class MyAPI extends API
                             $foreign = explode("id_", $_k);
                             if (count($foreign) > 1) {
                                 if ($this->dbo->tableExist($foreign[1])) {
-                                    $s = $this->dbo->select($foreign[1], "id={$w[$_k]} {$deepWhere}");
+
+                                    if(!empty($deepWhere)){
+                                        $where = " AND " . $deepWhere['deep'];
+                                    }
+
+                                    $s = $this->dbo->select($foreign[1], "id={$w[$_k]} {$where}");
                                     $q = $this->db->query($s);
                                     $add = $this->util->queryArray($q);
 
@@ -241,7 +343,6 @@ class MyAPI extends API
                 }
             }
         }
-
 
         return $this->convertDataForeign($d);
 
