@@ -22,6 +22,32 @@ class MyAPI extends API
 
     }
 
+    public function comidas(){
+
+        $sql = $this->dbo->select('especialidad',"nombre='Comida'");
+        $query = $this->db->query($sql);
+        $data = $this->util->queryArray($query);
+
+        $id = $data[0]['id'];
+        $sql = $this->dbo->select('marca_especialidad',"id_especialidad={$id} GROUP BY valor");
+
+        return $this->requestSimple('marca_especialidad',$sql);
+
+    }
+
+    public function especialidad(){
+
+        $sql = $this->dbo->select('especialidad');
+        return $this->requestSimple('especialidad',$sql);
+
+    }
+
+    public function establecimientosIds(){
+
+        $sql = $this->dbo->select('marca','','id,nombre');
+        return $this->requestSimple('marca',$sql);
+
+    }
 
     public function establecimientos(){
 
@@ -34,13 +60,13 @@ class MyAPI extends API
 
         if(!empty($zona)){
             $zona = " JOIN zona AS z
-                        ON (z.id = s.id_zona AND z.nombre LIKE '%{$zona}%')";
+                        ON (z.id = s.id_zona AND z.id = '{$zona}')";
         }
 
 
         if(!empty($comida)){
             $comida = " JOIN marca_especialidad AS me
-                        ON (m.id = me.id_marca AND me.valor LIKE '%{$comida}%')";
+                        ON (m.id = me.id_marca AND me.valor = '{$comida}')";
         }
 
         if(!empty($nombre)){
@@ -63,6 +89,8 @@ class MyAPI extends API
                      {$comida}
                      {$where}
                         GROUP BY m.id;";
+
+        echo $sql;
 
 
 
@@ -94,57 +122,21 @@ class MyAPI extends API
 
     public function estados(){
 
-        $obj = '{"estado":{}}';
-
-        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
-        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
-        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
-        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
-        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
-
-        return $this->request($obj,$column,$query,$searchType,$count,$page);
+        $sql = $this->dbo->select('estado','','id,nombre');
+        return $this->requestSimple('marca',$sql);
 
     }
 
     public function zonas(){
 
-        $obj = '{"zona":{}}';
-
-        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
-        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
-        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
-        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
-        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
-
-        return $this->request($obj,$column,$query,$searchType,$count,$page);
+        $sql = $this->dbo->select('zona','','id,nombre');
+        return $this->requestSimple('zona',$sql);
 
     }
-
-
+    
     public function categorias(){
-
-        $obj = '{"categoria":{}}';
-
-        $column = $this->util->limpiar(!empty($_GET['column']) ? $_GET['column'] : "");
-        $query = $this->util->limpiar(!empty($_GET['query']) ? $_GET['query'] : "");
-        $searchType = $this->util->limpiar(!empty($_GET['search']) ? $_GET['search'] : "");
-        $count = $this->util->limpiar(!empty($_GET['count']) ? $_GET['count'] : "");
-        $page = $this->util->limpiar(!empty($_GET['page']) ? $_GET['page'] : "");
-
-
-        return $this->request($obj,$column,$query,$searchType,$count,$page);
-
-
-    }
-
-    public function getZona($zona){
-
-        $sql = $this->dbo->select('zona',"nombre LIKE '%{$zona}%'");
-        $query = $this->db->query($sql);
-        $data = $this->util->queryArray($query);
-
-        if(!empty($data))
-            return $data[0]['id'];
+        $sql = $this->dbo->select('categoria','','id,nombre');
+        return $this->requestSimple('categoria',$sql);
 
     }
 
@@ -196,15 +188,41 @@ class MyAPI extends API
 
     }
 
-    /**
-     * $param1[0] = estructura de petición
-     * $param1[1] = columna a buscar
-     * $param1[2] = valor a buscar
-     * $param1[3] = operador de búsqueda [k:LIKE, q:'=']
-     * $param1[4] = Cuantos por página
-     * $param1[5] = Página
-     */
-    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "", $order = "",$deepWhere = "",$in = "") {
+    private function requestSimple($table,$sql){
+
+
+        $res = array();
+
+        //$id = $param1[1];
+
+        $res['status'] = "ok";
+
+
+        $query = $this->db->query($sql);
+
+
+        $cuantos = $this->dbo->countRows();
+        $cuantos = $this->db->query($cuantos);
+        $cuantosTotal = $this->util->queryArray($cuantos);
+        $cuantosTotal = $cuantosTotal[0]['howmany'];
+
+        $res['count'] = $cuantosTotal;
+
+        $data = $this->util->queryArray($query);
+
+        foreach($data as $k => $v){
+
+            $res[$table][] = $v;
+
+        }
+
+
+
+        return $res;
+
+    }
+
+    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "", $order = "",$deepWhere = "",$in = "",$fields = "") {
 
         $obj        = json_decode($obj);
         $type       = ($type == "k") ? "LIKE" : "=";
@@ -258,7 +276,12 @@ class MyAPI extends API
         foreach($obj as $key => $val){
 
             $this->responseData[$key] = "id_" . $key;
-            $sql = $this->dbo->select($key . $join_,"$where",$key.".*",$order,$howmany,$page);
+
+
+            if(empty($fields))
+                $fields = $key.".*";
+
+            $sql = $this->dbo->select($key . $join_,"$where",$fields,$order,$howmany,$page);
             $query = $this->db->query($sql);
 
 
@@ -282,8 +305,6 @@ class MyAPI extends API
         return $res;
 
     }
-
-
 
     protected function recursiveData($structure,$k,$d,$deepWhere=""){
 
@@ -348,8 +369,7 @@ class MyAPI extends API
 
     }
 
-
-    function convertDataForeign($data){
+    public function convertDataForeign($data){
 
 
         foreach($data as $key => $val){
@@ -375,7 +395,7 @@ class MyAPI extends API
 
     }
 
-    function object_to_array($obj) {
+    public function object_to_array($obj) {
         if(is_object($obj)) $obj = (array) $obj;
         if(is_array($obj)) {
             $new = array();
