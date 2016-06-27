@@ -35,7 +35,7 @@ class MyAPI extends API
 
     }
 
-    public function especialidad(){
+    public function especialidades(){
 
         $sql = $this->dbo->select('especialidad');
         return $this->requestSimple('especialidad',$sql);
@@ -90,9 +90,6 @@ class MyAPI extends API
                      {$where}
                         GROUP BY m.id;";
 
-        echo $sql;
-
-
 
         $query = $this->db->query($sql);
         $data = $this->util->queryArray($query);
@@ -133,7 +130,7 @@ class MyAPI extends API
         return $this->requestSimple('zona',$sql);
 
     }
-    
+
     public function categorias(){
         $sql = $this->dbo->select('categoria','','id,nombre');
         return $this->requestSimple('categoria',$sql);
