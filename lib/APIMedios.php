@@ -22,6 +22,18 @@ class MyAPI extends API
 
     }
 
+
+    public function getZona($zona){
+
+        $sql = $this->dbo->select('zona',"id = '{$zona}'");
+        $query = $this->db->query($sql);
+        $data = $this->util->queryArray($query);
+
+        if(!empty($data))
+            return $data[0]['id'];
+
+    }
+
     public function comidas(){
 
         $sql = $this->dbo->select('especialidad',"nombre='Comida'");
