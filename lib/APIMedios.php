@@ -22,7 +22,6 @@ class MyAPI extends API
 
     }
 
-
     public function getZona($zona){
 
         $sql = $this->dbo->select('zona',"id = '{$zona}'");
@@ -51,6 +50,13 @@ class MyAPI extends API
 
         $sql = $this->dbo->select('especialidad');
         return $this->requestSimple('especialidad',$sql);
+
+    }
+
+    public function precios(){
+
+        $sql = $this->dbo->select('precio');
+        return $this->requestSimple('precio',$sql);
 
     }
 
@@ -231,12 +237,19 @@ class MyAPI extends API
 
     }
 
-    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "", $page = "", $order = "",$deepWhere = "",$in = "",$fields = "") {
+    private function request($obj, $column = "", $cond = "", $type = "", $howmany = "20", $page = "1", $order = "",$deepWhere = "",$in = "",$fields = "") {
+
+        if(empty($howmany))
+            $howmany = 20;
+
+        if(empty($page))
+            $page = 1;
 
         $obj        = json_decode($obj);
         $type       = ($type == "k") ? "LIKE" : "=";
         $where      = "";
-        $join_ = "";
+        $join_      =    "";
+
 
         if(!empty($column)){
             if($type == "LIKE"){
