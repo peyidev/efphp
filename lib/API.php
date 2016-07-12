@@ -75,11 +75,18 @@ abstract class API{
     }
 
     public function processAPI() {
+
         if (method_exists($this, $this->endpoint)) {
 
             try{
 
-                return $this->_response($this->{$this->endpoint}($this->args));
+                $cache = new Cache();
+                $data = $cache->getData();
+
+                if(!($data))
+                    return $cache->setData($this->_response($this->{$this->endpoint}($this->args)));
+                else
+                    return $data;
 
             }catch(Exception $e){
 
