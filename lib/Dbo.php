@@ -8,6 +8,12 @@ class Dbo  {
         $this->util = new Utils();
     }
 
+    function countRows(){
+
+        return "SELECT FOUND_ROWS() as howmany;  ";
+
+    }
+
     function orderBy($query, $columna){
 
         if(is_array($columna))
@@ -30,7 +36,7 @@ class Dbo  {
 
         $tabla = $this->util->limpiar($tabla);
         $query = $this->util->limpiar($query);
-        $extra = $this->util->createMultiJoin($tabla, $query);
+        $extra = $this->createMultiJoin($tabla, $query);
 
         return "SELECT main_table.* {$extra['select']}
                     FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.nombre
@@ -46,7 +52,7 @@ class Dbo  {
         $limit = $this->util->limpiar($limit);
         $offset = $this->util->limpiar($offset);
 
-        $query = "SELECT " . $fields . " FROM " . $tabla
+        $query = "SELECT SQL_CALC_FOUND_ROWS " . $fields . " FROM " . $tabla
             . (($where) ? " WHERE " . $where : "")
             . (($limit) ? " LIMIT " . $limit : "")
             . (($offset && $limit) ? " OFFSET " . $offset : "")
@@ -149,6 +155,8 @@ class Dbo  {
         $select = "";
         $where = "";
         $res = array();
+        $columns = array();
+        $pdoexp = "";
 
         while($parent = $query->fetch_array(MYSQL_ASSOC)) {
 
@@ -157,8 +165,11 @@ class Dbo  {
 
                 if ($this->tableExist($foreign[1])) {
                     $frg = $foreign[1];
+                    $frg1 = $foreign[1] . "_f";
                     $exp .= " {$join} JOIN {$frg} ON {$frg}.id = main_table.id_{$frg} ";
+                    $pdoexp .= " LEFT JOIN `{$frg}` as `{$frg1}` ON `{$frg1}`.`id` = `{$table}`.`id_{$frg}` ";
                     $select .= " {$frg}.nombre as {$frg}_nombre,";
+                    $columns[] = "`{$frg}`.`nombre`";
 
                     if(!empty($q))
                         $where .= " OR {$frg}.nombre LIKE '%{$q}%'";
@@ -174,8 +185,10 @@ class Dbo  {
         }
 
         $res['exp'] = $exp;
+        $res['dboexp'] = $pdoexp;
         $res['select'] = $select;
         $res['where'] = $where;
+        $res['columns'] = $columns;
 
         return $res;
     }
@@ -195,8 +208,33 @@ class Dbo  {
         while($row = $query->fetch_array(MYSQL_ASSOC))
             $result[] = $row;
 
-        echo $this->toJSON($result);
+        echo $this->util->toJSON($result);
 
+
+    }
+
+
+    function unserializeForeign($val,$table){
+
+        $data = array();
+
+        if(!empty($val)){
+            $data = @unserialize($val);
+        }
+
+        if(!empty($data)){
+
+            $or = implode(" OR id=",$data);
+            $or = "id=" . $or;
+
+            $sql = $this->select($table,$or);
+            return $sql;
+
+        }else{
+
+            return false;
+
+        }
 
     }
 

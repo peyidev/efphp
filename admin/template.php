@@ -9,8 +9,8 @@
 		<meta name="description" content="efphp es un framework que sirve para poder hacer cualquier tipo de sistema, desde una página web hasta un sistema completo backend/frontend a la medida de manera rápida y muy muy sencilla. ">
 		<meta name="author" content="Pedro Laris">
 		<link rel="stylesheet" href="../css/reset.css">
-        <link rel="stylesheet"href="../css/bootstrap.css">
-        <link rel="stylesheet"href="../css/font-awesome.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/font-awesome.css">
         <link rel="stylesheet" href="../css/style_admin.css?v=1.0">
         <link rel="stylesheet" href="../css/data_table.css?v=1.0">
         <link rel="stylesheet" href="../css/jquery-ui.css?v=1.0">

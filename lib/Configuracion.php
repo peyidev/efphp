@@ -6,11 +6,12 @@ $path = substr($path,0,-3);
 
 $port = ($_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domain = $port . $_SERVER['SERVER_NAME'];
+$domainGlobal = "https://" . $_SERVER['SERVER_NAME'];
 
 define('BASE_PATH', $path);
 
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'demodb');
+define('DATABASE', 'mhmproperties');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 
@@ -25,7 +26,7 @@ define('PAYPALURL','');
 define('GOOGLEANALYTICS', 'UA-6593369-14');
 define('ADMINURL', 'admin/');
 define('DEFAULT_S', 'home.php');
-define('GLOBALURL', $domain);
+define('GLOBALURL', $domainGlobal);
 define('LOGO', 'css/img/logo.png');
 define('LOGGING', true);
 

@@ -8,6 +8,74 @@
           $this->db = Database::connect();
       }
 
+      public static function queryArray($query){
+
+          $data = array();
+
+          if(!$query)
+              return $data;
+
+          while ($row = $query->fetch_array(MYSQL_ASSOC)) {
+              $data[] = $row;
+          }
+
+          return $data;
+
+      }
+
+      function  safe_json_encode($value){
+          if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+              $encoded = json_encode($value);
+          } else {
+              $encoded = json_encode($value);
+          }
+          switch (json_last_error()) {
+              case JSON_ERROR_NONE:
+                  return $encoded;
+              case JSON_ERROR_DEPTH:
+                  return 'Maximum stack depth exceeded'; // or trigger_error() or throw new Exception()
+              case JSON_ERROR_STATE_MISMATCH:
+                  return 'Underflow or the modes mismatch'; // or trigger_error() or throw new Exception()
+              case JSON_ERROR_CTRL_CHAR:
+                  return 'Unexpected control character found';
+              case JSON_ERROR_SYNTAX:
+                  return 'Syntax error, malformed JSON'; // or trigger_error() or throw new Exception()
+              case JSON_ERROR_UTF8:
+                  $clean = $this->utf8ize($value);
+                  return $this->safe_json_encode($clean);
+              default:
+                  return 'Unknown error'; // or trigger_error() or throw new Exception()
+
+          }
+      }
+
+      function utf8ize($mixed) {
+          if (is_array($mixed)) {
+              foreach ($mixed as $key => $value) {
+                  $mixed[$key] = $this->utf8ize($value);
+              }
+          } else if (is_string ($mixed)) {
+              return utf8_encode($mixed);
+          }
+          return $mixed;
+      }
+
+
+      function foreingList($data_){
+          echo "<ul class='list-group'>";
+
+            foreach($data_ as $val){
+                foreach($val as $key => $v){
+                    if($key != 'id'){
+                        echo '<li class="list-group-item">' . $v . '</li>';
+
+                    }
+
+                }
+            }
+
+          echo "</ul>";
+      }
       function checkSession(){
           if(!empty($_SESSION['id_user']))
               print'logged';
@@ -63,6 +131,11 @@
 
       }
 
+      function getTitle($string){
+          $str = explode('-',$string);
+          return !empty($str[3]) ? $str[3] : "";
+      }
+
       function getValidationType($string){
           $str = explode('-',$string);
           return !empty($str[1]) ? ("validation-" . $str[1] ) : "";
@@ -98,9 +171,10 @@
 
       function toJSON($array){
 
-          return "for(;;);(" . json_encode($array) . ")";
+          return "for(;;);(" . $this->safe_json_encode($array) . ")";
 
       }
+
 
       function utf8_encode_deep(&$input) {
 
@@ -123,9 +197,12 @@
 
       function limpiar($valor){
 
-          $valor = filter_var($valor,FILTER_SANITIZE_MAGIC_QUOTES);
-          return $valor;
+        if(!empty($valor))
+            $valor = filter_var($valor,FILTER_SANITIZE_MAGIC_QUOTES);
+        else
+            $valor = "";
 
+          return $valor;
       }
 
       function loginSecurity(){
@@ -187,7 +264,7 @@
 
       }
 
-      function handleImages($data){
+      function handleImages($data,$type = null){
 
           foreach($data as $key => $val){
 
@@ -199,10 +276,15 @@
 //                  echo $nombre;
 //                  echo $key;
 
+                  if(($type == "update"  && empty($nombre)) ||
+                      ($type == "update"  && $nombre == "default.png")){
+                       continue;
+                  }
+
                   if(!empty($nombre)){
-                      $_POST[$key] = $nombre;
+                      $_POST[$key] = GLOBALURL . "/media/img/" . $nombre;
                   }else{
-                      return false;
+                      continue;
                   }
               }
 
@@ -250,6 +332,11 @@
           }
           else
           {
+
+              if(empty($file['name'])){
+                  return "default.png";
+              }
+
               return false;
           }
 
