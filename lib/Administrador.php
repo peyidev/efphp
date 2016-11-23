@@ -639,15 +639,7 @@ class Administrador{
                 $cms = explode("cms_",$row['Field']);
                 $ajax = explode("_ajax",$row['Field']);
                 $foreignSerialized = explode("id_serialized_",$row['Field']);
-
-
                 $isAjax = "";
-
-
-                if(count($ajax) > 1 || $row['Field'] == "id_marca" && $tabla == "marca_especialidad"){
-                    $isAjax = 'ajax-search';
-                    $foreign = false;
-                }
 
 
 

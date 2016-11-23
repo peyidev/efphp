@@ -51,6 +51,48 @@
 	</item>
 
 
+    <item>
+        <itemName>Buildings</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-group</icon>
+        <rol>Vendedor</rol>
+
+        <subitem>
+            <subitemName>Buildings</subitemName>
+            <subitemLink>?s=building-admin</subitemLink>
+            <module>building</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Building gallery</subitemName>
+            <subitemLink>?s=gallery_building-admin</subitemLink>
+            <module>gallery_building</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Place</subitemName>
+            <subitemLink>?s=place-admin</subitemLink>
+            <module>place</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Place gallery</subitemName>
+            <subitemLink>?s=gallery_place-admin</subitemLink>
+            <module>gallery_place</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Amenities</subitemName>
+            <subitemLink>?s=amenitie-admin</subitemLink>
+            <module>amenitie</module>
+        </subitem>
+
+
+    </item>
+
 
 
     <!--item>
