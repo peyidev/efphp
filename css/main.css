@@ -437,7 +437,7 @@ ul.sub-menu {
   z-index: 5;
 }
 #home-slider {
-  background: #f0f1f5 url("../../../../../../../Users/PedroLaris/Downloads/zip/images/home/slider-bg.png") repeat-x scroll 0 100%;
+  background: #f0f1f5 url("../images/home/slider-bg.png") repeat-x scroll 0 100%;
   position: relative;
   z-index: 5;
 }
@@ -554,7 +554,7 @@ ul.sub-menu {
 }
 #action {
   background-color: #fbfafa;
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/home/tour-bg.png");
+  background-image: url("../images/home/tour-bg.png");
   background-position: center center;
   background-repeat: repeat-x;
   display: table;
@@ -662,7 +662,7 @@ ul.sub-menu {
 }
 #page-breadcrumb {
   background-color: #fbfafa;
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/home/tour-bg.png");
+  background-image: url("../images/home/tour-bg.png");
   background-position: center center;
   background-repeat: repeat-x;
   display: table;
@@ -684,7 +684,7 @@ ul.sub-menu {
   width: 90%;
 }
 .tour-button {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/home/tour-icon2.png");
+  background-image: url("../images/home/tour-icon2.png");
   background-position: 151px 4px;
   background-repeat: no-repeat;
   height: 100%;
@@ -765,11 +765,11 @@ ul.sub-menu {
   width: 13px;
 }
 .right.team-carousel-control {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/aboutus/right.png");
+  background-image: url("../images/aboutus/right.png");
   right: -50px;
 }
 .left.team-carousel-control {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/aboutus/left.png");
+  background-image: url("../images/aboutus/left.png");
   left: -50px;
 }
 .team-carousel-control:hover {
@@ -932,7 +932,7 @@ ul.elements li > i {
   box-shadow: none;
 }
 .portfolio-filter li a.active::before {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/portfolio/icon.png") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/portfolio/icon.png") repeat scroll 0 0;
   content: "";
   height: 16px;
   left: 0;
@@ -956,7 +956,7 @@ ul.elements li > i {
   padding: 5px 10px;
 }
 .pagination li:first-child a {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/portfolio/left.png") no-repeat scroll center top 10px;
+  background: rgba(0, 0, 0, 0) url("../images/portfolio/left.png") no-repeat scroll center top 10px;
   border: medium none;
   height: 36px;
   text-indent: -1e+9px;
@@ -964,11 +964,11 @@ ul.elements li > i {
   width: 32px;
 }
 .pagination li:first-child a:hover {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/portfolio/left.png") no-repeat scroll center top -37px;
+  background: rgba(0, 0, 0, 0) url("../images/portfolio/left.png") no-repeat scroll center top -37px;
   transition: all 300ms ease 0s;
 }
 .pagination li:last-child a {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/portfolio/right.png") no-repeat scroll center top 10px;
+  background: rgba(0, 0, 0, 0) url("../images/portfolio/right.png") no-repeat scroll center top 10px;
   border: medium none;
   height: 36px;
   text-indent: -1e+9px;
@@ -976,7 +976,7 @@ ul.elements li > i {
   width: 32px;
 }
 .pagination li:last-child a:hover {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/portfolio/right.png") no-repeat scroll center top -37px;
+  background: rgba(0, 0, 0, 0) url("../images/portfolio/right.png") no-repeat scroll center top -37px;
   transition: all 300ms ease 0s;
 }
 .pagination li a:hover, .pagination .active a, .pagination a:active, .pagination .active a:hover, .pagination .active a:focus, .pagination a:focus {
@@ -1258,7 +1258,7 @@ ul.elements li > i {
   position: relative;
 }
 .arrow-right::after {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/blog/left.png") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/blog/left.png") repeat scroll 0 0;
   content: "";
   height: 54px;
   position: absolute;
@@ -1270,7 +1270,7 @@ ul.elements li > i {
   position: relative;
 }
 .arrow-left::before {
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/blog/right.png") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/blog/right.png") repeat scroll 0 0;
   content: "";
   height: 54px;
   left: -2px;
@@ -1314,7 +1314,7 @@ a.read-more:hover {
 }
 .single-blog .post-overlay span {
   animation: 400ms ease 0s normal none 1 running fadeInLeft;
-  background: rgba(0, 0, 0, 0) url("../../../../../../../Users/PedroLaris/Downloads/zip/images/blog/blog-arrow.png") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/blog/blog-arrow.png") repeat scroll 0 0;
   height: 140px;
   left: 0;
   margin-left: 0;
@@ -1536,14 +1536,14 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   width: 28%;
 }
 .corporate-info .corporate-address {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/contact-bg.png");
+  background-image: url("../images/contact-bg.png");
   background-position: left top;
   background-repeat: no-repeat;
   overflow: hidden;
   padding-bottom: 50px;
 }
 .corporate-info .corporate-address address {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/icon-map.png");
+  background-image: url("../images/icon-map.png");
   background-position: left top;
   background-repeat: no-repeat;
   padding-left: 40px;
@@ -1802,7 +1802,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   vertical-align: middle;
 }
 .bg-404 {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/home/tour-bg.png");
+  background-image: url("../images/home/tour-bg.png");
   background-position: center top;
   background-repeat: repeat-x;
 }
@@ -1868,7 +1868,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   vertical-align: middle;
 }
 .bg-404 {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/404-bg.png");
+  background-image: url("../images/404-bg.png");
   background-position: center top;
   background-repeat: repeat-x;
 }
@@ -1941,7 +1941,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   display: inline-block;
 }
 #coming-soon {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/coming-soon-bg.png");
+  background-image: url("../images/coming-soon-bg.png");
   background-position: center top;
   background-repeat: repeat-x;
   overflow: hidden;
@@ -1975,19 +1975,19 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   width: 25%;
 }
 #countdown li.angle-one {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/coming-soon1.png");
+  background-image: url("../images/coming-soon1.png");
   left: 120px;
 }
 #countdown li.angle-two {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/coming-soon2.png");
+  background-image: url("../images/coming-soon2.png");
   left: 40px;
 }
 #countdown li.angle-three {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/coming-soon3.png");
+  background-image: url("../images/coming-soon3.png");
   right: 40px;
 }
 #countdown li.angle-four {
-  background-image: url("../../../../../../../Users/PedroLaris/Downloads/zip/images/coming-soon4.png");
+  background-image: url("../images/coming-soon4.png");
   right: 120px;
 }
 #countdown li > span {
@@ -2200,7 +2200,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   text-align: left;
 }
 #buscador .b-select select {
-  background: #4e4a59 url("../../../../../../../Users/PedroLaris/Downloads/zip/images/selectd.png") no-repeat scroll 90% 55%;
+  background: #4e4a59 url("../images/selectd.png") no-repeat scroll 90% 55%;
   border: medium none;
   color: white;
   height: 40px;
