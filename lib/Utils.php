@@ -240,7 +240,7 @@
 
           }else{
 
-              return DEFAULT_S;
+              return "404.php";
 
           }
 
@@ -282,7 +282,7 @@
                   }
 
                   if(!empty($nombre)){
-                      $_POST[$key] = GLOBALURL . "/media/img/" . $nombre;
+                      $_POST[$key] = "media/img/" . $nombre;
                   }else{
                       continue;
                   }

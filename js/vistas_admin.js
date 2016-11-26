@@ -4,25 +4,67 @@ var vistas = {
 
         validator.startValidations();
 
-	    $('.message-popup').dialog({"modal" : true});
+
+        $('#menu-control-lateral').click(function(){
+
+
+            if(!$(this).hasClass('open')){
+
+                $(this).addClass('open');
+                $(this).find('.menu-control-arrow').removeClass('fa-chevron-right');
+                $(this).find('.menu-control-arrow').addClass('fa-chevron-left');
+                $(this).animate({"left" : "260px"});
+                $('#main-menu-lateral').animate({"width" : "260px"});
+
+            }else{
+                $(this).removeClass('open');
+                $(this).find('.menu-control-arrow').removeClass('fa-chevron-left');
+                $(this).find('.menu-control-arrow').addClass('fa-chevron-right');
+                $(this).animate({"left" : "0"});
+                $('#main-menu-lateral').animate({"width" : "0px"});
+            }
+
+        });
+
+        $('.message-popup').dialog({"modal" : true});
 
         $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
         //ephp/lib/Execute.php?e=Administrador/createAjaxTable
         var table = $('.title-general').attr('id');
-		$(".table-admin").DataTable({
-            "order": [[ 0, "desc" ]],
-            "processing": true,
-            "serverSide": true,
-            "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + table)
+        var extra = $('#extra-value').val();
+        var main = $('#main-value').val();
+
+        $(".table-admin-base").each(function(){
+
+            var tabla = $(this).attr('id');
+            tabla = tabla.split('-tabla-');
+            if(typeof extra == "undefined" )
+                if(typeof tabla[1] != "undefined" )
+                    extra = tabla[1];
+
+            tabla = tabla[0];
+
+
+
+            $(this).DataTable({
+                "order": [[ 0, "desc" ]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + tabla + "&extraValue=" + extra + "&mainValue=" + main)
+            });
+
         });
 
-        $('.ajax-search').keyup(function(){
+
+
+
+        $('body').on("keyup",".ajax-search",function(){
 
             var cuantos = $(this).val();
             var padre = $(this).parent();
 
-            if(cuantos.length >= 5){
+            if(cuantos.length >= 4){
 
 
                 var table = $(this).attr('name');
@@ -34,7 +76,7 @@ var vistas = {
                     "table" : table
                 };
 
-                ajaxData('../lib/Execute.php?e=Utils/ajaxSearch','GET',param,'true',function(json){
+                ajaxData('../lib/Execute.php?e=Dbo/ajaxSearch','GET',param,'true',function(json){
 
                     $result = "<div class='result-query' id='result-" + table + "'>";
 
@@ -81,42 +123,42 @@ var vistas = {
 
         });
 
-		$(".table-admin").on('click','.delete-admin',function(e){
-			
-			e.preventDefault();
-			var id = $(this).attr("href");
-			id = id.split("&id=");
-			console.log(id);
-			var tabla = id[0].split("?s=");
-			tabla = tabla[1];
-			id = id[1];
-			
-			var param = {
-				table : tabla,
-				id : id
-			};
-			
+        $(".table-admin").on('click','.delete-admin',function(e){
 
-			$( '<div id="dialog-confirm" title="¿Deseas eliminar el registro?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Este registro seré eliminado y no podrá ser recuperado. ¿Estás seguro?</p></div>' ).dialog({
-				resizable: false,
-				height:140,
-				modal: true,
-				buttons: {
-					"Eliminar el registro": function() {
-						
-						ajaxData('../lib/Execute.php?e=Administrador/deleteRow','GET',param,'false',function(json){
+            e.preventDefault();
+            var id = $(this).attr("href");
+            id = id.split("&id=");
+            console.log(id);
+            var tabla = id[0].split("?s=");
+            tabla = tabla[1];
+            id = id[1];
 
-							 location.reload();
-				      });
-						
-					},
-					Cancelar: function() {
-						$( this ).dialog( "close" );
-					}
-				}
-			});
-			
-		});
+            var param = {
+                table : tabla,
+                id : id
+            };
+
+
+            $( '<div id="dialog-confirm" title="¿Deseas eliminar el registro?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Este registro seré eliminado y no podrá ser recuperado. ¿Estás seguro?</p></div>' ).dialog({
+                resizable: false,
+                height:140,
+                modal: true,
+                buttons: {
+                    "Eliminar el registro": function() {
+
+                        ajaxData('../lib/Execute.php?e=Administrador/deleteRow','GET',param,'false',function(json){
+
+                            location.reload();
+                        });
+
+                    },
+                    Cancelar: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+
+        });
 
         $(".cms-style").wysihtml5({
             toolbar: {
@@ -132,13 +174,60 @@ var vistas = {
             $('.admin-generic').toggleClass('admin-only-generic');
 
         });
-		
+
+        $(".table-admin").on('click','.popup-admin',function(e){
+
+            e.preventDefault();
+            $('#table-detail').remove();
+
+            var url = $(this).attr('href');
+            ajaxData(url,'GET',{},'true',function(result){
+
+                $(".table-admin-render").unbind();
+
+                $('<div id="table-detail" title="Detalle">' + result + '</div>').dialog({
+                    resizable: false,
+                    height:500,
+                    width:1000,
+                    modal: true
+                });
+
+                $(".table-admin-render").DataTable({
+                    "order": [[ 0, "desc" ]]
+                });
+
+                $('.selectpicker').selectpicker();
+                $(".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+
+            },"true");
+
+        });
+
     },
     home : function(){
 
         /*Función default*/
 
 
+    },
+    building_vista : function(){
+
+        $('.table-admin').on('click','.edit-gallery',function(e){
+
+            e.preventDefault();
+            $('.gallery-opt').remove();
+            $('<tr class="gallery-opt"><td colspan="10" style="height:150px;">HOLA</td></tr>').insertAfter($(this).parent().parent());
+
+
+            ajaxData('../lib/Execute.php?e=Dbo/ajaxSearch','GET',param,'true',function(json){
+
+
+            });
+
+        });
+
     }
+
 
 };

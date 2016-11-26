@@ -16,6 +16,26 @@ class Cms
 
     }
 
+
+    function getTitle($cuerpo = ""){
+
+        $_cuerpo = explode('.',$cuerpo);
+        $cuerpo = !empty($_cuerpo) ? $_cuerpo[0] : "";
+
+        switch($cuerpo){
+
+            case "apartments":
+                $cuerpo = "All the apartments";
+                break;
+
+
+        }
+
+        echo $cuerpo;
+
+    }
+
+
     function findContent($tag = ""){
 
 
@@ -41,8 +61,21 @@ class Cms
 
         foreach($wildcards as $w){
 
-            $replace = $this->findContent($w);
+
+            switch($w){
+
+                case "title_section":
+                    $replace = "titulo :)";
+                    break;
+
+                default:
+                    $replace = $this->findContent($w);
+                    break;
+
+            }
+
             $content = str_replace('{{' . $w . '}}',$replace,$content);
+
 
         }
 

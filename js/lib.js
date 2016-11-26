@@ -11,8 +11,9 @@ var execute = new function(){
         vistas.global();
 
         try{
-
-            eval("vistas." + seccion + "()");
+            var res = seccion.replace("-", "_");
+            res = res.replace("-", "_");
+            eval("vistas." + res + "()");
 
         }catch(err){
 

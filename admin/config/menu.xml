@@ -60,8 +60,9 @@
 
         <subitem>
             <subitemName>Buildings</subitemName>
-            <subitemLink>?s=building-admin</subitemLink>
+            <subitemLink>?s=building-vista</subitemLink>
             <module>building</module>
+            <pkg>Mhmproperties</pkg>
         </subitem>
 
         <subitem>
