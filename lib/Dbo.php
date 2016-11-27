@@ -92,7 +92,7 @@ class Dbo  {
 
     }
 
-    function selectAutoJoin($tabla, $id, $join = ""){
+    function selectAutoJoin($tabla, $id = "", $join = ""){
 
         if(empty($tabla))
             return "";
@@ -100,8 +100,20 @@ class Dbo  {
         $tabla = $this->util->limpiar($tabla);
         $extra = $this->createMultiJoin($tabla, "", $join);
 
-        return "SELECT main_table.* {$extra['select']}
+
+        if(!empty($id)){
+
+            $return =  "SELECT main_table.* {$extra['select']}
                     FROM {$tabla} as main_table {$extra['exp']} WHERE main_table.id = '{$id}'";
+
+        }else{
+
+            $return =  "SELECT main_table.* {$extra['select']}
+                    FROM {$tabla} as main_table {$extra['exp']}";
+
+        }
+
+        return $return;
 
     }
 

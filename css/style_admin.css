@@ -465,3 +465,118 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     height:500px !important;
 
 }
+
+
+
+.gallery-element img{
+
+    width:95px;
+    height:70px;
+
+}
+.gallery-element{
+
+    width:95px;
+    position:relative;
+    margin-right:10px;
+    margin-bottom:10px;
+    float:left;
+
+}
+
+
+.gallery-order{
+
+   position:absolute;
+    width:100%;
+    bottom:0;
+    left:0;
+    background: rgba(0,0,0,0.5);
+    color:white;
+    text-align: center;
+
+}
+
+.delete-mini-pic{
+
+    position:absolute;
+    font-size:12px;
+    right:5px;
+
+}
+
+.places-opt .gallery-right{
+
+    overflow:auto;
+    background: white;
+    float:left;
+    min-height:150px;
+    width:40%;
+    margin-top:10px;
+
+}
+.places-opt .gallery-left{
+
+    float:left;
+    width:59%;
+    min-height:150px;
+    margin-right:1%;
+
+}
+.places-opt .places-opt-canvas{
+
+    border:1px dashed #009EDF;
+    height:170px;
+    padding:10px;
+    background: white;
+}
+
+.gallery-opt .gallery-right{
+
+    overflow:auto;
+    background: white;
+    float:left;
+    height:150px;
+    width:30%;
+    margin-top:10px;
+}
+
+.gallery-opt .gallery-left{
+
+    float:left;
+    width:70%;
+    min-height:150px;
+}
+
+.places-opt-canvas .gallery-left .table tr th{
+
+    color:white;
+    background: #0B97D2;
+
+}
+
+.places-opt-canvas .gallery-left .table tr{
+
+}
+
+.gallery-opt-canvas{
+
+    border:1px dashed #009EDF;
+    height:170px;
+    padding:10px;
+
+}
+
+.close-gallery{
+
+
+    float:right;
+    color:#009EDF;
+    cursor:pointer;
+
+}
+
+.close-img-cross{
+
+    color:red;
+}

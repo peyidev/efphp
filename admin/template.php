@@ -10,6 +10,7 @@
 		<meta name="author" content="Pedro Laris">
 		<link rel="stylesheet" href="../css/reset.css">
         <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/dropzone.css">
         <link rel="stylesheet" href="../css/font-awesome.css">
         <link rel="stylesheet" href="../css/style_admin.css?v=1.0">
         <link rel="stylesheet" href="../css/data_table.css?v=1.0">
@@ -56,6 +57,7 @@
         </footer>
         <script src="../js/jquery.js"></script>
         <script src="../js/bootstrap.js"></script>
+        <script src="../js/dropzone.js"></script>
         <script src="../js/jquery-ui.min.js"></script>
         <script src="../js/jquery.ajaxData.js"></script>
         <script src="../js/jquery.dataTables.min.js"></script>
