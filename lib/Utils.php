@@ -266,6 +266,7 @@
 
       function handleImages($data,$type = null){
 
+
           foreach($data as $key => $val){
 
               $img = explode("img_",$key);
@@ -286,6 +287,13 @@
                   }else{
                       continue;
                   }
+              }else if($type == 'gallery'){
+                  foreach($data as $img){
+                      $nombre = $this->subirImagen($img,"media/img");
+                      return $nombre;
+
+                  }
+
               }
 
           }
@@ -293,6 +301,7 @@
           return true;
 
       }
+
 
       function subirImagen($file,$carpeta){
 

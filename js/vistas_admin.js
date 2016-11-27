@@ -213,19 +213,125 @@ var vistas = {
     },
     building_vista : function(){
 
-        $('.table-admin').on('click','.edit-gallery',function(e){
+        $('.table-admin').on('click','.edit-places',function(e){
 
             e.preventDefault();
+            $('.places-opt').remove();
             $('.gallery-opt').remove();
-            $('<tr class="gallery-opt"><td colspan="10" style="height:150px;">HOLA</td></tr>').insertAfter($(this).parent().parent());
 
+            $('<tr class="places-opt"><td class="places-opt-canvas" colspan="10"><div class="close-gallery"><i class="fa fa-close fa-fw fa-2x"></i></div><div class="gallery-left"></div><div class="gallery-right"></div></td></tr>').insertAfter($(this).parent().parent());
 
-            ajaxData('../lib/Execute.php?e=Dbo/ajaxSearch','GET',param,'true',function(json){
+            var params = $(this).attr('id');
+            reloadPlaces(params);
 
+            $('.close-gallery').click(function(){
+
+                $('.places-opt').remove();
 
             });
 
         });
+
+        $('.table-admin').on('click','.edit-gallery',function(e){
+
+            e.preventDefault();
+            $('.places-opt').remove();
+            $('.gallery-opt').remove();
+
+            $('<tr class="gallery-opt"><td class="gallery-opt-canvas" colspan="10"><div class="close-gallery"><i class="fa fa-close fa-fw fa-2x"></i></div><div class="gallery-left"></div><div class="gallery-right"></div></td></tr>').insertAfter($(this).parent().parent());
+
+            var params = $(this).attr('id');
+            reloadPictures(params);
+
+            $('.close-gallery').click(function(){
+
+                $('.gallery-opt').remove();
+
+            });
+
+            $('.gallery-opt-canvas .gallery-right').append('<form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>');
+            $('.dropzone').dropzone({
+
+                queuecomplete:function(){
+
+                    reloadPictures(params);
+
+                },url : '../lib/Execute.php?e=Mhmproperties/uploadGallery/' + params
+            });
+
+        });
+
+        function reloadPlaces(params){
+
+            ajaxData('../lib/Execute.php?e=Mhmproperties/getPlaces/' + params,'GET',{},'true',function(json){
+
+                $('.places-opt-canvas .gallery-left').empty();
+
+                $('.gallery-right').html(json['result']);
+                $('.gallery-right .selectpicker').selectpicker();
+                $('.input .form-control[name="id_building"]').parent().parent().parent().remove();
+                $('.gallery-right .validation-form').append('<input type="hidden" name="id_building" value="' + params + '" />');
+                $('.gallery-right .form-operation').html('<i class="fa fa-search-plus fa-plus-square-o"></i> Insert new room type');
+                $('.places-opt-canvas .gallery-left').append("<table  class='table table-striped' ></table>");
+
+                for(var x = 0; x < json['rows'].length; x++){
+
+                    //json['rows'][x]
+                    $('.places-opt-canvas .gallery-left .table').prepend("<tbody><tr><td>" + json['rows'][x]['nombre'] + "</td><td>" + json['rows'][x]['id_serialized_amenitie'] + "</td><td>" + json['rows'][x]['price'] + "</td><td>" + json['rows'][x]['order_place'] + "</td><td><a href='?s=place-update&id=" + json['rows'][x]['id'] + "' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a></td><td><a href='?s=place&id=" + json['rows'][x]['id'] + "' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a></td></tr></tbody>");
+
+                }
+
+
+                $('.places-opt-canvas .gallery-left .table').sortable();
+
+                $('.places-opt-canvas .gallery-left .table').prepend('<thead><tr><th>Name</th><th>Amenities</th><th>Price</th><th>Display order</th><th>Edit</th><th>Delete</th></tr></thead>');
+
+
+
+
+            });
+
+        }
+
+        function reloadPictures(params){
+
+
+            ajaxData('../lib/Execute.php?e=Mhmproperties/getGallery/' + params,'GET',{},'true',function(json){
+
+                $('.gallery-opt-canvas .gallery-left').empty();
+
+                for(var x = 0; x < json.length; x++){
+
+
+                    $('.gallery-opt-canvas .gallery-left').prepend("<div class='gallery-element' id='img-" + json[x]['id'] + "'><img src='../" + json[x]['img_building'] + "' />" +
+                        "<span class='gallery-order'>"
+                            +  json[x]['order_img'] +
+                            "<a href='?s=gallery_building&id=" + json[x]['id'] + "' class='delete-admin delete-mini-pic'><i class='fa fa-close fa-fw close-img-cross'></i></a>" +
+                        "</span>" +
+                    "</div>");
+
+                }
+
+                $('.gallery-opt-canvas .gallery-left').sortable({
+                    out: function( event, ui ) {
+                        var moved = ui.item.attr('id');
+                        var next = ui.item.next('.gallery-element').attr('id');
+                        paramsOrder = moved + "|" + next + "|" + params;
+
+                        ajaxData('../lib/Execute.php?e=Mhmproperties/updateOrder/' + paramsOrder,'GET',{},'true',function(json){
+
+                            reloadPictures(params);
+
+                        });
+
+                    }
+                });
+
+
+
+            });
+
+        }
 
     }
 

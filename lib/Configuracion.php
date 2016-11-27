@@ -12,8 +12,8 @@ define('BASE_PATH', $path);
 
 define('HOSTNAME', '127.0.0.1');
 define('DATABASE', 'mhmproperties');
-define('DB_USERNAME', 'admin');
-define('DB_PASSWORD', 'admin');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
 
 #Paypal config
 
@@ -31,9 +31,13 @@ define('LOGO', 'css/img/logo.png');
 define('LOGGING', true);
 
 #Fix for php7
-define('MYSQL_BOTH',MYSQLI_BOTH);
-define('MYSQL_NUM',MYSQLI_NUM);
-define('MYSQL_ASSOC',MYSQLI_ASSOC);
+
+@define('MYSQL_BOTH',MYSQLI_BOTH);
+@define('MYSQL_NUM',MYSQLI_NUM);
+@define('MYSQL_ASSOC',MYSQLI_ASSOC);
+
+
+
 
 
 

@@ -194,7 +194,7 @@ class Mhmproperties extends Administrador{
                     $db = Database::connect();
                     $dbo = new Dbo();
 
-                    $sql = $dbo->select("gallery_building","id_building={$d} ORDER BY id ASC LIMIT 1");
+                    $sql = $dbo->select("gallery_building","id_building={$d} ORDER BY order_img ASC LIMIT 1");
                     $query = $db->query($sql);
                     $res = "";
 
@@ -242,7 +242,7 @@ class Mhmproperties extends Administrador{
             'formatter' =>
                 function( $d, $row, $table ) {
 
-                    return "<a href='?s=place-admin&amp;id={$d}' class='center-data'><i class='fa fa-home fa-fw fa-2x'></i></a>";
+                    return "<a  class='edit-places center-data' id='{$d}' href='?s=place-admin&amp;id={$d}'><i class='fa fa-home fa-fw fa-2x'></i></a>";
 
                 }
         );
@@ -257,7 +257,7 @@ class Mhmproperties extends Administrador{
             'formatter' =>
                 function( $d, $row, $table ) {
 
-                    return "<a class='edit-gallery' id='{$d}' href='?s=building-update&amp;id={$d}' class='center-data'><i class='fa fa-picture-o fa-fw fa-2x'></i></a>";
+                    return "<a class='edit-gallery center-data' id='{$d}' href='?s=building-update&amp;id={$d}' class='center-data'><i class='fa fa-picture-o fa-fw fa-2x'></i></a>";
 
                 }
         );
@@ -303,6 +303,163 @@ class Mhmproperties extends Administrador{
 
     }
 
+    function getGallery($val){
+
+        $sql = $this->dbo->select("gallery_building","id_building = {$val}",'*','order_img DESC');
+        $query = $this->db->query($sql);
+        $gallery = $this->util->queryArray($query);
+        echo $this->util->safe_json_encode($gallery);
+
+    }
+
+    function getPlaces($val){
+
+        $sql = $this->dbo->select("place","id_building = {$val}",'*','id DESC');
+        $query = $this->db->query($sql);
+        $rows = $this->util->queryArray($query);
+
+        foreach($rows as $k => $row){
+
+            foreach($row as $key => $val){
+
+                $foreignSerialized = explode("id_serialized_",$key);
+                $foreign = explode("id_",$key);
+                $d = "";
+
+                if(count($foreignSerialized) > 1) {
+
+                    $repeatedForeign = explode("__",$foreign[1]);
+
+                    if(count($repeatedForeign) > 1){
+                        $foreign[1] = $repeatedForeign[0];
+                    }
+
+
+                    $multiple = false;
+                    if(!empty($foreignSerialized[1])){
+
+                        $foreign[1] = $foreignSerialized[1];
+                        $multiple = true;
+                    }
+
+                    if ($this->dbo->tableExist($foreign[1])) {
+
+                        if($multiple){
+
+                            $data = @unserialize($val);
+                            $res = array();
+
+                            if(is_array($data)){
+                                foreach($data as $v){
+
+                                    $sqlForeign = $this->dbo->select($foreign[1],"id = '{$v}'");
+                                    $queryForeign = $this->db->query($sqlForeign);
+
+                                    while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                        $res[] = $rowForeign['nombre'];
+                                    }
+
+                                }
+
+                                $d = implode(', ',$res);
+
+                            }else{
+
+                                $d = "";
+
+                            }
+
+                            $rows[$k][$key] = $d;
+
+
+                        }
+
+
+                    }
+                }
+
+            }
+
+
+
+        }
+
+        $admin = new Administrador();
+
+        ob_start(); //Start output buffer
+        $admin->createGenericForm('place');
+        $output = ob_get_contents(); //Grab output
+        ob_end_clean(); //Discard output buffer
+
+        $res = array();
+        $res['result'] = $output;
+        $res['rows'] = $rows;
+
+        echo $this->util->safe_json_encode($res);
+
+    }
+
+    function uploadGallery($id){
+
+        $name = $this->util->handleImages($_FILES,'gallery');
+        if(!empty($name)){
+            $next = $this->dbo->select('gallery_building',"id_building = {$id}",'max(order_img) as order_img_next');
+            $queryNext = $this->db->query($next);
+            $nextItem = $this->util->queryArray($queryNext);
+            $nextItem = $nextItem[0]['order_img_next'];
+            $nextItem++;
+
+            $insert = array();
+            $insert['id_building'] = $id;
+            $insert['img_building'] = 'media/img/' . $name;
+            $insert['order_img'] = $nextItem;
+            $sql = $this->dbo->insert('gallery_building',$insert);
+            $this->db->query($sql);
+        }
+
+    }
+
+
+    function updateOrder($reorder){
+
+        $_reorder = explode('|',$reorder);
+
+        $new = explode('img-',$_reorder[0])[1];
+        $next = explode('img-',$_reorder[1])[1];
+        $idBuilding = $_reorder[2];
+
+        $sql = $this->dbo->select('gallery_building',"id='{$next}'",'order_img');
+        $query = $this->db->query($sql);
+        $order = $this->util->queryArray($query);
+        $order = $order[0]['order_img'];
+
+        if($order <= 0)
+            $order = 1;
+
+        $sql = "UPDATE gallery_building SET order_img = '{$order}' WHERE id = '{$new}'";
+        $this->db->query($sql);
+
+        $sql = "UPDATE gallery_building SET order_img = (order_img + 1) WHERE id_building = '{$idBuilding}' AND order_img >= {$order} AND id <> {$new} ";
+        $this->db->query($sql);
+
+        $sql = $this->dbo->select('gallery_building',"id_building='{$idBuilding}'",'min(order_img) as order_img');
+        $query = $this->db->query($sql);
+        $order = $this->util->queryArray($query);
+        $order = $order[0]['order_img'];
+        $substract = 0;
+        if($order > 1)
+            $substract = ($order - 1);
+
+        if($substract <= 0)
+            $substract = 0;
+
+        $sql = "UPDATE gallery_building SET order_img = (order_img - {$substract}) WHERE id_building = '{$idBuilding}' AND order_img > {$substract}";
+        $this->db->query($sql);
+
+
+
+
+    }
 
 
 }
