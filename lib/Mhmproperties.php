@@ -438,7 +438,8 @@ class Mhmproperties extends Administrador{
                             GROUP BY id_building) AS tmp_gallery
                         ON building.id = tmp_gallery.id_building
                       JOIN gallery_building AS gb ON gb.id_building = building.id AND gb.order_img = tmp_gallery.order_img
-                    WHERE bool_featured = 1","","building.*,gb.img_building");
+                      JOIN buildingtype AS bt ON bt.id = building.id_buildingtype
+                    WHERE bool_featured = 1","","building.*,gb.img_building, bt.nombre as buildingtype");
 
         //echo $sql;
       $query = $this->db->query($sql);
