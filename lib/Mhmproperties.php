@@ -428,19 +428,25 @@ class Mhmproperties extends Administrador{
 
     }
 
-    function getBuildings($val = ""){
 
-        $sql = $this->dbo->selectAutoJoin('building',$val);
-        $query = $this->db->query($sql);
-        $row = $this->util->queryArray($query);
+    function getBuildings($val = "",$type = ""){
 
-        echo $this->util->safe_json_encode($row);
+        $extra = "";
 
-    }
+        switch($type){
 
-    function getBuildingsFeatured($val = ""){
+            case "featured":
+                $extra = " bool_featured = 1 ";
+                break;
+            case "type":
+                $extra = " bt.nombre = '{$val}' ";
+                break;
+            default:
+                $extra = " 1 = 1 ";
+                break;
+        }
 
-      $sql = $this->dbo->select("building
+        $sql = $this->dbo->select("building
                     JOIN (SELECT
                               min(order_img) AS order_img,
                               id_building
@@ -448,17 +454,22 @@ class Mhmproperties extends Administrador{
                             GROUP BY id_building) AS tmp_gallery
                         ON building.id = tmp_gallery.id_building
                       JOIN gallery_building AS gb ON gb.id_building = building.id AND gb.order_img = tmp_gallery.order_img
-                      JOIN buildingtype AS bt ON bt.id = building.id_buildingtype
-                    WHERE bool_featured = 1","","building.*,gb.img_building, UCASE(bt.nombre) as buildingtype");
+                      JOIN buildingtype AS bt ON bt.id = building.id_buildingtype","$extra","building.*,gb.img_building, UCASE(bt.nombre) as buildingtype");
 
-        //echo $sql;
-      $query = $this->db->query($sql);
-      $rows = $this->util->queryArray($query);
+        $query = $this->db->query($sql);
+        $rows = $this->util->queryArray($query);
+        $rooms = array();
 
 
         foreach($rows as $k => $row){
 
             $rows[$k]['rooms'] = $this->getPlaces($rows[$k]['id'],false);
+
+            foreach($rows[$k]['rooms']  as $room){
+
+                $rooms[] = $room['nombre'];
+
+            }
 
             foreach($row as $key => $val){
 
@@ -518,7 +529,23 @@ class Mhmproperties extends Administrador{
 
         }
 
+        $rooms = array_unique($rooms);
+        $rows['roomfilter'] = $rooms;
 
+        return $rows;
+    }
+
+
+    function getBuildingByType($val = ""){
+
+        $rows = $this->getBuildings($val,'type');
+        echo $this->util->safe_json_encode($rows);
+    }
+
+    function getBuildingsFeatured($val = ""){
+
+
+        $rows = $this->getBuildings($val,'featured');
         echo $this->util->safe_json_encode($rows);
 
     }
