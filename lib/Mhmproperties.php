@@ -535,7 +535,7 @@ class Mhmproperties extends Administrador{
 
     function getPlaces($val,$json = true){
 
-        $sql = $this->dbo->select("place","id_building = {$val}",'*','id DESC');
+        $sql = $this->dbo->select("place","id_building = {$val}",'*','order_place ASC');
         $query = $this->db->query($sql);
         $rows = $this->util->queryArray($query);
 
