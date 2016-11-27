@@ -180,7 +180,7 @@ class Mhmproperties extends Administrador{
 
     function dataGridBuilding($columns = array(),$cont = 1){
 
-        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','from');
+        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured');
         $this->customColumns = $remove;
         $columns = $this->deleteColumnsFromArray($columns,$remove);
 
@@ -235,7 +235,7 @@ class Mhmproperties extends Administrador{
         );
 
         $columns[] = array(
-            'db' => 'from',
+            'db' => 'fromfee',
             'column_name' => 'From',
             'dt' => $cont,
             'formatter' =>
@@ -480,6 +480,18 @@ class Mhmproperties extends Administrador{
         echo $this->util->safe_json_encode($row);
 
     }
+
+
+    function getBuildingsFeatured($val = ""){
+
+      $sql = $this->dbo->select('building',"bool_featured = 1");
+      $query = $this->db->query($sql);
+      $row = $this->util->queryArray($query);
+
+      echo $this->util->safe_json_encode($row);
+
+    }
+
 
     function getGallery($val){
 
