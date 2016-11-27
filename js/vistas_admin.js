@@ -297,16 +297,20 @@ var vistas = {
                 $('.gallery-right').html(json['result']);
                 $('.gallery-right .selectpicker').selectpicker();
                 $('.input .form-control[name="id_building"]').parent().parent().parent().remove();
-                $('.gallery-right .validation-form').append('<input type="hidden" name="id_building" value="' + params + '" />');
                 $('.gallery-right .form-operation').html('<i class="fa fa-search-plus fa-plus-square-o"></i> Insert new room type');
                 $('.places-opt-canvas .gallery-left').append("<table  class='table table-striped' ></table>");
+                var parent = "";
 
                 for(var x = 0; x < json['rows'].length; x++){
 
                     //json['rows'][x]
                     $('.places-opt-canvas .gallery-left .table').prepend("<tbody><tr><td>" + json['rows'][x]['nombre'] + "</td><td>" + json['rows'][x]['pricefrom'] + "</td><td>" + json['rows'][x]['priceto'] + "</td><td>" + json['rows'][x]['order_place'] + "</td><td><a href='?s=place-update&id=" + json['rows'][x]['id'] + "' id='" + json['rows'][x]['id_building'] + "-" + json['rows'][x]['id'] + "' class='edit-inplace center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a></td><td><a href='?s=place&id=" + json['rows'][x]['id'] + "' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a></td></tr></tbody>");
+                    parent = json['rows'][x]['id_building'];
 
                 }
+
+                $('.gallery-right .validation-form').append('<input type="hidden" name="id_building" value="' + parent + '" />');
+
 
 
                 $('.places-opt-canvas .gallery-left .table').sortable();
