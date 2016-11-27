@@ -61,7 +61,7 @@ class Execute{
             $message->initMessages();
 
 
-            if($class == "Administrador"){
+            if($class == "Administrador" || $class == 'Mhmproperties'){
 
                 $privileges = false;
                 $insert = !empty($_GET['table-insert']) ? $_GET['table-insert'] :

@@ -180,7 +180,7 @@ class Mhmproperties extends Administrador{
 
     function dataGridBuilding($columns = array(),$cont = 1){
 
-        $remove = array('Editar','Eliminar','id','video','nombre','address');
+        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','from');
         $this->customColumns = $remove;
         $columns = $this->deleteColumnsFromArray($columns,$remove);
 
@@ -233,6 +233,19 @@ class Mhmproperties extends Administrador{
 
                 }
         );
+
+        $columns[] = array(
+            'db' => 'from',
+            'column_name' => 'From',
+            'dt' => $cont,
+            'formatter' =>
+                function( $d, $row, $table ) {
+
+                    return "<span style='color:red;'>" . $d . "</span>";
+
+                }
+        );
+
 
 
         $columns[] = array(
@@ -303,16 +316,8 @@ class Mhmproperties extends Administrador{
 
     }
 
-    function getGallery($val){
 
-        $sql = $this->dbo->select("gallery_building","id_building = {$val}",'*','order_img DESC');
-        $query = $this->db->query($sql);
-        $gallery = $this->util->queryArray($query);
-        echo $this->util->safe_json_encode($gallery);
-
-    }
-
-    function getPlaces($val){
+    function getPlacesAdmin($val){
 
         $sql = $this->dbo->select("place","id_building = {$val}",'*','id DESC');
         $query = $this->db->query($sql);
@@ -401,6 +406,8 @@ class Mhmproperties extends Administrador{
 
     function uploadGallery($id){
 
+        $id = $this->util->limpiarParams($id);
+
         $name = $this->util->handleImages($_FILES,'gallery');
         if(!empty($name)){
             $next = $this->dbo->select('gallery_building',"id_building = {$id}",'max(order_img) as order_img_next');
@@ -421,6 +428,8 @@ class Mhmproperties extends Administrador{
 
 
     function updateOrder($reorder){
+
+        $reorder = $this->util->limpiarParams($reorder);
 
         $_reorder = explode('|',$reorder);
 
@@ -461,5 +470,102 @@ class Mhmproperties extends Administrador{
 
     }
 
+
+    function getBuildings($val = ""){
+
+        $sql = $this->dbo->selectAutoJoin('building',$val);
+        $query = $this->db->query($sql);
+        $row = $this->util->queryArray($query);
+
+        echo $this->util->safe_json_encode($row);
+
+    }
+
+    function getGallery($val){
+
+        $val = $this->util->limpiarParams($val);
+        $sql = $this->dbo->select("gallery_building","id_building = {$val}",'*','order_img ASC');
+        $query = $this->db->query($sql);
+        $gallery = $this->util->queryArray($query);
+        echo $this->util->safe_json_encode($gallery);
+
+    }
+
+    function getPlaces($val){
+
+        $sql = $this->dbo->select("place","id_building = {$val}",'*','id DESC');
+        $query = $this->db->query($sql);
+        $rows = $this->util->queryArray($query);
+
+        foreach($rows as $k => $row){
+
+            foreach($row as $key => $val){
+
+                $foreignSerialized = explode("id_serialized_",$key);
+                $foreign = explode("id_",$key);
+                $d = "";
+
+                if(count($foreignSerialized) > 1) {
+
+                    $repeatedForeign = explode("__",$foreign[1]);
+
+                    if(count($repeatedForeign) > 1){
+                        $foreign[1] = $repeatedForeign[0];
+                    }
+
+
+                    $multiple = false;
+                    if(!empty($foreignSerialized[1])){
+
+                        $foreign[1] = $foreignSerialized[1];
+                        $multiple = true;
+                    }
+
+                    if ($this->dbo->tableExist($foreign[1])) {
+
+                        if($multiple){
+
+                            $data = @unserialize($val);
+                            $res = array();
+
+                            if(is_array($data)){
+                                foreach($data as $v){
+
+                                    $sqlForeign = $this->dbo->select($foreign[1],"id = '{$v}'");
+                                    $queryForeign = $this->db->query($sqlForeign);
+
+                                    while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                        $res[] = $rowForeign['nombre'];
+                                    }
+
+                                }
+
+                                $d = implode(', ',$res);
+
+                            }else{
+
+                                $d = "";
+
+                            }
+
+                            $rows[$k][$key] = $d;
+
+
+                        }
+
+
+                    }
+                }
+
+            }
+
+
+
+        }
+
+
+        echo $this->util->safe_json_encode($rows);
+
+    }
 
 }

@@ -91,6 +91,12 @@
             <module>amenitie</module>
         </subitem>
 
+        <subitem>
+            <subitemName>Building type</subitemName>
+            <subitemLink>?s=buildingtype-admin</subitemLink>
+            <module>buildingtype</module>
+        </subitem>
+
 
     </item>
 

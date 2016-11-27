@@ -263,7 +263,7 @@ var vistas = {
 
         function reloadPlaces(params){
 
-            ajaxData('../lib/Execute.php?e=Mhmproperties/getPlaces/' + params,'GET',{},'true',function(json){
+            ajaxData('../lib/Execute.php?e=Mhmproperties/getPlacesAdmin/' + params,'GET',{},'true',function(json){
 
                 $('.places-opt-canvas .gallery-left').empty();
 
@@ -303,7 +303,7 @@ var vistas = {
                 for(var x = 0; x < json.length; x++){
 
 
-                    $('.gallery-opt-canvas .gallery-left').prepend("<div class='gallery-element' id='img-" + json[x]['id'] + "'><img src='../" + json[x]['img_building'] + "' />" +
+                    $('.gallery-opt-canvas .gallery-left').append("<div class='gallery-element' id='img-" + json[x]['id'] + "'><img src='../" + json[x]['img_building'] + "' />" +
                         "<span class='gallery-order'>"
                             +  json[x]['order_img'] +
                             "<a href='?s=gallery_building&id=" + json[x]['id'] + "' class='delete-admin delete-mini-pic'><i class='fa fa-close fa-fw close-img-cross'></i></a>" +
