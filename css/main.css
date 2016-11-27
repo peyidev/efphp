@@ -552,9 +552,12 @@ ul.sub-menu {
   float: right;
   width: 50%;
 }
+#home-special .slide-img-special img{
+  width: 100%;
+}
 .slide-img-special {
-  margin-top: 60px;
-  padding: 5px;
+  /*margin-top: 60px;*/
+  /*padding: 5px;*/
 }
 .slide-img-special .right-grid {
   float: left;
@@ -613,7 +616,7 @@ ul.sub-menu {
   background: white none repeat scroll 0 0;
 }
 .bg-light-purple{
-  background: #878fd6;
+  font-size:26px;
 }
 .b-b-ddd {
   border-bottom: 1px solid #ddd;

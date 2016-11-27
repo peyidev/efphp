@@ -154,7 +154,6 @@ var addresses = [
     }
 
     for(var obj in addresses){
-      console.log(addresses[obj]);
       setMarkers(addresses[obj])
     };
 

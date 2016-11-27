@@ -1,6 +1,3 @@
-
-<!--/#header-->
-
 <section id="home-slider-video">
     <div class="home-video-container">
         <video autoplay muted class="home-video" height="750px" loop>
@@ -91,27 +88,16 @@
         <div class="row">
             <div class="main-slider">
                 <div class="slide-text">
-                    <i class="fa fa-location-arrow slider-sun"></i>
-            <span class="sc_title_box">
-              303 S Fifth Street,
-              <span class="sc_title_subtitle">Champaign, IL</span>
-            </span>
-                    <p>Luxury 1, 2 and 3 Bedroom Apartments; Each bedroom with a private Bath. ONE block from County Market Grocery Store. High Security Bldg, Interactive Intercom, In unit Washer & Dryer, Granite Tops, Tile Flooring, Satellite TV (available), Flat Screen TV, Contemporary Imported Furnishings, Wine cooler, Free High Speed Internet, In unit Wi-Fi, Elevator, Covered parking spaces (available), 24 hr maintneance service, ETC.</p>
-                    <div class="amenities-list">
-                        <p><span class="amenities-red-box slider-sun"></span><label>Quiet Neighbourhood</label></p>
-                        <p><span class="amenities-red-box slider-sun"></span><label>Fabulous Views</label></p>
-                        <p><span class="amenities-red-box slider-sun"></span><label>Great Local Community</label></p>
-                    </div>
+                  <i class="fa fa-location-arrow slider-sun"></i>
+
+                  <span class="sc_title_box" id="main-ft-name"></span>
+                  <p id="main-ft-desc"></p>
+                  <div class="amenities-list" id="main-ft-ameni"></div>
+
                 </div>
-                <div class="slide-img-special">
-                    <img src="images/globals/home-special.jpg" class="slider-hill" alt="slider image">
-                </div>
-                <!--
-                  <img src="images/home/slider/house.png" class="slider-house" alt="slider image">
-                  <img src="images/home/slider/sun.png" class="slider-sun" alt="slider image">
-                  <img src="images/home/slider/birds1.png" class="slider-birds1" alt="slider image">
-                  <img src="images/home/slider/birds2.png" class="slider-birds2" alt="slider image">
-                -->
+
+                <div class="slide-img-special" id="main-ft-img"></div>
+
             </div>
         </div>
     </div>
@@ -123,28 +109,37 @@
     <div class="container">
         <div class="row">
             <h2>FEAUTURED</h2>
-            <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <div class="single-service">
-                    <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
+
+
+
+
+            <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms"><div class="single-service"><div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
                         <!--OPTIONAL-->
-                        <div class="p-red-card">
-                            <p>From $ <label for="">799</label>/person</p>
-                        </div>
+                        <div class="p-red-card"><p>From $ <label for="">799</label>/person</p></div>
                         <img src="images/globals/303.jpg" alt="">
                     </div>
+
+
                     <div class="v1-property-card-info">
                         <p class="v1-p-type">APARTMENT FOR RENT</p>
                         <p class="v1-p-address">
-                            <i class="fa fa-location-arrow"></i>
-                <span class="v1-p-a-street">
-                  303 S Fifth Street,
-                  <span class="v1-p-a-location">Champaign, IL</span>
-                </span>
+                          <i class="fa fa-location-arrow"></i>
+                          <span class="v1-p-a-street">
+                            303 S Fifth Street, Champaign, IL
+                          </span>
                         </p>
                         <p class="v1-p-data">LOREMIPSUM</p>
                     </div>
+
+
                 </div>
             </div>
+
+
+
+
+
+
             <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                 <div class="single-service">
                     <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
