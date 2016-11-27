@@ -529,8 +529,11 @@ class Mhmproperties extends Administrador{
 
         }
 
-        $rooms = array_unique($rooms);
-        $rows['roomfilter'] = $rooms;
+        if($type != "featured"){
+            $rooms = array_unique($rooms);
+            $rows['roomfilter'] = $rooms;
+        }
+
 
         return $rows;
     }
