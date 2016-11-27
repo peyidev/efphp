@@ -345,6 +345,7 @@ ul.sub-menu {
   line-height: inherit;
   padding-bottom: 10px;
   width: 90%;
+  cursor: pointer;
 }
 .testimonial .media > .pull-left {
   margin-right: 25px;
@@ -432,7 +433,7 @@ ul.sub-menu {
   margin-bottom: 0;
 }
 #home-slider-video {
-  margin-bottom: -120px;
+  margin-bottom: -250px;
   position: relative;
   z-index: 5;
 }
@@ -552,12 +553,13 @@ ul.sub-menu {
   float: right;
   width: 50%;
 }
-#home-special .slide-img-special img{
+#home-special .slide-img-special img {
   width: 100%;
 }
+.feautured-box-container {
+  position: relative;
+}
 .slide-img-special {
-  /*margin-top: 60px;*/
-  /*padding: 5px;*/
 }
 .slide-img-special .right-grid {
   float: left;
@@ -569,33 +571,33 @@ ul.sub-menu {
   float: left;
   margin-bottom: 15px;
   min-height: 50px;
-  width: 33.33%;
   position: relative;
+  width: 33.33%;
 }
 .slide-img-special .tool i {
   color: #00a3db;
   font-size: 25px;
 }
-.slide-img-special .tool:after {
+.slide-img-special .tool::after {
   bottom: 0;
   left: 0;
   position: absolute;
   width: 100%;
 }
-.slide-img-special .tool.tool-1:after {
-  content: 'VIDEO TOUR';
+.slide-img-special .tool.tool-1::after {
+  content: "VIDEO TOUR";
 }
-.slide-img-special .tool.tool-2:after {
-  content: 'FLOORPLANS';
+.slide-img-special .tool.tool-2::after {
+  content: "FLOORPLANS";
 }
-.slide-img-special .tool.tool-3:after {
-  content: 'GALLERY';
+.slide-img-special .tool.tool-3::after {
+  content: "GALLERY";
 }
-.slide-img-special .tool.tool-4:after {
-  content: 'AMENITIES';
+.slide-img-special .tool.tool-4::after {
+  content: "AMENITIES";
 }
-.slide-img-special .tool.tool-5:after {
-  content: 'MAP';
+.slide-img-special .tool.tool-5::after {
+  content: "MAP";
 }
 #action {
   background-color: #fbfafa;
@@ -615,8 +617,8 @@ ul.sub-menu {
 .bg-white {
   background: white none repeat scroll 0 0;
 }
-.bg-light-purple{
-  font-size:26px;
+.bg-light-purple {
+  font-size: 26px;
 }
 .b-b-ddd {
   border-bottom: 1px solid #ddd;
@@ -707,7 +709,7 @@ ul.sub-menu {
   max-height: 750px;
   overflow: hidden;
   position: relative;
-  top: -123px;
+  top: -253px;
   width: 100%;
 }
 .home-video {
@@ -2226,7 +2228,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 }
 .v1-property-card-info .v1-p-data {
   padding: 0;
-  text-align: left;
+  text-align: center;
 }
 .p-red-card {
   background: rgba(239, 89, 90, 0.9) none repeat scroll 0 0;

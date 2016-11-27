@@ -309,6 +309,9 @@ var vistas = {
 
                 }
 
+                if(parent == '')
+                  parent = params;
+
                 $('.gallery-right .validation-form').append('<input type="hidden" name="id_building" value="' + parent + '" />');
 
 

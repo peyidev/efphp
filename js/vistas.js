@@ -10,6 +10,10 @@ var vistas = {
         /*Función default*/
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingsFeatured','GET',{},'true',function(json){
 
+        var feauturedHtml = '';
+        var delay         = 300;
+        var roomsData     = '';
+
         for(var ft in json)
         {
           var shortVar = json[ft];
@@ -31,74 +35,59 @@ var vistas = {
             }
             $(mainFt + 'ameni').html(amenities);
 
-            var imgHtml = '<img src="' + shortVar.img_building + '" class="slider-hill" alt="slider image ' + shortVar.seoalt + '" title="'+ shortVar.seotitle +'">';
+            var imgHtml = '<img src="' + shortVar['img_building'] + '" class="slider-hill" alt="slider image ' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'">';
 
             $(mainFt + 'img').html(imgHtml);
 
           }
-          else{
-            var delay = 300;
-            var feauturedHtml = '<div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="'+delay+'ms">' +
-                                  '<div class="single-service">' +
-                                    '<div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="'+delay+'ms">';
+          else
+          {
 
-            if(shortVar['fromfee'] || shortVar['fromfee'] > 0)
-            {
-              var price = shortVar['fromfee'];
-              feauturedHtml += '<div class="p-red-card"><p>From $ <label for="">' + price + '</label>/person</p></div>';
-            }
-
-            feauturedHtml += '<img src="' + shortVar.img_building + '"  alt="' + shortVar.seoalt + '" title="'+ shortVar.seotitle +'">';
+            var rooms         = shortVar['rooms'];
+            feauturedHtml     += '<div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="' + delay + 'ms">';
+              feauturedHtml     += '<div class="single-service">';
+                feauturedHtml     += '<div class="wow scaleIn feautured-box-container" data-wow-duration="500ms" data-wow-delay="' + delay + 'ms">';
+                  if(shortVar['fromfee'] || shortVar['fromfee'] > 0)
+                    feauturedHtml   += '<div class="p-red-card"><p>From $ <label for="">' + shortVar['fromfee'] + '</label>/person</p></div>';
+                  feauturedHtml     += '<img src="' + shortVar['img_building'] + '"  alt="' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'">';
+                feauturedHtml     += '</div>';
+                feauturedHtml += '<div class="v1-property-card-info">';
+                  feauturedHtml += '<p class="v1-p-type">';
+                    feauturedHtml += shortVar['buildingtype'] + ' FOR RENT';
+                  feauturedHtml += '</p>';
+                  feauturedHtml += '<p class="v1-p-address">';
+                    feauturedHtml += '<i class="fa fa-location-arrow"></i>';
+                    feauturedHtml += '<span class="v1-p-a-street">';
+                      feauturedHtml += shortVar['nombre'];
+                    feauturedHtml += '</span>';
+                  feauturedHtml += '</p>';
+                  feauturedHtml += '<p class="v1-p-data">';
+                    for (var index in rooms)
+                    {
+                      roomsData += '<label>';
+                      roomsData += rooms[index]['nombre'];
+                      roomsData += ': $';
+                      roomsData += rooms[index]['pricefrom'];
+                      roomsData += ' - $';
+                      roomsData += rooms[index]['priceto'];
+                      roomsData += '</label>';
+                    }
+                    feauturedHtml += roomsData;
+                  feauturedHtml += '</p>';
+                feauturedHtml += '</div>';
+              feauturedHtml += '</div>';
             feauturedHtml += '</div>';
 
 
 
 
-
-            feauturedHtml += '<div class="v1-property-card-info">';
-            feauturedHtml +=  '<p class="v1-p-type">';
-            feauturedHtml +=    shortVar['buildingtype'];
-            feauturedHtml +=  '</p>';
-            feauturedHtml +=  '<p class="v1-p-address">';
-            feauturedHtml +=    '<i class="fa fa-location-arrow"></i>';
-            feauturedHtml +=    '<span class="v1-p-a-street">';
-            feauturedHtml +=      shortVar['nombre'];
-            feauturedHtml +=    '</span>';
-            feauturedHtml +=  '</p>';
-
-            feauturedHtml += '<p class="v1-p-data">';
-
-//             var roomsData =
-            feauturedHtml += '</p>';
-//             feauturedHtml += '';
-//             feauturedHtml += '';
-//             feauturedHtml += '';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            feauturedHtml += '</div>';
-            feauturedHtml += '</div>';
             delay = delay + 300;
-
-
-
 
 
           }
         }
 
-
+        $('#feautured-list').html(feauturedHtml);
 
 
       });

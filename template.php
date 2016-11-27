@@ -105,12 +105,12 @@
                     <div class="testimonial bottom">
                         <h2 class="h2-white">MENU</h2>
                         <div class="media">
-                            <label>HOME</label><br>
-                            <label>APARTMENTS</label><br>
-                            <label>HOUSES</label><br>
-                            <label>CONDOS</label><br>
-                            <label>RESOURCES</label><br>
-                            <label>CONTACT US</label><br>
+                          <a href="?s=home"><label>HOME</label></a><br>
+                          <a href="?s=apartments"><label>APARTMENTS</label></a><br>
+                          <a href="?s=houses"><label>HOUSES</label></a><br>
+                          <a href="?s=condos"><label>CONDOS</label></a><br>
+                          <a href="?s=resources"><label>RESOURCES</label></a><br>
+                          <a href="?s=contact"><label>CONTACT US</label></a><br>
                             <label><a><span class="tenant"><span>TENANT </span>LOG IN</span></a></label>
                         </div>
                     </div>
