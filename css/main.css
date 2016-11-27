@@ -552,6 +552,48 @@ ul.sub-menu {
   float: right;
   width: 50%;
 }
+.slide-img-special {
+  margin-top: 60px;
+  padding: 5px;
+}
+.slide-img-special .right-grid {
+  float: left;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+.slide-img-special .right-grid .tool {
+  float: left;
+  margin-bottom: 15px;
+  min-height: 50px;
+  width: 33.33%;
+  position: relative;
+}
+.slide-img-special .tool i {
+  color: #00a3db;
+  font-size: 25px;
+}
+.slide-img-special .tool:after {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+.slide-img-special .tool.tool-1:after {
+  content: 'VIDEO TOUR';
+}
+.slide-img-special .tool.tool-2:after {
+  content: 'FLOORPLANS';
+}
+.slide-img-special .tool.tool-3:after {
+  content: 'GALLERY';
+}
+.slide-img-special .tool.tool-4:after {
+  content: 'AMENITIES';
+}
+.slide-img-special .tool.tool-5:after {
+  content: 'MAP';
+}
 #action {
   background-color: #fbfafa;
   background-image: url("../images/home/tour-bg.png");
@@ -567,14 +609,29 @@ ul.sub-menu {
   vertical-align: middle;
   width: 100%;
 }
+.bg-white {
+  background: white none repeat scroll 0 0;
+}
+.bg-light-purple{
+  background: #878fd6;
+}
+.b-b-ddd {
+  border-bottom: 1px solid #ddd;
+}
 #services {
   background: #f0f1f5 none repeat scroll 0 0;
 }
 #resources {
   background: #f0f1f5 none repeat scroll 0 0;
+  padding-bottom: 30px;
 }
 #resources-maintenance {
-  background: #37353D none repeat scroll 0 0;
+  background: #37353d none repeat scroll 0 0;
+  color: white;
+}
+#resources-maintenance p {
+  letter-spacing: 1px;
+  line-height: 30px;
 }
 #search-result {
   background: #f0f1f5 none repeat scroll 0 0;
@@ -656,6 +713,9 @@ ul.sub-menu {
   position: absolute;
   top: -120px;
   width: 100%;
+}
+.inner-pages-container.inner-header-home {
+  display: none;
 }
 #action, #page-breadcrumb {
   position: relative;
@@ -2096,6 +2156,12 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .p-t-lg {
   padding-top: 20px;
 }
+.p-b-lg {
+  padding-bottom: 20px;
+}
+.p-d-xl {
+  padding-bottom: 25px;
+}
 .amenities-list {
 }
 #home-special .slide-text .amenities-list p {
@@ -2254,6 +2320,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   padding: 1.567em 0 1.733em;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
+.in-pages h1::first-letter {
+  text-transform: uppercase;
+}
 .portfolio-item {
   padding-left: 0;
   padding-right: 0;
@@ -2275,12 +2344,68 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   color: #525f67;
   text-decoration: none;
 }
-#resources .r-l-content{}
-#resources .r-l-content h3{}
-#resources .r-l-content p{}
-#resources .resources-contacts{}
-#resources .resources-contacts p{}
-#resources .resources-contacts p i{}
-#resources .resources-documents{}
-#resources .resources-documents p{}
-#resources .resources-documents i{}
+#resources .r-l-content {
+}
+#resources .r-l-content h3 {
+}
+#resources .r-l-content p {
+}
+#resources .resources-contacts {
+  font-size: 16px;
+}
+#resources .resources-contacts p {
+  float: left;
+  width: 50%;
+}
+#resources .resources-contacts p i {
+  color: #ef595a;
+  margin-right: 15px;
+}
+#resources .resources-documents {
+}
+#resources .resources-documents p {
+}
+#resources .resources-documents i {
+  color: #ef595a;
+  margin-right: 15px;
+}
+.d-ameni-list {
+  color: #999ca9;
+  margin-top: 20px;
+}
+.d-ameni-list p {
+  float: left;
+  position: relative;
+  width: 25%;
+}
+#detail-transportation .d-ameni-list p {
+  width: 33.3333%;
+}
+.d-ameni-list p span {
+  left: -15px !important;
+}
+.d-ameni-title {
+  color: #232a34;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  padding-left: 5px;
+}
+.d-ameni-title-span {
+}
+#detail-video .home-video-container {
+  bottom: 0;
+  float: left;
+  height: 640px;
+  left: 0;
+  margin-top: 20px;
+  position: relative;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+#detail-video .home-video-container video {
+  height: 100%;
+  top: 0;
+}

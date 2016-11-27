@@ -13,35 +13,29 @@
 
 
     <div class="portfolio-items">
-
-
-      <a href="?s=propertydetail=10">
-        <div class="col-sm-4 portfolio-item house 2b"data-wow-duration="1000ms" data-wow-delay="300ms">
-          <div class="single-service">
-            <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-              <!--OPTIONAL-->
-              <div class="p-red-card">
-                <p>From $ <label for="">799</label>/person</p>
-              </div>
-              <img src="images/globals/303.jpg" alt="">
+      <div class="col-sm-4 portfolio-item house 2b"data-wow-duration="1000ms" data-wow-delay="300ms">
+        <div class="single-service">
+          <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
+            <!--OPTIONAL-->
+            <div class="p-red-card">
+              <p>From $ <label for="">799</label>/person</p>
             </div>
-            <div class="v1-property-card-info">
-              <p class="v1-p-type">APARTMENT FOR RENT</p>
-              <p class="v1-p-address">
-                <i class="fa fa-location-arrow"></i>
-                <span class="v1-p-a-street">
-                        303 S Fifth Street,
-                        <span class="v1-p-a-location">Champaign, IL</span>
-                      </span>
-              </p>
-              <p class="v1-p-data">LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM </p>
-              <p class="v1-p-data">LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM </p>
-            </div>
+            <img src="images/globals/303.jpg" alt="">
+          </div>
+          <div class="v1-property-card-info">
+            <p class="v1-p-type">APARTMENT FOR RENT</p>
+            <p class="v1-p-address">
+              <i class="fa fa-location-arrow"></i>
+              <span class="v1-p-a-street">
+                      303 S Fifth Street,
+                      <span class="v1-p-a-location">Champaign, IL</span>
+                    </span>
+            </p>
+            <p class="v1-p-data">LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM </p>
+            <p class="v1-p-data">LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM LOREMIPSUM </p>
           </div>
         </div>
-      </a>
-
-
+      </div>
       <div class="col-sm-4 portfolio-item apartment 2r2b"data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="single-service">
           <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">

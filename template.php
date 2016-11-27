@@ -71,7 +71,9 @@
                         <li class="active"><a href="?s=home">HOME</a></li>
                         <li><a href="?s=apartments ">APARTMENTS</a></li>
                         <li><a href="?s=houses ">HOUSES</a></li>
-                        <li><a href="?s=resurces ">RESOURCES</a></li>
+                        <li><a href="?s=condos ">CONDOS</a></li>
+                        <li><a href="?s=resources ">RESOURCES</a></li>
+                        <li><a href="?s=404 ">404</a></li>
                         <li><a href="?s=contact">CONTACT US</a></li>
                         <li><a href="https://mhmprop.twa.rentmanager.com/ " target="_blank">
                                 <span class="tenant"><span>TENANT </span>LOG IN</span></a>
