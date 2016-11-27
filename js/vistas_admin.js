@@ -213,6 +213,27 @@ var vistas = {
     },
     building_vista : function(){
 
+        $('.table-admin').on('click','.edit-inplace',function(e){
+
+            e.preventDefault();
+
+            $('.gallery-left').empty();
+            $('.gallery-right').empty();
+
+
+            var params = $(this).attr('id');
+
+            reloadPlaces(params,"update");
+
+            $('.close-gallery').click(function(){
+
+                $('.places-opt').remove();
+
+            });
+
+        });
+
+
         $('.table-admin').on('click','.edit-places',function(e){
 
             e.preventDefault();
@@ -222,7 +243,7 @@ var vistas = {
             $('<tr class="places-opt"><td class="places-opt-canvas" colspan="10"><div class="close-gallery"><i class="fa fa-close fa-fw fa-2x"></i></div><div class="gallery-left"></div><div class="gallery-right"></div></td></tr>').insertAfter($(this).parent().parent());
 
             var params = $(this).attr('id');
-            reloadPlaces(params);
+            reloadPlaces(params,"insert");
 
             $('.close-gallery').click(function(){
 
@@ -261,9 +282,15 @@ var vistas = {
 
         });
 
-        function reloadPlaces(params){
+        function reloadPlaces(params,type){
 
-            ajaxData('../lib/Execute.php?e=Mhmproperties/getPlacesAdmin/' + params,'GET',{},'true',function(json){
+            var url = '../lib/Execute.php?e=Mhmproperties/getPlacesAdmin/';
+
+            if(type == "update")
+                url = '../lib/Execute.php?e=Mhmproperties/getPlacesUpdateAdmin/';
+
+
+            ajaxData(url + params,'GET',{},'true',function(json){
 
                 $('.places-opt-canvas .gallery-left').empty();
 
@@ -277,7 +304,7 @@ var vistas = {
                 for(var x = 0; x < json['rows'].length; x++){
 
                     //json['rows'][x]
-                    $('.places-opt-canvas .gallery-left .table').prepend("<tbody><tr><td>" + json['rows'][x]['nombre'] + "</td><td>" + json['rows'][x]['pricefrom'] + "</td><td>" + json['rows'][x]['priceto'] + "</td><td>" + json['rows'][x]['order_place'] + "</td><td><a href='?s=place-update&id=" + json['rows'][x]['id'] + "' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a></td><td><a href='?s=place&id=" + json['rows'][x]['id'] + "' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a></td></tr></tbody>");
+                    $('.places-opt-canvas .gallery-left .table').prepend("<tbody><tr><td>" + json['rows'][x]['nombre'] + "</td><td>" + json['rows'][x]['pricefrom'] + "</td><td>" + json['rows'][x]['priceto'] + "</td><td>" + json['rows'][x]['order_place'] + "</td><td><a href='?s=place-update&id=" + json['rows'][x]['id'] + "' id='" + json['rows'][x]['id_building'] + "-" + json['rows'][x]['id'] + "' class='edit-inplace center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a></td><td><a href='?s=place&id=" + json['rows'][x]['id'] + "' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a></td></tr></tbody>");
 
                 }
 

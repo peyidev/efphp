@@ -317,7 +317,15 @@ class Mhmproperties extends Administrador{
     }
 
 
-    function getPlacesAdmin($val){
+    function getPlacesUpdateAdmin($val){
+
+        $vars = explode('-',$val);
+        $building = $vars[0];
+        $place = $vars[1];
+        $this->getPlacesAdmin($building,$place,true);
+    }
+
+    function getPlacesAdmin($val, $place = "", $update = false){
 
         $sql = $this->dbo->select("place","id_building = {$val}",'*','id DESC');
         $query = $this->db->query($sql);
@@ -326,7 +334,12 @@ class Mhmproperties extends Administrador{
         $admin = new Administrador();
 
         ob_start(); //Start output buffer
-        $admin->createGenericForm('place');
+        if(!$update){
+            $admin->createGenericForm('place');
+        }else{
+            $admin->createGenericForm('place',$place,"update");
+        }
+
         $output = ob_get_contents(); //Grab output
         ob_end_clean(); //Discard output buffer
 
@@ -372,7 +385,6 @@ class Mhmproperties extends Administrador{
 
     }
 
-
     function updateOrder($reorder){
 
         $reorder = $this->util->limpiarParams($reorder);
@@ -416,7 +428,6 @@ class Mhmproperties extends Administrador{
 
     }
 
-
     function getBuildings($val = ""){
 
         $sql = $this->dbo->selectAutoJoin('building',$val);
@@ -426,7 +437,6 @@ class Mhmproperties extends Administrador{
         echo $this->util->safe_json_encode($row);
 
     }
-
 
     function getBuildingsFeatured($val = ""){
 
@@ -439,7 +449,7 @@ class Mhmproperties extends Administrador{
                         ON building.id = tmp_gallery.id_building
                       JOIN gallery_building AS gb ON gb.id_building = building.id AND gb.order_img = tmp_gallery.order_img
                       JOIN buildingtype AS bt ON bt.id = building.id_buildingtype
-                    WHERE bool_featured = 1","","building.*,gb.img_building, bt.nombre as buildingtype");
+                    WHERE bool_featured = 1","","building.*,gb.img_building, UCASE(bt.nombre) as buildingtype");
 
         //echo $sql;
       $query = $this->db->query($sql);
@@ -512,7 +522,6 @@ class Mhmproperties extends Administrador{
         echo $this->util->safe_json_encode($rows);
 
     }
-
 
     function getGallery($val){
 
