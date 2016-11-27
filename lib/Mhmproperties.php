@@ -341,9 +341,16 @@ class Mhmproperties extends Administrador{
     function uploadGallery($id){
 
         $id = $this->util->limpiarParams($id);
-
         $name = $this->util->handleImages($_FILES,'gallery');
+
         if(!empty($name)){
+
+            $building = $this->dbo->select('building',"id = {$id}");
+            $queryBuilding = $this->db->query($building);
+            $buildingData = $this->util->queryArray($queryBuilding);
+            $seo = $buildingData[0]['nombre'];
+
+
             $next = $this->dbo->select('gallery_building',"id_building = {$id}",'max(order_img) as order_img_next');
             $queryNext = $this->db->query($next);
             $nextItem = $this->util->queryArray($queryNext);
@@ -351,6 +358,11 @@ class Mhmproperties extends Administrador{
             $nextItem++;
 
             $insert = array();
+            $insert['seotitle'] = $seo;
+            $insert['seoalt'] = $seo;
+
+
+
             $insert['id_building'] = $id;
             $insert['img_building'] = 'media/img/' . $name;
             $insert['order_img'] = $nextItem;
@@ -435,6 +447,8 @@ class Mhmproperties extends Administrador{
 
         foreach($rows as $k => $row){
 
+            $rows[$k]['rooms'] = $this->getPlaces($rows[$k]['id'],false);
+
             foreach($row as $key => $val){
 
                 $foreignSerialized = explode("id_serialized_",$key);
@@ -509,13 +523,16 @@ class Mhmproperties extends Administrador{
 
     }
 
-    function getPlaces($val){
+    function getPlaces($val,$json = true){
 
         $sql = $this->dbo->select("place","id_building = {$val}",'*','id DESC');
         $query = $this->db->query($sql);
         $rows = $this->util->queryArray($query);
 
-        echo $this->util->safe_json_encode($rows);
+        if($json)
+            echo $this->util->safe_json_encode($rows);
+        else
+            return $rows;
 
     }
 
