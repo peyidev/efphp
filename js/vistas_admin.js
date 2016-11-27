@@ -277,14 +277,14 @@ var vistas = {
                 for(var x = 0; x < json['rows'].length; x++){
 
                     //json['rows'][x]
-                    $('.places-opt-canvas .gallery-left .table').prepend("<tbody><tr><td>" + json['rows'][x]['nombre'] + "</td><td>" + json['rows'][x]['id_serialized_amenitie'] + "</td><td>" + json['rows'][x]['price'] + "</td><td>" + json['rows'][x]['order_place'] + "</td><td><a href='?s=place-update&id=" + json['rows'][x]['id'] + "' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a></td><td><a href='?s=place&id=" + json['rows'][x]['id'] + "' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a></td></tr></tbody>");
+                    $('.places-opt-canvas .gallery-left .table').prepend("<tbody><tr><td>" + json['rows'][x]['nombre'] + "</td><td>" + json['rows'][x]['price'] + "</td><td>" + json['rows'][x]['order_place'] + "</td><td><a href='?s=place-update&id=" + json['rows'][x]['id'] + "' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a></td><td><a href='?s=place&id=" + json['rows'][x]['id'] + "' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a></td></tr></tbody>");
 
                 }
 
 
                 $('.places-opt-canvas .gallery-left .table').sortable();
 
-                $('.places-opt-canvas .gallery-left .table').prepend('<thead><tr><th>Name</th><th>Amenities</th><th>Price</th><th>Display order</th><th>Edit</th><th>Delete</th></tr></thead>');
+                $('.places-opt-canvas .gallery-left .table').prepend('<thead><tr><th>Name</th><th>Price</th><th>Display order</th><th>Edit</th><th>Delete</th></tr></thead>');
 
 
 
