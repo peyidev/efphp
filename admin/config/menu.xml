@@ -53,7 +53,7 @@
 
     <item>
         <itemName>Buildings</itemName>
-        <itemLink>?s=home</itemLink>
+        <itemLink>?s=building-vista</itemLink>
         <rol>ADMINISTRADOR</rol>
         <icon>fa-group</icon>
         <rol>Vendedor</rol>
@@ -95,6 +95,12 @@
             <subitemName>Building type</subitemName>
             <subitemLink>?s=buildingtype-admin</subitemLink>
             <module>buildingtype</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Nerby Amenities</subitemName>
+            <subitemLink>?s=nerbyamenitie-admin</subitemLink>
+            <module>nerbyamenitie</module>
         </subitem>
 
 

@@ -180,7 +180,7 @@ class Mhmproperties extends Administrador{
 
     function dataGridBuilding($columns = array(),$cont = 1){
 
-        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name');
+        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name','id_serialized_nerbyamenitie');
         $this->customColumns = $remove;
         $columns = $this->deleteColumnsFromArray($columns,$remove);
 
@@ -577,13 +577,18 @@ class Mhmproperties extends Administrador{
 
     }
 
-    function getGallery($val){
+    function getGallery($val,$json = true){
 
         $val = $this->util->limpiarParams($val);
         $sql = $this->dbo->select("gallery_building","id_building = {$val}",'*','order_img ASC');
         $query = $this->db->query($sql);
         $gallery = $this->util->queryArray($query);
-        echo $this->util->safe_json_encode($gallery);
+
+
+        if($json)
+            echo $this->util->safe_json_encode($gallery);
+        else
+            return $gallery;
 
     }
 
@@ -597,6 +602,19 @@ class Mhmproperties extends Administrador{
             echo $this->util->safe_json_encode($rows);
         else
             return $rows;
+
+    }
+
+    function getBuildingDetail($val){
+
+        $id = $this->util->limpiarParams($val);
+        $sql = $this->dbo->select('building',"id={$id}");
+        $query = $this->db->query($sql);
+        $building = $this->util->queryArray($query);
+        $building['places'] = $this->getPlaces($val,false);
+        $building['gallery'] = $this->getGallery($val,false);
+
+        echo $this->util->safe_json_encode($building);
 
     }
 

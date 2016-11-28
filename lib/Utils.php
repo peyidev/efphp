@@ -289,10 +289,10 @@
                   }
               }else if($type == 'gallery'){
                   foreach($data as $img){
-
+                      $nombre = $this->subirImagen($img,"media/img");
+                      return $nombre;
 
                   }
-                  echo $nombre;
 
               }
 
