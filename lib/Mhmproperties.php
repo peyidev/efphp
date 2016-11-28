@@ -606,15 +606,80 @@ class Mhmproperties extends Administrador{
     }
 
     function getBuildingDetail($val){
-
         $id = $this->util->limpiarParams($val);
         $sql = $this->dbo->select('building',"id={$id}");
         $query = $this->db->query($sql);
         $building = $this->util->queryArray($query);
-        $building['places'] = $this->getPlaces($val,false);
-        $building['gallery'] = $this->getGallery($val,false);
+
+
+        foreach($building as $k => $row){
+
+
+            foreach($row as $key => $val){
+
+                $foreignSerialized = explode("id_serialized_",$key);
+                $foreign = explode("id_",$key);
+                $d = "";
+
+                if(count($foreignSerialized) > 1) {
+
+                    $repeatedForeign = explode("__",$foreign[1]);
+
+                    if(count($repeatedForeign) > 1){
+                        $foreign[1] = $repeatedForeign[0];
+                    }
+
+
+                    $multiple = false;
+                    if(!empty($foreignSerialized[1])){
+
+                        $foreign[1] = $foreignSerialized[1];
+                        $multiple = true;
+                    }
+
+                    if ($this->dbo->tableExist($foreign[1])) {
+
+                        if($multiple){
+
+                            $data = @unserialize($val);
+                            $res = array();
+
+                            if(is_array($data)){
+                                foreach($data as $v){
+
+                                    $sqlForeign = $this->dbo->select($foreign[1],"id = '{$v}'");
+                                    $queryForeign = $this->db->query($sqlForeign);
+
+                                    while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                        $res[] = $rowForeign['nombre'];
+                                    }
+
+                                }
+
+                            }
+
+                            $building[$k][$key] = $res;
+
+
+                        }
+
+
+                    }
+                }
+
+            }
+
+
+
+        }
+
+
+        $building['places'] = $this->getPlaces($id,false);
+        $building['gallery'] = $this->getGallery($id,false);
 
         echo $this->util->safe_json_encode($building);
+
+
 
     }
 
