@@ -1,6 +1,5 @@
 <section id="detail-slider" class="bg-white b-b-ddd p-b-lg">
   <div class="container">
-
     <div id="carousel-container">
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators visible-xs">
@@ -8,39 +7,15 @@
           <li data-target="#carousel-example-generic" data-slide-to="1"></li>
           <li data-target="#carousel-example-generic" data-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner">
-          <div class="item active">
-            <img src="http://placehold.it/1140x487/green" alt="">
-            <div class="carousel-caption">
-              <h3>First slide label</h3>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-          </div>
-          <div class="item">
-            <img src="http://placehold.it/1140x487/blue" alt="">
-            <div class="carousel-caption">
-              <h3>Second slide label</h3>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-          </div>
-          <div class="item">
-            <img src="http://placehold.it/1140x487/red" alt="">
-            <div class="carousel-caption">
-              <h3>Third slide label</h3>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-          </div>
-        </div>
+        <div class="carousel-inner no-display" id="gallery-id"></div>
         <a class="left carousel-control hidden-xs" href="#carousel-example-generic" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
         <a class="right carousel-control hidden-xs" href="#carousel-example-generic" data-slide="next">
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
-      </div><!--/#carousel-example-generic-->
-    </div><!--/#carousel-container-->
-
-
+      </div>
+    </div>
   </div>
 </section>
 <!--/#Detail Slider-->
@@ -52,8 +27,7 @@
         <div class="slide-text">
           <i class="fa fa-location-arrow slider-sun"></i>
           <span class="sc_title_box">
-              303 S Fifth Street,
-              <span class="sc_title_subtitle">Champaign, IL</span>
+              303 S Fifth Street, Champaign, IL
           </span>
           <p>Luxury 1, 2 and 3 Bedroom Apartments; Each bedroom with a private Bath. ONE block from County Market Grocery Store. High Security Bldg, Interactive Intercom, In unit Washer & Dryer, Granite Tops, Tile Flooring, Satellite TV (available), Flat Screen TV, Contemporary Imported Furnishings, Wine cooler, Free High Speed Internet, In unit Wi-Fi, Elevator, Covered parking spaces (available), 24 hr maintneance service, ETC.</p>
           <div class="amenities-list">

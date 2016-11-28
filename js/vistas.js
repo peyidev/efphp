@@ -173,7 +173,7 @@ var vistas = {
           content += '</div>';
           content += '</div>';
 
-          contentHtml += '<a href="?s=propertydetail/' + shortVar.id + '">';
+          contentHtml += '<a href="?s=propertydetail&p=' + shortVar.id + '">';
           contentHtml += '<div class="col-sm-4 portfolio-item  ' + filterAttrClass + '"data-wow-duration="1000ms" data-wow-delay="300ms">';
           contentHtml += content;
           contentHtml += '</div>';
@@ -376,6 +376,35 @@ var vistas = {
 
       });
       $('#prop-list-container').fadeIn('slow');
+
+    },
+    propertydetail : function (){
+      var seccion = utils.getParameterByName("p");
+      console.log(seccion);
+      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
+        console.log(json);
+
+        var gallery = json.gallery;
+        var galleryHtml = '';
+        var flagGal = 0;
+        for(var img in gallery)
+        {
+          var imgIndex = gallery[img];
+          if(flagGal == 0)
+          {
+            galleryHtml += '<div class="item active">';
+            flagGal = 1;
+          }
+          else
+            galleryHtml += '<div class="item">';
+
+          galleryHtml += '<img src="' + imgIndex.img_building + '" alt="' + imgIndex.seoalt + '" title="' + imgIndex.seotitle + '">';
+          galleryHtml += '</div>';
+
+        }
+        $('#gallery-id').html(galleryHtml);
+      });
+      $('#gallery-id').fadeIn('slow');
 
     }
 

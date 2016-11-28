@@ -2424,3 +2424,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   height: 100%;
   top: 0;
 }
+#detail-slider{}
+#detail-slider img{
+}
+#carousel-example-generic{}
+#carousel-example-generic .item{}
+#carousel-example-generic .item img{}
