@@ -277,7 +277,7 @@ var utils = {
                 content += '</div>';
                 content += '</div>';
 
-                contentHtml += '<a href="?s=propertydetail/' + shortVar.id + '">';
+                contentHtml += '<a href="?s=propertydetail&p=' + shortVar.id + '">';
                 contentHtml += '<div class="col-sm-4 portfolio-item  ' + filterAttrClass + '"data-wow-duration="1000ms" data-wow-delay="300ms">';
                 contentHtml += content;
                 contentHtml += '</div>';
