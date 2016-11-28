@@ -109,7 +109,7 @@
     <div class="container">
         <div class="row">
             <h2>FEAUTURED</h2>
-            <div id="feautured-list"></div>
+            <div id="feautured-list" class="no-display"></div>
         </div>
     </div>
 </section>

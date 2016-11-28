@@ -180,7 +180,7 @@ class Mhmproperties extends Administrador{
 
     function dataGridBuilding($columns = array(),$cont = 1){
 
-        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie');
+        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name');
         $this->customColumns = $remove;
         $columns = $this->deleteColumnsFromArray($columns,$remove);
 
@@ -208,6 +208,30 @@ class Mhmproperties extends Administrador{
 
                 }
         );
+
+      $columns[] = array(
+        'db' => 'id_buildingtype',
+        'column_name' => 'Building Type',
+        'dt' => $cont,
+        'formatter' =>
+          function( $d, $row, $table ) {
+
+            $db = Database::connect();
+            $dbo = new Dbo();
+
+            $sql = $dbo->select("buildingtype","id={$d} LIMIT 1");
+            $query = $db->query($sql);
+            $res = "";
+
+            while($rowForeign = $query->fetch_array(MYSQL_ASSOC) ) {
+              $res = $rowForeign['nombre'];
+            }
+
+
+            return !empty($res) ?  $res : "No type";
+
+          }
+      );
 
         $columns[] = array(
             'db' => 'nombre',

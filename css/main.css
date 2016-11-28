@@ -48,6 +48,9 @@ h2 {
 h3 {
   font-size: 18px;
 }
+.no-display{
+  display: none;
+}
 .overflow {
   overflow: hidden;
 }
@@ -2229,6 +2232,13 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .v1-property-card-info .v1-p-data {
   padding: 0;
   text-align: center;
+  color: #333;
+  cursor: pointer;
+}
+.v1-property-card-info .v1-p-data label{
+  width: 100%;
+  cursor: pointer;
+
 }
 .p-red-card {
   background: rgba(239, 89, 90, 0.9) none repeat scroll 0 0;
