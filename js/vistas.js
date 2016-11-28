@@ -105,7 +105,7 @@ var vistas = {
     },
     condos : function()
     {
-        utils.dynamicBuildingContent("condo");
+        utils.dynamicBuildingContent("condos");
 
     }
 
