@@ -67,18 +67,7 @@
                         <i class="fa fa-envelope"></i><span class="span-sm-size">contact@mhmproperties.com</span>
                         <label class="navbar-right">CALL US: <strong><i>(217) </i> 337-8852</strong></label>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="?s=home">HOME</a></li>
-                        <li><a href="?s=apartments ">APARTMENTS</a></li>
-                        <li><a href="?s=houses ">HOUSES</a></li>
-                        <li><a href="?s=condos ">CONDOS</a></li>
-                        <li><a href="?s=resources ">RESOURCES</a></li>
-                        <li><a href="?s=404 ">404</a></li>
-                        <li><a href="?s=contact">CONTACT US</a></li>
-                        <li><a href="https://mhmprop.twa.rentmanager.com/ " target="_blank">
-                                <span class="tenant"><span>TENANT </span>LOG IN</span></a>
-                        </li>
-                    </ul>
+                    <?php $cms->generateMenu();?>
                 </div>
             </div>
         </div>

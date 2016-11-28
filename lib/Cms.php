@@ -19,6 +19,7 @@ class Cms
 
     function getTitle($cuerpo = ""){
 
+        $c = $cuerpo;
         $_cuerpo = explode('.',$cuerpo);
         $cuerpo = !empty($_cuerpo) ? $_cuerpo[0] : "";
 
@@ -26,6 +27,21 @@ class Cms
 
             case "apartments":
                 $cuerpo = "All the apartments";
+                break;
+
+            default:
+                $tmp = $this->util->incluirSeccion($c);
+
+                if($tmp == "404.php"){
+
+                    $cuerpo = "404 not found";
+
+                }else{
+
+                    $cuerpo = $this->util->limpiarParams($cuerpo);
+
+                }
+
                 break;
 
 
@@ -65,7 +81,7 @@ class Cms
             switch($w){
 
                 case "title_section":
-                    $replace = "titulo :)";
+                    $replace = "Title";
                     break;
 
                 default:
@@ -115,10 +131,21 @@ class Cms
 
     function olLiTree( $tree ) {
 
-        if(!empty($tree)) echo '<ul>';
+        if(!empty($tree)) echo '<ul class="nav navbar-nav navbar-right">';
 
         foreach ( $tree as $item ) {
-            echo "<li id='{$item['id']}' parent_id='{$item['id_menu']}' > <a href='?s={$item['url']}'>{$item['nombre']}</a>";
+            $u = explode("http",$item['url']);
+            $url = "?s={$item['url']}";
+            if(count($u) > 1){
+                $url = $item['url'];
+            }
+
+            $active = "";
+            if(!empty($_GET['s']) && $this->util->limpiarParams($_GET['s']) == $item['url']){
+                $active = " class='active' ";
+            }
+
+            echo "<li $active id='{$item['id']}' parent_id='{$item['id_menu']}' > <a href='{$url}'>{$item['nombre']}</a>";
             if ( isset( $item['children'] ) ) {
                 $this->olLiTree( $item['children'] );
             }
