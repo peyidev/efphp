@@ -315,9 +315,6 @@ var vistas = {
                 $('.gallery-right .validation-form').append('<input type="hidden" name="id_building" value="' + parent + '" />');
 
 
-
-                $('.places-opt-canvas .gallery-left .table').sortable();
-
                 $('.places-opt-canvas .gallery-left .table').prepend('<thead><tr><th>Name</th><th>Price from</th><th>Price to</th><th>Display order</th><th>Edit</th><th>Delete</th></tr></thead>');
 
 
