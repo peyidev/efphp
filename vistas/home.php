@@ -1,36 +1,43 @@
 <section id="home-slider-video">
-    <div class="home-video-container">
-        <video autoplay muted class="home-video" height="750px" loop>
-            <source src="video/mhm_intro_video.mp4" type="video/mp4" />
-        </video>
-    </div>
+  <div class="home-video-container">
+    <video autoplay muted class="home-video" height="750px" loop>
+      <source src="video/mhm_intro_video.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <ul id="lightSlider">
+    <li><a href=""><div><label for="">SPECIAL OFFER #1</label></div></a></li>
+    <li><a href=""><div><label for="">SPECIAL OFFER #2</label></div></a></li>
+    <li><a href=""><div><label for="">SPECIAL OFFER #3</label></div></a></li>
+    <li><a href=""><div><label for="">SPECIAL OFFER #4</label></div></a></li>
+  </ul>
 </section>
 <!--/#slidervideo-->
 
+<!--
 <section id="buscador" class="responsive">
-    <div class="container">
-        <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
-            <select name="" id="1">
-                <option value="">PROPERTY TYPE</option>
-            </select>
-        </div>
-        <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
-            <select name="" id="2">
-                <option value="">BEDROOMS</option>
-            </select>
-        </div>
-        <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
-            <select name="" id="3">
-                <option value="">BATHROOMS</option>
-            </select>
-        </div>
-        <div class="col-lg-8 text-center wow fadeInRight b-slider" data-wow-duration="500ms" data-wow-delay="300ms">
-            <div id="slider"></div>
-        </div>
-        <div class="col-lg-4 text-center wow fadeInRight b-btn" data-wow-duration="500ms" data-wow-delay="300ms">
-            <button>SEARCH</button>
-        </div>
+  <div class="container">
+    <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
+        <select name="" id="1">
+            <option value="">PROPERTY TYPE</option>
+        </select>
     </div>
+    <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
+        <select name="" id="2">
+            <option value="">BEDROOMS</option>
+        </select>
+    </div>
+    <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
+        <select name="" id="3">
+            <option value="">BATHROOMS</option>
+        </select>
+    </div>
+    <div class="col-lg-8 text-center wow fadeInRight b-slider" data-wow-duration="500ms" data-wow-delay="300ms">
+        <div id="slider"></div>
+    </div>
+    <div class="col-lg-4 text-center wow fadeInRight b-btn" data-wow-duration="500ms" data-wow-delay="300ms">
+          <button>SEARCH</button>
+      </div>
+  </div>
 </section>
 <!--/#buscador-->
 
@@ -84,24 +91,24 @@
 <!--/#home-slider-->
 
 <section id="home-special">
-    <div class="container">
-        <div class="row">
-            <div class="main-slider">
-                <div class="slide-text">
-                  <i class="fa fa-location-arrow slider-sun"></i>
+  <div class="container">
+    <div class="row">
+      <div class="main-slider">
+        <div class="slide-text">
+          <i class="fa fa-location-arrow slider-sun"></i>
 
-                  <span class="sc_title_box" id="main-ft-name"></span>
-                  <p id="main-ft-desc"></p>
-                  <div class="amenities-list" id="main-ft-ameni"></div>
+          <span class="sc_title_box" id="main-ft-name"></span>
+          <p id="main-ft-desc"></p>
+          <div class="amenities-list" id="main-ft-ameni"></div>
 
-                </div>
-
-                <div class="slide-img-special" id="main-ft-img"></div>
-
-            </div>
         </div>
+
+        <div class="slide-img-special" id="main-ft-img"></div>
+
+      </div>
     </div>
-    <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+  </div>
+  <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
 </section>
 <!--/#Special-->
 

@@ -180,7 +180,7 @@ class Mhmproperties extends Administrador{
 
     function dataGridBuilding($columns = array(),$cont = 1){
 
-        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name','id_serialized_nerbyamenitie');
+        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name','id_serialized_nerbyamenitie', 'Amenities','Nearby', 'Edit', 'Delete');
         $this->customColumns = $remove;
         $columns = $this->deleteColumnsFromArray($columns,$remove);
 

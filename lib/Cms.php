@@ -23,10 +23,11 @@ class Cms
         $_cuerpo = explode('.',$cuerpo);
         $cuerpo = !empty($_cuerpo) ? $_cuerpo[0] : "";
 
+
         switch($cuerpo){
 
             case "apartments":
-                $cuerpo = "All the apartments";
+                $cuerpo = "Apartments";
                 break;
 
             default:

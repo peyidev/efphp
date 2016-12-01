@@ -65,7 +65,7 @@
             switch($msg){
 
                 case "1":
-                    $final.= "Operación realizada correctamente";
+                    $final.= "Action Success!";
                     break;
 
                 default:

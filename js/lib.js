@@ -56,7 +56,6 @@ var validator = {
 
     },
 
-
     validateInput : function(type, val, selector){
 
         type = type.split(" ");
@@ -135,7 +134,7 @@ var validator = {
 
 var utils = {
 
-    getParameterByName: function(name){
+  getParameterByName: function(name){
 
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -144,7 +143,7 @@ var utils = {
 
     },
 
-    createTable: function(selector, objects, data, column){
+  createTable: function(selector, objects, data, column){
 
         console.log(data.length);
 
@@ -196,7 +195,7 @@ var utils = {
 
     },
 
-     dynamicBuildingContent: function(type){
+  dynamicBuildingContent: function(type){
 
         ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/' + type,'GET',{},'true',function(json) {
             console.log(json);
@@ -217,8 +216,6 @@ var utils = {
             $('#prop-filter-list').html(filterLi);
             //END LI Filter Json.roomsFilter
 
-
-            //Apt List.
             var contentHtml = '';
             for(var obj in json)
             {
@@ -233,8 +230,11 @@ var utils = {
 
                 content += '<div class="single-service">';
                 content += '<div class="wow scaleIn feautured-box-container" data-wow-duration="500ms" data-wow-delay="300ms">';
-                if(shortVar['fromfee'] || shortVar['fromfee'] > 0)
+                if(shortVar['fromfee'] == 'LEASED')
+                  content   += '<div class="p-red-card p-leased">' + '<p><label for="">' + shortVar['fromfee'] + '</label></p>' + '</div>';
+                else if(shortVar['fromfee'] || shortVar['fromfee'] > 0)
                     content   += '<div class="p-red-card">' + '<p>From $ <label for="">' + shortVar['fromfee'] + '</label>/person</p>' + '</div>';
+
                 content += '<img src="' + shortVar['img_building'] + '"  alt="' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'">';
                 content += '</div>';
 
@@ -288,11 +288,95 @@ var utils = {
             $('#prop-list-container').html(contentHtml);
 
         });
-        //END Apt List.
         $('#prop-list-container').fadeIn('slow');
 
-        }
+        },
 
+  gmapFunction : function (propertyObject){
+
+    var addresses = [
+       '101 S Busey Ave Champaign, IL'
+       ,'102 S Lincoln Avenue  Champaign, IL'
+       ,'605 E Clark Street  Champaign, IL'
+       ,'606 E White  Champaign, IL'
+       ,'205 S Sixth Street  Champaign, IL'
+       ,'303 S Fifth Street  Champaign IL'
+       ,'203 S Fourth Street C  Champaign, IL'
+       ,'311 E Clark Street  Champaign, IL'
+       ,'314 E Clark Street  Champaign, IL'
+       ,'808 S Oak Street  Champaign, IL'
+       ,'803 S Locust Street  Champaign, IL'
+       ,'805 S Locust  Champaign, IL'
+       ,'61 E John Street  Champaign, IL'
+       ,'803 S First Street  Champaigne, IL'
+       ,'101 E Daniel  Champaign, IL'
+       ,'101 E Armory Street  Champaign, IL'
+       ,'1711-B Harrington Drive  Champaign, IL'
+       ,'1711-A Harrington Drive  Champaign, IL'
+     ];
+    if( $('#gmap').length ) {
+      var map;
+
+    GMaps.geocode({
+       address: propertyObject ? propertyObject[0].nombre :'303 S Fifth Street Champaign, IL 61820',
+       callback: function(results, status) {
+         if (status == 'OK') {
+           var latlng = results[0].geometry.location;
+           map.setCenter(latlng.lat(), latlng.lng());
+           map.addMarker({
+             lat: latlng.lat(),
+             lng: latlng.lng(),
+             animation: google.maps.Animation.DROP,
+             infoWindow: {
+               content: propertyObject ? propertyObject[0].nombre :'<p>HTML Content</p>'
+             }
+           });
+         }
+       }
+     });
+    function setMarkers(address){
+     GMaps.geocode({
+       address: address,
+       callback: function(results, status) {
+         if (status == 'OK') {
+           var latlng = results[0].geometry.location;
+           map.addMarker({
+             lat:  latlng.lat(),
+             lng:  latlng.lng(),
+             animation: google.maps.Animation.DROP,
+             infoWindow: {
+               content: '<p>'+address+'</p>'
+             }
+           });
+         }
+       }
+     });
+    }
+
+    if(propertyObject)
+     setMarkers(propertyObject[0].address)
+    else
+      for(var obj in addresses)
+        setMarkers(addresses[obj]);
+
+    map = new GMaps({
+       div: '#gmap',
+       lat: '41.869795',
+       lng: '-87.62637799999999',
+       scrollwheel:false,
+       zoom: 14,
+       zoomControl : true,
+       panControl : false,
+       streetViewControl : true,
+       mapTypeControl: false,
+       overviewMapControl: false,
+       clickable: true,
+
+     });
+
+    }
+
+   }
 
 }
 

@@ -139,12 +139,12 @@ var vistas = {
             };
 
 
-            $( '<div id="dialog-confirm" title="¿Deseas eliminar el registro?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Este registro seré eliminado y no podrá ser recuperado. ¿Estás seguro?</p></div>' ).dialog({
+            $( '<div id="dialog-confirm" title="Confirm Action!"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>This action will permanently delete this record. Are you Sure?</p></div>' ).dialog({
                 resizable: false,
                 height:140,
                 modal: true,
                 buttons: {
-                    "Eliminar el registro": function() {
+                    "Delete": function() {
 
                         ajaxData('../lib/Execute.php?e=Administrador/deleteRow','GET',param,'false',function(json){
 
@@ -152,7 +152,7 @@ var vistas = {
                         });
 
                     },
-                    Cancelar: function() {
+                    Cancel: function() {
                         $( this ).dialog( "close" );
                     }
                 }
@@ -253,6 +253,7 @@ var vistas = {
 
         });
 
+
         $('.table-admin').on('click','.edit-gallery',function(e){
 
             e.preventDefault();
@@ -282,6 +283,25 @@ var vistas = {
 
         });
 
+
+        $('.table-admin').on('click','.insert-room',function(e) {
+
+            e.preventDefault();
+            $('.cancel-room').fadeIn('slow');
+            $('.insert-room').fadeOut('fast');
+            $('.gallery-right').fadeIn('slow');
+
+        });
+
+
+        $('.table-admin').on('click','.cancel-room',function(e) {
+
+          e.preventDefault();
+          $('.cancel-room').fadeOut('fast');
+          $('.insert-room').fadeIn('slow');
+          $('.gallery-right').fadeOut('fast');
+
+        });
         function reloadPlaces(params,type){
 
             var url = '../lib/Execute.php?e=Mhmproperties/getPlacesAdmin/';
@@ -298,7 +318,9 @@ var vistas = {
                 $('.gallery-right .selectpicker').selectpicker();
                 $('.input .form-control[name="id_building"]').parent().parent().parent().remove();
                 $('.gallery-right .form-operation').html('<i class="fa fa-search-plus fa-plus-square-o"></i> Insert new room type');
-                $('.places-opt-canvas .gallery-left').append("<table  class='table table-striped' ></table>");
+                $('.places-opt-canvas .gallery-left').append("<table  class='table table-striped' ></table>" +
+                                                              "<div class='insert-room room-btn'><i class='fa fa-plus'></i>Add</div>" +
+                                                              "<div class='cancel-room room-btn'><i class='fa fa-times'></i>Cancel</div>");
                 var parent = "";
 
                 for(var x = 0; x < json['rows'].length; x++){

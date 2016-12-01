@@ -64,7 +64,7 @@ class Administrador{
                 switch($tabla[1]){
 
                     case "admin":
-                        echo "<div class='add-new-record'>Insertar nuevo registro<i class='fa fa-plus fa-fw'></i></div>";
+                        echo "<div class='add-new-record'>Add new record<i class='fa fa-plus fa-fw'></i></div>";
                         echo "<div class='admin-left-column admin-only-left well'>";
                         $dynamicObj->createAdminTable($tabla[0]);
                         echo "</div>";
@@ -79,7 +79,7 @@ class Administrador{
 
                         $id = $_GET['id'];
                         echo "<div class='add-new-record-update'>
-                                <a href='?s={$tabla[0]}-admin'>Regresar <i class='fa fa-rotate-left fa-fw'></i></a>
+                                <a href='?s={$tabla[0]}-admin'>Back <i class='fa fa-rotate-left fa-fw'></i></a>
                               </div>";
 
                         echo "<div class='admin-left-column well'>";
@@ -174,7 +174,7 @@ class Administrador{
                             <a href='#' class='menu-item-link'>{$_SESSION['nombre']}</a>
                         </div>
                         <ul>
-                            <li class='submenu-item'><a class='menu-subitem-link' href='../lib/Execute.php?e=User/logout&back=1'>Salir</a></li>
+                            <li class='submenu-item'><a class='menu-subitem-link' href='../lib/Execute.php?e=User/logout&back=1'>Sign Out</a></li>
                         </ul>
                         </li>";
 
@@ -534,7 +534,7 @@ class Administrador{
         if($report){
             $controles .= "<th>Consultar</th>";
         }else{
-            $controles .= "<th>Editar</th><th>Eliminar</th>";
+            $controles .= "<th>Edit</th><th>Delete</th>";
         }
 
         $sqlRow = $this->dbo->getColumns($tabla);
@@ -590,8 +590,8 @@ class Administrador{
         echo "<form class='validation-form'  action=\"../lib/Execute.php?e=Administrador/{$typeForm}Row&table-insert={$tabla}{$extra}&back=1\" method=\"post\" enctype=\"multipart/form-data\">";
 
         $iconOp = ($type == "insert") ?
-            "<i class='fa fa-search-plus fa-plus-square-o'></i> Insertar nuevo registro" :
-            "<i class='fa fa-search-plus fa-pencil-square-o'></i> Actualizar registro";
+            "<i class='fa fa-search-plus fa-plus-square-o'></i> Insert New Record" :
+            "<i class='fa fa-search-plus fa-pencil-square-o'></i> Update Record";
 
         if(!empty($title)){
             $iconOp = "<i class='fa fa-search-plus fa-pencil-square-o'></i>{$title}";
@@ -811,7 +811,7 @@ class Administrador{
         if($type == "update" || ($type == "preselected" && !empty($id))){
             echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Actualizar</button></p></div>';
         }else{
-            echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Insertar</button></p></div>';
+            echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Insert</button></p></div>';
         }
 
 

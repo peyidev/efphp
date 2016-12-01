@@ -5,7 +5,7 @@ $dynamicObj = new Mhmproperties("buildingInner");
 
 echo "<input type='hidden' id='extra-value' value='buildingInner' />";
 
-echo "<div class='add-new-record'>Insertar nuevo registro<i class='fa fa-plus fa-fw'></i></div>";
+echo "<div class='add-new-record'>New Property<i class='fa fa-plus fa-fw'></i></div>";
 
 echo "<div class='admin-left-column admin-only-left well'>";
 

@@ -6,7 +6,6 @@ var vistas = {
 
     },
     home : function(){
-
         /*Función default*/
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingsFeatured','GET',{},'true',function(json){
 
@@ -17,12 +16,13 @@ var vistas = {
         for(var ft in json)
         {
           var shortVar = json[ft];
-
+          var aRutaId = '<a class="color-reset" href="?s=propertydetails&p=' + shortVar.id + '">';
           console.log(shortVar);
           if(shortVar['bool_mainfeatured'] == 1)
           {
             var mainFt = '#main-ft-';
-            $(mainFt + 'name').html(shortVar['nombre']);
+
+            $(mainFt + 'name').html(aRutaId + shortVar['nombre'] + '</a>');
             $(mainFt + 'desc').html(shortVar['cms_description']);
 
             var object = shortVar['id_serialized_amenitie'];
@@ -35,7 +35,7 @@ var vistas = {
             }
             $(mainFt + 'ameni').html(amenities);
 
-            var imgHtml = '<img src="' + shortVar['img_building'] + '" class="slider-hill" alt="slider image ' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'">';
+            var imgHtml = aRutaId + '<img src="' + shortVar['img_building'] + '" class="slider-hill" alt="slider image ' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'"></a>';
 
             $(mainFt + 'img').html(imgHtml);
 
@@ -44,6 +44,7 @@ var vistas = {
           {
             var roomsData     = '';
             var rooms         = shortVar['rooms'];
+            feauturedHtml     += aRutaId;
             feauturedHtml     += '<div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="' + delay + 'ms">';
               feauturedHtml     += '<div class="single-service">';
                 feauturedHtml     += '<div class="wow scaleIn feautured-box-container" data-wow-duration="500ms" data-wow-delay="' + delay + 'ms">';
@@ -81,6 +82,7 @@ var vistas = {
                 feauturedHtml += '</div>';
               feauturedHtml += '</div>';
             feauturedHtml += '</div>';
+            feauturedHtml += '</a>';
 
             delay = delay + 300;
 
@@ -89,53 +91,113 @@ var vistas = {
         $('#feautured-list').html(feauturedHtml);
 
       });
+      $('#lightSlider').lightSlider({
+        gallery:true,
+        item:1,
+        slideMargin: 0,
+        speed:500,
+        auto:true,
+        loop:true,
+        addClass: 'home-slider-zindex',
+        pause: 5000,
+
+      });
       $('#feautured-list').fadeIn('slow');
+      utils.gmapFunction();
 
     },
-    apartments : function()
-    {
-
+    apartments : function() {
         utils.dynamicBuildingContent("apartment");
 
     },
-    houses : function()
-    {
+    houses : function() {
         utils.dynamicBuildingContent("house");
 
     },
-    condos : function()
-    {
+    condos : function() {
         utils.dynamicBuildingContent("condos");
 
     },
     propertydetail : function (){
       var seccion = utils.getParameterByName("p");
-      console.log(seccion);
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
         console.log(json);
 
-        var gallery = json.gallery;
+        $('#page-title-h1').html(json[0].nombre);
+
+        //GALLERY
+        var gallery     = json.gallery;
         var galleryHtml = '';
-        var flagGal = 0;
-        for(var img in gallery)
-        {
+        for(var img in gallery){
           var imgIndex = gallery[img];
-          if(flagGal == 0)
-          {
-            galleryHtml += '<div class="item active">';
-            flagGal = 1;
-          }
-          else
-            galleryHtml += '<div class="item">';
 
+          galleryHtml += '<li data-thumb="' + imgIndex.img_building + '">';
           galleryHtml += '<img src="' + imgIndex.img_building + '" alt="' + imgIndex.seoalt + '" title="' + imgIndex.seotitle + '">';
-          galleryHtml += '</div>';
-
+          galleryHtml += '</li>';
         }
-        $('#gallery-id').html(galleryHtml);
+        $('#lightSlider').html(galleryHtml);
+        //END-GALLERY
+
+        //PROPERTY DETAILS
+        var pDetail = '#p-detail-';
+        var data    = json[0];
+
+        $(pDetail + 'name').html(data.nombre);
+        $(pDetail + 'desc').html(data.cms_description);
+        $(pDetail + 'img' ).html('<img class="slider-hill" src="'+ gallery[0].img_building +'" alt="slider image ' + gallery[0].seoalt + '" title="' + gallery[0].seotitle + '">');
+        //END-PROPERTY DETAILS
+
+        //AMENITIES
+        var amenInicio     = '<p><span class="amenities-red-box slider-sun"></span><label>';
+        var amenFin        = '</label></p>';
+        var dataAmen       = data.id_serialized_amenitie;
+        var amenitiesArray = '';
+
+        for(var index in dataAmen) {
+          amenitiesArray += amenInicio + dataAmen[index] + amenFin;
+        }
+        $(pDetail + 'amenities').html(amenitiesArray);
+        //END-AMENITIES
+
+        //NEARBY
+        var dataNearby   = data.id_serialized_nerbyamenitie;
+        var nAmenitiesArray = '';
+
+        if(dataNearby.length == 0)
+          $('#detail-transportation').toggleClass('no-display');
+
+        for(var index in dataNearby)
+        {
+          nAmenitiesArray += amenInicio + dataNearby[index] + amenFin;
+        }
+        $(pDetail + 'nearby').html(nAmenitiesArray);
+        //END-NEARBY
+
+        //GALLERY-RUN
+        $('#lightSlider').lightSlider({
+          gallery:true,
+          item:1,
+          thumbItem:9,
+          slideMargin: 0,
+          speed:500,
+          //auto:true,
+          loop:true,
+        });
+        //END-GALLERY-RUN
+
+        //MAPA
+        utils.gmapFunction(json);
+        //END-MAPA
+
       });
       $('#gallery-id').fadeIn('slow');
 
-    }
 
+    },
+    resources :function(){
+      utils.gmapFunction();
+    },
+    contact :function(){
+      utils.gmapFunction();
+    }
 };

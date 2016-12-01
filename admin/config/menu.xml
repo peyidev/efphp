@@ -1,4 +1,5 @@
 <menu>
+
     <item>
         <itemName>CMS</itemName>
         <itemLink>#</itemLink>
@@ -24,38 +25,36 @@
         </subitem-->
     </item>
 
-	<item>
-		<itemName>Administrador</itemName>
-		<itemLink>?s=home</itemLink>
-		<rol>ADMINISTRADOR</rol>
+    <item>
+        <itemName>Admin</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
         <icon>fa-group</icon>
-		<rol>Vendedor</rol>
+        <rol>Vendedor</rol>
 
-		<subitem>
-			<subitemName>Usuarios</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
-			<module>admin</module>
-		</subitem>
-		
-		<subitem>
-			<subitemName>Roles</subitemName>
-			<subitemLink>?s=rol-admin</subitemLink>
+        <subitem>
+            <subitemName>Users</subitemName>
+            <subitemLink>?s=admin-admin</subitemLink>
+            <module>admin</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Roles</subitemName>
+            <subitemLink>?s=rol-admin</subitemLink>
             <module>rol</module>
-		</subitem>
+        </subitem>
 
         <!--<subitem>-->
             <!--<subitemName>Test</subitemName>-->
             <!--<subitemLink>?s=test-admin</subitemLink>-->
             <!--<module>test</module>-->
         <!--</subitem>-->
-	</item>
-
-
+    </item>
     <item>
         <itemName>Buildings</itemName>
         <itemLink>?s=building-vista</itemLink>
         <rol>ADMINISTRADOR</rol>
-        <icon>fa-group</icon>
+        <icon>fa-building</icon>
         <rol>Vendedor</rol>
 
         <subitem>
@@ -105,8 +104,6 @@
 
 
     </item>
-
-
 
     <!--item>
         <itemName>Establecimientos</itemName>
