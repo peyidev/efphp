@@ -699,7 +699,6 @@ class Mhmproperties extends Administrador{
 
                         }
 
-
                     }
                 }
 
@@ -709,7 +708,7 @@ class Mhmproperties extends Administrador{
 
         $building['places'] = $this->getPlaces($id,false);
         $building['gallery'] = $this->getGallery($id,false);
-        $building['gallery'] = $this->getPlans($id,false);
+        $building['floor'] = $this->getPlans($id,false);
 
         echo $this->util->safe_json_encode($building);
 
