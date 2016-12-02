@@ -602,3 +602,11 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 
     color:red;
 }
+.hide-insert .insert-room{
+
+    display: none;
+}
+.places-opt .gallery-left.hide-insert .cancel-room{
+
+    display: block;
+}

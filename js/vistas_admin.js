@@ -217,6 +217,8 @@ var vistas = {
 
             e.preventDefault();
 
+
+
             $('.gallery-left').empty();
             $('.gallery-right').empty();
 
@@ -230,6 +232,12 @@ var vistas = {
                 $('.places-opt').remove();
 
             });
+
+
+            $('.gallery-right').fadeIn('slow');
+            $('.gallery-left').toggleClass('hide-insert');
+
+
 
         });
 
@@ -300,8 +308,10 @@ var vistas = {
           $('.cancel-room').fadeOut('fast');
           $('.insert-room').fadeIn('slow');
           $('.gallery-right').fadeOut('fast');
+          $('.validation-form').trigger('reset');
 
         });
+
         function reloadPlaces(params,type){
 
             var url = '../lib/Execute.php?e=Mhmproperties/getPlacesAdmin/';

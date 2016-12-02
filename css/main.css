@@ -2491,10 +2491,16 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   max-height: 600px;
   height:600px;
 }
-#lightSlider li,  #plan-gallery li {
+#lightSlider li, #plan-gallery li {
   height: 100%;
   text-align: center;
 }
+.home-slider-zindex .special-top div{
+    padding-top: 0;
+}
+.home-slider-zindex .special-left div{}
+.home-slider-zindex .special-right div{}
+.home-slider-zindex .special-bottom div{}
 #lightSlider li img , #plan-gallery li img{
   height: 100%;
 }
@@ -2556,6 +2562,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   height: 100%;
   padding-top: 240px;
   width: 100%;
+  text-shadow: 2px 2px 2px black;
 }
 .home-slider-zindex div label {
   text-shadow: 2px 2px 2px black;
