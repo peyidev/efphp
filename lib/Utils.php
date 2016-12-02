@@ -351,6 +351,33 @@
 
       }
 
+      function isBlackListedClass($class){
+
+          $blacklistClasses = unserialize(BLACKLIST_CLASES);
+
+          if(in_array($class,$blacklistClasses))
+              return true;
+          else
+              return false;
+      }
+
+      function sanitizeForm($type,$content){
+
+          $type = $this->limpiarParams($type);
+          $type = strtoupper($type);
+          $title = "MHMPROPERTIES - {$type}";
+          $content = $this->limpiar($content);
+
+          $res = array();
+          $res['title'] = $title;
+          $res['content'] = $content;
+
+          return $res;
+
+
+      }
+
+
   }
 
 

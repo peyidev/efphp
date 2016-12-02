@@ -79,7 +79,11 @@
         </div>
       </div>
     </header>
-
+    <?php
+        $msj = new Messages();
+        echo $msj->parseMessage($msj->getMessage());
+        $msj->initMessages();
+    ?>
     <?php $cms->parseSection(file_get_contents("vistas/" . $u->incluirSeccion($cuerpo))); ?>
 
     <footer id="footer">
@@ -102,7 +106,7 @@
           <div class="col-md-5 col-sm-6">
             <div class="contact-form bottom">
               <h2 class="h2-white">Contact us</h2>
-              <form id="main-contact-form" name="contact-form" method="post" action="sendemail.php">
+              <form id="main-contact-form" name="contact-form" method="post" action="lib/Execute.php?e=Frontend/saveContact/contact&back=1">
                 <div class="form-group">
                   <input type="text" name="name" class="form-control" required="required" placeholder="Name">
                 </div>

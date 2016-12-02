@@ -284,6 +284,36 @@ var vistas = {
         });
 
 
+        $('.table-admin').on('click','.edit-floorplans',function(e){
+
+            e.preventDefault();
+            $('.places-opt').remove();
+            $('.gallery-opt').remove();
+
+            $('<tr class="gallery-opt"><td class="gallery-opt-canvas" colspan="10"><div class="close-gallery"><i class="fa fa-close fa-fw fa-2x"></i></div><div class="gallery-left"></div><div class="gallery-right"></div></td></tr>').insertAfter($(this).parent().parent());
+
+            var params = $(this).attr('id');
+            reloadPlans(params);
+
+            $('.close-gallery').click(function(){
+
+                $('.gallery-opt').remove();
+
+            });
+
+            $('.gallery-opt-canvas .gallery-right').append('<form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>');
+            $('.dropzone').dropzone({
+
+                queuecomplete:function(){
+
+                    reloadPlans(params);
+
+                },url : '../lib/Execute.php?e=Mhmproperties/uploadFloorplans/' + params
+            });
+
+        });
+
+
         $('.table-admin').on('click','.insert-room',function(e) {
 
             e.preventDefault();
@@ -346,6 +376,44 @@ var vistas = {
 
         }
 
+        function reloadPlans(params){
+            ajaxData('../lib/Execute.php?e=Mhmproperties/getPlans/' + params,'GET',{},'true',function(json){
+
+                $('.gallery-opt-canvas .gallery-left').empty();
+
+                for(var x = 0; x < json.length; x++){
+
+
+                    $('.gallery-opt-canvas .gallery-left').append("<div class='gallery-element' id='img-" + json[x]['id'] + "'><img src='../" + json[x]['img_building'] + "' />" +
+                    "<span class='gallery-order'>"
+                    +  json[x]['order_img'] +
+                    "<a href='?s=gallery_floorplans&id=" + json[x]['id'] + "' class='delete-admin delete-mini-pic'><i class='fa fa-close fa-fw close-img-cross'></i></a>" +
+                    "</span>" +
+                    "</div>");
+
+                }
+
+                $('.gallery-opt-canvas .gallery-left').sortable({
+                    out: function( event, ui ) {
+                        var moved = ui.item.attr('id');
+                        var next = ui.item.next('.gallery-element').attr('id');
+                        paramsOrder = moved + "|" + next + "|" + params;
+
+                        ajaxData('../lib/Execute.php?e=Mhmproperties/updateOrderPlans/' + paramsOrder,'GET',{},'true',function(json){
+
+                            reloadPlans(params);
+
+                        });
+
+                    }
+                });
+
+
+
+            });
+
+
+        }
         function reloadPictures(params){
 
 

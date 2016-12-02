@@ -18,6 +18,11 @@
             <module>cms</module>
         </subitem>
 
+        <subitem>
+            <subitemName>Mail type</subitemName>
+            <subitemLink>?s=mailtype-admin</subitemLink>
+            <module>mailtype</module>
+        </subitem>
         <!--subitem>
             <subitemName>Contenido</subitemName>
             <subitemLink>?s=rol-admin</subitemLink>
@@ -70,6 +75,12 @@
             <module>gallery_building</module>
         </subitem>
 
+        <subitem>
+            <subitemName>Floorplans gallery</subitemName>
+            <subitemLink>?s=gallery_floorplans-admin</subitemLink>
+            <module>gallery_floorplans</module>
+        </subitem>
+
 
         <subitem>
             <subitemName>Place</subitemName>
@@ -78,11 +89,11 @@
         </subitem>
 
 
-        <subitem>
-            <subitemName>Place gallery</subitemName>
-            <subitemLink>?s=gallery_place-admin</subitemLink>
-            <module>gallery_place</module>
-        </subitem>
+        <!--<subitem>-->
+            <!--<subitemName>Place gallery</subitemName>-->
+            <!--<subitemLink>?s=gallery_place-admin</subitemLink>-->
+            <!--<module>gallery_place</module>-->
+        <!--</subitem>-->
 
         <subitem>
             <subitemName>Amenities</subitemName>

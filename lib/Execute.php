@@ -60,6 +60,11 @@ class Execute{
             $message = new Messages();
             $message->initMessages();
 
+            if($u->isBlackListedClass($class)){
+                echo "error:You dont have permissions to do that!";
+                return false;
+            }
+
 
             if($class == "Administrador" || $class == 'Mhmproperties'){
 
@@ -83,7 +88,7 @@ class Execute{
                     $privileges = true;
 
                 if(!$privileges){
-                    $message->setMessage("error:No tienes permisos para realizar esta operación");
+                    $message->setMessage("error:You dont have permissions to do that!");
 
                     if($back)
                         header("Location: {$_SERVER['HTTP_REFERER']}");
@@ -107,13 +112,13 @@ class Execute{
 
                 }else{
 
-                    echo "Error de método";
+                    echo "Method error";
 
                 }
 
             }else{
 
-                echo "Error de clase";
+                echo "Class error";
 
             }
 

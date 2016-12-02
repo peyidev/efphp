@@ -289,12 +289,25 @@ class Mhmproperties extends Administrador{
 
         $columns[] = array(
             'db' => 'id',
-            'column_name' => 'Edit gallery',
+            'column_name' => 'Gallery',
             'dt' => $cont,
             'formatter' =>
                 function( $d, $row, $table ) {
 
                     return "<a class='edit-gallery center-data' id='{$d}' href='?s=building-update&amp;id={$d}' class='center-data'><i class='fa fa-picture-o fa-fw fa-2x'></i></a>";
+
+                }
+        );
+
+
+        $columns[] = array(
+            'db' => 'id',
+            'column_name' => 'Floorplans',
+            'dt' => $cont,
+            'formatter' =>
+                function( $d, $row, $table ) {
+
+                    return "<a class='edit-floorplans center-data' id='{$d}' href='?s=building-update&amp;id={$d}' class='center-data'><i class='fa fa-picture-o fa-fw fa-2x'></i></a>";
 
                 }
         );
@@ -375,7 +388,11 @@ class Mhmproperties extends Administrador{
 
     }
 
-    function uploadGallery($id){
+    function uploadFloorplans($id){
+        $this->uploadGallery($id, "gallery_floorplans");
+    }
+
+    function uploadGallery($id,$type = "gallery_building"){
 
         $id = $this->util->limpiarParams($id);
         $name = $this->util->handleImages($_FILES,'gallery');
@@ -388,7 +405,7 @@ class Mhmproperties extends Administrador{
             $seo = $buildingData[0]['nombre'];
 
 
-            $next = $this->dbo->select('gallery_building',"id_building = {$id}",'max(order_img) as order_img_next');
+            $next = $this->dbo->select($type,"id_building = {$id}",'max(order_img) as order_img_next');
             $queryNext = $this->db->query($next);
             $nextItem = $this->util->queryArray($queryNext);
             $nextItem = $nextItem[0]['order_img_next'];
@@ -403,13 +420,19 @@ class Mhmproperties extends Administrador{
             $insert['id_building'] = $id;
             $insert['img_building'] = 'media/img/' . $name;
             $insert['order_img'] = $nextItem;
-            $sql = $this->dbo->insert('gallery_building',$insert);
+            $sql = $this->dbo->insert($type,$insert);
             $this->db->query($sql);
         }
 
     }
 
-    function updateOrder($reorder){
+    function updateOrderPlans($reorder){
+
+        $this->updateOrder($reorder,"gallery_floorplans");
+
+    }
+
+    function updateOrder($reorder,$type = "gallery_building"){
 
         $reorder = $this->util->limpiarParams($reorder);
 
@@ -419,7 +442,7 @@ class Mhmproperties extends Administrador{
         $next = explode('img-',$_reorder[1])[1];
         $idBuilding = $_reorder[2];
 
-        $sql = $this->dbo->select('gallery_building',"id='{$next}'",'order_img');
+        $sql = $this->dbo->select($type,"id='{$next}'",'order_img');
         $query = $this->db->query($sql);
         $order = $this->util->queryArray($query);
         $order = $order[0]['order_img'];
@@ -427,13 +450,13 @@ class Mhmproperties extends Administrador{
         if($order <= 0)
             $order = 1;
 
-        $sql = "UPDATE gallery_building SET order_img = '{$order}' WHERE id = '{$new}'";
+        $sql = "UPDATE {$type} SET order_img = '{$order}' WHERE id = '{$new}'";
         $this->db->query($sql);
 
-        $sql = "UPDATE gallery_building SET order_img = (order_img + 1) WHERE id_building = '{$idBuilding}' AND order_img >= {$order} AND id <> {$new} ";
+        $sql = "UPDATE {$type} SET order_img = (order_img + 1) WHERE id_building = '{$idBuilding}' AND order_img >= {$order} AND id <> {$new} ";
         $this->db->query($sql);
 
-        $sql = $this->dbo->select('gallery_building',"id_building='{$idBuilding}'",'min(order_img) as order_img');
+        $sql = $this->dbo->select($type,"id_building='{$idBuilding}'",'min(order_img) as order_img');
         $query = $this->db->query($sql);
         $order = $this->util->queryArray($query);
         $order = $order[0]['order_img'];
@@ -444,10 +467,8 @@ class Mhmproperties extends Administrador{
         if($substract <= 0)
             $substract = 0;
 
-        $sql = "UPDATE gallery_building SET order_img = (order_img - {$substract}) WHERE id_building = '{$idBuilding}' AND order_img > {$substract}";
+        $sql = "UPDATE {$type} SET order_img = (order_img - {$substract}) WHERE id_building = '{$idBuilding}' AND order_img > {$substract}";
         $this->db->query($sql);
-
-
 
 
     }
@@ -592,6 +613,21 @@ class Mhmproperties extends Administrador{
 
     }
 
+    function getPlans($val,$json = true){
+
+        $val = $this->util->limpiarParams($val);
+        $sql = $this->dbo->select("gallery_floorplans","id_building = {$val}",'*','order_img ASC');
+        $query = $this->db->query($sql);
+        $gallery = $this->util->queryArray($query);
+
+
+        if($json)
+            echo $this->util->safe_json_encode($gallery);
+        else
+            return $gallery;
+
+    }
+
     function getPlaces($val,$json = true){
 
         $sql = $this->dbo->select("place","id_building = {$val}",'*','order_place ASC');
@@ -679,8 +715,7 @@ class Mhmproperties extends Administrador{
 
         echo $this->util->safe_json_encode($building);
 
-
-
     }
+
 
 }

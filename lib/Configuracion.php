@@ -8,12 +8,21 @@ $port = ($_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domain = $port . $_SERVER['SERVER_NAME'];
 $domainGlobal = "https://" . $_SERVER['SERVER_NAME'];
 
+$blacklistClasses = array();
+$blacklistClasses[] = 'Email';
+
+$emailSenders = 'mail1@efphp.com,mail2@efphp.com';
+
+define('BLACKLIST_CLASES',serialize($blacklistClasses));
+define('EMAIL_SENDERS',$emailSenders);
+define('EMAIL_FROM','contact@mhmproperties.com');
+
 define('BASE_PATH', $path);
 
 define('HOSTNAME', '127.0.0.1');
 define('DATABASE', 'mhmproperties');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'admin');
+define('DB_PASSWORD', '');
 
 #Paypal config
 
