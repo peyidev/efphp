@@ -600,6 +600,18 @@ class Mhmproperties extends Administrador{
     }
 
 
+    function getHomeGallery(){
+
+        $sql = $this->dbo->select("gallery_home",'','*','position ASC');
+        $query = $this->db->query($sql);
+        $gallery = $this->util->queryArray($query);
+
+
+       echo $this->util->safe_json_encode($gallery);
+
+
+    }
+
     function getBuildingByType($val = ""){
 
         $rows = $this->getBuildings($val,'type');

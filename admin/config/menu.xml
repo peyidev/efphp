@@ -19,6 +19,12 @@
         </subitem>
 
         <subitem>
+            <subitemName>Home Gallery</subitemName>
+            <subitemLink>?s=gallery_home-admin</subitemLink>
+            <module>gallery_home</module>
+        </subitem>
+
+        <subitem>
             <subitemName>Mail type</subitemName>
             <subitemLink>?s=mailtype-admin</subitemLink>
             <module>mailtype</module>
