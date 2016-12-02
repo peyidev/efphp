@@ -72,8 +72,11 @@ class Dbo  {
                 $valor = md5($valor);
             }
 
-            if($llave != "id")
-                $valores.="$llave ='" . $this->util->limpiar($valor) . "',";
+            if($llave != "id" && $llave != "updated_at")
+                $valores.="$llave = '" . $this->util->limpiar($valor) . "',";
+            else if($llave == "updated_at")
+                $valores.="$llave = now() ,";
+
 
         }
 

@@ -45,10 +45,15 @@ var vistas = {
 
             tabla = tabla[0];
 
+            var order = 0;
+            if($(this).find('thead tr th:contains("updated at")').text() == "updated at"){
 
+                order = $(this).find('thead tr th:contains("updated at")').index();
+
+            }
 
             $(this).DataTable({
-                "order": [[ 0, "desc" ]],
+                "order": [[ order, "desc" ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax": ("../lib/Execute.php?e=Administrador/createAjaxTable/"  + tabla + "&extraValue=" + extra + "&mainValue=" + main)

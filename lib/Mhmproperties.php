@@ -180,7 +180,7 @@ class Mhmproperties extends Administrador{
 
     function dataGridBuilding($columns = array(),$cont = 1){
 
-        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name','id_serialized_nerbyamenitie', 'Amenities','Nearby', 'Edit', 'Delete');
+        $remove = array('Editar','Eliminar','id','video','nombre','address','id_buildingtype','cms_description','fromfee','bool_featured','bool_mainfeatured','id_serialized_amenitie','Building type','Name','Address','Start Price  (Red label)','Description','Featured','Main Featured (Home)','Video Name','id_serialized_nerbyamenitie', 'Amenities','Nearby', 'Edit', 'Delete','updated_at');
         $this->customColumns = $remove;
         $columns = $this->deleteColumnsFromArray($columns,$remove);
 
@@ -313,6 +313,18 @@ class Mhmproperties extends Administrador{
         );
 
         $columns[] = array(
+            'db' => 'updated_at',
+            'column_name' => 'updated at',
+            'dt' => $cont,
+            'formatter' =>
+                function( $d, $row, $table ) {
+
+                    return $d;
+
+                }
+        );
+
+        $columns[] = array(
             'db' => 'id',
             'column_name' => 'Edit',
             'dt' => $cont,
@@ -325,18 +337,22 @@ class Mhmproperties extends Administrador{
         );
 
 
-        $columns[] = array(
-            'db' => 'id',
-            'column_name' => 'Delete',
-            'dt' => $cont,
-            'formatter' =>
-                function( $d, $row, $table ) {
+
+        if($_SESSION['nombre'] == "Administrador"){
+            $columns[] = array(
+                'db' => 'id',
+                'column_name' => 'Delete',
+                'dt' => $cont,
+                'formatter' =>
+                    function( $d, $row, $table ) {
 
 
-                    return "<a href='?s=building&amp;id={$d}' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a>";
+                        return "<a href='?s=building&amp;id={$d}' class='delete-admin center-data'><i class='fa fa-close fa-fw fa-2x'></i></a>";
 
-                }
-        );
+                    }
+            );
+        }
+
 
 
 

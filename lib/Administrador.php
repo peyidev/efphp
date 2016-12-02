@@ -628,6 +628,9 @@ class Administrador{
             if($row['Field'] == "id_admin"){
                 echo "<input type='hidden' name='id_admin' value='{$_SESSION['id_admin']}'/>";
                 continue;
+            }else if($row['Field'] == "updated_at"){
+                echo "<input type='hidden' name='updated_at' value='now()'/>";
+                continue;
             }
 
             if($row['Field'] != "id"){
