@@ -7,11 +7,9 @@
           <div class="p-t-lg col-lg-6 col-sm-12 float-right">
             <div id="gmap"></div>
           </div>
-
           <h1 class="mhm-txt col-lg-6 col-sm-12">
             <span class="mhm-m mhm-txt">M</span><span class="mhm-h mhm-txt">H</span><span class="mhm-m mhm-txt">M</span> Properties
           </h1>
-
           <div class="contact-content-div col-lg-3 col-sm-6 p-d-xl">
 
             <label><i class="fa fa-map-marker color-purple-light slider-hill"></i> 303 S Fifth Street, Champaign, IL 61820</label>
@@ -27,7 +25,6 @@
             <span class="amenities-list amen-txt"><span class="amenities-red-box slider-sun"></span> Hours 9am – 5pm (M-F) </span>
 
           </div>
-
           <div class="contact-content-div col-lg-3 col-sm-6 p-d-xl">
 
             <span> MHM Properties and Management</span>

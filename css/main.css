@@ -645,6 +645,9 @@ ul.sub-menu {
 .bg-white {
   background: white none repeat scroll 0 0;
 }
+.bg-f6 {
+  background: #f6f6f6 none repeat scroll 0 0;
+}
 .color-purple-light{
   color: #878fd6;
 }
@@ -2192,6 +2195,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .p-t-lg {
   padding-top: 20px;
 }
+.p-l-md{
+  padding-left: 15px;
+}
 .p-b-lg {
   padding-bottom: 20px;
 }
@@ -2441,7 +2447,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   width: 25%;
 }
 #detail-transportation .d-ameni-list p {
-  width: 33.3333%;
+  width: 100%;
 }
 .d-ameni-list p span {
   left: -15px !important;
@@ -2481,14 +2487,15 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 }
 #carousel-example-generic .item img {
 }
-#lightSlider {
+#lightSlider, #plan-gallery {
   max-height: 600px;
+  height:600px;
 }
-#lightSlider li {
+#lightSlider li,  #plan-gallery li {
   height: 100%;
   text-align: center;
 }
-#lightSlider li img {
+#lightSlider li img , #plan-gallery li img{
   height: 100%;
 }
 .lSPager.lSGallery {
@@ -2579,4 +2586,20 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   padding-left: 12px;
   position: relative;
   padding-top: 2px;
+}
+
+
+.rent-view {
+  border-bottom: 1px solid #ddd;
+}
+.rent-view .col-lg-6 {
+  margin-bottom: 5px;
+}
+.rent-view .col-lg-6 input, .rent-view .col-lg-6 select,.rent-view .col-lg-6 textarea {
+  width: 70%;
+}
+.rent-view .submit-btn-big-form{
+  float: left;
+  margin: 0 33.33%;
+  width: 33.33%;
 }

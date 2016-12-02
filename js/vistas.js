@@ -193,11 +193,35 @@ var vistas = {
       $('#gallery-id').fadeIn('slow');
 
 
+
+
+
+      //GALLERY-RUN
+      $('#plan-gallery').lightSlider({
+        gallery:true,
+        item:1,
+        thumbItem:9,
+        slideMargin: 0,
+        speed:500,
+        //auto:true,
+        loop:true,
+      });
+      //END-GALLERY-RUN
+
+
     },
     resources :function(){
       utils.gmapFunction();
     },
     contact :function(){
       utils.gmapFunction();
+    },
+    rent : function(){
+      var data = $('#mhm-rent-form-uno').serializeArray();
+      console.log(data);
+    },
+    forwardaddress : function(){
+      var data = $('#mhm-rent-form-dos').serializeArray();
+      console.log(data);
     }
 };

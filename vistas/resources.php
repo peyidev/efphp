@@ -24,11 +24,11 @@
 
       <div class="col-lg-6 col-sm-6">
         <div class="resources-documents">
-          <p><i class="fa fa-file-pdf-o"></i>SAMPLE LEASE <a target="_blank" href="MHMLease.pdf">DOWNLOAD(PDF)</a></p>
+          <p><i class="fa fa-file-pdf-o"></i>SAMPLE LEASE <a target="_blank" href="docs/MHMLease.pdf">DOWNLOAD(PDF)</a></p>
           <p><i class="fa fa-file-archive-o"></i>APPLICATION TO RENT: CLICK HERE TU SUBMIT AN <a href="?s=rent">APPLICATION TO RENT</a></p>
-          <p><i class="fa fa-users"></i>ROOMATE MATCHING: DOWNLOAD OUR <a href="">RESIDENT QUESTIONNAIRE</a></p>
+          <p><i class="fa fa-users"></i>ROOMATE MATCHING: DOWNLOAD OUR <a href="docs/Resident-Questionnaire.pdf" target="_blank">RESIDENT QUESTIONNAIRE</a></p>
           <p><i class="fa fa-envelope"></i>EMAIL ADDRESS UPDATE FORM</p>
-          <p><i class="fa fa-inbox"></i>FORWARDING ADDRESS: <a href="">CLICK HERE TO SUBMIT A FORWARDING ADDRESS</a></p>
+          <p><i class="fa fa-inbox"></i>FORWARDING ADDRESS: <a href="?s=forwardaddress">CLICK HERE TO SUBMIT A FORWARDING ADDRESS</a></p>
         </div>
       </div>
 
@@ -42,9 +42,9 @@
       <div class="col-lg-6 col-sm-6 r-l-content slide-text">
         <p class="Title"><strong>Maintenance</strong></p>
         <p>24 Hour Maintenance: For Emergencies we have an answering service that can page maintenance personnel 24 hours a day, 7 days a week. To contact maintenance for after-hour emergencies, call <strong>217-337-8852 or 217-841-5407</strong>.</p>
-        <p>Please call our main office number <strong>217-337-8852 or 217-841-5407</strong> to submit a maintenance request during regular office hours for <a href="http://www.mhmproperties.com/apartments">Champaign Urbana Apartments</a>.
+        <p>Please call our main office number <strong>217-337-8852 or 217-841-5407</strong> to submit a maintenance request during regular office hours for <a href="?s=apartments">Champaign Urbana Apartments</a>.
         </p>
-        <p>MHM Properties provides you the best <a href="http://www.mhmproperties.com/">Champaign Rental</a> housing. All our <a href="http://www.mhmproperties.com/condos">UIUC Apartments</a> are fully furnished and suitable for all people who are searching for the best apartments for their rent.</p>
+        <p>MHM Properties provides you the best <a href="?s=home">Champaign Rental</a> housing. All our <a href="?s=condos">UIUC Apartments</a> are fully furnished and suitable for all people who are searching for the best apartments for their rent.</p>
         <p class="Title"><strong>Maintenance Office</strong></p>
         <p class="Title"><em>ADDRESS:</em> 303 S Fifth Street, Champaign, IL<br>
           <em>TELEPHONE:</em> 217-337-8852 or 217-841-5407<br>

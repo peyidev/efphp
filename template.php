@@ -1,7 +1,7 @@
 <?php $cms = new Cms(); ?>
 <!doctype html>
 
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +40,7 @@
             ga('create', '<?php echo GOOGLEANALYTICS;?>', 'auto');
             ga('send', 'pageview');
 
-        </script>
+    </script>
 
 
   </head>
@@ -167,5 +167,4 @@
     <script type="text/javascript" src="js/lightslider.js"></script>
 
   </body>
-
 </html>

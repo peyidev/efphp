@@ -40,14 +40,26 @@
 <!--/#Features & Amenities-->
 
 <!--/#PropertyNearby-->
+<!--/#PropertyMap-->
 <section id="detail-transportation" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container">
-    <span class="d-ameni-title">
-      Nearby Public places and transportion
-    </span>
-    <div class="amenities-list d-ameni-list" id="p-detail-nearby"></div>
+
+    <div class="col-lg-6">
+      <span class="d-ameni-title">
+        Nearby Public places and transportion
+      </span>
+      <div class="amenities-list d-ameni-list" id="p-detail-nearby"></div>
+    </div>
+
+    <div class="col-lg-6">
+      <div id="map-container">
+        <div id="gmap"></div>
+      </div>
+    </div>
+
   </div>
 </section>
+<!--/#Map-->
 <!--/#Nearby Public places and transportion-->
 
 <!--/#PropertyVideo-->
@@ -70,18 +82,26 @@
 <!--/#PropertyGallery-->
 <section id="detail-slider" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container">
-<!--    <span class="d-ameni-title"> Gallery </span>-->
+    <span class="d-ameni-title">Gallery</span>
     <ul id="lightSlider"></ul>
   </div>
 </section>
 <!--/#Detail Slider-->
 
-<!--/#PropertyMap-->
-<section id="map-home">
+
+<section id="detail-plans" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container">
-    <div id="map-container">
-      <div id="gmap"></div>
-    </div>
+    <span class="d-ameni-title">Floorplans</span>
+    <ul id="plan-gallery">
+      <li data-thumb="plans/303Fifth-Floorplan-page-001.jpg"><img src="plans/303Fifth-Floorplan-page-001.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-002.jpg"><img src="plans/303Fifth-Floorplan-page-002.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-003.jpg"><img src="plans/303Fifth-Floorplan-page-003.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-004.jpg"><img src="plans/303Fifth-Floorplan-page-004.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-005.jpg"><img src="plans/303Fifth-Floorplan-page-005.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-006.jpg"><img src="plans/303Fifth-Floorplan-page-006.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-007.jpg"><img src="plans/303Fifth-Floorplan-page-007.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-008.jpg"><img src="plans/303Fifth-Floorplan-page-008.jpg" alt=""></li>
+      <li data-thumb="plans/303Fifth-Floorplan-page-009.jpg"><img src="plans/303Fifth-Floorplan-page-009.jpg" alt=""></li>
+    </ul>
   </div>
 </section>
-<!--/#Map-->
