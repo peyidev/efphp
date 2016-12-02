@@ -16,8 +16,8 @@ var vistas = {
         for(var ft in json)
         {
           var shortVar = json[ft];
-          var aRutaId = '<a class="color-reset" href="?s=propertydetails&p=' + shortVar.id + '">';
-          console.log(shortVar);
+          var aRutaId = '<a class="color-reset" href="?s=propertydetail&p=' + shortVar.id + '">';
+
           if(shortVar['bool_mainfeatured'] == 1)
           {
             var mainFt = '#main-ft-';
@@ -91,8 +91,9 @@ var vistas = {
         $('#feautured-list').html(feauturedHtml);
 
       });
+
       $('#lightSlider').lightSlider({
-        gallery:true,
+//         gallery:true,
         item:1,
         slideMargin: 0,
         speed:500,
@@ -100,11 +101,9 @@ var vistas = {
         loop:true,
         addClass: 'home-slider-zindex',
         pause: 5000,
-
       });
       $('#feautured-list').fadeIn('slow');
       utils.gmapFunction();
-
     },
     apartments : function() {
         utils.dynamicBuildingContent("apartment");
@@ -121,7 +120,7 @@ var vistas = {
     propertydetail : function (){
       var seccion = utils.getParameterByName("p");
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
-        console.log(json);
+
 
         $('#page-title-h1').html(json[0].nombre);
 
@@ -218,10 +217,10 @@ var vistas = {
     },
     rent : function(){
       var data = $('#mhm-rent-form-uno').serializeArray();
-      console.log(data);
+
     },
     forwardaddress : function(){
       var data = $('#mhm-rent-form-dos').serializeArray();
-      console.log(data);
+
     }
 };
