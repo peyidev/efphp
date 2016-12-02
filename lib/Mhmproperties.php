@@ -331,7 +331,7 @@ class Mhmproperties extends Administrador{
             'formatter' =>
                 function( $d, $row, $table ) {
 
-                    return "<a href='?s=building-update&amp;id={$d}' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
+                    return "<a href='?s=building-update-vista&id={$d}' class='center-data'><i class='fa fa-pencil fa-fw fa-2x'></i></a>";
 
                 }
         );

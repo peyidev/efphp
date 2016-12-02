@@ -1,11 +1,17 @@
 <?php
 
+
 $dynamicObj = new Mhmproperties("buildingInner");
 
 
 echo "<input type='hidden' id='extra-value' value='buildingInner' />";
 
-echo "<div class='add-new-record'>New Property<i class='fa fa-plus fa-fw'></i></div>";
+if(empty($includeType) || $includeType != "UPDATE"){
+    echo "<div class='add-new-record'>New Property<i class='fa fa-plus fa-fw'></i></div>";
+}else{
+    echo "<style>.admin-right-column{width:48% !important;}</style>";
+}
+
 
 echo "<div class='admin-left-column admin-only-left well'>";
 

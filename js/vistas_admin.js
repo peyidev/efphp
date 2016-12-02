@@ -469,6 +469,12 @@ var vistas = {
 
         }
 
+    },
+    building_update_vista : function(){
+
+        $('.add-new-record-update a').attr('href','?s=building-vista');
+
+
     }
 
 

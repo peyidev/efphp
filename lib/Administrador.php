@@ -86,6 +86,25 @@ class Administrador{
                         $dynamicObj->createUpdateForm($tabla[0],$id);
                         echo "</div>";
 
+
+                        $detail = $_GET['s'];
+                        $detail = explode("-",$detail);
+                        if(!empty($detail[2])){
+
+                            $include = BASE_PATH . ADMINURL . "vistas/{$detail[0]}.php";
+                            $includeType = "UPDATE";
+                            if(file_exists($include)){
+                                include($include);
+                            }else{
+
+                                echo "<div class='well well-lg'>No hay información</div>";
+
+                            }
+                            break;
+
+
+                        }
+
                         echo "<div class='admin-right-column'>";
                         $dynamicObj->createGridBase($tabla[0]);
                         echo "</div>";
