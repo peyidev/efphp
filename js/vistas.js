@@ -7,6 +7,7 @@ var vistas = {
     },
     home : function(){
         /*Función default*/
+
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingsFeatured','GET',{},'true',function(json){
 
         var feauturedHtml = '';
@@ -92,7 +93,39 @@ var vistas = {
 
       });
 
+
+      ajaxData('lib/Execute.php?e=Mhmproperties/getHomeGallery','GET',{},'true',function(json){
+
+
+        //GALLERY
+        var gallery     = json;
+        var galleryHtml = '';
+
+        for(var img in gallery){
+          var imgIndex = gallery[img];
+          console.log(imgIndex);
+
+          galleryHtml += '<li data-thumb="' + imgIndex.img_file + '">';
+          galleryHtml += '<img src="' + imgIndex.img_file + '" alt="MHM Properties" title="MHM Properties">';
+          galleryHtml += '</li>';
+        }
+        $('#home-gallery').html(galleryHtml);
+        //END-GALLERY
+
+      });
+
+
       $('#lightSlider').lightSlider({
+//         gallery:true,
+        item:1,
+        slideMargin: 0,
+        speed:500,
+        auto:true,
+        loop:true,
+        addClass: 'home-slider-zindex',
+        pause: 5000,
+      });
+      $('#home-gallery').lightSlider({
 //         gallery:true,
         item:1,
         slideMargin: 0,
@@ -136,6 +169,29 @@ var vistas = {
         }
         $('#lightSlider').html(galleryHtml);
         //END-GALLERY
+
+
+        //FLOORPLANS
+        if(json.floorplans.length <= 0 )
+        {
+          var comingSoonHtml = '<span class="d-ameni-title">Floorplans</span>';
+          comingSoonHtml    +=  '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
+          $('.detail-plans-coming-soon').html(comingSoonHtml);
+        }
+        else
+        {
+          var galleryFloorPlans     = json.floorplans;
+          var galleryFloorPlansHtml = '';
+          for(var imgFp in galleryFloorPlans){
+            var imgFpIndex = galleryFloorPlans[imgFp];
+
+            galleryFloorPlansHtml += '<li data-thumb="' + imgFpIndex.img_building + '">';
+            galleryFloorPlansHtml += '<img src="' + imgFpIndex.img_building + '" alt="' + imgFpIndex.seoalt + '-Floorplans" title="' + imgFpIndex.seotitle + '-Floorplans">';
+            galleryFloorPlansHtml += '</li>';
+          }
+          $('#plan-gallery').html(galleryFloorPlansHtml);
+        }
+        //END-FLOORPLANS
 
         //PROPERTY DETAILS
         var pDetail = '#p-detail-';
@@ -184,6 +240,18 @@ var vistas = {
         });
         //END-GALLERY-RUN
 
+        //GALLERY-RUN
+        $('#plan-gallery').lightSlider({
+          gallery:true,
+          item:1,
+          thumbItem:9,
+          slideMargin: 0,
+          speed:500,
+          //auto:true,
+          loop:true,
+        });
+        //END-GALLERY-RUN
+
         //MAPA
         utils.gmapFunction(json);
         //END-MAPA
@@ -193,19 +261,6 @@ var vistas = {
 
 
 
-
-
-      //GALLERY-RUN
-      $('#plan-gallery').lightSlider({
-        gallery:true,
-        item:1,
-        thumbItem:9,
-        slideMargin: 0,
-        speed:500,
-        //auto:true,
-        loop:true,
-      });
-      //END-GALLERY-RUN
 
 
     },

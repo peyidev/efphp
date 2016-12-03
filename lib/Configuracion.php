@@ -22,7 +22,7 @@ define('BASE_PATH', $path);
 define('HOSTNAME', '127.0.0.1');
 define('DATABASE', 'mhmproperties');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'admin');
 
 #Paypal config
 

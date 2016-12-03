@@ -40,7 +40,7 @@
 <!--/#Features & Amenities-->
 
 <!--/#PropertyNearby-->
-<!--/#PropertyMap-->
+  <!--/#PropertyMap-->
 <section id="detail-transportation" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container">
 
@@ -59,7 +59,7 @@
 
   </div>
 </section>
-<!--/#Map-->
+  <!--/#Map-->
 <!--/#Nearby Public places and transportion-->
 
 <!--/#PropertyVideo-->
@@ -90,18 +90,10 @@
 
 
 <section id="detail-plans" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
-  <div class="container">
+  <div class="container detail-plans-coming-soon">
     <span class="d-ameni-title">Floorplans</span>
-    <ul id="plan-gallery">
-      <li data-thumb="plans/303Fifth-Floorplan-page-001.jpg"><img src="plans/303Fifth-Floorplan-page-001.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-002.jpg"><img src="plans/303Fifth-Floorplan-page-002.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-003.jpg"><img src="plans/303Fifth-Floorplan-page-003.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-004.jpg"><img src="plans/303Fifth-Floorplan-page-004.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-005.jpg"><img src="plans/303Fifth-Floorplan-page-005.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-006.jpg"><img src="plans/303Fifth-Floorplan-page-006.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-007.jpg"><img src="plans/303Fifth-Floorplan-page-007.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-008.jpg"><img src="plans/303Fifth-Floorplan-page-008.jpg" alt=""></li>
-      <li data-thumb="plans/303Fifth-Floorplan-page-009.jpg"><img src="plans/303Fifth-Floorplan-page-009.jpg" alt=""></li>
-    </ul>
+
+    <ul id="plan-gallery"></ul>
+
   </div>
 </section>

@@ -94,6 +94,11 @@
 
 /* sm */
 @media only screen and (max-width : 992px) {
+  #header.inner-pages{
+    height: 120px;
+    overflow: inherit;
+  }
+  #home-slider-video{}
   /*body{  background: yellow;  }*/
   h1{
     font-size: 25px;
@@ -222,6 +227,13 @@
   #home-special .slide-text p{
     font-size: 14px;
   }
+
+  /*#home-slider-video video, #home-slider-video .special-gal{*/
+    /*display: none;*/
+  /*}*/
+  /*.rwd-gal{*/
+    /*display: block;*/
+  /*}*/
 }
 
 
@@ -600,11 +612,12 @@
 
 @media only screen and (max-width : 480px) {
 
-  /*body{  background: coral;  }*/
+  body{  background: coral;  }
 
   #header {
     margin:0;
     padding:0;
+    overflow: inherit;
     }
   .navbar.navbar-inverse{
     margin-top: 0px;

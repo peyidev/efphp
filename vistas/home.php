@@ -2,12 +2,18 @@
   <div class="home-video-container">
     {{home_video}}
   </div>
-  <ul id="lightSlider">
-    <li><a href="#"><div><label>SPECIAL OFFER #1</label></div></a></li>
-    <li><a href="#"><div><label>SPECIAL OFFER #2</label></div></a></li>
-    <li><a href="#"><div><label>SPECIAL OFFER #3</label></div></a></li>
-    <li><a href="#"><div><label>SPECIAL OFFER #4</label></div></a></li>
-  </ul>
+
+  <div class="special-gal">
+    <ul id="lightSlider">
+      <li><a href="#"><div><label>SPECIAL OFFER #1</label></div></a></li>
+      <li><a href="#"><div><label>SPECIAL OFFER #2</label></div></a></li>
+      <li><a href="#"><div><label>SPECIAL OFFER #3</label></div></a></li>
+      <li><a href="#"><div><label>SPECIAL OFFER #4</label></div></a></li>
+    </ul>
+  </div>
+  <div class="rwd-gal">
+    <ul id="home-gallery"></ul>
+  </div>
 </section>
 <!--/#slidervideo-->
 

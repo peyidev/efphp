@@ -2610,3 +2610,18 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   margin: 0 33.33%;
   width: 33.33%;
 }
+.detail-plans-coming-soon{
+}
+.detail-plans-coming-soon .bg-404{
+  height: 200px;
+}
+.detail-plans-coming-soon .bg-404 label{
+  float: left;
+  margin: 0 auto;
+  padding-top: 80px;
+  text-align: center;
+  width: 100%;
+}
+.rwd-gal{
+  display: none;
+}
