@@ -2462,6 +2462,10 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 }
 .d-ameni-title-span {
 }
+.home-video-container iframe{
+  width: 100%;
+  height: 100%;
+}
 #detail-video .home-video-container {
   bottom: 0;
   float: left;
@@ -2473,9 +2477,10 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   top: 0;
   width: 100%;
 }
-#detail-video .home-video-container video {
+#detail-video .home-video-container iframe {
   height: 100%;
   top: 0;
+  width: 100%;
 }
 #detail-slider {
 }
@@ -2623,5 +2628,8 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   width: 100%;
 }
 .rwd-gal{
+  display: none;
+}
+#full-properties{
   display: none;
 }

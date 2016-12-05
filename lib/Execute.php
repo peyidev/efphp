@@ -66,7 +66,7 @@ class Execute{
             }
 
 
-            if($class == "Administrador" || $class == 'Mhmproperties'){
+            if($class == "Administrador"){
 
                 $privileges = false;
                 $insert = !empty($_GET['table-insert']) ? $_GET['table-insert'] :

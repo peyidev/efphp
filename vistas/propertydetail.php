@@ -69,11 +69,7 @@
       Video Tour Details
     </span>
 
-    <div class="home-video-container">
-      <video class="home-video" height="750px"  muted controls>
-        <source src="video/mhm_intro_video.mp4" type="video/mp4" />
-      </video>
-    </div>
+    <div class="home-video-container" id="p-detail-video"></div>
 
   </div>
 </section>

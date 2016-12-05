@@ -93,3 +93,18 @@ jQuery(function($) {'use strict';
 });
 
 var addressName = false;
+
+var player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('home-video-id', {
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  player.mute();
+  player.playVideo();
+}

@@ -1,6 +1,7 @@
 <section id="home-slider-video">
   <div class="home-video-container">
-    {{home_video}}
+
+    <iframe id="home-video-id" width="1280" height="720" src="{{home_video}}?rel=0&autoplay=1&controls=0&showinfo=0&loop=1&iv_load_policy=3&enablejsapi=1" frameborder="0"  allowfullscreen></iframe>
   </div>
 
   <div class="special-gal">
@@ -78,6 +79,9 @@
     </div>
   </div>
 </section>
+<!--/#services-->
+
+<section id="full-properties" class="p-d-xl"></section>
 <!--/#services-->
 
 <section id="map-home">

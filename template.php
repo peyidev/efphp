@@ -159,7 +159,8 @@
     <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key="></script>
+    <script async src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="js/gmaps.js"></script>
     <script type="text/javascript" src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>

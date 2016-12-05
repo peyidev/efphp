@@ -376,6 +376,37 @@ var utils = {
 
     }
 
+   },
+
+   homeFullProperties : function (object){
+
+     var html = '';
+     for(var index in object){
+       var obj = object[index];
+       if(index == 'roomfilter')
+         continue;
+
+       html += '<a href="?s=propertydetail&p='+ obj.id +'">';
+       html += '<div class="row bg-white fullp">';
+       html += '<div class="col-xs-3 fullp-3">';
+       html += '<div class="table-cell-fix">';
+       html += '<img src="'+ obj.img_building +'" alt="'+ obj.buildingtype +'" title="'+ obj.buildingtype +'">';
+       html += '</div>';
+       html += '</div>';
+       html += '<div class="col-xs-9  fullp-9">';
+       html += '<div class="fullp-name">'+ obj.nombre +'</div>';
+       html += '<div class="fullp-desc">'+ obj.cms_description +'</div>';
+       html += '<div class="fullp-type">'+ obj.buildingtype +'</div>';
+       if(obj.fromfee == 'LEASED')
+        html += '<div class="fullp-from p-leased">'+ obj.fromfee +'</div>';
+       else
+        html += '<div class="fullp-from"> From $'+ obj.fromfee +'</div>';
+       html += '</div>';
+       html += '</div>';
+       html += '</a>';
+     }
+
+     return html;
    }
 
 }

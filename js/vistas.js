@@ -6,16 +6,14 @@ var vistas = {
 
     },
     home : function(){
-        /*Función default*/
-
+      /*Función default*/
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingsFeatured','GET',{},'true',function(json){
 
         var feauturedHtml = '';
         var delay         = 300;
 
 
-        for(var ft in json)
-        {
+        for(var ft in json) {
           var shortVar = json[ft];
           var aRutaId = '<a class="color-reset" href="?s=propertydetail&p=' + shortVar.id + '">';
 
@@ -92,18 +90,16 @@ var vistas = {
         $('#feautured-list').html(feauturedHtml);
 
       });
-
-
       ajaxData('lib/Execute.php?e=Mhmproperties/getHomeGallery','GET',{},'true',function(json){
 
-
+        console.log(json);
         //GALLERY
         var gallery     = json;
         var galleryHtml = '';
 
         for(var img in gallery){
           var imgIndex = gallery[img];
-          console.log(imgIndex);
+//           console.log(imgIndex);
 
           galleryHtml += '<li data-thumb="' + imgIndex.img_file + '">';
           galleryHtml += '<img src="' + imgIndex.img_file + '" alt="MHM Properties" title="MHM Properties">';
@@ -112,6 +108,18 @@ var vistas = {
         $('#home-gallery').html(galleryHtml);
         //END-GALLERY
 
+      });
+      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/condos','GET',{},'true',function(json){
+        var responseDataHtml  = utils.homeFullProperties(json);
+        $('#full-properties').append(responseDataHtml);
+      });
+      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/house','GET',{},'true',function(json){
+        var responseDataHtml  = utils.homeFullProperties(json);
+        $('#full-properties').append(responseDataHtml);
+      });
+      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/apartment','GET',{},'true',function(json){
+        var responseDataHtml  = utils.homeFullProperties(json);
+        $('#full-properties').append(responseDataHtml);
       });
 
 
@@ -137,6 +145,7 @@ var vistas = {
       });
       $('#feautured-list').fadeIn('slow');
       utils.gmapFunction();
+
     },
     apartments : function() {
         utils.dynamicBuildingContent("apartment");
@@ -172,14 +181,12 @@ var vistas = {
 
 
         //FLOORPLANS
-        if(json.floorplans.length <= 0 )
-        {
+        if(json.floorplans.length <= 0 ) {
           var comingSoonHtml = '<span class="d-ameni-title">Floorplans</span>';
           comingSoonHtml    +=  '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
           $('.detail-plans-coming-soon').html(comingSoonHtml);
         }
-        else
-        {
+        else {
           var galleryFloorPlans     = json.floorplans;
           var galleryFloorPlansHtml = '';
           for(var imgFp in galleryFloorPlans){
@@ -202,6 +209,10 @@ var vistas = {
         $(pDetail + 'img' ).html('<img class="slider-hill" src="'+ gallery[0].img_building +'" alt="slider image ' + gallery[0].seoalt + '" title="' + gallery[0].seotitle + '">');
         //END-PROPERTY DETAILS
 
+        //PROPERTY VIDEO
+        $(pDetail + 'video').html(data.video);
+        //END-PROPERTY VIDEO
+
         //AMENITIES
         var amenInicio     = '<p><span class="amenities-red-box slider-sun"></span><label>';
         var amenFin        = '</label></p>';
@@ -221,8 +232,7 @@ var vistas = {
         if(dataNearby.length == 0)
           $('#detail-transportation').toggleClass('no-display');
 
-        for(var index in dataNearby)
-        {
+        for(var index in dataNearby) {
           nAmenitiesArray += amenInicio + dataNearby[index] + amenFin;
         }
         $(pDetail + 'nearby').html(nAmenitiesArray);
