@@ -2634,11 +2634,14 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   width: 100%;
 }
 .bg-404 label img{
-  width: 100%;
 }
 .rwd-gal {
   display: none;
 }
 #full-properties {
   display: none;
+}
+#detail-video .home-video-container.sm-no-vid
+{
+  height: 200px;
 }

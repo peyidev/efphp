@@ -218,7 +218,10 @@ var vistas = {
         if(data.video)
           $(pDetail + 'video').html(data.video);
         else
+        {
           $(pDetail + 'video').html(comingSoonHtml);
+          $(pDetail + 'video').toggleClass('sm-no-vid');
+        }
         //END-PROPERTY VIDEO
 
         //AMENITIES
