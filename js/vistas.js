@@ -109,19 +109,25 @@ var vistas = {
         //END-GALLERY
 
       });
-      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/condos','GET',{},'true',function(json){
-        var responseDataHtml  = utils.homeFullProperties(json);
-        $('#full-properties').append(responseDataHtml);
-      });
-      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/house','GET',{},'true',function(json){
-        var responseDataHtml  = utils.homeFullProperties(json);
-        $('#full-properties').append(responseDataHtml);
-      });
+
+      //APARTMENT RESULT
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/apartment','GET',{},'true',function(json){
         var responseDataHtml  = utils.homeFullProperties(json);
-        $('#full-properties').append(responseDataHtml);
+        $('#inject-full-properties').append(responseDataHtml);
+        //HOUSES RESULT
+        ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/house','GET',{},'true',function(json){
+          var responseDataHtml  = utils.homeFullProperties(json);
+          $('#inject-full-properties').append(responseDataHtml);
+          //CONDOS RESULT
+          ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/condos','GET',{},'true',function(json){
+            var responseDataHtml  = utils.homeFullProperties(json);
+            $('#inject-full-properties').append(responseDataHtml);
+          });
+          //END-CONDO RESULT
+        });
+        //END-HOUSE RESULT
       });
-
+      //END-APARTMENT RESULT
 
       $('#lightSlider').lightSlider({
 //         gallery:true,
@@ -163,6 +169,7 @@ var vistas = {
       var seccion = utils.getParameterByName("p");
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
 
+        var comingSoonHtml = '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
 
         $('#page-title-h1').html(json[0].nombre);
 
@@ -182,9 +189,7 @@ var vistas = {
 
         //FLOORPLANS
         if(json.floorplans.length <= 0 ) {
-          var comingSoonHtml = '<span class="d-ameni-title">Floorplans</span>';
-          comingSoonHtml    +=  '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
-          $('.detail-plans-coming-soon').html(comingSoonHtml);
+          $('.detail-plans-coming-soon').html('<span class="d-ameni-title">Floorplans</span>' + comingSoonHtml);
         }
         else {
           var galleryFloorPlans     = json.floorplans;
@@ -210,7 +215,10 @@ var vistas = {
         //END-PROPERTY DETAILS
 
         //PROPERTY VIDEO
-        $(pDetail + 'video').html(data.video);
+        if(data.video)
+          $(pDetail + 'video').html(data.video);
+        else
+          $(pDetail + 'video').html(comingSoonHtml);
         //END-PROPERTY VIDEO
 
         //AMENITIES
@@ -268,10 +276,6 @@ var vistas = {
 
       });
       $('#gallery-id').fadeIn('slow');
-
-
-
-
 
     },
     resources :function(){

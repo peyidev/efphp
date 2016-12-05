@@ -81,13 +81,22 @@
 </section>
 <!--/#services-->
 
-<section id="full-properties" class="p-d-xl"></section>
+<section id="full-properties" class="p-d-xl bg-white">
+  <ul class="portfolio-filter text-center" id="prop-filter-list">
+    <li><a class="btn btn-default active" href="#" data-filter=".APARTMENT">Apartments</a></li>
+    <li><a class="btn btn-default " href="#" data-filter=".HOUSE">Houses</a></li>
+    <li><a class="btn btn-default " href="#" data-filter=".CONDOS">Condos</a></li>
+  </ul>
+  <div class="portfolio-items" id="inject-full-properties"></div>
+</section>
 <!--/#services-->
 
 <section id="map-home">
   <div class="container">
-    <div id="map-container">
-      <div id="gmap"></div>
+    <div class="row">
+      <div id="map-container">
+        <div id="gmap"></div>
+      </div>
     </div>
   </div>
 </section>

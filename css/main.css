@@ -68,7 +68,7 @@ h3 {
 .uppercase {
   text-transform: uppercase;
 }
-.float-right{
+.float-right {
   float: right;
 }
 .btn-common {
@@ -648,7 +648,7 @@ ul.sub-menu {
 .bg-f6 {
   background: #f6f6f6 none repeat scroll 0 0;
 }
-.color-purple-light{
+.color-purple-light {
   color: #878fd6;
 }
 .bg-light-purple {
@@ -1005,7 +1005,7 @@ ul.elements li > i {
   margin: 15px 0 0;
 }
 .portfolio-filter {
-  margin: 80px 0;
+  margin: 30px 0 10px;
   padding: 0;
 }
 .portfolio-filter li {
@@ -1038,6 +1038,12 @@ ul.elements li > i {
   position: absolute;
   top: 5px;
   width: 13px;
+}
+.portfolio-filter .btn-default.active{
+  border:none;
+}
+.portfolio-filter .btn-default{
+  border-bottom: 2px solid #02a8f8;
 }
 .portfolio-pagination {
   padding-bottom: 90px;
@@ -2195,7 +2201,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .p-t-lg {
   padding-top: 20px;
 }
-.p-l-md{
+.p-l-md {
   padding-left: 15px;
 }
 .p-b-lg {
@@ -2363,11 +2369,11 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   background: #5f66a5 none repeat scroll 0 0;
 }
 #header.inner-pages {
-  height: 250px;
+  height: 150px;
 }
 .inner-pages-container {
   position: relative;
-  top: -100px;
+  top: -145px;
   z-index: 0;
 }
 .inner-pages img {
@@ -2462,9 +2468,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 }
 .d-ameni-title-span {
 }
-.home-video-container iframe{
-  width: 100%;
+.home-video-container iframe {
   height: 100%;
+  width: 100%;
 }
 #detail-video .home-video-container {
   bottom: 0;
@@ -2493,20 +2499,23 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 #carousel-example-generic .item img {
 }
 #lightSlider, #plan-gallery {
+  height: 600px;
   max-height: 600px;
-  height:600px;
 }
 #lightSlider li, #plan-gallery li {
   height: 100%;
   text-align: center;
 }
-.home-slider-zindex .special-top div{
-    padding-top: 0;
+.home-slider-zindex .special-top div {
+  padding-top: 0;
 }
-.home-slider-zindex .special-left div{}
-.home-slider-zindex .special-right div{}
-.home-slider-zindex .special-bottom div{}
-#lightSlider li img , #plan-gallery li img{
+.home-slider-zindex .special-left div {
+}
+.home-slider-zindex .special-right div {
+}
+.home-slider-zindex .special-bottom div {
+}
+#lightSlider li img, #plan-gallery li img {
   height: 100%;
 }
 .lSPager.lSGallery {
@@ -2566,8 +2575,8 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   font-weight: bold;
   height: 100%;
   padding-top: 240px;
-  width: 100%;
   text-shadow: 2px 2px 2px black;
+  width: 100%;
 }
 .home-slider-zindex div label {
   text-shadow: 2px 2px 2px black;
@@ -2583,53 +2592,53 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   color: #00a3db;
   text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.4);
 }
-#error-page.error-page-contact{
+#error-page.error-page-contact {
   margin: 0;
   padding: 0;
 }
-#error-page.error-page-contact span{
+#error-page.error-page-contact span {
   text-align: center;
 }
-
-#home-slider .contact-view .slide-text{
+#home-slider .contact-view .slide-text {
   position: inherit;
 }
-.amen-txt{
+.amen-txt {
   padding-left: 12px;
-  position: relative;
   padding-top: 2px;
+  position: relative;
 }
-
-
 .rent-view {
   border-bottom: 1px solid #ddd;
 }
 .rent-view .col-lg-6 {
   margin-bottom: 5px;
 }
-.rent-view .col-lg-6 input, .rent-view .col-lg-6 select,.rent-view .col-lg-6 textarea {
+.rent-view .col-lg-6 input, .rent-view .col-lg-6 select, .rent-view .col-lg-6 textarea {
   width: 70%;
 }
-.rent-view .submit-btn-big-form{
+.rent-view .submit-btn-big-form {
   float: left;
   margin: 0 33.33%;
   width: 33.33%;
 }
-.detail-plans-coming-soon{
+.detail-plans-coming-soon {
 }
-.detail-plans-coming-soon .bg-404{
+.bg-404 {
   height: 200px;
 }
-.detail-plans-coming-soon .bg-404 label{
+.bg-404 label {
   float: left;
   margin: 0 auto;
   padding-top: 80px;
   text-align: center;
   width: 100%;
 }
-.rwd-gal{
+.bg-404 label img{
+  width: 100%;
+}
+.rwd-gal {
   display: none;
 }
-#full-properties{
+#full-properties {
   display: none;
 }

@@ -1,5 +1,5 @@
 <!--/#PropertyDetails-->
-<section id="home-special" class="p-t-lg p-d-xl b-b-ddd p-detail anim">
+<section id="home-special" class="p-t-lg p-d-xl b-b-ddd p-detail anim i-page">
   <div class="container">
     <div class="row">
       <div class="main-slider">
@@ -44,14 +44,14 @@
 <section id="detail-transportation" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container">
 
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-12">
       <span class="d-ameni-title">
         Nearby Public places and transportion
       </span>
       <div class="amenities-list d-ameni-list" id="p-detail-nearby"></div>
     </div>
 
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-xs-12">
       <div id="map-container">
         <div id="gmap"></div>
       </div>

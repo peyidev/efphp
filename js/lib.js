@@ -386,8 +386,8 @@ var utils = {
        if(index == 'roomfilter')
          continue;
 
+       html += '<div class="row fullp '+ obj.buildingtype +' portfolio-item ">';
        html += '<a href="?s=propertydetail&p='+ obj.id +'">';
-       html += '<div class="row bg-white fullp">';
        html += '<div class="col-xs-3 fullp-3">';
        html += '<div class="table-cell-fix">';
        html += '<img src="'+ obj.img_building +'" alt="'+ obj.buildingtype +'" title="'+ obj.buildingtype +'">';
@@ -402,8 +402,8 @@ var utils = {
        else
         html += '<div class="fullp-from"> From $'+ obj.fromfee +'</div>';
        html += '</div>';
-       html += '</div>';
        html += '</a>';
+       html += '</div>';
      }
 
      return html;
