@@ -624,6 +624,18 @@ ul.sub-menu {
 .slide-img-special .tool.tool-5::after {
   content: "MAP";
 }
+.slide-img-special .tool.tool-6::after {
+  color: #ef595a;
+  content: "SCHEDULE SHOWING";
+  top: 50px;
+}
+.slide-img-special .tool.tool-6 {
+  font-size: 20px;
+}
+.slide-img-special .tool.tool-6 i {
+  color: #ef595a;
+  font-size: 40px;
+}
 .slide-img-special .tool.no-border {
   border: medium none;
 }
@@ -1039,10 +1051,10 @@ ul.elements li > i {
   top: 5px;
   width: 13px;
 }
-.portfolio-filter .btn-default.active{
-  border:none;
+.portfolio-filter .btn-default.active {
+  border: medium none;
 }
-.portfolio-filter .btn-default{
+.portfolio-filter .btn-default {
   border-bottom: 2px solid #02a8f8;
 }
 .portfolio-pagination {
@@ -2230,10 +2242,10 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   width: 33.33%;
 }
 #home-special.p-detail .slide-text {
-  padding-top: 1%;
+  padding-top: 0;
 }
 #home-special.p-detail #p-detail-img {
-  padding-top: 3%;
+  padding-top: 2%;
 }
 #home-special.p-detail #p-detail-img img {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
@@ -2633,7 +2645,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   text-align: center;
   width: 100%;
 }
-.bg-404 label img{
+.bg-404 label img {
 }
 .rwd-gal {
   display: none;
@@ -2641,7 +2653,60 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 #full-properties {
   display: none;
 }
-#detail-video .home-video-container.sm-no-vid
-{
+#detail-video .home-video-container.sm-no-vid {
   height: 200px;
+}
+.title-out {
+}
+#home-special .title-out .sc_title_box {
+  color: #232a34;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  padding-left: 5px;
+}
+#home-special .title-out .fa-location-arrow {
+  color: #00a3db;
+  font-size: 24px;
+}
+.property-modal {
+  background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+  bottom: 0;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+.schedule-form {
+  background: white none repeat scroll 0 0;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  cursor: initial;
+  left: 0;
+  margin: 5% 20%;
+  position: fixed;
+  top: 0;
+  width: 60%;
+  z-index: 101;
+}
+.close {
+  background: black none repeat scroll 0 0;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 20px;
+  opacity: 1;
+  padding: 3px 6px;
+  position: absolute;
+  right: -15px;
+  top: -14px;
+  transform: rotate(45deg);
+}
+.schedule-form .modal-form {
+  margin: 5% auto;
+  width: 50%;
 }

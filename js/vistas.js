@@ -171,7 +171,7 @@ var vistas = {
 
         var comingSoonHtml = '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
 
-        $('#page-title-h1').html(json[0].nombre);
+        $('#page-title-h1').html('Propertie Detail');
 
         //GALLERY
         var gallery     = json.gallery;
@@ -279,6 +279,32 @@ var vistas = {
 
       });
       $('#gallery-id').fadeIn('slow');
+
+      //OPEN MODAL
+      $('#showing-form').on('click', function (){
+        $('#property-modal').fadeIn('slow');
+        $('.schedule-form').fadeIn('slow');
+      });
+      //CLOSE MODAL
+      $('#property-modal').on('click', function (e){
+        e.preventDefault();
+        $('#property-modal').fadeOut('slow');
+        $('.schedule-form').fadeOut('slow');
+      });
+      //CLOSE MODAL
+      $('.close').on('click', function (e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#property-modal').fadeOut('slow');
+        $('.schedule-form').fadeOut('slow');
+      });
+      //MODAL Actions
+//       $('.schedule-form').on('click', function (e){
+//         console.log('modal');
+//         e.preventDefault();
+//         e.stopPropagation();
+//       });
+
 
     },
     resources :function(){

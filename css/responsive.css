@@ -459,6 +459,14 @@
 @media only screen and (max-width: 480px) {
   body {
   }
+  .schedule-form{
+    width: 90%;
+    margin: 5%;
+    height: auto;
+  }
+  .schedule-form .modal-form{
+    width: 90%;
+  }
   .inner-pages-container{
     display: none;
   }

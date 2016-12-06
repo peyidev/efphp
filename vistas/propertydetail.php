@@ -4,9 +4,11 @@
     <div class="row">
       <div class="main-slider">
 
-        <div class="slide-text p-detail-size">
+        <div class="title-out">
           <i class="fa fa-location-arrow slider-sun"></i>
           <span class="sc_title_box" id="p-detail-name"></span>
+        </div>
+        <div class="slide-text p-detail-size">
           <p id="p-detail-desc"></p>
         </div>
         <div id="p-detail-img" class="p-detail-size"></div>
@@ -17,6 +19,7 @@
             <a href="#detail-slider"><div class="tool tool-3"><i class="fa fa-camera"></i></div></a>
             <a href="#detail-amenities"><div class="tool tool-4 no-border"><i class="fa fa-plus"></i></div></a>
             <a href="#map-home"><div class="tool tool-5"><i class="fa fa-map-marker"></i></div></a>
+            <a href="#" id="showing-form"><div class="tool tool-6 no-border"><i class="fa fa-clock-o"></i></div></a>
           </div>
         </div>
 
@@ -84,7 +87,7 @@
 </section>
 <!--/#Detail Slider-->
 
-
+<!--/#PropertyFloorplansFallery-->
 <section id="detail-plans" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container detail-plans-coming-soon">
     <span class="d-ameni-title">Floorplans</span>
@@ -93,3 +96,48 @@
 
   </div>
 </section>
+<!--/#PropertyFloorplansFallery-->
+
+
+<!--/#MODAL-->
+<div class="property-modal no-display" id="property-modal" ></div>
+<div class="schedule-form no-display">
+  <div class="close fa fa-plus"></div>
+
+  <div class="modal-form">
+    <div class="contact-form bottom">
+      <h2 class="h2-white">Contact us</h2>
+      <form id="main-contact-form" name="contact-form" method="post" action="lib/Execute.php?e=Frontend/saveContact/contact&back=1">
+        <div class="form-group">
+          <input type="text" name="name" class="form-control" required="required" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <input type="text" name="cel" class="form-control" required="required" placeholder="Telephone">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <select name="br_type">
+            <option value="Not Enters" selected="selected">Select One…</option>
+            <option value="Not Sure - All Size">Not Sure / All Size</option>
+            <option value="1 Bed">1 Bedroom</option>
+            <option value="2 Bed">2 Bedroom</option>
+            <option value="3 Bed">3 Bedroom</option>
+            <option value="4 Bed">4 Bedroom</option>
+            <option value="5+ Bed">5+ Bedroom</option>
+          </select>
+        </div>
+        <div class="form-group">
+            <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your text here">Request/Question:
+            Ideal Showing Day/time: </textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" name="submit" class="btn btn-submit" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<!--/#MODAL-->
