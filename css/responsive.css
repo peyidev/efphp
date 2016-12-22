@@ -459,6 +459,12 @@
 @media only screen and (max-width: 480px) {
   body {
   }
+  .rwd-gal{
+    display: block;
+  }
+  .special-gal{
+    /*display: none;*/
+  }
   .schedule-form{
     width: 90%;
     margin: 5%;
@@ -479,8 +485,11 @@
     width: 100%;
   }
   #home-slider-video {
-    height: 420px;
+    height: 270px;
     margin: 0;
+  }
+  .home-slider-zindex ul li div {
+    padding-top: 120px;
   }
   .home-video-container, #home-special, #services {
     display: none;

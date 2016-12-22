@@ -90,25 +90,36 @@ var vistas = {
         $('#feautured-list').html(feauturedHtml);
 
       });
+      //GALLERY
       ajaxData('lib/Execute.php?e=Mhmproperties/getHomeGallery','GET',{},'true',function(json){
 
-        console.log(json);
-        //GALLERY
         var gallery     = json;
         var galleryHtml = '';
 
         for(var img in gallery){
           var imgIndex = gallery[img];
-//           console.log(imgIndex);
 
-          galleryHtml += '<li data-thumb="' + imgIndex.img_file + '">';
+          galleryHtml += '<li data-thumb="' + imgIndex.img_file + '"><a href="#">';
           galleryHtml += '<img src="' + imgIndex.img_file + '" alt="MHM Properties" title="MHM Properties">';
-          galleryHtml += '</li>';
+          galleryHtml += '</a></li>';
         }
         $('#home-gallery').html(galleryHtml);
-        //END-GALLERY
+
+
+        $('#home-gallery').lightSlider({
+//         gallery:true,
+          item:1,
+          slideMargin: 0,
+          speed:500,
+          auto:true,
+          loop:true,
+          addClass: 'home-slider-zindex',
+          pause: 5000,
+        });
+
 
       });
+      //END-GALLERY
 
       //APARTMENT RESULT
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/apartment','GET',{},'true',function(json){
@@ -139,16 +150,6 @@ var vistas = {
         addClass: 'home-slider-zindex',
         pause: 5000,
       });
-      $('#home-gallery').lightSlider({
-//         gallery:true,
-        item:1,
-        slideMargin: 0,
-        speed:500,
-        auto:true,
-        loop:true,
-        addClass: 'home-slider-zindex',
-        pause: 5000,
-      });
       $('#feautured-list').fadeIn('slow');
       utils.gmapFunction();
 
@@ -170,7 +171,6 @@ var vistas = {
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
 
         var comingSoonHtml = '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
-
         $('#page-title-h1').html('Propertie Detail');
 
         //GALLERY
@@ -217,8 +217,7 @@ var vistas = {
         //PROPERTY VIDEO
         if(data.video)
           $(pDetail + 'video').html(data.video);
-        else
-        {
+        else {
           $(pDetail + 'video').html(comingSoonHtml);
           $(pDetail + 'video').toggleClass('sm-no-vid');
         }

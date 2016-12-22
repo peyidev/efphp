@@ -4,6 +4,10 @@
     <iframe id="home-video-id" width="1280" height="720" src="{{home_video}}?rel=0&autoplay=1&controls=0&showinfo=0&loop=1&iv_load_policy=3&enablejsapi=1" frameborder="0"  allowfullscreen></iframe>
   </div>
 
+  <div class="rwd-gal">
+    <ul id="home-gallery"></ul>
+  </div>
+
   <div class="special-gal">
     <ul id="lightSlider">
       <li><a href="#"><div><label>SPECIAL OFFER #1</label></div></a></li>
@@ -12,9 +16,7 @@
       <li><a href="#"><div><label>SPECIAL OFFER #4</label></div></a></li>
     </ul>
   </div>
-  <div class="rwd-gal">
-    <ul id="home-gallery"></ul>
-  </div>
+
 </section>
 <!--/#slidervideo-->
 

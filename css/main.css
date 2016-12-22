@@ -2710,3 +2710,6 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   margin: 5% auto;
   width: 50%;
 }
+.schedule-form .modal-form h2{
+  color: #333;
+}
