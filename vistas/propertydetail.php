@@ -45,11 +45,11 @@
 <!--/#PropertyNearby-->
   <!--/#PropertyMap-->
 <section id="detail-transportation" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
-  <div class="container">
+  <div class="container" id="p-detail-nearby-cs">
 
     <div class="col-lg-6 col-xs-12">
       <span class="d-ameni-title">
-        Nearby Public places and transportion
+        Nearby Public Places and Transportation
       </span>
       <div class="amenities-list d-ameni-list" id="p-detail-nearby"></div>
     </div>

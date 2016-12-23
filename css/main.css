@@ -2251,6 +2251,16 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   width: 100%;
 }
+.dynamic-pricing{
+  border-top: 1px solid #ddd;
+  margin: 5px auto 0;
+  padding-top: 10px;
+  text-align: center;
+  width: 80%;
+}
+.dynamic-pricing label{
+  width:100%;
+}
 .amenities-list .amenities-red-box {
   background: #ef595a none repeat scroll 0 0;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -2713,3 +2723,4 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .schedule-form .modal-form h2{
   color: #333;
 }
+.lSSlideOuter{margin-top: 20px}

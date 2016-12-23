@@ -171,7 +171,7 @@ var vistas = {
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
 
         var comingSoonHtml = '<div class="bg-404"><label><img src="images/coming-soon.png" alt="Coming Soon" title="Coming Soon"></label></div>';
-        $('#page-title-h1').html('Propertie Detail');
+        $('#page-title-h1').html('Property Detail');
 
         //GALLERY
         var gallery     = json.gallery;
@@ -208,9 +208,10 @@ var vistas = {
         //PROPERTY DETAILS
         var pDetail = '#p-detail-';
         var data    = json[0];
+        var roomDataPrices    = utils.dynamicPricingPlaces(json['places']);
 
         $(pDetail + 'name').html(data.nombre);
-        $(pDetail + 'desc').html(data.cms_description);
+        $(pDetail + 'desc').html(data.cms_description + '<div class="dynamic-pricing">' + roomDataPrices + '</div>');
         $(pDetail + 'img' ).html('<img class="slider-hill" src="'+ gallery[0].img_building +'" alt="slider image ' + gallery[0].seoalt + '" title="' + gallery[0].seotitle + '">');
         //END-PROPERTY DETAILS
 
@@ -239,13 +240,14 @@ var vistas = {
         var dataNearby   = data.id_serialized_nerbyamenitie;
         var nAmenitiesArray = '';
 
-        if(dataNearby.length == 0)
-          $('#detail-transportation').toggleClass('no-display');
-
         for(var index in dataNearby) {
           nAmenitiesArray += amenInicio + dataNearby[index] + amenFin;
         }
         $(pDetail + 'nearby').html(nAmenitiesArray);
+
+
+        if(dataNearby.length == 0)
+          $(pDetail + 'nearby-cs').html('<span class="d-ameni-title"> Nearby Public Places and Transportation </span>' + comingSoonHtml);
         //END-NEARBY
 
         //GALLERY-RUN
@@ -277,6 +279,7 @@ var vistas = {
         //END-MAPA
 
       });
+
       $('#gallery-id').fadeIn('slow');
 
       //OPEN MODAL

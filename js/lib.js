@@ -271,7 +271,7 @@ var utils = {
                     content += roomsData;
                 }
 
-                console.log(filterAttrClass);
+                console.log(roomsData);
 
                 content += '</p>';
                 content += '</div>';
@@ -291,6 +291,37 @@ var utils = {
         $('#prop-list-container').fadeIn('slow');
 
         },
+  dynamicPricingPlaces: function (data){
+    var filterAttrClass = '';
+    var roomsData     = '';
+    var content = '';
+
+
+    if(data.length > 0 )
+    {
+      for (var index in data)
+      {
+
+        var splitResult = data[index]['nombre'].split('/');
+        var resultParse = splitResult[0] + (splitResult[1]?splitResult[1]:' ');
+        filterAttrClass += ' ' + resultParse;
+
+        roomsData += '<label>';
+        roomsData += data[index]['nombre'];
+        roomsData += ': $';
+        roomsData += data[index]['pricefrom'];
+        if(data[index]['priceto'])
+          roomsData += ' - $';
+        roomsData += data[index]['priceto'];
+        roomsData += '</label>';
+      }
+      content += roomsData;
+    }
+
+    return content;
+
+
+  },
 
   gmapFunction : function (propertyObject){
 
