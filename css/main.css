@@ -2441,6 +2441,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   text-decoration: none;
 }
 #resources .r-l-content {
+  font-weight: bold;
 }
 #resources .r-l-content h3 {
 }

@@ -320,6 +320,7 @@ var vistas = {
 
     },
     forwardaddress : function(){
+      $('#page-title-h1').html('Forwarding Address');
       var data = $('#mhm-rent-form-dos').serializeArray();
 
     }

@@ -134,7 +134,7 @@ var validator = {
 
 var utils = {
 
-  getParameterByName: function(name){
+  getParameterByName:     function(name){
 
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -143,7 +143,7 @@ var utils = {
 
     },
 
-  createTable: function(selector, objects, data, column){
+  createTable:            function(selector, objects, data, column){
 
         console.log(data.length);
 
@@ -256,16 +256,28 @@ var utils = {
                     {
 
                         var splitResult = rooms[index]['nombre'].split('/');
+                        var splitResultB = rooms[index]['nombre'].split('BR');
                         var resultParse = splitResult[0] + (splitResult[1]?splitResult[1]:' ');
+                        var resultParseB = splitResultB[0];
                         filterAttrClass += ' ' + resultParse;
 
                         roomsData += '<label>';
                         roomsData += rooms[index]['nombre'];
-                        roomsData += ': $';
+                        if(rooms[index]['pricefrom'] == 'LEASED' || rooms[index]['pricefrom'] == 'Leased')
+                          roomsData += ': ';
+                        else
+                          roomsData += ': $';
                         roomsData += rooms[index]['pricefrom'];
                         if(rooms[index]['priceto'])
+                          if(rooms[index]['priceto'] == 'Leased' || rooms[index]['priceto'] == 'LEASED')
+                            continue;
+                          else
                             roomsData += ' - $';
                         roomsData += rooms[index]['priceto'];
+
+                      if(resultParseB > 1)
+                        roomsData += '/person';
+
                         roomsData += '</label>';
                     }
                     content += roomsData;
@@ -291,39 +303,51 @@ var utils = {
         $('#prop-list-container').fadeIn('slow');
 
         },
-  dynamicPricingPlaces: function (data){
+
+  dynamicPricingPlaces:   function (data){
     var filterAttrClass = '';
     var roomsData     = '';
     var content = '';
 
 
-    if(data.length > 0 )
-    {
+    if(data.length > 0 ) {
       for (var index in data)
       {
-
-        var splitResult = data[index]['nombre'].split('/');
-        var resultParse = splitResult[0] + (splitResult[1]?splitResult[1]:' ');
-        filterAttrClass += ' ' + resultParse;
+        var record = data[index];
+        var splitResult = record['nombre'].split('BR');
+        var resultParse = splitResult[0];//number
 
         roomsData += '<label>';
-        roomsData += data[index]['nombre'];
-        roomsData += ': $';
-        roomsData += data[index]['pricefrom'];
-        if(data[index]['priceto'])
-          roomsData += ' - $';
-        roomsData += data[index]['priceto'];
+        roomsData += record['nombre'];
+        if(record['pricefrom'] == 'LEASED' || record['pricefrom'] == 'Leased')
+          roomsData += ': ';
+        else
+          roomsData += ': $';
+        roomsData += record['pricefrom'];
+        if(record['priceto'])
+          if(record['priceto'] == 'Leased' || record['priceto'] == 'LEASED')
+            continue;
+          else
+            roomsData += ' - $';
+
+        roomsData += record['priceto'];
+
+        if(resultParse > 1)
+          roomsData += '/person';
+
         roomsData += '</label>';
       }
       content += roomsData;
     }
+
+    console.log(content);
 
     return content;
 
 
   },
 
-  gmapFunction : function (propertyObject){
+  gmapFunction:           function (propertyObject){
 
     var addresses = [
        '101 S Busey Ave Champaign, IL'
@@ -409,7 +433,7 @@ var utils = {
 
    },
 
-   homeFullProperties : function (object){
+   homeFullProperties:    function (object){
 
      var html = '';
      for(var index in object){
