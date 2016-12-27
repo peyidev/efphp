@@ -36,7 +36,7 @@ define('GOOGLEANALYTICS', 'UA-6593369-14');
 define('ADMINURL', 'admin/');
 define('DEFAULT_S', 'home.php');
 define('GLOBALURL', $domainGlobal);
-define('LOGO', 'css/img/logo.png');
+define('LOGO', 'images/logoWhite.png');
 define('LOGGING', true);
 
 #Fix for php7

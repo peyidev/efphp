@@ -66,13 +66,31 @@ var vistas = {
                   {
                     for (var index in rooms)
                     {
+
+                      var splitResult = rooms[index]['nombre'].split('BR');
+                      var resultParse = splitResult[0];//number
+
                       roomsData += '<label>';
                       roomsData += rooms[index]['nombre'];
-                      roomsData += ': $';
+
+                      if(rooms[index]['pricefrom'] == 'LEASED' || rooms[index]['pricefrom'] == 'Leased')
+                        roomsData += ': ';
+                      else
+                        roomsData += ': $';
+
                       roomsData += rooms[index]['pricefrom'];
+
                       if(rooms[index]['priceto'])
-                        roomsData += ' - $';
+                        if(rooms[index]['priceto'] == 'Leased' || rooms[index]['priceto'] == 'LEASED')
+                          continue;
+                        else
+                          roomsData += ' - $';
+
                       roomsData += rooms[index]['priceto'];
+
+                      if(resultParse > 1)
+                        roomsData += '/person';
+
                       roomsData += '</label>';
                     }
                     feauturedHtml += roomsData;
@@ -152,6 +170,14 @@ var vistas = {
       });
       $('#feautured-list').fadeIn('slow');
       utils.gmapFunction();
+
+      var contentBottom = $('#sobhtml').html();
+      if(contentBottom.length == 0)
+        $('.sobhtml').toggleClass('no-display');
+
+      var contentTop = $('#sothtml').html();
+      if(contentTop.length == 0)
+        $('.sothtml').toggleClass('no-display');
 
     },
     apartments : function() {
