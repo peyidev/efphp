@@ -14,6 +14,7 @@ class Dbo  {
 
     }
 
+
     function orderBy($query, $columna){
 
         if(is_array($columna))

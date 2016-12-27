@@ -28,6 +28,7 @@ class Frontend{
         $sql = $this->dbo->select('mailtype',"nombre = '{$type}'");
         $query = $this->db->query($sql);
         @$typeId = $this->util->queryArray($query)[0]['id'];
+        @$title = $this->util->queryArray($query)[0]['nombre'];
         $mFront = new Messages();
 
         if(empty($typeId)){
@@ -45,7 +46,7 @@ class Frontend{
         $this->db->query($sql);
 
 
-        $title = $save['title'];
+        //$title = $save['title'];
         $this->mail->sendMail($title,$form);
 
         $mFront->setMessage("message:" . "Thank you");

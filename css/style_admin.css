@@ -84,6 +84,18 @@ body {
     overflow-x: auto;
     width: 47%;
 }
+
+.admin-left-column-50{
+    width:45%;
+    float:left;
+}
+
+.admin-right-column-50{
+    width:45%;
+    float:right;
+
+}
+
 .admin-left-column {
     border-radius: 5px;
     float: left;

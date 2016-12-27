@@ -20,6 +20,33 @@ class Mhmproperties extends Administrador{
 
     }
 
+    function getBuildingResume(){
+
+        $sql = $this->dbo->select('building');
+        $query = $this->db->query($sql);
+        $rows = $this->util->queryArray($query);
+
+        $howmany =  count($rows);
+        $leased = 0;
+        foreach($rows as $buildings){
+
+            foreach($buildings as $key => $val){
+
+                //echo $key . "->" . $val . "<br />";
+                if($key == 'fromfee'){
+                    if($val == 'LEASED'){
+                        $leased++;
+
+                    }
+                }
+
+            }
+        }
+
+        echo "<div class='container'><h5>We have <strong>{$howmany}</strong> buildings, <strong>{$leased}</strong> are leased.</h5></div>";
+        echo "<div class='container'><h5>We have <strong style='color:red;'>0</strong> recent contact/form messages.</h5></div>";
+
+    }
 
     /*
      * PARA formularios de abc

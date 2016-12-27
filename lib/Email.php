@@ -50,7 +50,7 @@ class Email{
 
         $to = EMAIL_SENDERS;
         $from = EMAIL_FROM;
-        $subject = 'Website Change Reqest';
+        $subject = $title;
 
         $headers = "From: {$from}\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
