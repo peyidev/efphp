@@ -1,3 +1,17 @@
+<div class="no-display" id="sothtml">{{special_top_left}}{{special_top_right}}</div>
+<div class="no-display" id="sobhtml">{{special_bottom_left}}{{special_bottom_right}}</div>
+<!--/#specialOffter flags -->
+
+<section class="special-offer-section sothtml">
+  <div class="container">
+    <div class="special-offer-top bg-404 special-offer-content">
+      <div class="special-left">{{special_top_left}}</div>
+      <div class="special-right">{{special_top_right}}</div>
+    </div>
+  </div>
+</section>
+<!--/#specia offer top-->
+
 <section id="home-slider-video">
   <div class="home-video-container">
 
@@ -8,45 +22,27 @@
     <ul id="home-gallery"></ul>
   </div>
 
-  <div class="special-gal">
-    <ul id="lightSlider">
-      <li><a href="#"><div><label>SPECIAL OFFER #1</label></div></a></li>
-      <li><a href="#"><div><label>SPECIAL OFFER #2</label></div></a></li>
-      <li><a href="#"><div><label>SPECIAL OFFER #3</label></div></a></li>
-      <li><a href="#"><div><label>SPECIAL OFFER #4</label></div></a></li>
-    </ul>
-  </div>
+<!--  <div class="special-gal">-->
+<!--    <ul id="lightSlider">-->
+<!--      <li><a href="#"><div><label>SPECIAL OFFER #1</label></div></a></li>-->
+<!--      <li><a href="#"><div><label>SPECIAL OFFER #2</label></div></a></li>-->
+<!--      <li><a href="#"><div><label>SPECIAL OFFER #3</label></div></a></li>-->
+<!--      <li><a href="#"><div><label>SPECIAL OFFER #4</label></div></a></li>-->
+<!--    </ul>-->
+<!--  </div>-->
 
 </section>
-<!--/#slidervideo-->
+<!--/#Video -->
 
-<!--
-<section id="buscador" class="responsive">
+<section class="special-offer-section sobhtml">
   <div class="container">
-    <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
-        <select name="" id="1">
-            <option value="">PROPERTY TYPE</option>
-        </select>
+    <div class="special-offer-bottom bg-404 special-offer-content">
+      <div class="special-left">{{special_bottom_left}}</div>
+      <div class="special-right">{{special_bottom_right}}</div>
     </div>
-    <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
-        <select name="" id="2">
-            <option value="">BEDROOMS</option>
-        </select>
-    </div>
-    <div class="col-lg-4 text-center wow fadeInRight b-select" data-wow-duration="500ms" data-wow-delay="300ms">
-        <select name="" id="3">
-            <option value="">BATHROOMS</option>
-        </select>
-    </div>
-    <div class="col-lg-8 text-center wow fadeInRight b-slider" data-wow-duration="500ms" data-wow-delay="300ms">
-        <div id="slider"></div>
-    </div>
-    <div class="col-lg-4 text-center wow fadeInRight b-btn" data-wow-duration="500ms" data-wow-delay="300ms">
-          <button>SEARCH</button>
-      </div>
   </div>
 </section>
-<!--/#buscador-->
+<!--/#specia offer bottom-->
 
 {{home_slider}}
 <!--/#home-slider-->

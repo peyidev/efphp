@@ -106,7 +106,7 @@
 
   <div class="modal-form">
     <div class="contact-form bottom">
-      <h2 class="h2-white">Contact us</h2>
+      <h2 class="h2-white">SCHEDULE SHOWING</h2>
       <form id="main-contact-form" name="contact-form" method="post" action="lib/Execute.php?e=Frontend/saveContact/contact&back=1">
         <div class="form-group">
           <input type="text" name="name" class="form-control" required="required" placeholder="Name">
@@ -118,6 +118,7 @@
           <input type="email" name="email" class="form-control" required="required" placeholder="Email">
         </div>
         <div class="form-group">
+          <label for="">Type of BR.</label>
           <select name="br_type">
             <option value="Not Enters" selected="selected">Select One…</option>
             <option value="Not Sure - All Size">Not Sure / All Size</option>

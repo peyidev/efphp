@@ -407,7 +407,7 @@ ul.sub-menu {
   margin-bottom: 40px;
 }
 .form-control {
-  border: 1px solid #eaeaea;
+  border: 1px solid #aaa;
   box-shadow: none;
   font-weight: 300;
   height: 40px;
@@ -451,7 +451,6 @@ ul.sub-menu {
   margin-bottom: 0;
 }
 #home-slider-video {
-  margin-bottom: -250px;
   position: relative;
   z-index: 5;
 }
@@ -539,6 +538,10 @@ ul.sub-menu {
   top: 50%;
 }
 #home-special {
+  background: white none repeat scroll 0 0;
+  overflow: hidden;
+}
+.special-offer-section {
   background: white none repeat scroll 0 0;
   overflow: hidden;
 }
@@ -754,7 +757,6 @@ ul.sub-menu {
   max-height: 750px;
   overflow: hidden;
   position: relative;
-  top: -253px;
   width: 100%;
 }
 .home-video {
@@ -2251,15 +2253,15 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   width: 100%;
 }
-.dynamic-pricing{
+.dynamic-pricing {
   border-top: 1px solid #ddd;
   margin: 5px auto 0;
   padding-top: 10px;
   text-align: center;
   width: 80%;
 }
-.dynamic-pricing label{
-  width:100%;
+.dynamic-pricing label {
+  width: 100%;
 }
 .amenities-list .amenities-red-box {
   background: #ef595a none repeat scroll 0 0;
@@ -2392,6 +2394,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 }
 #header.inner-pages {
   height: 150px;
+}
+#header.not-in-home {
+  height: 100px;
 }
 .inner-pages-container {
   position: relative;
@@ -2721,7 +2726,38 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   margin: 5% auto;
   width: 50%;
 }
-.schedule-form .modal-form h2{
+.schedule-form .modal-form h2 {
   color: #333;
 }
-.lSSlideOuter{margin-top: 20px}
+.lSSlideOuter {
+  margin-top: 20px;
+}
+.phone-footer-num {
+  font-weight: inherit;
+  text-align: right;
+  width: 163px;
+}
+.fc-nums {
+  float: left;
+  width: 50px;
+}
+.special-offer-content {
+  color: #ef595a;
+  font-size: 22px;
+  font-weight: bold;
+  max-height: 100px;
+  padding: 2%;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.6);
+}
+.special-offer-content .special-left {
+  border-right: 1px solid black;
+  float: left;
+  height: 100%;
+  width: 50%;
+}
+.special-offer-content .special-right {
+  float: left;
+  height: 100%;
+  width: 50%;
+}

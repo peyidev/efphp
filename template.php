@@ -47,7 +47,7 @@
   <body>
 
     <!--class="inner-pages" option IN PAGES-->
-    <header id="header" class="inner-pages">
+    <header id="header" class="inner-pages not-in-<?php $cms->getTitle($cuerpo);?>">
       <div class="navbar navbar-inverse" role="banner">
         <div class="container">
           <div class="navbar-header">
@@ -111,7 +111,7 @@
                   <input type="text" name="name" class="form-control" required="required" placeholder="Name">
                 </div>
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control" required="required" placeholder="Email Id">
+                  <input type="email" name="email" class="form-control" required="required" placeholder="Email">
                 </div>
                 <div class="form-group">
                   <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your text here"></textarea>
@@ -126,20 +126,34 @@
             <div class="contact-info bottom">
               <h2 class="h2-white">Contacts</h2>
               <address>
-                E-mail: <a href="mailto:contact@mhmproperties.com">contact@mhmproperties.com</a> <br>
-                Phone #1: +1 (217) 337 8852 <br>
-                Phone #2: +1 (217) 841 5407 <br>
-                Facsimile: +1 (217) 841 5407 <br>
+                <span>E-mail : </span> <a href="mailto:contact@mhmproperties.com"> contact@mhmproperties.com</a> <br>
+                <span class="fc-nums">Phone : </span><span> +1 (217) 337 8852 </span><br>
+                <label class="phone-footer-num">+1 (217) 841 5407 </label><br>
+                <span class="fc-nums">Fax : </span><span> +1 (217) 351 1160 </span><br>
               </address>
               <h2 class="h2-white">Address</h2>
               <address>
                 303 S Fifth Street Champaign, IL 61820 <br>
-                MAILING ADDRESS:  MHM Properties and Management P.O. Box 5054 Champaign, IL 61825 <br>
+                MAILING ADDRESS:<br>
+                MHM Properties and Management. <br>
+                P.O. Box 5054 Champaign , IL 61825. <br>
                 <a href="www.mhmproperties.com">www.mhmproperties.com </a><br>
               </address>
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-lg-12">
+      <div class="container text-center p-t-lg">
+
+
+          <div class="social-link error-page-contact" id="error-page">
+            <a target="_blank" rel="nofollow" href="http://www.facebook.com/pages/Champaign-IL/MHM-Properties/151079841593771?ref=ts"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" rel="nofollow"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" rel="nofollow" href="https://www.youtube.com/channel/UCyVStIHEJzLLkwj4alKYrTw"><i class="fa fa-google-plus"></i></a>
+          </div>
+      </div>
+
       </div>
       <div class="col-lg-12">
         <div class="col-sm-12">
