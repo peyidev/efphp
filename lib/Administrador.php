@@ -185,12 +185,13 @@ class Administrador{
 
             $s = !empty($_GET['s']) ? ("?s=" . $_GET['s']) : "";
 
+            $adminLabel = $_SESSION['nombre'] == 'Administrador' ? 'Admin' : $_SESSION['nombre'];
 
             $menu  = "<ul id='main-menu'>";
             $menu .= "<li class='menu-item profile'>
                         <div class='input-group margin-bottom-sm'>
                             <span class='input-group-addon'><i class='fa fa-angle-down fa-fw'></i></span>
-                            <a href='#' class='menu-item-link'>{$_SESSION['nombre']}</a>
+                            <a href='#' class='menu-item-link'>" . $adminLabel . "</a>
                         </div>
                         <ul>
                             <li class='submenu-item'><a class='menu-subitem-link' href='../lib/Execute.php?e=User/logout&back=1'>Sign Out</a></li>
@@ -831,7 +832,7 @@ class Administrador{
 
 
         if($type == "update" || ($type == "preselected" && !empty($id))){
-            echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Actualizar</button></p></div>';
+            echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Update</button></p></div>';
         }else{
             echo '<div class="row-abc"><p class="input"><button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Insert</button></p></div>';
         }
