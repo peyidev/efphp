@@ -11,7 +11,7 @@ $domainGlobal = "https://" . $_SERVER['SERVER_NAME'];
 $blacklistClasses = array();
 $blacklistClasses[] = 'Email';
 
-$emailSenders = 'peyi.god@gmail.com,pol.laris@gmail.com';
+$emailSenders = 'peyi.god@gmail.com, pol.laris@gmail.com';
 
 define('BLACKLIST_CLASES',serialize($blacklistClasses));
 define('EMAIL_SENDERS',$emailSenders);
@@ -22,7 +22,7 @@ define('BASE_PATH', $path);
 define('HOSTNAME', '127.0.0.1');
 define('DATABASE', 'mhmproperties');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'admin');
 
 #Paypal config
 
