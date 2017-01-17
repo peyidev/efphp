@@ -20,6 +20,12 @@ class Email{
 
     function sendMail($title,$content){
 
+
+        $smtp_server = 'smtp.gmail.com';
+        $smtp_port = 587;
+        $smtp_username = 'mhm-website-email@mhmproperties.com';
+        $smtp_password = 'Ch@mp@ign2016';
+
         $message = '';
 
         if(is_array($content)){
@@ -56,6 +62,18 @@ class Email{
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
+
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        $mail->Host = $smtp_server;
+        $mail->Port = $smtp_port;
+        $mail->SMTPSecure = 'tls';
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtp_username;
+        $mail->Password = $smtp_password;
+
+
+
         if (mail($to, $subject, $message, $headers)) {
             return true;
         } else {
@@ -63,6 +81,68 @@ class Email{
         }
 
     }
+
+
+  function sendEmail($emailSettings){
+
+    $smtp_server = 'smtp.gmail.com';
+    $smtp_port = 587;
+    $smtp_username = 'mhm-website-email@mhmproperties.com';
+    $smtp_password = 'Ch@mp@ign2016';
+
+    $to_emails = ['Web Request' => 'webrequest@mhmproperties.com',
+                  'Contact' => 'contact@mhmproperties.com',
+                  'Farzad Moeinzadeh' => 'farzad@mhmproperties.com',
+                  'Management' => 'management@mhmproperties.com'];
+
+    $from_name = $emailSettings['from-name'];
+    $from_email = $emailSettings['from-email'];
+    $message = $emailSettings['message'];
+    $subject = $emailSettings['subject'];
+
+    // Configuring SMTP server settings
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->Host = $smtp_server;
+    $mail->Port = $smtp_port;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+    $mail->Username = $smtp_username;
+    $mail->Password = $smtp_password;
+
+    // Email Sending Details
+    $mail->setFrom($from_email, $from_name);
+    $mail->addReplyTo($from_email, $from_name);
+    foreach($to_emails as $to_name => $to_email){
+      $mail->addAddress($to_email, $to_name);
+    }
+
+    $mail->Subject = $subject;
+    $mail->msgHTML($message);
+
+
+    //Enable SMTP debugging
+    // 0 = off (for production use)
+    // 1 = client messages
+    // 2 = client and server messages
+    $mail->SMTPDebug = 0;
+
+    //Ask for HTML-friendly debug output
+    $mail->Debugoutput = 'html';
+
+
+    // Success or Failure
+    if (!$mail->send()) {
+      error_log('email-sender.php::sendEmail(): Mailer Error: ' . $mail->ErrorInfo);
+      return false;
+    }
+    else {
+      error_log('email-sender.php::sendEmail(): Email request from '.$from_email .' <' . $from_name . '> was sent successfully');
+      return true;
+    }
+  }
+
+
 
 
     function setMailTemplate($message){

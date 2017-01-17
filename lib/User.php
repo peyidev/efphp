@@ -44,7 +44,7 @@
             }else{
 
                 $message = new Messages();
-                $message->setMessage("error:Error de usuario y/o contraseña");
+                $message->setMessage("error:Error verify User or Password");
 
             }
 
