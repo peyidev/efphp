@@ -131,11 +131,18 @@ class Email{
         $from = EMAIL_FROM;
         $subject = $title;
 
-        $headers = "From: {$from}\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+//        $headers = "From: {$from}\r\n";
+//        $headers .= "MIME-Version: 1.0\r\n";
+//        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-        if (mail($to, $subject, $message, $headers)) {
+        $emailSettings = array();
+        $emailSettings['from-name'] = 'MhmProperties online';
+        $emailSettings['from-email'] = $from;
+        $emailSettings['message'] = $message;
+        $emailSettings['subject'] = $subject;
+
+
+        if ($this->sendEmail($emailSettings)) {
             return true;
         } else {
             return false;
