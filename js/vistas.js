@@ -180,12 +180,13 @@ var vistas = {
         $('.sothtml').toggleClass('no-display');
 
 
+      if($('.message-popup')){
+        $('.message-popup').fadeIn('slow');
 
-      $('.message-popup').fadeIn('slow');
-
-      setTimeout( function(){
-        $('.message-popup').fadeOut('slow');
-      }  , 2500 );
+        setTimeout( function(){
+          $('.message-popup').fadeOut('slow');
+        }  , 2500 );
+      }
 
 
     },

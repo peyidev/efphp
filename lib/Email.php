@@ -26,7 +26,7 @@ class Email{
 //                      'Contact'           => 'contact@mhmproperties.com',
 //                      'Farzad Moeinzadeh' => 'farzad@mhmproperties.com',
 //                      'Management'        => 'management@mhmproperties.com'];
-          $to_emails =['Web Request' => 'pablo@silverip.com','Farzad Moeinzadeh' => 'farzad@mhmproperties.com'];
+          $to_emails =['Web Request' => 'pablo@silverip.com'];
 
         require_once(__DIR__.'/phpmailer/class.pop3.php');
         require_once(__DIR__.'/phpmailer/class.phpmailer.php');

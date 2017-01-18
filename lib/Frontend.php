@@ -35,7 +35,7 @@ class Frontend{
 //            $mFront->setMessage("error:" . "Cant send form, verify your data");
             $mFront->setMessage("error:" .
                                 "We are currently experiencing technical difficulties with our automatic showing requests.<br>" .
-                                "<span>Please call our office at <strong>(217) 337-8852</strong> or </span>" .
+                                "<span>Please call our office at <strong>(217) 337-8852</strong> <br>or<br> </span>" .
                                 "<span>Email us at <strong>contact@mhmproperties.com</strong> with your showing requests </span>" .
                                 "<span>(please include Building, How many bedrooms, Desired day/time &amp; Contact phone number). </span>"
                                 );
@@ -55,7 +55,7 @@ class Frontend{
         //$title = $save['title'];
         $this->mail->sendMail($title,$form);
 
-        $mFront->setMessage("message:" . "Thank you");
+        $mFront->setMessage("message:" . "Thank you. <br>Your Request has been sent to our staff. <br>For faster service please call our office hotline at <strong>(217) 337-8852</strong>.");
         return;
     }
 
