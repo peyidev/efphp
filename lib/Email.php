@@ -100,9 +100,6 @@ class Email{
 
     function sendMail($title,$content){
 
-
-
-
         $message = '';
 
         if(is_array($content)){
