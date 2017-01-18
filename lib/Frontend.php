@@ -32,7 +32,13 @@ class Frontend{
         $mFront = new Messages();
 
         if(empty($typeId)){
-            $mFront->setMessage("error:" . "Cant send form, verify your data");
+//            $mFront->setMessage("error:" . "Cant send form, verify your data");
+            $mFront->setMessage("error:" .
+                                "We are currently experiencing technical difficulties with our automatic showing requests.<br>" .
+                                "<span>Please call our office at <strong>(217) 337-8852</strong> or </span>" .
+                                "<span>Email us at <strong>contact@mhmproperties.com</strong> with your showing requests </span>" .
+                                "<span>(please include Building, How many bedrooms, Desired day/time &amp; Contact phone number). </span>"
+                                );
             return;
         }
 

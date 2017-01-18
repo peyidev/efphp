@@ -9,7 +9,7 @@ $domain = $port . $_SERVER['SERVER_NAME'];
 $domainGlobal = "https://" . $_SERVER['SERVER_NAME'];
 
 $blacklistClasses = array();
-$blacklistClasses[] = 'Email';
+//$blacklistClasses[] = 'Email';
 
 $emailSenders = 'peyi.god@gmail.com, pol.laris@gmail.com';
 

@@ -40,7 +40,7 @@
 
         function getError($msg){
 
-            $final = "<p class='message-popup message-error'>";
+            $final = "<div class='message-popup'><p class='message-popup-content message-error'><label>";
 
             switch($msg){
 
@@ -54,13 +54,13 @@
 
             }
 
-            $final .= "</p>";
+            $final .= "</label></p></div>";
             return $final;
 
         }
 
         function getMsj($msg){
-            $final = "<p class='message-popup message-message'>";
+          $final = "<div class='message-popup'><p class='message-popup-content message-error'><label>";
 
             switch($msg){
 
@@ -74,7 +74,7 @@
 
             }
 
-            $final .= "</p>";
+          $final .= "</label></p></div>";
             return $final;
 
         }

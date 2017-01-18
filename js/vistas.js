@@ -179,6 +179,15 @@ var vistas = {
       if(contentTop.length == 0)
         $('.sothtml').toggleClass('no-display');
 
+
+
+      $('.message-popup').fadeIn('slow');
+
+      setTimeout( function(){
+        $('.message-popup').fadeOut('slow');
+      }  , 2500 );
+
+
     },
     apartments : function() {
         utils.dynamicBuildingContent("apartment");
