@@ -28,11 +28,9 @@ class Email{
 //                      'Management'        => 'management@mhmproperties.com'];
           $to_emails =['Web Request' => 'pablo@silverip.com','Farzad Moeinzadeh' => 'farzad@mhmproperties.com'];
 
-            require_once(__DIR__.'/phpmailer/class.pop3.php');
-            require_once(__DIR__.'/phpmailer/class.phpmailer.php');
-            require_once(__DIR__.'/phpmailer/class.smtp.php');
-
-            $mail = new PHPMailer();
+        require_once(__DIR__.'/phpmailer/class.pop3.php');
+        require_once(__DIR__.'/phpmailer/class.phpmailer.php');
+        require_once(__DIR__.'/phpmailer/class.smtp.php');
 
         $from_name  = $emailSettings['from-name'];
         $from_email = $emailSettings['from-email'];
@@ -132,9 +130,18 @@ class Email{
         $from = EMAIL_FROM;
         $subject = $title;
 
-        $headers = "From: {$from}\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+        $emailSettings = array();
+        $emailSettings['from-name'] = 'MhmProperties online';
+        $emailSettings['from-email'] = $from;
+        $emailSettings['message'] = $message;
+        $emailSettings['subject'] = $subject;
+
+
+        if ($this->sendEmail($emailSettings)) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
