@@ -2539,7 +2539,12 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 }
 .home-slider-zindex .special-left div {
 }
-.home-slider-zindex .special-right div {
+.special-right p {
+  animation: 10s linear 0s normal none infinite running marquee;
+  padding-left: 100%;
+  position: absolute;
+  text-align: left;
+  width: 200%;
 }
 .home-slider-zindex .special-bottom div {
 }
@@ -2745,21 +2750,36 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   color: #ef595a;
   font-size: 22px;
   font-weight: bold;
-  max-height: 100px;
-  padding: 2%;
+  max-height: 50px;
+  padding: 14px;
   text-align: center;
   text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.6);
+  position: relative;
+  background-position: center center;
 }
 .special-offer-content .special-left {
   border-right: 1px solid black;
   float: left;
+  font-size: 14px;
   height: 100%;
-  width: 50%;
+  width: 30%;
 }
 .special-offer-content .special-right {
-  float: left;
   height: 100%;
-  width: 50%;
+  overflow: hidden;
+  position: relative;
+  width: 70%;
+  font-weight: normal;
+}
+.gradient{
+  background: rgba(0, 0, 0, 0) linear-gradient(to left, #fff 64%, rgba(247, 243, 241, 0) 100%) repeat scroll 0 0;
+  float: right;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10%;
+  z-index: 99;
 }
 
 
@@ -2790,4 +2810,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   position: relative;
   text-align: center;
   top: 30%;
+}
+
+@keyframes marquee {
+  0% { left: 0; }
+  100% { left: -200%; }
 }

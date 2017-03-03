@@ -6,7 +6,7 @@
   <div class="container">
     <div class="special-offer-top bg-404 special-offer-content">
       <div class="special-left">{{special_top_left}}</div>
-      <div class="special-right">{{special_top_right}}</div>
+      <div class="special-right tmp-marq">{{special_top_right}} <span class="gradient"></span> </div>
     </div>
   </div>
 </section>

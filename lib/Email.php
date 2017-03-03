@@ -35,7 +35,7 @@ class Email{
         $from_name  = $emailSettings['from-name'];
         $from_email = $emailSettings['from-email'];
         $message    = $emailSettings['message'];
-        $subject    = $emailSettings['subject'];
+        $subject    = $emailSettings['subject'] ? $emailSettings['subject'] : 'Schedule Showing';
 
         // Configuring SMTP server settings
         $mail = new PHPMailer;
@@ -131,7 +131,7 @@ class Email{
         $subject = $title;
 
         $emailSettings = array();
-        $emailSettings['from-name'] = 'MhmProperties online';
+        $emailSettings['from-name'] = '[MHM Web Request]';
         $emailSettings['from-email'] = $from;
         $emailSettings['message'] = $message;
         $emailSettings['subject'] = $subject;
