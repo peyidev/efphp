@@ -189,6 +189,33 @@ var vistas = {
       }
 
 
+
+      //OPEN MODAL
+      $('#showing-form').on('click', function (){
+        $('#property-modal').fadeIn('slow');
+        $('.schedule-form').fadeIn('slow');
+      });
+      //CLOSE MODAL
+      $('#property-modal').on('click', function (e){
+        e.preventDefault();
+        $('#property-modal').fadeOut('slow');
+        $('.schedule-form').fadeOut('slow');
+      });
+      //CLOSE MODAL
+      $('.close').on('click', function (e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#property-modal').fadeOut('slow');
+        $('.schedule-form').fadeOut('slow');
+      });
+      //MODAL Actions
+//       $('.schedule-form').on('click', function (e){
+//         console.log('modal');
+//         e.preventDefault();
+//         e.stopPropagation();
+//       });
+
+
     },
     apartments : function() {
         utils.dynamicBuildingContent("apartment");

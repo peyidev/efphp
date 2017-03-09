@@ -72,7 +72,7 @@
 <section id="services">
   <div class="container">
     <div class="row">
-      <h2>FEAUTURED</h2>
+      <h2>FEATURED</h2>
       <div id="feautured-list" class="no-display"></div>
     </div>
   </div>
@@ -99,6 +99,59 @@
   </div>
 </section>
 <!--/#map-container-->
+
+
+
+
+
+
+<div id="showing-form" class="showing-float">Schedule Showing <i class="fa fa-angle-up"></i></div>
+
+
+
+<!--/#MODAL-->
+<div class="property-modal no-display" id="property-modal" ></div>
+<div class="schedule-form no-display">
+  <div class="close fa fa-plus"></div>
+
+  <div class="modal-form">
+    <div class="contact-form bottom">
+      <h2 class="h2-white">SCHEDULE SHOWING</h2>
+      <form id="main-contact-form" name="contact-form" method="post" action="lib/Execute.php?e=Frontend/saveContact/contact&back=1">
+        <div class="form-group">
+          <input type="text" name="name" class="form-control" required="required" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <input type="text" name="cel" class="form-control" required="required" placeholder="Telephone">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="">Type of BR.</label>
+          <select name="br_type">
+            <option value="Not Enters" selected="selected">Select One…</option>
+            <option value="Not Sure - All Size">Not Sure / All Size</option>
+            <option value="1 Bed">1 Bedroom</option>
+            <option value="2 Bed">2 Bedroom</option>
+            <option value="3 Bed">3 Bedroom</option>
+            <option value="4 Bed">4 Bedroom</option>
+            <option value="5+ Bed">5+ Bedroom</option>
+          </select>
+        </div>
+        <div class="form-group">
+            <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your text here">Request/Question:
+            Ideal Showing Day/time: </textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" name="submit" class="btn btn-submit" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<!--/#MODAL-->
 
 
 

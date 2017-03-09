@@ -2734,6 +2734,32 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .schedule-form .modal-form h2 {
   color: #333;
 }
+.showing-float{
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: #ef595a none repeat scroll 0 0;
+  border-color: -moz-visitedhyperlinktext #913737 #913737 -moz-use-text-color;
+  border-image: none;
+  border-radius: 3px;
+  border-style: none solid solid none;
+  border-width: medium 2px 2px medium;
+  bottom: 10%;
+  color: white;
+  cursor: pointer;
+  left: 1%;
+  padding: 1px 10px;
+  position: fixed;
+}
+.showing-float:hover{
+  background: rgba(239,89,90,.9);
+}
+.showing-float i{
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 5px;
+}
 .lSSlideOuter {
   margin-top: 20px;
 }
