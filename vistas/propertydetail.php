@@ -119,7 +119,7 @@
         </div>
         <div class="form-group">
           <label for="">Type of BR.</label>
-          <select name="br_type">
+          <select name="br_type" id="select-dynamic">
             <option value="Not Enters" selected="selected">Select One…</option>
             <option value="Not Sure - All Size">Not Sure / All Size</option>
             <option value="1 Bed">1 Bedroom</option>

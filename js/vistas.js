@@ -3,6 +3,40 @@ var vistas = {
     global : function(){
 
         /*Funciones generales del sitio*/
+      //this should be on HOME FUNCTIONS
+      //OPEN MODAL
+      $('.showing-modal').on('click', function (){
+        $('#property-modal').fadeIn('slow');
+        $('.schedule-form').fadeIn('slow');
+      });
+      //CLOSE MODAL
+      $('#property-modal').on('click', function (e){
+        e.preventDefault();
+        $('#property-modal').fadeOut('slow');
+        $('.schedule-form').fadeOut('slow');
+      });
+      //CLOSE MODAL
+      $('.close').on('click', function (e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#property-modal').fadeOut('slow');
+        $('.schedule-form').fadeOut('slow');
+      });
+      //MODAL Actions
+//       $('.schedule-form').on('click', function (e){
+//         console.log('modal');
+//         e.preventDefault();
+//         e.stopPropagation();
+//       });
+
+
+      if($('.message-popup')){
+        $('.message-popup').fadeIn('slow');
+
+        setTimeout( function(){
+          $('.message-popup').fadeOut('slow');
+        }  , 2500 );
+      }
 
     },
     home : function(){
@@ -180,6 +214,8 @@ var vistas = {
         $('.sothtml').toggleClass('no-display');
 
 
+
+      //Need to test on propertyDetail view, something is broken or not running.
       if($('.message-popup')){
         $('.message-popup').fadeIn('slow');
 
@@ -340,6 +376,23 @@ var vistas = {
         //MAPA
         utils.gmapFunction(json);
         //END-MAPA
+
+
+
+        //MODAL SELECT
+        var selectDynamicHtml = ''
+
+        if(!json.places[0])
+          selectDynamicHtml += '<option value="LEASED">LEASED</option>';
+        else
+          for(var selec in json.places) {
+            selectDynamicHtml += '<option value="'+ json.places[selec].nombre +'">'+json.places[selec].nombre+'</option>';
+          }
+
+        $('#main-contact-form').append('<input type="hidden" value="'+ json[0].address +'"/>');
+        $('#select-dynamic').html(selectDynamicHtml);
+
+        //END MODAL SELECT
 
       });
 

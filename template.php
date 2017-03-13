@@ -66,6 +66,7 @@
               <i class="fa fa-location-arrow"></i><span class="span-sm-size">Champaign Urbana, IL</span>
               <span class="span-sm-pipe">|</span>
               <i class="fa fa-envelope"></i><span class="span-sm-size">contact@mhmproperties.com</span>
+              <label id="" class="showing-float-header showing-modal">Schedule Showing</label>
               <label class="navbar-right">CALL US: <strong><i>(217) </i> 337-8852</strong></label>
             </div>
             <?php $cms->generateMenu();?>
@@ -158,7 +159,7 @@
       <div class="col-lg-12">
         <div class="col-sm-12">
           <div class="copyright-text text-center">
-            <p>&copy; MHM Properties 2016. All Rights Reserved.</p>
+            <p>&copy; MHM Properties 2017. All Rights Reserved.</p>
             <p>Crafted by <a target="_blank" href="http://www.silverip.com/">SilverIP</a></p>
           </div>
         </div>
