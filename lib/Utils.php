@@ -240,7 +240,7 @@
 
           }else{
 
-              return DEFAULT_S;
+              return S404;
 
           }
 
@@ -264,6 +264,7 @@
 
       }
 
+
       function handleImages($data,$type = null){
 
           foreach($data as $key => $val){
@@ -282,7 +283,7 @@
                   }
 
                   if(!empty($nombre)){
-                      $_POST[$key] = GLOBALURL . "/media/img/" . $nombre;
+                      $_POST[$key] = "media/img/" . $nombre;
                   }else{
                       continue;
                   }

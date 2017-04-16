@@ -11,7 +11,7 @@ $domainGlobal = "https://" . $_SERVER['SERVER_NAME'];
 define('BASE_PATH', $path);
 
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'mhmproperties');
+define('DATABASE', 'estudio');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 
@@ -23,9 +23,12 @@ define('SIGNATURE','');
 define('PAYPALURL','');
 
 #Global config
+define('THEME', 'haircut');
+define('THEMEPATH', 'theme/haircut/');
 define('GOOGLEANALYTICS', 'UA-6593369-14');
 define('ADMINURL', 'admin/');
 define('DEFAULT_S', 'home.php');
+define('S404', '404.php');
 define('GLOBALURL', $domainGlobal);
 define('LOGO', 'css/img/logo.png');
 define('LOGGING', true);

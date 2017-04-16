@@ -1,4 +1,33 @@
 <menu>
+
+    <item>
+        <itemName>Sistema</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-group</icon>
+        <rol>Vendedor</rol>
+
+        <subitem>
+            <subitemName>Usuarios</subitemName>
+            <subitemLink>?s=admin-admin</subitemLink>
+            <module>admin</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Roles</subitemName>
+            <subitemLink>?s=rol-admin</subitemLink>
+            <module>rol</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Configuración general</subitemName>
+            <subitemLink>?s=configuracion-admin</subitemLink>
+            <module>configuracion</module>
+        </subitem>
+
+    </item>
+
     <item>
         <itemName>CMS</itemName>
         <itemLink>#</itemLink>
@@ -17,76 +46,93 @@
             <module>cms</module>
         </subitem>
 
-        <!--subitem>
-            <subitemName>Contenido</subitemName>
-            <subitemLink>?s=rol-admin</subitemLink>
-            <module>rol</module>
-        </subitem-->
+
     </item>
 
-	<item>
-		<itemName>Administrador</itemName>
-		<itemLink>?s=home</itemLink>
-		<rol>ADMINISTRADOR</rol>
-        <icon>fa-group</icon>
-		<rol>Vendedor</rol>
-
-		<subitem>
-			<subitemName>Usuarios</subitemName>
-			<subitemLink>?s=admin-admin</subitemLink>
-			<module>admin</module>
-		</subitem>
-		
-		<subitem>
-			<subitemName>Roles</subitemName>
-			<subitemLink>?s=rol-admin</subitemLink>
-            <module>rol</module>
-		</subitem>
-
-        <!--<subitem>-->
-            <!--<subitemName>Test</subitemName>-->
-            <!--<subitemLink>?s=test-admin</subitemLink>-->
-            <!--<module>test</module>-->
-        <!--</subitem>-->
-	</item>
 
 
 
 
-    <!--item>
-        <itemName>Establecimientos</itemName>
+    <item>
+        <itemName>Frontend</itemName>
         <itemLink>?s=home</itemLink>
         <rol>ADMINISTRADOR</rol>
+        <icon>fa-group</icon>
+        <rol>Vendedor</rol>
 
         <subitem>
-            <subitemName>Sucursales</subitemName>
-            <subitemLink>?s=sucursal-admin</subitemLink>
-            <module>sucursal</module>
+            <subitemName>Home - Slider</subitemName>
+            <subitemLink>?s=slider-admin</subitemLink>
+            <module>slider</module>
         </subitem>
 
-        <subitem>
-            <subitemName>Marcas</subitemName>
-            <subitemLink>?s=marca-admin</subitemLink>
-            <module>marca</module>
-        </subitem>
 
         <subitem>
-            <subitemName>Categorías</subitemName>
+            <subitemName>Home - Servicios</subitemName>
+            <subitemLink>?s=serviciowidget-admin</subitemLink>
+            <module>serviciowidget</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Home - Testimonios</subitemName>
+            <subitemLink>?s=testimonio-admin</subitemLink>
+            <module>testimonio</module>
+        </subitem>
+
+
+        <subitem>
+            <subitemName>Servicios - Categorías</subitemName>
             <subitemLink>?s=categoria-admin</subitemLink>
             <module>categoria</module>
         </subitem>
 
+
         <subitem>
-            <subitemName>Categorías Vive</subitemName>
-            <subitemLink>?s=categoria_vive-admin</subitemLink>
-            <module>categoria_vive</module>
+            <subitemName>Servicios - Servicios</subitemName>
+            <subitemLink>?s=servicio-admin</subitemLink>
+            <module>servicio</module>
         </subitem>
 
         <subitem>
-            <subitemName>Proyectos</subitemName>
-            <subitemLink>?s=proyecto-admin</subitemLink>
-            <module>proyecto</module>
+            <subitemName>Promociones - Promociones</subitemName>
+            <subitemLink>?s=promocion-admin</subitemLink>
+            <module>promocion</module>
         </subitem>
+
+
+        <subitem>
+            <subitemName>Tendencias - Artículos</subitemName>
+            <subitemLink>?s=articulo-admin</subitemLink>
+            <module>articulo</module>
+        </subitem>
+
+
+
+    </item>
+
+
+
+
+    <item>
+        <itemName>805</itemName>
+        <itemLink>?s=home</itemLink>
+        <rol>ADMINISTRADOR</rol>
+        <icon>fa-group</icon>
+        <rol>Vendedor</rol>
+
+        <subitem>
+            <subitemName>Clientes</subitemName>
+            <subitemLink>?s=cliente-admin</subitemLink>
+            <module>cliente</module>
+        </subitem>
+
+        <subitem>
+            <subitemName>Citas</subitemName>
+            <subitemLink>?s=cita-admin</subitemLink>
+            <module>cita</module>
+        </subitem>
+
 
         <subitem>
             <subitemName>Servicios</subitemName>
@@ -94,18 +140,28 @@
             <module>servicio</module>
         </subitem>
 
+
+
         <subitem>
-            <subitemName>Servicios de sucursales</subitemName>
-            <subitemLink>?s=servicio_sucursal-admin</subitemLink>
-            <module>servicio_sucursal</module>
+            <subitemName>Categoría de servicios</subitemName>
+            <subitemLink>?s=categoria-admin</subitemLink>
+            <module>categoria</module>
         </subitem>
 
         <subitem>
-            <subitemName>Zonas</subitemName>
-            <subitemLink>?s=zona-admin</subitemLink>
-            <module>zona</module>
+            <subitemName>Productos</subitemName>
+            <subitemLink>?s=producto-admin</subitemLink>
+            <module>producto</module>
         </subitem>
 
-    </item-->
+
+        <subitem>
+            <subitemName>Catálogo de edades</subitemName>
+            <subitemLink>?s=rangoedad-admin</subitemLink>
+            <module>rangoedad</module>
+        </subitem>
+
+    </item>
+
 
 </menu>

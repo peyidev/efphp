@@ -16,6 +16,16 @@ class Cms
 
     }
 
+
+    function getConfiguration($key){
+
+        $sql = $this->dbo->select('configuracion',"nombre = '{$key}'",'*');
+        $query = $this->db->query($sql);
+        $c = Utils::queryArray($query);
+
+        return !empty($c[0]['valor']) ? $c[0]['valor'] : '';
+    }
+
     function findContent($tag = ""){
 
 
@@ -34,7 +44,20 @@ class Cms
 
     }
 
-    function parseSection($content){
+    function sectionExistInMenu($section){
+
+        $section = $this->util->limpiarParams($section);
+        $sql = $this->dbo->select('menu',"url='{$section}'");
+        $query = $this->db->query($sql);
+        $row = Utils::queryArray($query);
+        return !empty($row[0]) ? $row[0]['nombre'] : false;
+    }
+
+    function parseSection($content,$cuerpoLimpio){
+
+        if($this->sectionExistInMenu($cuerpoLimpio)){
+            $content .= "{{" . $cuerpoLimpio . "}}";
+        }
 
         preg_match_all('/{{(.*?)\}}/s', $content, $m);
         $wildcards = $m[1];
@@ -46,11 +69,31 @@ class Cms
 
         }
 
-        echo $content;
+        return $content;
 
     }
 
-    function generateMenu(){
+    function renderSection($cuerpo,$cuerpoLimpio){
+        $cms = $this;
+        eval('?>' . $this->parseSection(file_get_contents("vistas/" . $this->util->incluirSeccion($cuerpo)),$cuerpoLimpio)) . '<?php;';
+    }
+
+
+    function printHeadTitle($cuerpoLimpio){
+
+        echo '<section class="main_title">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12">
+                                <h1>'. $this->sectionExistInMenu($cuerpoLimpio) .'</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>';
+
+    }
+
+    function generateMenu($mobile = false){
 
         $sql = $this->dbo->select("menu","","*","id_menu,posicion");
         $query = $this->db->query($sql);
@@ -65,7 +108,7 @@ class Cms
         $row = $query->fetch_array(MYSQL_ASSOC);
         $idParent = $row['id'];
 
-        echo $this->olLiTree($this->makeRecursive($data,$idParent));
+        echo $this->olLiTree($this->makeRecursive($data,$idParent),$mobile);
 
     }
 
@@ -80,9 +123,13 @@ class Cms
         return $m[$r];
     }
 
-    function olLiTree( $tree ) {
+    function olLiTree( $tree, $mobile=false ) {
 
-        if(!empty($tree)) echo '<ul>';
+        $extra = '';
+        if(empty($mobile))
+            $extra = ' class="xxxx_menu" ';
+
+        if(!empty($tree)) echo '<ul' . $extra . '>';
 
         foreach ( $tree as $item ) {
             echo "<li id='{$item['id']}' parent_id='{$item['id_menu']}' > <a href='?s={$item['url']}'>{$item['nombre']}</a>";
