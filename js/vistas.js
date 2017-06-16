@@ -1,6 +1,6 @@
 var vistas = {
 
-    global : function(){
+    global          : function() {
 
         /*Funciones generales del sitio*/
       //this should be on HOME FUNCTIONS
@@ -39,7 +39,7 @@ var vistas = {
       }
 
     },
-    home : function(){
+    home            : function() {
       /*Función default*/
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingsFeatured','GET',{},'true',function(json){
 
@@ -81,8 +81,10 @@ var vistas = {
             feauturedHtml     += '<div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="' + delay + 'ms">';
               feauturedHtml     += '<div class="single-service">';
                 feauturedHtml     += '<div class="wow scaleIn feautured-box-container" data-wow-duration="500ms" data-wow-delay="' + delay + 'ms">';
+
                   if(shortVar['fromfee'] || shortVar['fromfee'] > 0)
                     feauturedHtml   += '<div class="p-red-card"><p>From $ <label for="">' + shortVar['fromfee'] + '</label>/person</p></div>';
+
                   feauturedHtml     += '<img src="' + shortVar['img_building'] + '"  alt="' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'">';
                 feauturedHtml     += '</div>';
                 feauturedHtml += '<div class="v1-property-card-info">';
@@ -107,15 +109,14 @@ var vistas = {
                       roomsData += '<label>';
                       roomsData += rooms[index]['nombre'];
 
-                      if(rooms[index]['pricefrom'] == 'LEASED' || rooms[index]['pricefrom'] == 'Leased')
+
+                      if(!rooms[index]['pricefrom'].match(/^[a-zA-Z0-9]+$/))
                         roomsData += ': ';
                       else
                         roomsData += ': $';
-
                       roomsData += rooms[index]['pricefrom'];
-
                       if(rooms[index]['priceto'])
-                        if(rooms[index]['priceto'] == 'Leased' || rooms[index]['priceto'] == 'LEASED')
+                        if(!rooms[index]['priceto'].match(/^[a-zA-Z0-9]+$/))
                           continue;
                         else
                           roomsData += ' - $';
@@ -253,19 +254,19 @@ var vistas = {
 
 
     },
-    apartments : function() {
+    apartments      : function() {
         utils.dynamicBuildingContent("apartment");
 
     },
-    houses : function() {
+    houses          : function() {
         utils.dynamicBuildingContent("house");
 
     },
-    condos : function() {
+    condos          : function() {
         utils.dynamicBuildingContent("condos");
 
     },
-    propertydetail : function (){
+    propertydetail  : function() {
       var seccion = utils.getParameterByName("p");
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+ seccion +'','GET',{},'true',function(json) {
 
@@ -288,7 +289,8 @@ var vistas = {
 
         //FLOORPLANS
         if(json.floorplans.length <= 0 ) {
-          $('.detail-plans-coming-soon').html('<span class="d-ameni-title">Floorplans</span>' + comingSoonHtml);
+          $('#detail-plans').css('display', 'none');
+//          $('.detail-plans-coming-soon').html('<span class="d-ameni-title">Floorplans</span>' + comingSoonHtml);
         }
         else {
           var galleryFloorPlans     = json.floorplans;
@@ -318,8 +320,9 @@ var vistas = {
         if(data.video)
           $(pDetail + 'video').html(data.video);
         else {
-          $(pDetail + 'video').html(comingSoonHtml);
-          $(pDetail + 'video').toggleClass('sm-no-vid');
+          $('#detail-video').css('display', 'none');
+//          $(pDetail + 'video').html(comingSoonHtml);
+//          $(pDetail + 'video').toggleClass('sm-no-vid');
         }
         //END-PROPERTY VIDEO
 
@@ -403,6 +406,11 @@ var vistas = {
         $('#property-modal').fadeIn('slow');
         $('.schedule-form').fadeIn('slow');
       });
+      $('#showing-form-bottom').on('click', function (){
+        console.log('cobraGay');
+        $('#property-modal').fadeIn('slow');
+        $('.schedule-form').fadeIn('slow');
+      });
       //CLOSE MODAL
       $('#property-modal').on('click', function (e){
         e.preventDefault();
@@ -425,17 +433,17 @@ var vistas = {
 
 
     },
-    resources :function(){
+    resources       : function() {
       utils.gmapFunction();
     },
-    contact :function(){
+    contact         : function() {
       utils.gmapFunction();
     },
-    rent : function(){
+    rent            : function() {
       var data = $('#mhm-rent-form-uno').serializeArray();
 
     },
-    forwardaddress : function(){
+    forwardaddress  : function() {
       $('#page-title-h1').html('Forwarding Address');
       var data = $('#mhm-rent-form-dos').serializeArray();
 

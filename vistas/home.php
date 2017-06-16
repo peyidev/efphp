@@ -12,9 +12,10 @@
 </section>
 <!--/#specia offer top-->
 
+<!--
 <section id="home-slider-video">
-  <div class="home-video-container">
 
+  <div class="home-video-container">
     <iframe id="home-video-id" width="1280" height="720" src="{{home_video}}" frameborder="0"  allowfullscreen></iframe>
   </div>
 
@@ -22,16 +23,10 @@
     <ul id="home-gallery"></ul>
   </div>
 
-<!--  <div class="special-gal">-->
-<!--    <ul id="lightSlider">-->
-<!--      <li><a href="#"><div><label>SPECIAL OFFER #1</label></div></a></li>-->
-<!--      <li><a href="#"><div><label>SPECIAL OFFER #2</label></div></a></li>-->
-<!--      <li><a href="#"><div><label>SPECIAL OFFER #3</label></div></a></li>-->
-<!--      <li><a href="#"><div><label>SPECIAL OFFER #4</label></div></a></li>-->
-<!--    </ul>-->
-<!--  </div>-->
 
 </section>
+-->
+
 <!--/#Video -->
 
 <section class="special-offer-section sobhtml">
@@ -43,6 +38,17 @@
   </div>
 </section>
 <!--/#specia offer bottom-->
+
+<section id="map-home">
+    <div class="container">
+        <div class="row">
+            <div id="map-container">
+                <div id="gmap"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/#map-container-->
 
 {{home_slider}}
 <!--/#home-slider-->
@@ -69,6 +75,25 @@
 </section>
 <!--/#Special-->
 
+<!--Testimonials-->
+<section id="tertimonials" class="b-b-ddd p-b-lg">
+    <div class="container">
+        <div class="row">
+            <h2>Testimonial</h2>
+            <div class="col-lg-6">
+                <p>“Overall excellent. My apartment has great amenities (central a/c, washer/dryer, parking below building, dishwasher), a nice layout, and decent furnishings. Maintenance has always responded quickly. The building is also really quiet. Best apartment experience I’ve had so far.”
+                                    – Daniel (August 2014)</p>
+            </div>
+            <div class="col-lg-6">
+                <p>“My experience with MHM was great! The apartment was super clean and had great furniture. They are the best management company!”
+                    – Katie (Tenant 2012)</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--END Testimonials-->
+
 <section id="services">
   <div class="container">
     <div class="row">
@@ -89,16 +114,7 @@
 </section>
 <!--/#services-->
 
-<section id="map-home">
-  <div class="container">
-    <div class="row">
-      <div id="map-container">
-        <div id="gmap"></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--/#map-container-->
+
 
 
 

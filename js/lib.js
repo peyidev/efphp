@@ -234,8 +234,8 @@ var utils = {
                   content   += '<div class="p-red-card p-leased">' + '<p><label for="">' + shortVar['fromfee'] + '</label></p>' + '</div>';
                 else if(shortVar['fromfee'] || shortVar['fromfee'] > 0)
                     content   += '<div class="p-red-card">' + '<p>From $ <label for="">' + shortVar['fromfee'] + '</label>/person</p>' + '</div>';
-
-                content += '<img src="' + shortVar['img_building'] + '"  alt="' + shortVar['seoalt'] + '" title="'+ shortVar['seotitle'] +'">';
+//console.log(shortVar);
+                content += '<img src="' + shortVar['img_building'] + '"  alt="' + shortVar['address'] + '" title="'+ shortVar['address'] +'">';
                 content += '</div>';
 
                 content += '<div class="v1-property-card-info">';
@@ -263,16 +263,20 @@ var utils = {
 
                         roomsData += '<label>';
                         roomsData += rooms[index]['nombre'];
-                        if(rooms[index]['pricefrom'] == 'LEASED' || rooms[index]['pricefrom'] == 'Leased')
+
+                        if(!rooms[index]['pricefrom'].match(/^[a-zA-Z0-9]+$/))
                           roomsData += ': ';
                         else
                           roomsData += ': $';
+
                         roomsData += rooms[index]['pricefrom'];
+
                         if(rooms[index]['priceto'])
-                          if(rooms[index]['priceto'] == 'Leased' || rooms[index]['priceto'] == 'LEASED')
+                          if(!rooms[index]['priceto'].match(/^[a-zA-Z0-9]+$/))
                             continue;
                           else
                             roomsData += ' - $';
+
                         roomsData += rooms[index]['priceto'];
 
                       if(resultParseB > 1)
@@ -349,26 +353,88 @@ var utils = {
 
   gmapFunction:           function (propertyObject){
 
-    var addresses = [
-       '101 S Busey Ave Champaign, IL'
-       ,'102 S Lincoln Avenue  Champaign, IL'
-       ,'605 E Clark Street  Champaign, IL'
-       ,'606 E White  Champaign, IL'
-       ,'205 S Sixth Street  Champaign, IL'
-       ,'303 S Fifth Street  Champaign IL'
-       ,'203 S Fourth Street C  Champaign, IL'
-       ,'311 E Clark Street  Champaign, IL'
-       ,'314 E Clark Street  Champaign, IL'
-       ,'808 S Oak Street  Champaign, IL'
-       ,'803 S Locust Street  Champaign, IL'
-       ,'805 S Locust  Champaign, IL'
-       ,'61 E John Street  Champaign, IL'
-       ,'803 S First Street  Champaigne, IL'
-       ,'101 E Daniel  Champaign, IL'
-       ,'101 E Armory Street  Champaign, IL'
-       ,'1711-B Harrington Drive  Champaign, IL'
-       ,'1711-A Harrington Drive  Champaign, IL'
-     ];
+
+      var addresses  = [
+      '101 S Busey Ave Champaign, IL'
+     ,'102 S Lincoln Avenue  Champaign, IL'
+     ,'605 E Clark Street  Champaign, IL'
+     ,'606 E White  Champaign, IL'
+     ,'205 S Sixth Street  Champaign, IL'
+     ,'303 S Fifth Street  Champaign IL'
+     ,'203 S Fourth Street C  Champaign, IL'
+     ,'311 E Clark Street  Champaign, IL'
+     ,'314 E Clark Street  Champaign, IL'
+     ,'808 S Oak Street  Champaign, IL'
+     ,'803 S Locust Street  Champaign, IL'
+     ,'805 S Locust  Champaign, IL'
+     ,'61 E John Street  Champaign, IL'
+     ,'803 S First Street  Champaigne, IL'
+     ,'101 E Daniel  Champaign, IL'
+     ,'101 E Armory Street  Champaign, IL'
+     ,'1711-B Harrington Drive  Champaign, IL'
+     ,'1711-A Harrington Drive  Champaign, IL'
+   ];
+      var addressImg = [
+        'media/img/14803121197.png',
+        'media/img/14803116316.jpg',
+        'media/img/14803111945.jpg',
+        'media/img/14802815115.jpg',
+        'media/img/14803114841.jpg',
+        'media/img/14802750929.jpg',
+        'media/img/14803110979.jpg',
+        'media/img/14803104465.jpg',
+        'media/img/14802803832.jpg',
+        'media/img/14803108820.jpg',
+        'media/img/14803129503.png',
+        'media/img/14802857097.jpg',
+        'media/img/14803127554.png',
+        'media/img/14803126048.png',
+        'media/img/14802828866.jpg',
+        'media/img/14803124516.png',
+        'media/img/14803132075.png',
+        'media/img/14803130726.png',
+      ];
+      var addressId  = [
+      '13',
+      '12',
+      '10',
+      '1',
+      '11',
+      '3',
+      '9',
+      '6',
+      '2',
+      '8',
+      '17',
+      '5',
+      '16',
+      '15',
+      '4',
+      '14',
+      '19',
+      '18'
+      ];
+      var placesHtml = [
+        '<label>1BR</label>'
+        ,'<label>2BR</label><label>3BR</label><label>4BR</label>'
+        ,'<label>1BR</label>'
+        ,'<label>1BR</label><label>2BR</label><label>3BR</label>'
+        ,'<label>3BR</label><label>4BR</label>'
+        ,'<label>1BR</label><label>2BR</label><label>3BR</label><label>4BR</label>'
+        ,'<label>1BR</label><label>2BR</label><label>3BR</label><label>4BR</label>'
+        ,'<label>2BR</label>'
+        ,'<label>2BR</label><label>3BR</label>'
+        ,'<label>2BR</label><label>3BR</label><label>4BR</label>'
+        ,'<span>9-11 People</span>'
+        ,'<label>2BR</label><label>4BR</label>'
+        ,'<span>8-12 People</span>'
+        ,'<span>8-9 People</span>'
+        ,'<span>8-11 People</span>'
+        ,'<label>1BR</label><label>2BR</label><label>3BR</label>'
+      ];
+
+
+
     if( $('#gmap').length ) {
       var map;
 
@@ -389,7 +455,8 @@ var utils = {
          }
        }
      });
-    function setMarkers(address){
+
+    function setMarkers(address, indexImg){
      GMaps.geocode({
        address: address,
        callback: function(results, status) {
@@ -400,7 +467,7 @@ var utils = {
              lng:  latlng.lng(),
              animation: google.maps.Animation.DROP,
              infoWindow: {
-               content: '<p>'+address+'</p>'
+               content: '<a href="?s=propertydetail&p='+addressId[indexImg]+'"><p>'+address+'</p><img class="map-img pull-left" src="'+ addressImg[indexImg] +'"/><div class="pull-right content-brs ">'+placesHtml[indexImg]+'<span class="b-t-ddd">See more.</span></div></a>'
              }
            });
          }
@@ -409,23 +476,30 @@ var utils = {
     }
 
     if(propertyObject)
-     setMarkers(propertyObject[0].address)
+     setMarkers(propertyObject[0].address, 0)
     else
-      for(var obj in addresses)
-        setMarkers(addresses[obj]);
+      for(var obj in addresses){
+
+//        getBuildingDetail/2&rand=5496
+//        ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingDetail/'+addressId[obj],'GET',{},'true',function(json) {
+//          console.log(json.places);
+          setMarkers(addresses[obj], obj);
+//        });
+
+      }
 
     map = new GMaps({
-       div: '#gmap',
-       lat: '41.869795',
-       lng: '-87.62637799999999',
-       scrollwheel:false,
-       zoom: 14,
-       zoomControl : true,
-       panControl : false,
-       streetViewControl : true,
-       mapTypeControl: false,
-       overviewMapControl: false,
-       clickable: true,
+       div:           '#gmap',
+       lat:           '41.869795',
+       lng:           '-87.62637799999999',
+       scrollwheel:   false,
+       zoom:          14,
+       zoomControl :  true,
+       panControl :   false,
+       streetViewControl :  true,
+       mapTypeControl:      false,
+       overviewMapControl:  false,
+       clickable:           true,
 
      });
 
@@ -433,36 +507,36 @@ var utils = {
 
    },
 
-   homeFullProperties:    function (object){
+  homeFullProperties:    function (object){
 
-     var html = '';
-     for(var index in object){
-       var obj = object[index];
-       if(index == 'roomfilter')
-         continue;
+   var html = '';
+   for(var index in object){
+     var obj = object[index];
+     if(index == 'roomfilter')
+       continue;
 
-       html += '<div class="row fullp '+ obj.buildingtype +' portfolio-item ">';
-       html += '<a href="?s=propertydetail&p='+ obj.id +'">';
-       html += '<div class="col-xs-3 fullp-3">';
-       html += '<div class="table-cell-fix">';
-       html += '<img src="'+ obj.img_building +'" alt="'+ obj.buildingtype +'" title="'+ obj.buildingtype +'">';
-       html += '</div>';
-       html += '</div>';
-       html += '<div class="col-xs-9  fullp-9">';
-       html += '<div class="fullp-name">'+ obj.nombre +'</div>';
-       html += '<div class="fullp-desc">'+ obj.cms_description +'</div>';
-       html += '<div class="fullp-type">'+ obj.buildingtype +'</div>';
-       if(obj.fromfee == 'LEASED')
-        html += '<div class="fullp-from p-leased">'+ obj.fromfee +'</div>';
-       else
-        html += '<div class="fullp-from"> From $'+ obj.fromfee +'</div>';
-       html += '</div>';
-       html += '</a>';
-       html += '</div>';
-     }
-
-     return html;
+     html += '<div class="row fullp '+ obj.buildingtype +' portfolio-item ">';
+     html += '<a href="?s=propertydetail&p='+ obj.id +'">';
+     html += '<div class="col-xs-3 fullp-3">';
+     html += '<div class="table-cell-fix">';
+     html += '<img src="'+ obj.img_building +'" alt="'+ obj.buildingtype +'" title="'+ obj.buildingtype +'">';
+     html += '</div>';
+     html += '</div>';
+     html += '<div class="col-xs-9  fullp-9">';
+     html += '<div class="fullp-name">'+ obj.nombre +'</div>';
+     html += '<div class="fullp-desc">'+ obj.cms_description +'</div>';
+     html += '<div class="fullp-type">'+ obj.buildingtype +'</div>';
+     if(obj.fromfee == 'LEASED')
+      html += '<div class="fullp-from p-leased">'+ obj.fromfee +'</div>';
+     else
+      html += '<div class="fullp-from"> From $'+ obj.fromfee +'</div>';
+     html += '</div>';
+     html += '</a>';
+     html += '</div>';
    }
+
+   return html;
+  }
 
 }
 

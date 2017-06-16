@@ -71,6 +71,9 @@ h3 {
 .float-right {
   float: right;
 }
+.text-white{
+  color:white;
+}
 .btn-common {
   border: 1px solid #0099ae;
   color: #0099ae;
@@ -537,7 +540,7 @@ ul.sub-menu {
   position: absolute;
   top: 50%;
 }
-#home-special {
+#home-special{
   background: white none repeat scroll 0 0;
   overflow: hidden;
 }
@@ -660,6 +663,9 @@ ul.sub-menu {
 .bg-white {
   background: white none repeat scroll 0 0;
 }
+.bg-showing{
+  background: #ef595a none repeat scroll 0 0;
+}
 .bg-f6 {
   background: #f6f6f6 none repeat scroll 0 0;
 }
@@ -672,7 +678,16 @@ ul.sub-menu {
 .b-b-ddd {
   border-bottom: 1px solid #ddd;
 }
+.b-t-ddd {
+  border-top: 1px solid #ddd;
+}
+#tertimonials{
+  background: #f0f1f5 none repeat scroll 0 0;
+}
 #services {
+  background: #f0f1f5 none repeat scroll 0 0;
+}
+#about {
   background: #f0f1f5 none repeat scroll 0 0;
 }
 #resources {
@@ -1614,6 +1629,9 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   margin-left: 70px;
   padding-left: 0;
 }
+#map-home{
+  background: white none repeat scroll 0 0;
+}
 #map-section {
   margin-bottom: 50px;
   margin-top: 50px;
@@ -1622,6 +1640,21 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 #gmap {
   height: 350px;
 }
+#gmap .map-img{
+  max-width: 100px;
+}
+#gmap .content-brs span{
+  width: 90%;
+  float: left;
+  text-align: center;
+  padding-top: 3px;
+  margin: 0 5%;
+}
+#gmap .content-brs label{
+  width: 50%;
+  text-align: center;
+ }
+
 .get-in-touch img {
   margin-bottom: 32px;
   margin-top: 35px;
@@ -2459,7 +2492,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   float: left;
   width: 50%;
 }
-#resources .resources-contacts p i {
+#resources .resources-contacts p i, #about p i {
   color: #ef595a;
   margin-right: 15px;
 }
@@ -2776,6 +2809,15 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   font-weight: normal;
   margin: 2px 0 0 8%;
   padding: 0 10px;
+}
+.big-showing{
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.big-showing:hover{
+  opacity:.7;
 }
 .lSSlideOuter {
   margin-top: 20px;

@@ -1,0 +1,40 @@
+   /**
+     * @param Request $request
+     * type = pending to set.
+     * id_type = id customer to get records.
+     * @return Customers activity log.
+     */
+     
+         /**
+     * @param $type
+     * Array index to get proper frequency to add.
+     * @return Frequency of specific product.
+     */
+     
+         /**
+     * @param Request $request
+     * id = id_customers to find
+     * @return customer data.
+     */
+     
+         /**
+     * @param Request $request
+     * id_customers = id_customers to add new ticket TO.
+     * id_reasons = id_reason of the ticket.
+     * comment = comment of the ticket, Description.
+     * status = status of the ticket, Escalated/Closed.
+     * @return OK after sending Mail of new ticket created.
+     */
+     
+         /**
+     * @param Request $request
+     * id = id_customers.
+     * idService to find and update (disable) record/Service.
+     * Status
+     * 1 = active
+     * 2 = disabled
+     * 3 = decommissioned
+     * 4 = pending
+     * 5 = admin
+     * @return Customer services list.
+     */

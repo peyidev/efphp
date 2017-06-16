@@ -6,7 +6,7 @@
         <form id="mhm-rent-form-uno" name="mhm-testapp2" class="slider-sun" >
           <!--#Part 1-->
           <div class="col-lg-12 b-b-ddd">
-            <h3>Application Date: [[ DATE ]]</h3>
+            <h3>Application Date:</h3>
             <div class="col-lg-12">
               <span>Lease Year:</span>
               <select name="lease_year">

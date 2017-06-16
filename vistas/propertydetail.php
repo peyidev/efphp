@@ -30,6 +30,17 @@
 </section>
 <!--/#Special-->
 
+<!--/#PropertyFloorplansGallery-->
+<section id="detail-plans" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
+    <div class="container detail-plans-coming-soon">
+        <span class="d-ameni-title">Floorplans</span>
+
+        <ul id="plan-gallery"></ul>
+
+    </div>
+</section>
+<!--/#PropertyFloorplansGallery-->
+
 <!--/#PropertyAmenities-->
 <section id="detail-amenities" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
   <div class="container">
@@ -41,6 +52,30 @@
   </div>
 </section>
 <!--/#Features & Amenities-->
+
+<!--/#PropertyGallery-->
+<section id="detail-slider" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
+    <div class="container">
+        <span class="d-ameni-title">Gallery</span>
+        <ul id="lightSlider"></ul>
+    </div>
+</section>
+<!--/#Detail Slider-->
+
+<!--/#PropertyVideo-->
+<section id="detail-video" class=" bg-white p-t-lg p-d-xl animate-in b-b-ddd">
+    <div class="container">
+    <span class="d-ameni-title">
+      Video Tour Details
+    </span>
+
+        <div class="home-video-container" id="p-detail-video"></div>
+
+    </div>
+</section>
+<!--/#Nearby Public places and transportion-->
+
+
 
 <!--/#PropertyNearby-->
   <!--/#PropertyMap-->
@@ -65,38 +100,18 @@
   <!--/#Map-->
 <!--/#Nearby Public places and transportion-->
 
-<!--/#PropertyVideo-->
-<section id="detail-video" class=" bg-white p-t-lg p-d-xl animate-in b-b-ddd">
-  <div class="container">
-    <span class="d-ameni-title">
-      Video Tour Details
-    </span>
-
-    <div class="home-video-container" id="p-detail-video"></div>
-
-  </div>
+<!--Scheduling Showing-->
+<section id="detail-transportation" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
+    <div class="container bg-showing big-showing" id="showing-form-bottom">
+        <span class="text-white text-center">SCHEDULE SHOWING</span>
+    </div>
 </section>
-<!--/#Nearby Public places and transportion-->
+<!--End Scheduling Showing-->
 
-<!--/#PropertyGallery-->
-<section id="detail-slider" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
-  <div class="container">
-    <span class="d-ameni-title">Gallery</span>
-    <ul id="lightSlider"></ul>
-  </div>
-</section>
-<!--/#Detail Slider-->
 
-<!--/#PropertyFloorplansFallery-->
-<section id="detail-plans" class="bg-white p-t-lg p-d-xl animate-in b-b-ddd anim">
-  <div class="container detail-plans-coming-soon">
-    <span class="d-ameni-title">Floorplans</span>
 
-    <ul id="plan-gallery"></ul>
 
-  </div>
-</section>
-<!--/#PropertyFloorplansFallery-->
+
 
 
 <!--/#MODAL-->

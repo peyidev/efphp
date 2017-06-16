@@ -57,7 +57,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="?s=home">
+            <a class="navbar-brand" href="/">
               <h1><img src="images/logoWhite.png" alt="mhmproperties" title="mhmproperties"></h1>
             </a>
           </div>
@@ -94,12 +94,13 @@
             <div class="testimonial bottom">
               <h2 class="h2-white">MENU</h2>
               <div class="media">
-                <a href="?s=home"><label>HOME</label></a><br>
+                <a href="/"><label>HOME</label></a><br>
                 <a href="?s=apartments"><label>APARTMENTS</label></a><br>
                 <a href="?s=houses"><label>HOUSES</label></a><br>
                 <a href="?s=condos"><label>CONDOS</label></a><br>
                 <a href="?s=resources"><label>RESOURCES</label></a><br>
                 <a href="?s=contact"><label>CONTACT US</label></a><br>
+                <a href="?s=about"><label>ABOUT</label></a><br>
                 <label><a><span class="tenant"><span>TENANT </span>LOG IN</span></a></label>
               </div>
             </div>
