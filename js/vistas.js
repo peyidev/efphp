@@ -441,11 +441,80 @@ var vistas = {
     },
     rent            : function() {
       var data = $('#mhm-rent-form-uno').serializeArray();
-
     },
     forwardaddress  : function() {
       $('#page-title-h1').html('Forwarding Address');
       var data = $('#mhm-rent-form-dos').serializeArray();
+
+    },
+    moveinreport    : function() {
+
+      $('#page-title-h1').html('Move-In Condition Report');
+
+      $('#next-btn-micr').on('click', function () {
+        if($('#fname').val() && $('#lname').val() && $('#propname').val() && $('#aptname').val())
+        {
+          $('#credentials-div').css('display', 'none');
+          $('#move-in-form').fadeIn('slow');
+          $('.submit-btn-big-form').fadeIn('slow');
+
+          return false;
+        }
+      });
+
+      //checkbox unique
+      $("input:checkbox").on('click', function () {
+        var $box = $(this);
+        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+
+        if ($box.is(":checked")) {
+          $(group).prop("checked", false);
+          $(group).prop("required", false);
+          $box.prop("checked", true);
+        }
+        else {
+          $box.prop("checked", false);
+          $(group).prop("required", true);
+        }
+      });
+
+
+      $(function () {
+        $("#datepicker").datepicker({dateFormat: "yy/mm/dd"});
+      });
+
+      $( "#mhm-movein-report" ).submit(function( event ) {
+
+        var objects = $('#mhm-movein-report').serializeArray();
+        console.log(objects);
+
+        var infoData = {};
+        for(var obj in objects ) {
+          infoData[objects[obj]['name']] = objects[obj]['value'];
+        }
+
+        infoData['date'] = $('#datepicker').val();
+
+        console.log(infoData);
+
+        if($('#fname').val() && $('#lname').val() && $('#propname').val() && $('#aptname').val() && infoData)
+        {
+
+          ajaxData('lib/Execute.php?e=Frontend/moveInReport','GET',infoData,'true',function(json)
+          {
+            return;
+           });
+
+          window.location.href = "/";
+
+//          return false;
+          event.preventDefault();
+        }
+      });
+
+
+
+
 
     }
 };

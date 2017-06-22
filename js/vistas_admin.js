@@ -475,7 +475,59 @@ var vistas = {
         $('.add-new-record-update a').attr('href','?s=building-vista');
 
 
+    },
+    moveinreports         : function(){
+      var url = '../lib/Execute.php?e=Mhmproperties/getAllMoveInReports/';
+
+      var tableHtmlBaseIni = '<table id="movein" class="display" cellspacing="0" width="100%"><thead><tr><th>Name</th><th>Location</th><th>Apt</th><th>Date</th><th>Status</th><th>Hereby</th></tr></thead><tfoot><tr><th>Name</th><th>Location</th><th>Apt</th><th>Date</th><th>Status</th><th>Hereby</th></tr></tfoot><tbody>';
+      var tableHtmlBaseMid = '';
+      var tableHtmlBaseFin = '</tbody></table>';
+
+//      ajaxData(url,'GET','','true',function(json){
+//        console.log(json);
+//      });
+
+      $.ajax(
+        {type:"GET",
+          url:url,
+          data:{},
+          success: function(json)
+          {
+            var resultado = $.parseJSON(json);
+            console.log(resultado);
+
+//            $.each( json[0], function( key, value ) {
+//              console.log( key  );
+//            });
+
+            for(var obj in resultado ) {
+              console.log(obj);
+            }
+
+
+          }
+        }
+      );
+
+
+
+
+
+
+
+
+
+
+
+
+
+      $(document).ready(function() {
+        $('#example').DataTable();
+      } );
+
+
     }
+
 
 
 };

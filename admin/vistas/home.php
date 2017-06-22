@@ -7,6 +7,7 @@
             <a href="?s=building-vista" class="btn btn-default btn-block">Admin buildings</a>
             <a href="?s=mail-admin" class="btn btn-default btn-block">Recent contact/info messages</a>
             <a href="?s=log-admin" class="btn btn-default btn-block">Recent admin activity</a>
+            <a href="?s=moveinreports" class="btn btn-default btn-block">Move-In Reports</a>
         </div>
 
         <div class="admin-right-column-50">

@@ -61,6 +61,7 @@
             <!--<module>test</module>-->
         <!--</subitem>-->
     </item>
+
     <item>
         <itemName>Buildings</itemName>
         <itemLink>?s=building-vista</itemLink>
@@ -122,59 +123,15 @@
 
     </item>
 
-    <!--item>
-        <itemName>Establecimientos</itemName>
-        <itemLink>?s=home</itemLink>
+    <item>
+        <itemName>Move-In Reports</itemName>
+        <itemLink>?s=moveinreports</itemLink>
+        <icon>fa-chevron-right</icon>
         <rol>ADMINISTRADOR</rol>
+        <rol>Vendedor</rol>
+        <pkg>Mhmproperties</pkg>
+    </item>
 
-        <subitem>
-            <subitemName>Sucursales</subitemName>
-            <subitemLink>?s=sucursal-admin</subitemLink>
-            <module>sucursal</module>
-        </subitem>
 
-        <subitem>
-            <subitemName>Marcas</subitemName>
-            <subitemLink>?s=marca-admin</subitemLink>
-            <module>marca</module>
-        </subitem>
-
-        <subitem>
-            <subitemName>Categorías</subitemName>
-            <subitemLink>?s=categoria-admin</subitemLink>
-            <module>categoria</module>
-        </subitem>
-
-        <subitem>
-            <subitemName>Categorías Vive</subitemName>
-            <subitemLink>?s=categoria_vive-admin</subitemLink>
-            <module>categoria_vive</module>
-        </subitem>
-
-        <subitem>
-            <subitemName>Proyectos</subitemName>
-            <subitemLink>?s=proyecto-admin</subitemLink>
-            <module>proyecto</module>
-        </subitem>
-
-        <subitem>
-            <subitemName>Servicios</subitemName>
-            <subitemLink>?s=servicio-admin</subitemLink>
-            <module>servicio</module>
-        </subitem>
-
-        <subitem>
-            <subitemName>Servicios de sucursales</subitemName>
-            <subitemLink>?s=servicio_sucursal-admin</subitemLink>
-            <module>servicio_sucursal</module>
-        </subitem>
-
-        <subitem>
-            <subitemName>Zonas</subitemName>
-            <subitemLink>?s=zona-admin</subitemLink>
-            <module>zona</module>
-        </subitem>
-
-    </item-->
 
 </menu>

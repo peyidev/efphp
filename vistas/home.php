@@ -83,10 +83,14 @@
             <div class="col-lg-6">
                 <p>“Overall excellent. My apartment has great amenities (central a/c, washer/dryer, parking below building, dishwasher), a nice layout, and decent furnishings. Maintenance has always responded quickly. The building is also really quiet. Best apartment experience I’ve had so far.”
                                     – Daniel (August 2014)</p>
+                <p>“Great location within walking distance to anything you could ask for. Maintenance always happy to help.”
+                                    – Rachel (August 2016)</p>
             </div>
             <div class="col-lg-6">
                 <p>“My experience with MHM was great! The apartment was super clean and had great furniture. They are the best management company!”
                     – Katie (Tenant 2012)</p>
+                <p>“Great place in a very great neighborhood. Very friendly and clean all the areas. I would recommend this location to any of my friends!”
+                    – Jon (Tenant 2017)</p>
             </div>
 
         </div>

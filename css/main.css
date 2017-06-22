@@ -2260,6 +2260,18 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
 .m-b-lg {
   margin-bottom: 20px;
 }
+.m-b-md {
+  margin-bottom: 15px;
+}
+.m-l-lg{
+  margin-left:20px;
+}
+.m-t-md{
+  margin-top:15px;
+}
+.ddd{
+  border:1px dotted silver;
+}
 .amenities-list {
 }
 #home-special .slide-text .amenities-list p {
@@ -2896,7 +2908,18 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   text-align: center;
   top: 30%;
 }
+.next-size{
+  width: 20%;
+}
+#move-in-form input[type=text], #credentials-div input[type=text]{
+  width: 100%;
+}
 
+#ui-datepicker-div{
+  height: auto;
+  background: #ddd;
+  padding: 5px;
+}
 @keyframes marquee {
   0% { left: 0; }
   100% { left: -200%; }

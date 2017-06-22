@@ -770,4 +770,17 @@ class Mhmproperties extends Administrador{
     }
 
 
+
+
+
+
+    function getAllMoveInReports(){
+
+        $sql = $this->dbo->select("movein_report","",'*','id DESC');
+        $query = $this->db->query($sql);
+        $rows = $this->util->queryArray($query);
+        echo json_encode($rows);
+    }
+
+
 }

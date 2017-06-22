@@ -101,6 +101,7 @@
                 <a href="?s=resources"><label>RESOURCES</label></a><br>
                 <a href="?s=contact"><label>CONTACT US</label></a><br>
                 <a href="?s=about"><label>ABOUT</label></a><br>
+                <a href="?s=moveinreport"><label>MOVE-IN REPORT</label></a><br>
                 <label><a><span class="tenant"><span>TENANT </span>LOG IN</span></a></label>
               </div>
             </div>

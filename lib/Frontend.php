@@ -59,4 +59,45 @@ class Frontend{
         return;
     }
 
+    function moveinReport(){
+
+        $data = $_GET;
+        $newData = array();
+        $mFront = new Messages();
+
+        $newData['first_name']  = $data['fname'];
+        $newData['last_name']   = $data['lname'];
+        $newData['location']    = $data['property_of_interest'];
+        $newData['apt']         = $data['apt_number'];
+        $newData['hereby_name'] = $data['hereby_name'];
+        $newData['date']        = $data['date'];
+        $newData['status']      = 'Pending';
+        $newData['updated_at']  = date("Y/m/d");
+
+
+        unset($data['fname'],$data['lname'],$data['property_of_interest'],$data['apt_number'],$data['hereby_name'],$data['date'],$data['e'],$data['rand']);
+
+        $newData['request_condition'] = json_encode($this->fixDataArray($data));
+
+        $sql = $this->dbo->insert('movein_report',$newData);
+        $this->db->query($sql);
+
+        $mFront->setMessage("message:" . "Thank you. <br>Your Request has been sent to our staff. <br>For faster service please call our office hotline at <strong>(217) 337-8852</strong>.");
+        return;
+    }
+    private function fixDataArray($data){
+        $newDataArray = array();
+        foreach($data as $x => $item)
+        {
+            $indexLabel = explode('-txt', $x);
+
+            if(count($indexLabel) == 1)
+                $newDataArray[$indexLabel[0]]['checkbox'] = $item;
+            else
+                $newDataArray[$indexLabel[0]]['info'] = $item;
+        }
+
+        return $newDataArray;
+    }
+
 }
