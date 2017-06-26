@@ -500,10 +500,9 @@ var vistas = {
         if($('#fname').val() && $('#lname').val() && $('#propname').val() && $('#aptname').val() && infoData)
         {
 
-          ajaxData('lib/Execute.php?e=Frontend/moveInReport','GET',infoData,'true',function(json)
-          {
+          ajaxData('lib/Execute.php?e=Frontend/moveInReport', 'GET', infoData, 'true', function (json) {
             return;
-           });
+          });
 
           window.location.href = "/";
 

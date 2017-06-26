@@ -71,7 +71,7 @@ class Frontend{
         $newData['apt']         = $data['apt_number'];
         $newData['hereby_name'] = $data['hereby_name'];
         $newData['date']        = $data['date'];
-        $newData['status']      = 'Pending';
+        $newData['status']      = 'Submitted';
         $newData['updated_at']  = date("Y/m/d");
 
 

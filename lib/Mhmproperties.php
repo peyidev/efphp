@@ -781,6 +781,95 @@ class Mhmproperties extends Administrador{
         $rows = $this->util->queryArray($query);
         echo json_encode($rows);
     }
+    function getMoveInReportsFilter(){
+
+        $sql = $this->dbo->select("movein_report","status='Pending' and repair_status='Pending'",'*','id DESC');
+        $query = $this->db->query($sql);
+        $rows = $this->util->queryArray($query);
+        echo json_encode($rows);
+    }
+
+    function updateReportById($request){
+
+        $data = $_GET;
+
+        $newData = array();
+        $idUpdate = $data['id'];
+        $repairStatus = null;
+
+        unset($data['e'],$data['id']);
+
+        if($data['repair']){
+            $repairStatus = 'Pending';
+            unset($data['repair']);
+        }
+
+        $newData['report_condition'] = json_encode($this->fixDataArray($data));
+        $newData['status'] = 'Pending';
+
+
+
+
+        $sql = "UPDATE movein_report SET status = '{$newData['status']}', updated_at = now(), report_condition = '{$newData['report_condition']}', repair_status = '{$repairStatus}' WHERE id = '{$idUpdate}'";
+        $this->db->query($sql);
+
+        print 'OK';
+
+        return;
+
+    }
+    private function fixDataArray($data){
+
+        $newDataArray = array();
+        foreach($data as $x => $item)
+        {
+            $indexLabel = explode('-comment', $x);
+            if(count($indexLabel) == 1){
+                $indexLabel2 = explode('-who', $indexLabel[0]);
+                if(count($indexLabel2) == 1){
+                    $indexLabel3 = explode('-yesno', $indexLabel2[0]);
+                    if(count($indexLabel2) == 1){
+                        $newDataArray[$indexLabel3[0]]['yesno'] = $item;
+                    }
+                }
+                else
+                {
+                    $newDataArray[$indexLabel2[0]]['who'] = $item;
+                }
+            }
+            else
+                $newDataArray[$indexLabel[0]]['comment'] = $item;
+        }
+        return $newDataArray;
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
