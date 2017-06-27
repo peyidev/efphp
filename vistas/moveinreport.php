@@ -33,7 +33,7 @@
               <option value="605 E. Clark St.">605 E. Clark St.</option>
               <option value="606 E. White St.">606 E. White St.</option>
               <option value="803 S. First St.">803 S. First St.</option>
-              <option value="803 S. Locust<">803 S. Locust</option>
+              <option value="803 S. Locust">803 S. Locust</option>
               <option value="805 S. Locust">805 S. Locust</option>
               <option value="808 S. Oak St.">808 S. Oak St.</option>
               <option value="1711 Harrington">1711 Harrington</option>
@@ -56,12 +56,11 @@
         <div class="col-lg-3"></div>
       </div>
 
-
       <!--#Part 2(top-left)-->
       <div class="col-lg-12 no-display" id="move-in-form">
         <p>
           The Lessee(s) accepts responsibility for the condition of the unit “AS IS” with any exceptions listed below: <br>
-          (Please describe any defects precisely, including location, size, etc.  Vague generalities are unacceptable.)
+          (Please describe any defects precisely, including location, size, etc. Vague generalities are unacceptable.)
         </p>
         <!--Living Room-->
         <div class="row m-b-lg">
@@ -398,11 +397,10 @@
           <div class="col-lg-3">Name:</div>
           <div class="col-lg-3"><input type="text" name="hereby_name" required></div>
           <div class="col-lg-3">Date:</div>
-          <div class="col-lg-3"><input type="text" id="datepicker"  required></div>
+          <div class="col-lg-3"><input type="text" id="datepicker" required></div>
         </div>
 
       </div>
-
 
       <!--#WHITE SPACE-->
       <div class="col-lg-12 b-b-ddd">

@@ -68,5 +68,7 @@
         <script src="../js/wysihtml5x-toolbar.min.js"></script>
         <script src="../js/handlebars.runtime.min.js"></script>
         <script src="../js/bootstrap3-wysihtml5.min.js"></script>
-	</body>
+        <script src="../js/jspdf.js"></script>
+
+  </body>
 </html>

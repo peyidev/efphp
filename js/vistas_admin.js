@@ -1,6 +1,6 @@
 var vistas = {
 
-    global : function(){
+    global          : function(){
 
         validator.startValidations();
 
@@ -210,13 +210,13 @@ var vistas = {
         });
 
     },
-    home : function(){
+    home            : function(){
 
         /*Función default*/
 
 
     },
-    building_vista : function(){
+    building_vista  : function(){
 
         $('.table-admin').on('click','.edit-inplace',function(e){
 
@@ -476,16 +476,18 @@ var vistas = {
 
 
     },
-    moveinreports         : function(){
+    moveinreports   : function(){
 
       var url = '../lib/Execute.php?e=Mhmproperties/getAllMoveInReports/';
       var urlFilter = '../lib/Execute.php?e=Mhmproperties/getMoveInReportsFilter/';
       var urlSave = '../lib/Execute.php?e=Mhmproperties/updateReportById/';
       var urlRemove = '../lib/Execute.php?e=Mhmproperties/removeReportById/';
       var urlComplete = '../lib/Execute.php?e=Mhmproperties/completeTodoById/';
+      var urlCompleteRep = '../lib/Execute.php?e=Mhmproperties/completeRepById/';
       var globalResultado = [];
       var objectToEditIndex;
       var parentton;
+
 
       var tableHtmlBaseIni = '<table id="movein" class="display" cellspacing="0" width="100%"><thead><tr><th class="hide-onedit">Name</th><th>Location</th><th>Apt</th><th class="hide-onedit">Date</th><th>Status</th><th class="hide-onedit">Hereby Tendered</th><th>Actions</th></tr></thead><tfoot><tr><th class="hide-onedit">Name</th><th>Location</th><th>Apt</th><th class="hide-onedit">Date</th><th>Status</th><th class="hide-onedit">Hereby Tendered</th><th>Actions</th></tr></tfoot><tbody>';
 
@@ -497,6 +499,8 @@ var vistas = {
       var trFi = '</tr>';
       var tableHtmlBaseFin = '</tbody></table>';
 
+
+      //Table 1
       $.ajax(
         {type:"GET",
           url:url,
@@ -508,8 +512,8 @@ var vistas = {
             for(var ind in resultado )
               globalResultado[resultado[ind].id] = resultado[ind];
 
-
-            for(var obj in globalResultado ) {
+            for(var obj in globalResultado )
+            {
               var item = globalResultado[obj];
               tableHtmlBaseMid += trIn;
                 tableHtmlBaseMid += '<td class="hide-onedit">' + item.first_name + ' ' + item.last_name + tdFi;
@@ -519,21 +523,22 @@ var vistas = {
                 tableHtmlBaseMid += tdIn + item.status + tdFi;
                 tableHtmlBaseMid += '<td class="hide-onedit">' + item.hereby_name + tdFi;
                 tableHtmlBaseMid += tdIn + '<i class="fa fa-pencil btn btn-primary editReportByAttr" title="Edit Report" attr="'+obj+'"></i>';
-                tableHtmlBaseMid += '<i class="fa fa-file-pdf-o btn btn-warning m-l-sm" title="Export to PDF"></i>';
+                tableHtmlBaseMid += '<i class="fa fa-file-pdf-o btn btn-warning m-l-sm exportPdf" title="Export to PDF" attr="'+obj+'"></i>';
+                tableHtmlBaseMid += '<i class="fa fa-check btn btn-success m-l-sm completeRepByAttr" title="Complete" attr="'+obj+'"></i>';
                 tableHtmlBaseMid += '<i class="fa fa-times btn btn-danger m-l-sm removeReportByAttr" title="Remove Report" attr="'+obj+'"></i>' + tdFi;
               tableHtmlBaseMid += trFi;
 
             }
 
-
             $('.tableDinamica').html(tableHtmlBaseIni + tableHtmlBaseMid + tableHtmlBaseFin);
             $('#movein').DataTable({"order": [[ 3, "desc" ]]});
-
 
           }
         }
       );
 
+
+      //Table 2
       $.ajax(
         {type:"GET",
           url:urlFilter,
@@ -557,9 +562,9 @@ var vistas = {
             for(var ind in resultado )
               fixResult[resultado[ind].id] = resultado[ind];
 
-            for(var obj in fixResult ) {
+            for(var obj in fixResult )
+            {
               var item = fixResult[obj];
-
               tableHtmlBaseMidRep += trIn;
               tableHtmlBaseMidRep += tdIn + item.address + tdFi;
               tableHtmlBaseMidRep += tdIn + item.apt + tdFi;
@@ -573,31 +578,32 @@ var vistas = {
               tableHtmlBaseMidRep += trFi;
 
             }
-
-
-
             $('.tableDinamica-2').html(tableHtmlBaseIniSec + tableHtmlBaseMidRep + tableHtmlBaseFin);
             $('#movein-rep').DataTable({"order": [[ 0, "desc" ]]});
-
 
           }
         }
       );
 
-      $('.tableDinamica-2').on('click','.completeTask', function(e){
-        var todoId = $(this).attr('attr');
+      $('.tableDinamica-2').on('click', '.completeTask',        function(e){
+        var conf = confirm("Confirm this action");
+        if (conf == true) {
+          var todoId = $(this).attr('attr');
 
-        $.ajax({
-          type: "GET", url: urlComplete, data: {'id' : todoId}, success: function (json) {
-            if(json.trim() == 'OK')
-            {
-              location.reload();
+          $.ajax({
+            type: "GET", url: urlComplete, data: {'id' : todoId}, success: function (json) {
+              if(json.trim() == 'OK')
+              {
+                location.reload();
+              }
             }
-          }
-        });
+          });
+        } else {
+          return;
+        }
 
       });
-      $('.tableDinamica').on('click','.editReportByAttr', function(e){
+      $('.tableDinamica').on('click',   '.editReportByAttr',    function(e){
         cancelEdit();
 
         $('#main_content').addClass('edit-mode-report');
@@ -613,7 +619,75 @@ var vistas = {
         injectData(globalResultado[objectToEditIndex]);
 
       });
-      $('.tableDinamica').on('click','.removeReportByAttr', function(e){
+      $('.tableDinamica').on('click',   '.completeRepByAttr',   function(e){
+        var conf = confirm("Confirm this action");
+        if (conf == true) {
+          cancelEdit();
+
+          var todoId = $(this).attr('attr');
+
+          $.ajax({
+            type: "GET", url: urlCompleteRep, data: {'id' : todoId}, success: function (json) {
+              if(json.trim() == 'OK')
+              {
+                location.reload();
+              }
+            }
+          });
+        } else {
+          return;
+        }
+
+      });
+      $('.tableDinamica').on('click',   '.exportPdf',           function(e){
+
+        $('#main_content').addClass('edit-mode-report');
+        $('#edit_content').addClass('edit-mode-report-big');
+        $('#edit_content').removeClass('edit-report');
+
+        objectToEditIndex = $(this).attr('attr');
+        parentton = $(this).closest('tr');
+        parentton.addClass('background-obvio');
+
+        injectData(globalResultado[objectToEditIndex]);
+
+        var pdf = new jsPDF('p', 'pt', 'letter');
+
+        source = $('.containerpdfdiv')[0];
+
+
+        margins = {
+          top:      10,
+          bottom:   10,
+          left:     20,
+          width:    800
+        };
+
+//        console.log(source.children('.row'));
+//
+//        ppp.replace('class="col-lg-2', 'style="width:100px;" class="col-lg-2');
+//        ppp.replace('col-lg-1', 'style="width:100px;" class="col-lg-1');
+//        ppp.replace('col-lg-4', 'style="width:100px;" class="col-lg-4');
+//
+//        console.log(ppp);
+
+        pdf.fromHTML(
+          source, // HTML string or DOM elem ref.
+          margins.left, // x coord
+          margins.top, { // y coord
+            'width': margins.width, // max width of content on PDF
+          },
+
+          function (dispose) {
+            pdf.save('Report.pdf');
+          }, margins);
+
+//        cancelEdit();
+      });
+
+
+
+      $('.tableDinamica').on('click',   '.removeReportByAttr',  function(e){
 
         objectToEditIndex = $(this).attr('attr');
 
@@ -627,6 +701,7 @@ var vistas = {
         });
 
       });
+
       $('.cancel-edit').click(function(){
         cancelEdit();
       });
@@ -643,9 +718,6 @@ var vistas = {
         alert('Move-In Report Updated');
       }
       function injectData(data){
-      console.log(data);
-
-
 
         var checkType = ['','Good', 'Fair', 'Poor'];
         //Request JSON
@@ -658,7 +730,8 @@ var vistas = {
         for(var index in dataParsed ) {
           var item = dataParsed[index];
           $('#' + index + ' span').removeClass('checkbox-1 checkbox-2 checkbox-3');
-          $('#' + index + ' span').addClass('checkbox-' + (item.checkbox ? item.checkbox : 1)).html(checkType[item.checkbox] ? checkType[item.checkbox] : checkType[1]);
+          $('#' + index + ' span').addClass('checkbox-' + (item.checkbox ? item.checkbox : 1)).html(checkType[item.checkbox] ? checkType[item.checkbox] : 'Good');
+          $('#' + index + ' .hiddenSiNo').html(checkType[item.checkbox] ? checkType[item.checkbox] : 'Good');
           $('#' + index + ' label').html(item.info ? item.info : 'N/A');
           $('#' + index + ' p').html('<input type="checkbox" value="1" id="' + index + '-yesno" name="' + index + '-yesno"><label for="' + index + '-yesno"></label>');
           $('#' + index + ' input:text').attr('name', index + '-who');
@@ -670,6 +743,7 @@ var vistas = {
             var itemReport = dataParsedReport[indexReport];
             $('#'+indexReport + ' input:checkbox').attr('checked', (itemReport.yesno ? true : false));
             $('#'+indexReport + ' input:text').val(itemReport.who?itemReport.who:'');
+            $('#'+indexReport + ' input:text').html(itemReport.who?itemReport.who:'');
             $('#'+indexReport + ' textarea').html(itemReport.comment?itemReport.comment:'');
           }
         else{
@@ -708,17 +782,20 @@ var vistas = {
         );
       });
       $('#get-pending-repairs').click(function(){
+        cancelEdit();
         $('.tableDinamica').fadeOut();
         $('.tableDinamica-2').fadeIn();
       });
       $('#get-pending-reports').click(function(){
+        cancelEdit();
         $('.tableDinamica-2').fadeOut();
         $('.tableDinamica').fadeIn();
       });
       $('.btn-all-reports').click(function(e){
         $('.btn-all-reports').removeClass('active');
         $(this).addClass('active');
-      })
+      });
+
 
 
 

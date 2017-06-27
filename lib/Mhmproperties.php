@@ -778,14 +778,14 @@ class Mhmproperties extends Administrador
 
     function getAllMoveInReports(){
 
-        $sql = $this->dbo->select("movein_report","status!='remove'",'*','id DESC');
+        $sql = $this->dbo->select("movein_report","status!='remove' and status!='complete' ",'*','id DESC');
         $query = $this->db->query($sql);
         $rows = $this->util->queryArray($query);
         echo json_encode($rows);
     }
     function getMoveInReportsFilter(){
 
-        $sql = 'select *, mr.location as address from movein_report mr INNER JOIN todo t on t.id_report = mr.id where mr.status != "remove" OR t.todo_status != "complete" order by mr.id desc';
+        $sql = "SELECT *, mr.location AS address FROM movein_report mr INNER JOIN todo t ON t.id_report = mr.id WHERE mr.status != 'remove' AND (todo_status is null  OR todo_status = 'Pending') ORDER BY mr.id DESC";
         $query = $this->db->query($sql);
         $rows = $this->util->queryArray($query);
         echo json_encode($rows);
@@ -800,11 +800,17 @@ class Mhmproperties extends Administrador
     }
     function completeTodoById(){
         $data = $_GET;
-        $sql = 'update todo set todo_status = "complete" where id = ' . $data['id'];
+        $sql = "UPDATE todo SET todo_status = 'complete' WHERE id = '{$data['id']}'";
         $this->db->query($sql);
         print 'OK';
         return;
-
+    }
+    function completeRepById(){
+        $data = $_GET;
+        $sql = "UPDATE movein_report SET status = 'complete' WHERE id = '{$data['id']}'";
+        $this->db->query($sql);
+        print 'OK';
+        return;
     }
     function updateReportById($request){
 
