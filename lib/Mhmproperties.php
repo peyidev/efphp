@@ -1,6 +1,7 @@
 <?php
 
-class Mhmproperties extends Administrador{
+class Mhmproperties extends Administrador
+{
 
     public $module;
     public $db;
@@ -8,6 +9,7 @@ class Mhmproperties extends Administrador{
     public $dbo;
     public $user;
     public $customColumns;
+
 
     function __construct($module){
 
@@ -776,19 +778,34 @@ class Mhmproperties extends Administrador{
 
     function getAllMoveInReports(){
 
-        $sql = $this->dbo->select("movein_report","",'*','id DESC');
+        $sql = $this->dbo->select("movein_report","status!='remove'",'*','id DESC');
         $query = $this->db->query($sql);
         $rows = $this->util->queryArray($query);
         echo json_encode($rows);
     }
     function getMoveInReportsFilter(){
 
-        $sql = $this->dbo->select("movein_report","status='Pending' and repair_status='Pending'",'*','id DESC');
+        $sql = 'select *, mr.location as address from movein_report mr INNER JOIN todo t on t.id_report = mr.id where mr.status != "remove" OR t.todo_status != "complete" order by mr.id desc';
         $query = $this->db->query($sql);
         $rows = $this->util->queryArray($query);
         echo json_encode($rows);
     }
+    function removeReportById(){
+        $data = $_GET;
+        $sql = 'update movein_report set status = "remove" where id = ' . $data['id'];
+        $this->db->query($sql);
+        print 'OK';
+        return;
 
+    }
+    function completeTodoById(){
+        $data = $_GET;
+        $sql = 'update todo set todo_status = "complete" where id = ' . $data['id'];
+        $this->db->query($sql);
+        print 'OK';
+        return;
+
+    }
     function updateReportById($request){
 
         $data = $_GET;
@@ -803,14 +820,16 @@ class Mhmproperties extends Administrador{
             $repairStatus = 'Pending';
             unset($data['repair']);
         }
+        $fixedData = $this->fixDataArray($data);
 
-        $newData['report_condition'] = json_encode($this->fixDataArray($data));
+        $this->toDoList($fixedData, $idUpdate);
+
+        $newData['report_condition'] = json_encode($fixedData);
         $newData['status'] = 'Pending';
 
 
-
-
         $sql = "UPDATE movein_report SET status = '{$newData['status']}', updated_at = now(), report_condition = '{$newData['report_condition']}', repair_status = '{$repairStatus}' WHERE id = '{$idUpdate}'";
+
         $this->db->query($sql);
 
         print 'OK';
@@ -840,7 +859,69 @@ class Mhmproperties extends Administrador{
             else
                 $newDataArray[$indexLabel[0]]['comment'] = $item;
         }
+
         return $newDataArray;
+    }
+    function toDoList($data, $idReport){
+        $bigDataArray = ['lr-walls' => 'Living Room - walls',
+            'lr-ceiling' => 'Living Room - ceiling',
+            'lr-floorcarpet' => 'Living Room - floorcarpet',
+            'lr-couch' => 'Living Room - couch',
+            'lr-chairs' => 'Living Room - chairs',
+            'lr-blinds' => 'Living Room - blinds',
+            'lr-other' => 'Living Room - other',
+            'ki-walls' => 'Kitchen - walls',
+            'ki-ceiling' => 'Kitchen - ceiling',
+            'ki-floor' => 'Kitchen - floor',
+            'ki-cabinets' => 'Kitchen - cabinets',
+            'ki-range' => 'Kitchen - range',
+            'ki-refri' => 'Kitchen - refri',
+            'ki-venthood' => 'Kitchen - venthood',
+            'ki-microwave' => 'Kitchen - microwave',
+            'ki-disposal' => 'Kitchen - disposal',
+            'ki-dishwasher' => 'Kitchen - dishwasher',
+            'ki-tchairs' => 'Kitchen - tchairs',
+            'ki-other' => 'Kitchen - other',
+            'bd-walls' => 'Bedrooms - walls',
+            'bd-ceiling' => 'Bedrooms - ceiling',
+            'bd-floorcarpet' => 'Bedrooms - floorcarpet',
+            'bd-mattress' => 'Bedrooms - mattress',
+            'bd-dresserchest' => 'Bedrooms - dresserchest',
+            'bd-wiredrawer' => 'Bedrooms - wiredrawer',
+            'bd-desk' => 'Bedrooms - desk',
+            'bd-deskchair' => 'Bedrooms - deskchair',
+            'bd-mirrorcloset' => 'Bedrooms - mirrorcloset',
+            'bd-blinds' => 'Bedrooms - blinds',
+            'bd-other' => 'Bedrooms - other',
+            'bt-walls' => 'Baths - walls',
+            'bt-ceiling' => 'Baths - ceiling', '
+        bt-floor' => 'Baths - floor',
+            'bt-vtop' => 'Baths - vtop',
+            'bt-mirror' => 'Baths - mirror',
+            'bt-cabinets' => 'Baths - cabinets',
+            'bt-fixtures' => 'Baths - fixtures',
+            'bt-fanlight' => 'Baths - fanlight',
+            'bt-toilet' => 'Baths - toilet',
+            'bt-tub' => 'Baths - tub',
+            'bt-other' => 'Baths - other'
+        ];
+
+
+        foreach($data as $x => $item){
+            if(isset($item['yesno'])){
+                $newRecord = array();
+                $newRecord['id_report']   = $idReport;
+                $newRecord['location']    = $bigDataArray[$x];
+                $newRecord['who']         = $item['who'];
+                $newRecord['comment']     = $item['comment'];
+                $newRecord['todo_status'] = 'Pending';
+                $newRecord['created_at']  = Date('y-m-d');
+
+                $sql = $this->dbo->insert('todo',$newRecord);
+                $this->db->query($sql);
+            }
+
+        }
     }
 
 

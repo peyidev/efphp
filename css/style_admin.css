@@ -658,6 +658,14 @@ table.dataTable tfoot th, table.dataTable tfoot td {
   position: relative;
   top: 13px;
 }
+.label-txt label{
+  max-height: 50px;
+  overflow: auto;
+}
+.col-lg-12.ddd{
+  min-height: 65px;
+  margin-bottom: 10px;
+}
 #edit_content textarea{
   padding:3px;
   width: 100%;

@@ -365,13 +365,13 @@ class Administrador{
             $query = $this->db->query($sql);
 
             if(!$query){
-                $message->setMessage("error:" . "Hubo un error al insertar, verifica tus datos");
+                $message->setMessage("error:" . "Verify data .");
 
             }
 
         }else{
 
-            $message->setMessage("error:" . "Hubo un error al insertar tu imagen, verifícala");
+            $message->setMessage("error:" . "This image is not allowed, verify image.");
         }
 
         //$message->setMessage("message:$sql");
