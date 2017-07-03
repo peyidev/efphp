@@ -259,10 +259,11 @@ var vistas = {
 
     },
     houses          : function() {
-        utils.dynamicBuildingContent("house");
-
+      $('#search-result').addClass('not-in-houses');
+      utils.dynamicBuildingContent("house");
     },
     condos          : function() {
+      $('#search-result').addClass('not-in-houses');
         utils.dynamicBuildingContent("condos");
 
     },
@@ -437,6 +438,7 @@ var vistas = {
       utils.gmapFunction();
     },
     contact         : function() {
+      $('#home-slider').addClass('not-in-contact');
       utils.gmapFunction();
     },
     rent            : function() {

@@ -40,13 +40,13 @@
 <!--/#specia offer bottom-->
 
 <section id="map-home">
-    <div class="container">
+<!--    <div class="container">-->
         <div class="row">
             <div id="map-container">
                 <div id="gmap"></div>
             </div>
         </div>
-    </div>
+<!--    </div>-->
 </section>
 <!--/#map-container-->
 

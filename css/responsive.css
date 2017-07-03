@@ -75,8 +75,11 @@
 }
 @media only screen and (max-width: 992px) {
   #header.inner-pages {
-    height: 120px;
-    overflow: inherit;
+    height: 150px;
+    /*overflow: hidden;*/
+  }
+  #header.not-in-home{
+    height: 100px;
   }
   #home-slider-video {
   }
@@ -96,7 +99,7 @@
     padding: 20px 10px;
   }
   #home-slider {
-    margin-top: 30px;
+
   }
   #home-slider .main-slider {
     height: 323px;
@@ -179,10 +182,54 @@
   #home-special .slide-text p {
     font-size: 14px;
   }
+  .showing-float-header{
+    margin-left:0;
+  }
+  .special-offer-content{
+    padding: 0;
+  }
+  .special-offer-content .special-right{
+    padding-top: 14px;
+  }
+  .special-right p{
+    width: 210%;
+  }
+  #home-slider.not-in-contact .slider-hill{
+    margin-right: 5px;
+    width: auto;
+    right:0;
+  }
+  #home-slider.not-in-contact .slider-sun{
+    width: 8px;
+  }
+  .in-pages{
+    margin: 0 5%;
+  }
 }
 @media only screen and (max-width: 768px) {
+  #home-slider.not-in-contact .slider-sun{
+    margin-left: 60px;
+    margin-right: 0;
+  }
+  .rwd-contact-size{
+    float: left;
+    width: 50%;
+    padding: 10px;
+  }
+  #header .navbar-nav.navbar-right > li a{
+    font-size: 11px;
+  }
+  .navbar-collapse{
+    float: left;
+    width: 70%;
+  }
+  .amenities-list{
+    float: left;
+    width: 200%;
+  }
   #home-special .slide-text .amenities-list p {
-    width: 100%;
+    float: left;
+    width: 33.333%;
   }
   h1 {
     font-size: 22px;
@@ -204,11 +251,16 @@
     margin-top: 0;
   }
   #header .navbar .nav-header-top {
+    margin: 0;
+    padding: 5px 0;
     width: 100%;
   }
   #header .navbar .nav-header-top label {
     float: right;
     font-size: 12px;
+  }
+  #header .navbar .nav-header-top label.showing-float-header{
+    display: none;
   }
   #header .navbar-nav {
     margin: 0;
@@ -220,6 +272,9 @@
   }
   #header .navbar-nav.navbar-right > li:last-child {
     margin: 0;
+    position: absolute;
+    right: 25%;
+    top: 8px;
   }
   .social-icons.pull-right {
     float: left !important;
@@ -265,6 +320,7 @@
   #home-slider {
     margin: 0;
     padding: 20px;
+    height: auto;
   }
   #home-slider .main-slider {
     height: 500px;
@@ -273,6 +329,10 @@
     text-align: center;
     top: 0;
     width: 100%;
+  }
+  #home-special .slide-text .sc_title_box {
+    font-size: 22px;
+    line-height: 130%;
   }
   #home-slider .slider-hill {
     margin-right: -200px;
@@ -455,6 +515,65 @@
     font-size: 13px;
     padding: 12px 18px;
   }
+  .special-offer-content .special-left{
+    font-size: 12px;
+  }
+  .special-offer-content .special-right{
+    font-size: 17px;
+    padding-top: 3px;
+  }
+  .v1-property-card-info .v1-p-data label{
+      font-size: 12px;
+  }
+  #search-result .v1-property-card-info .v1-p-a-street{
+    font-size: 14px;
+  }
+  #search-result .v1-property-card-info .v1-p-address{
+    padding-bottom: 5px;
+  }
+  .single-service .feautured-box-container{
+    min-height: 140px;
+  }
+  .single-service .v1-property-card-info{
+    height: 230px;
+  }
+  #search-result.not-in-houses .single-service .v1-property-card-info{
+    height: inherit;
+  }
+  .v1-property-card-info .v1-p-type{
+    margin-bottom: 0;
+    text-align: center;
+  }
+  .p-red-card{
+    font-size: 14px;
+    height: 30px;
+    padding-top: 3px;
+    width: 90%;
+  }
+  #resources .resources-contacts p{
+    width: 100%;
+  }
+  #home-slider.not-in-contact{
+    height: 670px;
+  }
+  #home-slider.not-in-contact h1{
+    margin-top: 20px;
+  }
+  #home-slider.not-in-contact{}
+  .contact-content-div label{
+    width: 100%;
+  }
+  #home-slider .contact-content-div label i{
+    right: 0;
+  }
+  .not-in-contact #error-page{
+    padding-top: 15px;
+  }
+  .not-in-contact .amenities-list{
+    width: 100%;
+  }
+
+
 }
 @media only screen and (max-width: 480px) {
   body {
@@ -669,6 +788,12 @@
   .bg-404 label img{
     width: 100%;
   }
+  .rwd-contact-size{
+    width: 100%;
+  }
+  .next-size{
+    width: 50%;
+  }
 }
 @media only screen and (max-width: 440px) {
   #header .navbar-nav {
@@ -717,5 +842,49 @@
   }
   #home-slider .main-slider {
     height: 600px;
+  }
+  .special-right p{
+    padding-top: 12px;
+    width: 320%;
+  }
+  #header .navbar-brand{
+    overflow: hidden;
+  }
+  .gradient{
+    display: none;
+  }
+  .special-offer-content .special-left{
+    font-size: 11px;
+    line-height: 100%;
+    padding: 7px 3px;
+  }
+  #header .navbar-nav.navbar-right > li:last-child{
+    position: inherit;
+  }
+  .navbar-collapse{
+    width: 100%;
+  }
+  .fullp-9 .fullp-name{
+    height: 26px;
+    overflow: hidden;
+  }
+  .amenities-list{
+    width: 100%;
+  }
+  #home-slider.not-in-contact{
+    height: 800px;
+  }
+   .portfolio-filter li,
+  .portfolio-filter li,
+  .portfolio-filter li{
+    margin: 0;
+    width: 20%;
+  }
+  #home-slider.not-in-contact .slider-sun {
+    margin-left: 40px;
+    margin-right: 0;
+  }
+  .next-size{
+    width: 40%;
   }
 }

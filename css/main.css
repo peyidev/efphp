@@ -2796,6 +2796,7 @@ span.stMainServices, span.stButton_gradient, .stButton .chicklets {
   left: 1%;
   padding: 1px 10px;
   position: fixed;
+  z-index: 100;
 }
 .showing-float:hover, .showing-float-header:hover{
   background: rgba(239,89,90,.9);

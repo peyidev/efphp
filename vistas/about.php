@@ -2,7 +2,7 @@
     <div class="container p-t-lg p-b-lg">
         <div class="row">
             <h4 class="p-b-lg text-center">MHM principles and managers have been part of the university and community for over 25 years</h4>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <p class="title"><strong>Find Us</strong></p>
                 <hr>
                 <p> <i class="fa fa-map-marker"></i> 303 S. Fifth Street <br>
@@ -14,7 +14,7 @@
                 </p>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <p class="title"><strong>Hours</strong></p>
                 <hr>
                 <p><i class="fa fa-clock-o"></i>8:00AM - 5:00PM <br>
@@ -25,7 +25,7 @@
                 <p>Price Range: $</p>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <p class="title"><strong>ADDITIONAL CONTACT INFO</strong></p>
                 <hr>
                 <p>

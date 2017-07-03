@@ -125,23 +125,30 @@
               </form>
             </div>
           </div>
-          <div class="col-md-3 col-sm-6">
+          <div class="col-md-3 col-sm-12">
             <div class="contact-info bottom">
-              <h2 class="h2-white">Contacts</h2>
-              <address>
-                <span>E-mail : </span> <a href="mailto:contact@mhmproperties.com"> contact@mhmproperties.com</a> <br>
-                <span class="fc-nums">Phone : </span><span> +1 (217) 337 8852 </span><br>
-                <label class="phone-footer-num">+1 (217) 841 5407 </label><br>
-                <span class="fc-nums">Fax : </span><span> +1 (217) 351 1160 </span><br>
-              </address>
-              <h2 class="h2-white">Address</h2>
-              <address>
-                303 S Fifth Street Champaign, IL 61820 <br>
-                MAILING ADDRESS:<br>
-                MHM Properties and Management. <br>
-                P.O. Box 5054 Champaign , IL 61825. <br>
-                <a href="www.mhmproperties.com">www.mhmproperties.com </a><br>
-              </address>
+
+              <div class="rwd-contact-size">
+                <h2 class="h2-white">Contacts</h2>
+                <address>
+                  <span>E-mail : </span> <a href="mailto:contact@mhmproperties.com"> contact@mhmproperties.com</a> <br>
+                  <span class="fc-nums">Phone : </span><span> +1 (217) 337 8852 </span><br>
+                  <label class="phone-footer-num">+1 (217) 841 5407 </label><br>
+                  <span class="fc-nums">Fax : </span><span> +1 (217) 351 1160 </span><br>
+                </address>
+              </div>
+
+              <div class="rwd-contact-size">
+                <h2 class="h2-white">Address</h2>
+                <address>
+                  303 S Fifth Street Champaign, IL 61820 <br>
+                  MAILING ADDRESS:<br>
+                  MHM Properties and Management. <br>
+                  P.O. Box 5054 Champaign , IL 61825. <br>
+                  <a href="www.mhmproperties.com">www.mhmproperties.com </a><br>
+                </address>
+              </div>
+
             </div>
           </div>
         </div>
