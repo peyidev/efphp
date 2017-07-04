@@ -291,6 +291,7 @@ var vistas = {
         //FLOORPLANS
         if(json.floorplans.length <= 0 ) {
           $('#detail-plans').css('display', 'none');
+          $('.tool-2').fadeOut();
 //          $('.detail-plans-coming-soon').html('<span class="d-ameni-title">Floorplans</span>' + comingSoonHtml);
         }
         else {
@@ -322,6 +323,7 @@ var vistas = {
           $(pDetail + 'video').html(data.video);
         else {
           $('#detail-video').css('display', 'none');
+          $('.tool-1').fadeOut();
 //          $(pDetail + 'video').html(comingSoonHtml);
 //          $(pDetail + 'video').toggleClass('sm-no-vid');
         }

@@ -198,7 +198,7 @@ var utils = {
   dynamicBuildingContent: function(type){
 
         ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/' + type,'GET',{},'true',function(json) {
-            console.log(json);
+//            console.log(json);
 
             //LI Filter Json.roomsFilter
             var filter = json.roomfilter;
@@ -435,6 +435,11 @@ var utils = {
 
 
 
+    var image = 'images/MHMMapMarker.png';
+
+
+
+
     if( $('#gmap').length ) {
       var map;
 
@@ -447,14 +452,16 @@ var utils = {
            map.addMarker({
              lat: latlng.lat(),
              lng: latlng.lng(),
+             icon: image,
              animation: google.maps.Animation.DROP,
              infoWindow: {
                content: propertyObject ? propertyObject[0].nombre :'<p>HTML Content</p>'
-             }
+             },
            });
          }
        }
      });
+
 
     function setMarkers(address, indexImg){
      GMaps.geocode({
@@ -465,11 +472,13 @@ var utils = {
            map.addMarker({
              lat:  latlng.lat(),
              lng:  latlng.lng(),
+             icon: image,
              animation: google.maps.Animation.DROP,
              infoWindow: {
                content: '<a href="?s=propertydetail&p='+addressId[indexImg]+'"><p>'+address+'</p><img class="map-img pull-left" src="'+ addressImg[indexImg] +'"/><div class="pull-right content-brs ">'+placesHtml[indexImg]+'<span class="b-t-ddd">See more.</span></div></a>'
              }
            });
+
          }
        }
      });
