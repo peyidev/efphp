@@ -48,6 +48,10 @@ jQuery(function($) {'use strict';
       });
     }
 
+    var cookieCheck = document.cookie.split(';')[0].trim();
+    $('[data-filter=".'+cookieCheck+'"]').trigger('click');
+    document.cookie = '';
+
   });
 
 

@@ -209,7 +209,7 @@ var utils = {
             for (var obj in filter)
             {
                 var splitResult = filter[obj].split('/');
-                var resultParse = splitResult[0] + (splitResult[1]?splitResult[1]:'');
+                var resultParse = splitResult[0] + (splitResult[1] ? splitResult[1] : '');
                 var filterUnion = filterInicio + 'data-filter=".' + resultParse + '">' + resultParse + filterFin;
                 filterLi += filterUnion;
             }
@@ -287,7 +287,7 @@ var utils = {
                     content += roomsData;
                 }
 
-                console.log(roomsData);
+//                console.log(roomsData);
 
                 content += '</p>';
                 content += '</div>';
@@ -300,7 +300,6 @@ var utils = {
                 contentHtml += '</a>';
 
             }
-
             $('#prop-list-container').html(contentHtml);
 
         });

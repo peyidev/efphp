@@ -38,9 +38,12 @@ var vistas = {
         }  , 2500 );
       }
 
+
     },
     home            : function() {
+      document.cookie = '';
       /*Función default*/
+
       ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingsFeatured','GET',{},'true',function(json){
 
         var feauturedHtml = '';
@@ -193,6 +196,33 @@ var vistas = {
       });
       //END-APARTMENT RESULT
 
+      //ROOMS FILTER
+      ajaxData('lib/Execute.php?e=Mhmproperties/getBuildingByType/apartment','GET',{},'true',function(json) {
+
+
+        var filter = json.roomfilter;
+        var filterLi = '';
+        var filterInicio = '<li><a class="btn btn-default home-filter-trigger" href="#';
+        var filterFin = '</a></li>';
+
+        for (var obj in filter) {
+          var splitResult = filter[obj].split('/');
+          var resultParse = splitResult[0] + (splitResult[1] ? splitResult[1] : '');
+          var filterUnion = filterInicio + 'data-filter=".' + resultParse + '">' + resultParse + filterFin;
+          filterLi += filterUnion;
+        }
+        $('#prop-filter-list').html(filterLi);
+
+
+        $('.home-filter-trigger').on('click', function(){
+          document.cookie = this.innerHTML;
+//          document.cookie = 'filterType=' + this.innerHTML;
+          window.location.href = "?s=apartments";
+        })
+      });
+      //END-ROOMS FILTER
+
+
       $('#lightSlider').lightSlider({
 //         gallery:true,
         item:1,
@@ -255,8 +285,8 @@ var vistas = {
 
     },
     apartments      : function() {
-        utils.dynamicBuildingContent("apartment");
-
+      //Regular Proccess.
+      utils.dynamicBuildingContent("apartment");
     },
     houses          : function() {
       $('#search-result').addClass('not-in-houses');

@@ -39,6 +39,16 @@
 </section>
 <!--/#specia offer bottom-->
 
+
+
+<!--/#Filter Types Home Header-->
+<section class="bg-white">
+  <div class="container">
+    <ul class="portfolio-filter text-center" id="prop-filter-list"></ul>
+  </div>
+</section>
+<!--/#END Filter Types Home Header-->
+
 <section id="map-home">
 <!--    <div class="container">-->
         <div class="row">
