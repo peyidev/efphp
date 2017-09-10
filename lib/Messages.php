@@ -9,6 +9,18 @@
             return $_SESSION['message'];
         }
 
+        function getFrontMessage(){
+
+            if(!empty($this->getMessage())){
+                $m = $this->getMessage();
+                $this->initMessages();
+                return $m;
+            }else{
+                return 'nada';
+            }
+
+        }
+
         function setMessage($message){
             $_SESSION['message'] = $message;
         }

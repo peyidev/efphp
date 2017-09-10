@@ -1,5 +1,6 @@
 <?php $cms = new Cms(); ?>
 <?php $cms->translateInit(); ?>
+<?php $msj = new Messages(); ?>
 
 <!doctype html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -92,7 +93,7 @@
 
 	<!-- Container -->
 	<div id="container">
-		
+
         <!-- Start Header -->
 		<div class="hidden-header"></div>
         <header class="clearfix">
@@ -175,11 +176,10 @@
           
 		</header>
 		<!-- End Header -->
-        
-        
-        
-        
-		<!-- Start Home Slider -->
+
+        <?php $cms->translate($msj->getFrontMessage()); ?>
+
+        <!-- Start Home Slider -->
 		<div id="slider">
         
             <!-- START REVOLUTION SLIDER 3.1 rev5 fullwidth mode -->

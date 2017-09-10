@@ -6,6 +6,8 @@
         public function words(){
             $message = array();
 
+            $message['enviado'] = "<div class='message-respuesta'>Muchas gracias por contactarnos, en breve estamos contigo.</div>";
+            $message['nada'] = " ";
             $message['menu_home'] = "Home";
             $message['menu_nosotros'] = "Nosotros";
             $message['menu_proyecto'] = "Proyecto";

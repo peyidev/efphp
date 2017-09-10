@@ -6,6 +6,7 @@ class Translator{
     public function words(){
         $message = array();
 
+        $message['enviado'] = "<div class='message-respuesta'>Thank you very much for contacting us.</div>";
         $message['menu_home'] = "Home";
         $message['menu_nosotros'] = "About Us";
         $message['menu_proyecto'] = "Project";

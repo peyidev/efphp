@@ -5118,3 +5118,12 @@ ul.footer-nav li a:hover {
 	margin-top:5px;
 	font-size:12px;
 }
+
+.message-respuesta{
+	width: 100%;
+	text-align: center;
+	padding: 20px 0;
+	background: #AFD35A;
+	color: white;
+	font-size: 20px;
+}
