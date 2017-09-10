@@ -587,7 +587,7 @@
 						<div class="footer-widget mail-subscribe-widget">
 							<h4><?php $cms->translate('footer_h1_2');?><span class="head-line"></span></h4>
 							<p><?php $cms->translate('footer_h1_2_0');?></p>
-							<form method="post" action="lib/Execute.php?e=Form/send" class="subscribe">
+							<form method="post" action="lib/Execute.php?e=Form/send&back=1" class="subscribe">
                                 <input name="nombre" type="text" placeholder="<?php $cms->translate('footer_h1_2_placeholder_1');?>">
                                 <input name="mail" type="text" placeholder="<?php $cms->translate('footer_h1_2_placeholder_2');?>"><br /><br />
                                 <textarea name="mensaje" placeholder="<?php $cms->translate('footer_h1_2_placeholder_3');?>"></textarea><br /><br />
