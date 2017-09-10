@@ -11,7 +11,7 @@ $domainGlobal = "https://" . $_SERVER['SERVER_NAME'];
 define('BASE_PATH', $path);
 
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'mhmproperties');
+define('DATABASE', 'exakt');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 

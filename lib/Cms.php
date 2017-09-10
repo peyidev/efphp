@@ -1,11 +1,13 @@
 <?php
 
+
 class Cms
 {
 
     public $db;
     public $util;
     public $dbo;
+    public $words;
 
     function __construct()
     {
@@ -92,6 +94,25 @@ class Cms
             echo "</li>";
         }
         if(!empty($tree)) echo '</ul>';
+    }
+
+
+    function translate($word){
+        echo $this->words[$word];
+    }
+
+    function translateInit(){
+
+            $lang = !empty($_GET['lang']) ? $this->util->limpiarParams($_GET['lang']) : 'es';
+            if(file_exists('translations/' . $lang . '.php')){
+                include('translations/' . $lang . '.php');
+            }else{
+                include('translations/es.php');
+            }
+
+            $translator = new Translator();
+            $this->words = $translator->words();
+
     }
 
 }
