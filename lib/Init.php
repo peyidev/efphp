@@ -3,6 +3,7 @@
 $i = new Interceptor();
 $w = new Wizard();
 $w->init();
-$i->render();
+$isAjax = !empty($_GET['ajax']) ? $_GET['ajax'] : '';
+$i->render($isAjax);
 $u = new Utils();
 

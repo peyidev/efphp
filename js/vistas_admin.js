@@ -139,6 +139,8 @@ var vistas = {
         /*Función default*/
 
 
-    }
+    },
+    galeria: function(){
 
+    },
 };

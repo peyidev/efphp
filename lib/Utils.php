@@ -15,7 +15,7 @@
           if(!$query)
               return $data;
 
-          while ($row = $query->fetch_array(MYSQL_ASSOC)) {
+          while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
               $data[] = $row;
           }
 

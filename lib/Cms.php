@@ -28,7 +28,7 @@ class Cms
         if(!$query)
             return "";
 
-        $row = $query->fetch_array(MYSQL_ASSOC);
+        $row = $query->fetch_array(MYSQLI_ASSOC);
 
         return $row['content'];
 
@@ -38,6 +38,24 @@ class Cms
 
         preg_match_all('/{{(.*?)\}}/s', $content, $m);
         $wildcards = $m[1];
+
+
+        foreach($wildcards as $w){
+
+            $classArray = explode('class:',$w);
+
+            if(count($classArray) > 1){
+
+                $class = explode('->', $classArray[1])[0];
+                $method = explode('->method:', $w)[1];
+
+                $c = new $class();
+                $c->$method();
+
+            }
+
+
+        }
 
         foreach($wildcards as $w){
 
@@ -56,13 +74,13 @@ class Cms
         $query = $this->db->query($sql);
 
         $data = array();
-        while ($row = $query->fetch_array(MYSQL_ASSOC)) {
+        while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
             $data[$row['id']] = $row;
         }
 
         $sql = $this->dbo->select("menu","id_menu IS NULL");
         $query = $this->db->query($sql);
-        $row = $query->fetch_array(MYSQL_ASSOC);
+        $row = $query->fetch_array(MYSQLI_ASSOC);
         $idParent = $row['id'];
 
         echo $this->olLiTree($this->makeRecursive($data,$idParent));

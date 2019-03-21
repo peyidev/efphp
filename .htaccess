@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule    ^gallery/?$    ?s=slider&ajax=true    [NC,L]

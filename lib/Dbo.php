@@ -158,7 +158,7 @@ class Dbo  {
         $columns = array();
         $pdoexp = "";
 
-        while($parent = $query->fetch_array(MYSQL_ASSOC)) {
+        while($parent = $query->fetch_array(MYSQLI_ASSOC)) {
 
             $foreign = explode("id_", $parent['Field']);
             if (count($foreign) > 1) {
@@ -205,7 +205,7 @@ class Dbo  {
         $query = Database::connect()->query($sql);
         $result = array();
 
-        while($row = $query->fetch_array(MYSQL_ASSOC))
+        while($row = $query->fetch_array(MYSQLI_ASSOC))
             $result[] = $row;
 
         echo $this->util->toJSON($result);

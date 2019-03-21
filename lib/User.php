@@ -31,7 +31,8 @@
                     "a.*,r.nombre as rolNombre" );
 
             $query = $this->db->query($sql);
-            $row = $query->fetch_array(MYSQL_ASSOC);
+            $row = $query->fetch_array(MYSQLI_ASSOC);
+
 
             if(!empty($row)){
 

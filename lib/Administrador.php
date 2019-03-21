@@ -364,7 +364,7 @@ class Administrador{
         $sql =  $this->dbo->selectAutoJoin($tabla,$id,"LEFT");
         $query = $this->db->query($sql);
         $columns = array();
-        $row = $query->fetch_array(MYSQL_ASSOC);
+        $row = $query->fetch_array(MYSQLI_ASSOC);
 
         echo "<ul class='detail-list list-group'>";
 
@@ -421,11 +421,11 @@ class Administrador{
         $sqlRow = $this->dbo->getColumns($tabla);
         $queryRow = $this->db->query($sqlRow);
 
-        while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
+        while ($rowRow = $queryRow->fetch_array(MYSQLI_ASSOC)) {
             $columns[] = $rowRow;
         }
 
-        while($row = $query->fetch_array(MYSQL_ASSOC)){
+        while($row = $query->fetch_array(MYSQLI_ASSOC)){
 
             $tbody .= "<tr>";
             $id = "";
@@ -473,7 +473,7 @@ class Administrador{
                             $sqlForeign = $this->dbo->select($foreign[1],"id = '{$val}'");
                             $queryForeign = $this->db->query($sqlForeign);
 
-                            while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                            while($rowForeign = $queryForeign->fetch_array(MYSQLI_ASSOC) ) {
                                 $val = !empty($rowForeign['nombre']) ? $rowForeign['nombre'] : $rowForeign['id'];
                             }
                         }
@@ -524,7 +524,7 @@ class Administrador{
 
         $sql = $this->dbo->select($tabla,"","*","","1");
         $query = $this->db->query($sql);
-        $columns = "";
+        $columns = array();
         $tbody = "";
         $thead = "";
         $flag = true;
@@ -540,12 +540,12 @@ class Administrador{
         $sqlRow = $this->dbo->getColumns($tabla);
         $queryRow = $this->db->query($sqlRow);
 
-        while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
+        while ($rowRow = $queryRow->fetch_array(MYSQLI_ASSOC)) {
             $columns[] = $rowRow;
         }
 
 
-        while($row = $query->fetch_array(MYSQL_ASSOC)){
+        while($row = $query->fetch_array(MYSQLI_ASSOC)){
 
             $tbody .= "<tr>";
 
@@ -612,12 +612,12 @@ class Administrador{
             $sqlInfo = $this->dbo->select($tabla,"id='{$id}'");
             $infoQuery = $this->db->query($sqlInfo);
             if(is_object($infoQuery)){
-                $info = $infoQuery->fetch_array(MYSQL_ASSOC);
+                $info = $infoQuery->fetch_array(MYSQLI_ASSOC);
             }
         }
 
         $data = array();
-        while ($row = $query->fetch_array(MYSQL_ASSOC)) {
+        while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
             $data[] = $row;
         }
 
@@ -692,7 +692,7 @@ class Administrador{
                         $combo = "";
                         $style = "";
 
-                        while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ){
+                        while($rowForeign = $queryForeign->fetch_array(MYSQLI_ASSOC) ){
 
                             $selected = "";
 
@@ -937,7 +937,7 @@ class Administrador{
         $sqlRow = $this->dbo->getColumns($table);
         $queryRow = $this->db->query($sqlRow);
 
-        while ($rowRow = $queryRow->fetch_array(MYSQL_ASSOC)) {
+        while ($rowRow = $queryRow->fetch_array(MYSQLI_ASSOC)) {
             $c[] = $rowRow;
         }
 
@@ -1007,7 +1007,7 @@ class Administrador{
                                                 $sqlForeign = $dbo->select($foreign[1],"id = '{$val}'");
                                                 $queryForeign = $db->query($sqlForeign);
 
-                                                while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                                while($rowForeign = $queryForeign->fetch_array(MYSQLI_ASSOC) ) {
                                                     $res[] = $rowForeign['nombre'];
                                                 }
 
@@ -1028,7 +1028,7 @@ class Administrador{
                                         $queryForeign = $db->query($sqlForeign);
 
 
-                                        while($rowForeign = $queryForeign->fetch_array(MYSQL_ASSOC) ) {
+                                        while($rowForeign = $queryForeign->fetch_array(MYSQLI_ASSOC) ) {
                                             $d = !empty($rowForeign['nombre']) ? $rowForeign['nombre'] : $rowForeign['id'];
                                         }
 

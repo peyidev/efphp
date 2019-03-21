@@ -10,7 +10,7 @@
 
 		}
 		
-		function render(){
+		function render($ajax = false){
 			
 			$cuerpo = "DEFAULT_S";
 			$u = new Utils();
@@ -20,8 +20,11 @@
 				$cuerpo =  $u->limpiar($_GET['s']) . ".php";
 
 			}
-			
-			include("template.php");
+
+			if(empty($ajax))
+			    include("template.php");
+			else
+			    include("ajaxTemplate.php");
 
 		}
 		
